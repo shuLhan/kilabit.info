@@ -1,0 +1,18 @@
+=  Why Google
+:stylesheet: /assets/style.css
+
+"Starting with just one page, www.google.com has become a billion dollars
+company now"
+
+Why you should use Google (and its applications),
+
+*  http://www.google.com/[What You Search Is What You Get]
+*  http://mail.google.com/[Gmail], 7+ GB email storage, with less spam, and
+   still counting for additional free space
+*  http://pages.google.com/[Google Pages], 100 MB personal pages
+   (out of service, replaced with
+   http://sites.google.com/[Google Sites])
+*  http://picasaweb.google.com/[PicasaWeb], 250 MB photo album.
+*  http://pack.google.com/[Google Pack],
+
+And its all FREE!

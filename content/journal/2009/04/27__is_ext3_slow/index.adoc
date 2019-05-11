@@ -1,0 +1,41 @@
+=  Is ext3 slow?
+:stylesheet: /assets/style.css
+
+Or, rm?
+
+Disk,
+
+----
+root@bubu $ mount
+/dev/sda1 on / type ext3 (rw,noatime,nodiratime,acl,user_xattr,data=writeback)
+----
+
+Kernel scheduling,
+
+----
+root@bubu $ cat /sys/block/sda/queue/scheduler
+noop anticipatory [deadline] cfq
+----
+
+Directory to remove,
+
+----
+root@bubu $ ls -l 0A/ | wc -l
+25601
+----
+
+those 25061 nodes is only an empty directory, it was a squid empty cache.
+
+Time to remove all nodes in directory,
+
+----
+root@bubu $ time rm -rf 0A/
+real    5m12.053s
+user    0m0.155s
+sys     0m8.857s
+----
+
+NOTE TO MYSELF: never use ext3 for database, proxy, or any disk related
+machine.
+
+TODO: try another file system (?)

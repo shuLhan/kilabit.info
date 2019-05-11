@@ -1,0 +1,119 @@
+=  Memperbaiki keluaran coreutils (ls) pada Bahasa Indonesia
+:stylesheet: /assets/style.css
+
+atau _menerjemahkan ke Bahasa Indonesia itu tidak mudah_.
+
+Saya menggunakan bahasa Indonesia dalam sistem operasi saya (GNU/Linux).
+Dalam sistem Linux, untuk melihat daftar berkas, menggunakan perintah bernama
+"ls".
+Berikut contoh keluarannya,
+
+----
+ms 0 % ls -l /
+total 72
+lrwxrwxrwx   1 root root     7 Okt  1 2015 bin -> usr/bin
+drwxr-xr-x   3 root root 16384 Jan  1 1970 boot
+drwxr-xr-x   2 root root  4096 Agu 30 2015 boot.org
+drwxr-xr-x   6 ms   ms    4096 Sep  7 20:44 data
+...
+----
+
+Jika dilihat pada baris ke 5 dan 6 ada ketimpangan identasi.
+Pada baris ke 5, formatnya adalah tahun, spasi, baru nama berkas.
+Sedangkan pada baris ke 6 formatnya pukul, spasi, baru nama berkas.
+Hal ini disebabkan aturan dari perintah "ls": bila berkas telah lama dari 6
+bulan maka yang ditampilkan cukup tahunnya saja.
+
+Lama kelamaan, hal ini cukup mengganggu dan membuat saya mencoba
+memperbaikinya.
+
+Singkat ceritanya, hal tersebut bisa diperbaiki dengan mudah, cukup dengan
+menambahkan spasi pada baris tertentu pada berkas terjemahan, dari
+
+----
+msgid "%b %e  %Y"
+msgstr "%b %e %Y"
+----
+
+menjadi,
+
+----
+msgid "%b %e  %Y"
+msgstr "%b %e %Y "
+----
+
+Gampang kan?
+
+Kemudian sekilas saya lihat beberapa terjemahannya. "Alamak, ini apa !?"
+
+----
+msgid "preserving permissions for %s"
+msgstr "menyimpan permission untuk %s"
+
+...
+
+#: src/ls.c:1621
+#, c-format
+msgid "ignoring invalid width in environment variable COLUMNS: %s"
+msgstr "mengabaikan lebar tidak valid dalam variabel lingkungan KOLOM: %s"
+----
+
+Ada yang setengah bahasa Indonesia, setengah bahasa Inggris.
+Ada yang nama variabel juga ikut diterjemahkan, contohnya seperti kata COLUMNS
+di atas, dan lain-lain.
+
+Berikut beberapa rekomendasi bila mau menerjemahkan dari Bahasa Inggris ke
+Bahasa Indonesia.
+
+Pertama, kata "a", "of", "to" tidak harus diterjemahkan per kata menjadi
+"sebuah", "dari", "untuk".
+Terkadang akan lebih mudah dibaca bila kata tersebut dihapus.
+Contohnya,
+
+----
+msgid "%s: option '--%s' doesn't allow an argument\n"
+msgstr "%s: pilihan '--%s' tidak memperbolehkan sebuah argumen\n"
+----
+
+(Keterangan: kalimat setelah kata "msgid" adalah kalimat dalam Bahasa Inggris,
+dan baris setelah "msgstr" adalah terjemahan dalam Bahasa Indonesianya)
+
+Terjemahan tersebut akan lebih mudah dibaca bila diganti menjadi  "opsi '--%s'
+tidak membolehkan argumen".
+
+Kedua, "di" dan "ke" itu lebih tepat untuk menunjukan tempat dan bukan selalu
+terjemahan dari "in" atau "on".
+Akan lebih bagus kalau menggunakan "pada".
+Contoh yang salah,
+
+----
+msgid "missing %% conversion specification in suffix"
+msgstr "hilang %% spesifikasi konversi di akhiran"
+----
+
+Tidak hanya salah penggunaan "di" tapi juga terjemahannya membingungkan.
+Akan lebih baik bila diterjemahkan menjadi "spesifikasi konversi %% tidak
+ditemukan pada sufiks".
+
+Ketiga, gunakan padanan kata yang sesuai.
+Misalnya, "option" itu "opsi" bukan "pilihan", "may" itu "bisa" bukan
+"mungkin".
+Contoh yang salahnya,
+
+----
+msgid "an input delimiter may be specified only when operating on fields"
+msgstr "sebuah pembatas masukan mungkin dispesifikan hanya ketika beroperasi di fields"
+----
+
+Apa coba maksudnya?
+
+Keempat, susun kalimat sehingga mudah dibaca, bukan terjemahkan kata per kata.
+
+Kelima, jangan gunakan terjemahan kata yang sama untuk dua kata yang berbeda.
+Misalnya, "input" diterjemahkan dengan "masukan", kemudian "entries" juga
+diterjemahkan dengan "masukan".
+Pada bidang ilmu tertentu, seperti komputer, kedua hal tersebut bisa berarti
+berbeda.
+
+_Golden rule_ -nya: usahakan seringkas mungkin dan mudah dipahami dalam sekali
+baca.

@@ -1,0 +1,35 @@
+=  Visualisasi data
+:stylesheet: /assets/style.css
+
+Visualisasi data yaitu kajian tentang representasi visual dari data abstrak
+untuk meningkatkan ulang kognisi manusia.
+Data abstrak dalam hal ini mengikutkan data numerik dan non-numerik, seperti
+teks dan informasi geografis.
+
+Visualisasi saintifik yaitu visualisasi fenomena tiga dimensi (arsitektur,
+meteorilogis, dll) yang menekankan pada penampilan secara realistik dari
+sumber volume, permukaan; yang mungkin mengikutkan komponen waktu yang
+dinamis.
+
+Tujuan utama visualisasi data yaitu untuk mengkomunikasikan informasi secara
+jelas dan efisien kepada pengguna lewat grafik informasi yang dipilih, seperti
+tabel dan chart.
+
+Prinsip Gestalt yaitu teori yang mencoba menjelaskan bagaimana orang cenderung
+mengorganisasikan elemen visual ke dalam grup atau keseluruhan saat beberapa
+prinsip diterapkan.
+
+Hukum-hukum Gestalt,
+
+*  Kedekatan. Saat elemen-elemen ditempatkan berdekatan, mereka condong dilihat sebagai sebuah grup.
+*  Kesamaan. Saat objek-objek tampak mirip dengan yang lainnya, orang terkadang melihat mereka sebagai sebuah grup atau pola.
+*  Keterkaitan. Saat elemen-elemen terhubung, seperti lewat garis, mereka dilihat sebaga sebuah grup.
+*  Kontinuitas. Kontinuitas terjadi saat mata dipaksa bergerak lewat satu objek dan terus ke objek yang lain.
+*  Simetris. Objek-objek yang simetris terlihat sebagai sebuah grup.
+*  Closure. Closure terjadi saat sebuah objek tidak lengkap atau ruang tidak
+   sepenuhnya tertutup.
+   Jika sejumlah potongan yang cukup terindikasi, orang menangkap keseluruhan
+   dengan mengisi informasi yang kosong.
+*  Ukuran relatif. Ukuran yang sama dari satu elemen dengan elemen lainnya
+   walaupun terpisah, condong dillihat sebagai sebuah grup.
+*  Gambar-dan-dasar.

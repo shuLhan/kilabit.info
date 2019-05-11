@@ -1,0 +1,6 @@
+=  Knuth's Quotation
+:stylesheet: /assets/style.css
+
+[quote, Donald Knuth]
+"I have always liked the concept of universities as they were in Ancient
+Greece, where folks who had something cool to say would just come and say it"

@@ -1,0 +1,8 @@
+=  Noam Chomsky: hutang
+:stylesheet: /assets/style.css
+
+Kutipan Noam Chomsky tentang hutang bagi pelajar di U.S.
+
+Kalau dipikirkan lagi, hal ini juga berlaku bagi bentuk hutang yang lain.
+
+image::/assets/images/noam_chomsky_on_student_debt.jpg[]

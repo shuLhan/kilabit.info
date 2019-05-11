@@ -1,0 +1,6 @@
+=  Tuhan menciptakan segalanya
+:stylesheet: /assets/style.css
+
+kecuali pakaian.
+
+image::/assets/images/adam_dan_hawa.jpg[]

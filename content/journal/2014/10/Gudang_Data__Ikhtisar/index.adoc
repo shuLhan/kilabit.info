@@ -1,0 +1,345 @@
+=  Gudang data: ikhtisar
+:stylesheet: /assets/style.css
+
+==  Gudang data (_data warehouse_)
+
+Gudang data dapat didefinisikan sebagai suatu koleksi data yang berorientasi
+subjek, terintegrasi, memiliki variasi waktu, dan tidak berubah, yang
+bertujuan untuk mendukung proses pembuatan keputusan manajemen;
+atau dengan kata lain, data pada GD hanya data statis hasil agregasi data dari
+satu atau beberapa basis data yang telah dibersihkan, disaring, digabung,
+dan/atau diformat ulang dengan tujuan untuk mempermudah dalam melakukan
+analisis dan pelaporan.
+Gudang data ditempatkan terpisah dari basis data operasional.
+
+image::/assets/images/gd-schema.png[-,400]
+
+Gudang data berorientasi subjek maksudnya adalah,
+
+*  data pada gudang data terorganisasi berdasarkan subjek utama, seperti
+   pelanggan, penjualan, atau produk;
+*  difokuskan untuk pemodelan dan analisis data untuk pembuat keputusan, bukan
+   untuk operasi sehari-hari atau pemrosesan transaksi; dan
+*  menyediakan pandangan yang sederhana dan padat mengenai masalah subjek
+   tertentu dengan mengindahkan data yang tidak berguna bagi proses mendukung
+   keputusan.
+   Misalnya, pada tingkat _middle_ dalam organisasi supermarket hanya ada
+   manajer keuangan dan penjualan, maka data yang dikumpulkan dalam GD adalah
+   data agregasi dari nilai transaksi pembelian dan penjualan dan jumlah
+   barang dalam transaksi penjualan dan pembelian yang dibutuhkan oleh manajer
+   keuangan dan penjualan.
+
+Gudang data terintegrasi maksudnya adalah,
+
+*  dibangun dengan mengintegrasikan berbagai sumber data yang heterogen
+   menjadi satu;
+*  teknik pembersihan data dan integrasi data digunakan -- saat data
+   dipindahkan ke gudang data, data dikonversi dan penyamaan pada penamaan,
+   struktur encoding, dan ukuran atribut dilakukan supaya konsisten.
+   Misalnya, pada contoh supermarket sebelumnya, bila ada lebih dari satu
+   supermarket maka akan ada lebih dari satu basis data (diasumsikan jika
+   supermarket tersebut tidak terhubung ke satu pusat basis data).
+   Supaya analisis dan pelaporan dapat dilakukan untuk semua data supermarket
+   tersebut maka semua basis data haruslah digabungkan menjadi satu,
+   terintegrasi, ke dalam satu basis data di GD.
+
+Gudang data memiliki variasi waktu maksudnya adalah,
+
+*  rentang waktu data lebih lama dari pada data di sistem operasional.
+   Pada basis data operasional rentang waktu dari data yang tersimpan yaitu
+   pada masa sekarang dan beberapa minggu atau bulan sebelumnya, sementara
+   pada gudang data informasi disediakan pada rentang waktu keseluruhan untuk
+   memberikan perspektif secara historis (misalnya, sampai 10-15 tahun lalu,
+   tergantung dari sejak kapan sistem informasi digunakan).
+*  Setiap struktur kunci pada gudang data memiliki elemen waktu, baik secara
+   eksplisit maupun implisit.
+   Pada basis data operasional bisa atau bisa tidak memiliki elemen waktu.
+   Misalnya, untuk laporan keuangan bagi manajer keuangan bisa saja
+   membutuhkan data perhari, perminggu, atau perbulan, maka data yang ada di
+   dalam GD berisi data sejak awal sistem informasi berbasis data digunakan
+   oleh sistem supermarket sampai sekarang.
+
+Gudang data tidak berubah maksudnya adalah karena tempat penyimpanan fisik
+data pada gudang data terpisah dari data operasional, perubahan pada data
+tidak terjadi di gudang data tapi di basis data operasional.
+Operasi pada gudang data hanya pemuatan awal dan akses (insert dan read),
+tidak ada operasi update, delete, recovery, dan mekanisme kontrol konkuren.
+Hal ini untuk menjaga konsistensi antara data operasional dan GD.
+Oleh karena itu sebelum data masuk ke GD haruslah ada pemrosesan seperti
+pembersihan, penyaringan, dan validasi sebelumnya.
+
+Transaksi pada GD dikenal juga dengan istilah
+_Online Analytical Processing_ (OLAP).
+
+===  Perbedaan Gudang Data dengan Database Management System (DBMS)
+
+Database atau basis data dalam bidang teknologi informasi yaitu ilmu yang
+mempelajari tentang teori penyimpanan data.
+Di dalam bidang bisnis, penggunaan basis data dipermudah oleh sebuah perangkat
+lunak yang secara khusus berinteraksi dengan pengguna atau aplikasi yang
+disebut dengan Database Management System (DBMS).
+DBMS digunakan untuk pemrosesan transaksi dengan mencatat dan menyimpan data
+yang diperlukan oleh pengguna atau dikenal juga dengan istilah Online
+Transaction Processing (OLTP).
+
+Pada basis data relasional data tersebut disimpan dalam bentuk tabel-tabel
+dalam basis data yang di-normalisasi untuk mengurangi redundansi data dan
+menghemat penggunaan media penyimpanan.
+Pemetaan objek dari dunia bisnis ke sistem aplikasi berbasis data menjadi
+tabel menggunakan teknik pemodelan entity-relationship (ER), yaitu pemodelan
+yang berorientasi pada objek-pelaku dalam sistem beserta keterhubungan dan
+transaksi antara objek-pelaku.
+
+Penggunaan basis data dalam sistem operasional dioptimasi dan dirancang untuk
+pencatatan, sehingga apabila dibutuhkan analisis terhadap data maka
+performansi dari basis data akan berpengaruh yang bisa saja menyebabkan lambat
+atau lebih parahnya kegagalan proses pencatatan data pada saat proses analisis
+berjalan.
+Sebagai contohnya, pada sistem basis data supermarket dengan rata-rata
+transaksi perhari ratusan ribu penjualan.
+Untuk mendapatkan laporan penjualan bulan lalu maka pengguna harus mengakses
+sistem basis data yang sama, dengan beban transaksi yang sedang berjalan,
+sehingga tidak hanya mengganggu proses transaksi juga melambatkan proses
+pengeluaran laporan.
+Tentu saja hal ini bisa diatasi dengan melakukan pelaporan di luar jam kerja
+operasional, misalnya setelah supermarket ditutup, namun tidak akan efisien
+bila data supermarket yang dianalisis lebih dari satu basis data atau
+membutuhkan waktu yang lama pada saat memroses.
+
+===  Perbedaan OLTP dan OLAP
+
+|===
+| Fitur | OLTP | OLAP
+
+| Orientasi Pengguna dan Sistem
+| Operasional - Pelanggan
+| Middle/Strategi - Pasar
+
+| Isi data
+| Sekarang dan terinci
+| Berdasarkan riwayat dan terkonsolidasi
+
+|  Rancangan basis data
+|  E-R
+|  _Star_ dan Subjek
+
+| Sudut pandang
+| Sekarang dan lokal
+| Evolusinari dan terintegrasi
+
+| Pola akses
+| Insert, Update, Delete
+| Pembacaan saja dengan query yang kompleks
+|===
+
+===  Perbedaan Gudang Data dan DBMS Heterogen Tradisional
+
+DBMS Heterogen menggunakan sebuah program mediasi (mediator) atau pembungkus
+yang mengirim query dari pengguna ke setiap database yang dibutuhkan.
+Query dari user biasanya diterjemahkan terlebih dahulu kemudian mediator
+mengirim sub-sub query ke database yang dibutuhkan, yang kemudian hasilnya
+digabungkan kembali untuk ditampilkan ke pengguna.
+
+image::/assets/images/gd-dbms-heterogen.png[]
+
+Database pada DBMS heterogen bisa berada pada satu tempat atau di tempat yang
+berbeda-beda.
+Misalnya, DB X berada di kota Bandung, sementara DB Y berada di kota Jakarta.
+Program Mediasi mengatur koneksi dari semua availabilitas basis data tersebut.
+
+
+==  Perancangan Gudang Data
+
+Pemodelan pada GD dikenal tiga istilah yaitu Subjek, tabel Dimensi, dan tabel
+Fakta.
+
+Subjek secara sederhananya yaitu bisnis proses, cara pandang untuk membagi
+bisnis nantinya ke dalam tabel dimensi dan fakta.
+Dua atau lebih subjek bisa saling berhimpitan.
+
+Tabel Dimensi yaitu tabel yang berisi data entitas-entitas yang stabil (jarang
+atau tidak berubah isinya), misalnya pelanggan, produk, lokasi, promosi
+pemasaran.
+Tabel dimensi biasanya memiliki dua tipe: primary key dan data
+tekstual/deskripsi.
+
+Tabel Fakta yaitu tabel yang berisi kumpulan kejadian dan memiliki atribut
+yang terukur (nilai numerik, memiliki nilai yang bisa dibandingkan dengan
+record yang lain) atau hasil observasi, yang dikumpulkan oleh semua proses
+pada sistem transaksi.
+Tabel Fakta biasanya memiliki dua tipe: foreign key ke tabel Dimensi dan
+nilai.
+Record pada tabel Fakta hanya berisi jika dan hanya jika suatu peristiwa
+terjadi.
+
+Proses dalam perancangan GD yaitu,
+
+*  Tentukan bisnis proses (subjek) yang akan dimodelkan (misalnya, pemesanan)
+*  Tentukan tingkat kedetilan dari bisnis proses yang akan dimodelkan.
+*  Tentukan Dimension yang akan dipakai pada setiap tabel Fact.
+*  Tentukan ukuran yang akan mengisi setiap tabel Fact.
+
+Kunci penting selama proses merancang GD yaitu,
+
+*  Kebutuhan bisnis harus jelas,
+*  kualitas data;
+*  integrasi, penyesuaian, dan keamanan (dari data);
+*  tentukan batas dari data mana saja yang akan disimpan ke dalam GD.
+
+===  Contoh kasus
+
+Subjek: Keselamatan dan Keamanan pada PT. Kereta Api Indonesia.
+
+image::/assets/images/gd-case-tables.png[]
+Tabel Dimensi dan Fakta untuk Keselamatan dan Keamanan PT. KAI
+
+Gambar di sebelah memperlihat enam tabel dimensi: DateTime (Waktu), Location
+(Lokasi), Accident Category (Kategori Kecelakaan), Terminal, Route (Rute), dan
+Train (Kereta).
+
+Tabel Faktanya yaitu Accident (peristiwa kecelakaan) yang berisi foreign key
+ke lima tabel dimensi, dan dua data terukur (jumlah kecelakaan, jumlah
+korban).
+
+Dari tabel fakta tersebut dapat dihitung jumlah kecelakaan berdasarkan tempat
+dan/atau waktu kejadian tertentu.
+Misalnya, menghitung jumlah kecelakaan pada malam hari dari tanggal X sampai
+tanggal Y untuk lokasi di kota B.
+
+===  Pra-Proses pada Data Mining
+
+Pra-proses pada data mining dilakukan untuk meningkatkan kualitas dari data
+yang digali dan/atau meningkatkan waktu yang dibutuhkan saat penggalian data.
+
+Pra-proses dilakukan biasanya karena ada ketidaklengkapan, kekacauan, atau
+ketidak-konsistenan pada data.
+
+Ketidaklengkapan contohnya yaitu nilai atribut yang kosong atau atribut yang
+seharusnya ada tapi tidak ada.
+Kekacauan pada data contohnya yaitu nilai atribut yang tidak sesuai, biasanya
+disebabkan karena kesalahan operator pada saat input atau kesalahan pada mesin
+atau aplikasi.
+Ketidakkonsistenan pada data contohnya yaitu pada penamaan (misalnya, pada
+tabel penjualan kolom id_prod menunjuk pada id pada tabel produk, sementara
+pada tabel pembelian id untuk produk menggunakan nama id_product).
+
+Untuk mendeteksi kekacauan pada data digunakan teknik statistik yang disebut
+Sumarisasi Data Deskriptif (SDD - Descriptive Data Summarization).
+Teknik SDD dapat melihat penyebaran dan tendensi sentral dari data.
+
+====  Tendensi Sentral
+
+Tendensi Sentral dapat dilihat dengan menggunakan mean, median. mode, atau
+midrange.
+
+Mean atau rata-rata digunakan dengan menjumlahkan nilai kolom dan membaginya
+dengan jumlah baris.
+Kekurangan dari teknik ini yaitu sensitif terhadap nilai data yang ekstrim.
+Contohnya, nilai rata-rata gaji bisa saja naik karena sejumlah karyawan
+memiliki gaji yang lebih besar dari yang lainnya.
+Untuk mengatasi ini digunakan teknik pemotongan rata-rata (trimmed mean),
+yaitu dengan memotong nilai ekstrim paling tinggi dan paling rendah.
+
+Median atau nilai tengah digunakan untuk data asimetrik (data yang condong ke
+kiri atau ke kanan).
+Selain itu bisa digunakan teknik mode yaitu nilai yang sering muncul.
+Teknik lainnya yaitu midrange dilakukan dengan menghitung nilai rata-rata dari
+nilai tertinggi dan terendah.
+
+====  Penyebaran Data (Data Dipersion)
+
+Tingkat di mana data condong menyebar disebut dengan dispersi, atau variasi
+dari data.
+Cara pengukuran untuk penyebaran data yaitu range, quartiles, interquartile
+range, dan standar deviasi.
+
+Range yaitu perbedaan antara nilai tertinggi dan terendah.
+
+Quartile yaitu pembagian data menjadi tiga.
+Q1 dari set data yaitu percentile ke 25, median adalah percentile ke 50, Q3
+yaitu percentile ke 75.
+Jarak antara Q3 dan Q1 disebut dengan Interquartile range.
+
+Selain menggunakan pengukuran, tendensi central dan penyebaran data bisa
+dilihat dengan menggunakan grafik diantaranya yaitu grafik histogram, quantile
+plots, q-q plots, scatter plots, dan loes curves.
+
+=== Pembersihan Data (Data Cleaning)
+
+Pembersihan data dilakukan untuk mengisi data yang kosong, membersihkan
+kekacauan dari data, dan memperbaiki ketidakkonsistenan dari data.
+Metode yang dilakukan untuk mengisi kekosongan data yaitu,
+
+*  mengindahkan tuple yang tidak diperlukan;
+*  mengisi secara manual;
+*  menggunakan konstanta global;
+*  menggunakan nilai rata-rata;
+*  menggunakan nilai rata-rata berdasarkan sample dari kelas yang sama pada
+   tuple tersebut;
+*  menggunakan nilai yang memungkinkan (misalnya, metoda Bayesian).
+
+Untuk membersihkan data yang kacau dilakukan dengan metode,
+
+*  Binning, data diurut dan dibagi menjadi beberapa kelompok, setiap kelompok
+   diambil nilai rata-ratanya sebagai nilai dari kelompok tersebut.
+*  Regresi. Data dihaluskan dengan menggunakan fungsi, seperti fungsi regresi
+   linear.
+*  Clustering. Clustering membersihkan data yang asing (data diluar yang
+   seharusnya) dengan mengelompokan nilai yang mirip menjadi "cluster",
+   sehingga nilai diluar cluster dianggap asing.
+
+====  Integrasi Data dan Transformasi Data
+
+Integrasi data yaitu menggabung beberapa sumber data menjadi satu.
+Proses ini biasanya mengikutkan transformasi data.
+
+Permasalahan yang muncul pada saat integrasi data yaitu,
+
+*  mengetahui apakah atribut pada basis data X sama dengan basis data B.
+   Misalnya, apakah kolom id_pelanggan pada tabel pelanggan sama dengan kolom
+   no_pelanggan pada basis data yang berbeda.
+*  Redundansi.
+   Sebuah atribut adalah redundan bila nilai dari atribut tersebut bisa
+   diturunkan dari atribut lainnya.
+*  Duplikasi.
+*  Perbedaan nilai ukur.
+   Pada basis data tertentu menggunakan ukuran meter untuk hitungan panjang
+   sementara basis data lain menggunakan inci.
+
+Untuk mengatasi semua masalah yang muncul, maka data perlu di transformasi
+supaya sesuai untuk penggalian.
+Transformasi data bisa mengikutkan,
+
+*  Penghalusan, menghilangkan kekacauan pada data.
+*  Agregasi, menghitungkan jumlah data per waktu.
+*  Generalisasi, di mana kelompok yang lebih rendah diganti dengan kelompok
+   yang lebih tinggi. Misalnya, nama jalan diganti kelompoknya menjadi nama
+   kota.
+*  Normalisasi, di mana data diberi tingkatan supaya masuk ke dalam rentang
+   yang kecil, misalnya dari 1.0 ke 1.0 atau 0.0 ke 1.0.
+*  Konstruksi atribut, di mana atribut baru dibentuk dari sekumpulan atribut.
+
+====  Reduksi Data
+
+Teknik reduksi data digunakan bila jumlah data sangat besar sehingga
+mempersulit analisis dan penggalian data membutuhkan waktu lama.
+Strategi untuk reduksi data yaitu,
+
+*  Agregasi data cube, operasi agregasi diterapkan pada data saat data cube
+   dibangun.
+*  Pemilihan subset atribut, di mana dimensi atau atribut yang redundan, tidak
+   relevan, atau lemah keterkaitannya dihilangkan.
+*  Reduksi dimensionalitas, di mana mekanisme encoding digunakan untuk
+   mengurangi jumlah data.
+*  Reduksi Numerosity, di mana data diganti dengan representasi data yang
+   lebih kecil, seperti kluster atau sample dari data.
+*  Discretization dan konsep generasi hirarki, di mana nilai data mentah
+   diganti membagi rentang atribut menjadi interval. Label interval kemudian
+   dijadikan nilai ganti.
+
+==  Sumber
+
+Jiawei Han and Micheline Kamber. Data Mining Concepts and Techniques, Second
+edition. Morgan Kaufmann Publishers. 2006.
+
+

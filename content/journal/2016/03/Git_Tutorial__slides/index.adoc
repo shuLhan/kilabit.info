@@ -1,0 +1,11 @@
+=  Git tutorial (slides)
+:stylesheet: /assets/style.css
+
+This slides contain history, terminologies, tips and tricks, and quick git
+practice for push, pull and merge using local directory as remote.
+
++++
+<iframe src="//slides.com/sulhan/deck-3/embed" scrolling="no"
+webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="576"
+height="420" frameborder="0"></iframe>
++++

@@ -1,0 +1,184 @@
+=  Inteligensi Bisnis: Ikhtisar
+:stylesheet: /assets/style.css
+
+==  Definisi Inteligensi Bisnis
+
+Inteligensi Bisnis (IB) adalah istilah yang melingkupi semua kemampuan yang
+dibutuhkan untuk mengubah data menjadi inteligensi.
+Tujuan IB yaitu mendapatkan informasi yang tepat ke orang yang tepat pada
+waktu yang dibutuhkan lewat kanal yang tepat [RUD].
+
+Perangkat lunak IB adalah kumpulan teknologi pendukung keputusan untuk
+perusahaan ditujukan pada pekerja pengetahuan seperti eksekutif, manajer, dan
+analisis untuk membuat keputusan yang lebih baik dan lebih cepat [CDN].
+
+Prinsip-prinsip IB yaitu untuk mendukung keputusan, memberikan informasi
+strategis, membuka kesempatan bisnis, dan bekerja dengan lintas organisasi.
+
+==  Tantangan IB
+
+Meningkatnya persaingan bisnis dalam pasar global menuntut perusahaan perlu
+dengan cepat beraksi dengan keadaan pasar, melakukan inovasi, menentukan
+keputusan strategis, bahkan perusahaan seharusnya proaktif terhadap perilaku
+ekonomi pasar.
+
+image::/assets/images/ib-kompetensi.png[]
+
+Sementara itu, data internal operasional perusahaan semakin lama semakin
+bertambah dari tahun ke tahun.
+Pendekatan pengumpulan informasi secara tradisional pada data, seperti query
+langsung pada basis data dengan jumlah yang besar, bisa saja memenuhi tuntutan
+tersebut tapi membutuhkan waktu yang lama.
+
+Masalah inilah yang kemudian munculnya solusi IB dengan tantangan pada
+penyediaan informasi yang cepat dan tepat.
+
+==  Keuntungan IB
+
+Bila diimplementasikan dengan tepat, secara umum solusi IB dapat memberikan
+keuntungan dengan meningkatkan laba suatu perusahaan.
+Secara khusus solusi IB membantu [LJ],
+
+*  menghasilkan keputusan bisnis yang lebih baik lewat analisis yang tepat
+   waktu, akurat, dan komprehensi terhadap aset informasi perusahaan;
+
+*  mengidentifikasi kesempatan pertumbuhan bisnis;
+
+*  mengurangi biaya dan pemborosan dengan mengidentifikasi wilayah yang tinggi
+   tingkat pengeluarannya, ketidakefisienan pada operasi, dan menganalisa
+   catatan transaksi;
+
+*  perubahan strategi secara tepat waktu (atau mendekati tepat waktu);
+
+*  mengidentifikasi resiko dan ancaman;
+
+*  meningkatkan kepuasan pelanggan;
+
+*  meningkatkan dan mengukur produktivitas tempat kerja berdasarkan; karyawan,
+   departemen, atau fungsi;
+
+*  meningkatkan efisiensi operasional dan rantai pasokan.
+
+
+==  Penggunaan IB dalam bisnis dan organisasi
+
+Secara umum struktur perusahaan atau organisasi terdiri dari tiga tingkatan:
+operasional, taktis (middle), dan strategis.
+Perangkat lunak sistem informasi berada pada tingkat operasional, menerima
+semua input data transaksi.
+Perangkat lunak IB pada tingkat strategik, mengolah semua data operasional
+menjadi informasi.
+
+image::/assets/images/ib-tingkatan.png[]
+Ilustrasi 2: Penggunaan IB pada Struktur Organisasi
+
+Penggunaan IB pada organisasi membantu dalam mengambil keputusan strategis
+yaitu semua pengambilan keputusan ditentukan berdasarkan data untuk
+mendapatkan prediksi bagi keuntungan masa depan, bukan berdasarkan "firasat".
+Hasil dari keputusan haruslah terukur, atau memiliki pembanding dari waktu
+sekarang sampai keputusan dijalankan.
+
+Untuk mengukur suatu performansi suatu organisasi, biasanya berangkat dari
+visi organisasi tersebut, kemudian dari visi ditentukan strategi-strategi yang
+dapat dilakukan untuk mencapai misi.
+Dari setiap strategi ditentukan objektif yang dapat terukur, misalnya jumlah
+penjualan; kemudian dari sana ditentukan Key Performance Index (KPI) untuk
+setiap objektif tersebut.
+Organisasi kemudian melakukan peninjauan ulang dari waktu ke waktu (biasanya
+per kuarter atau tiga bulan) terhadap KPI untuk dilihat apakah hasilnya sesuai
+dengan objektif atau tidak, yang nantinya menentukan apakah strateginya
+diperbarui atau diganti.
+
+image::/assets/images/ib-workflow.png[]
+
+Implementasi solusi IB memerlukan biaya yang besar dan waktu yang lama.
+IB memerlukan biaya yang besar karena secara teknis solusi IB memiliki paling
+tidak satu lapisan tambahan yang berarti penambahan infrastruktur baru pada
+perangkat keras dan perangkat lunak.
+IB memerlukan waktu yang lama karena proses untuk menggabungkan data dari
+beberapa bagian operasional, pembersihan data, dan pemuatan data ke gudang
+data.
+
+Permasalahan yang biasanya dihadapi oleh organisasi pada saat implementasi
+adalah orang-orang dalam organisasi itu sendiri.
+Implementasi IB terkadang membutuhkan perubahan, dan orang biasanya tidak
+menyukai perubahan.
+Perubahan tersebut bisa saja dalam bentuk cara kerja baru dalam organisasi
+atau penggunaan sistem perangkat lunak yang baru.
+Oleh karena itu, solusi IB membutuhkan komitmen dan sokongan yang kuat dari
+semua departemen, tidak hanya satu departemen saja [MS].
+
+Oleh sebab itu tidak semua perusahaan dapat begitu saja mengimplementasikan IB
+dalam organisasi mereka.
+
+==  Siklus hidup IB dan Teknologi
+
+Ada beberapa kebutuhan teknologi yang harus dipenuhi oleh sebuah perusahaan
+sebelum dapat mengimplementasikan IB, diantaranya,
+
+*  Sudah berjalannya sistem informasi dalam perusahaan tersebut dalam jangka
+   waktu yang lama.
+   Jelas sekali, informasi yang dikeluarkan IB didapat dari data sistem
+   informasi pada operasional.
+   Tanpa data operasional tersebut tidak mungkin dibangun solusi IB.
+
+*  Memiliki Gudang Data (Data Warehouse).
+   Implementasi gudang data bisa dilakukan bersamaan dengan implementasi
+   solusi IB, namun hal ini tentu membutuhkan tambahan waktu.
+
+*  Mengimplementasikan Penggalian Data (_data mining_).
+
+*  _Online Analytical Processing_ (OLAP).
+
+
+==  Penyimpanan Data, Arsitektur data dan informasi
+
+Perangkat lunak IB menyediakan informasi dalam bentuk,
+
+*  Dashboard. Dashboard yaitu antar muka aplikasi yang memperlihatkan data
+   dalam jumlah yang terbatas, singkat dan mudah dibaca, dan memperlihatkan
+   pandangan umum dari tren-tren dari berbagai fenomena yang saling terkait.
+
+*  Laporan. Laporan adalah alat utama bagi manajer untuk mengevaluasi dan
+   merencanakan pekerjaan.
+   Laporan biasanya dalam bentuk tabel atau grafik yang memperlihatkan
+   agregasi data.
+
+image::/assets/images/ib-arsitektur.png[]
+
+Kedua bentuk penyedia informasi tersebut didapat dari penggalian data (data
+mining) dan Online Analytical Processing (OLAP).
+
+==  Daftar Pustaka
+
+RUD: Olivia Parr Rud. Business Intelligence Success Factor. Wiley. 2009
+
+CDN: Surajit Chaudhuri, Umeshwar Dayal, Vivek Narasayya. An Overview of Business Intelligence Software. 2011
+
+LJ: Lachlan James. Business Intelligence: Drivers, challenges, benefits and
+ROI.
+http://www.yellowfinbi.com/YFCommunityNews-Business-Intelligence-Drivers-challenges-benefits-and-ROI-103783.
+8 April 2011
+
+MS: Muhammad Shulhan. Studi kasus implementasi Inteligensi Bisnis di Portland
+State University. Tugas 1 IF5171 Fundamental Inteligensi Bisnis. Magister
+Informatika, Institut Teknologi Bandung. Semester 1, 2013.
+
+==  Catatan
+
+Istilah Inteligensi Bisnis merupakan saduran dari istilah bahasa Inggris
+"Business Intelligence".
+Beberapa tulisan menggunakan istilah "Intelijen Bisnis" yang menurut saya
+kurang tepat karena kata intelijen--menurut KBBI--artinya &"orang yg bertugas
+mencari (meng-amat-amati) seseorang;
+dinas rahasia", sementara kata inteligensi yang bermakna "daya reaksi atau
+penyesuaian yang cepat dan tepat, baik secara fisik maupun mental, terhadap
+pengalaman baru, membuat pengalaman dan pengetahuan yang telah dimiliki siap
+untuk dipakai apabila dihadapkan pada fakta atau kondisi baru; kecerdasan",
+lebih tepat mencerminkan sistem IB karena data IB berasal dari data
+operasional yang selalu berubah.
+Alasan lain, bidang ilmu bernama "Artificial Intelligence" disadur menjadi
+"Kecerdasan buatan" bukan "intelijen buatan".
+
+
+

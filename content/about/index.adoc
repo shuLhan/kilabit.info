@@ -1,0 +1,345 @@
+=  About
+:stylesheet: /assets/style.css
+:toc:
+
+The man is a merchant.
+He have a shop in second floor market on a small city.
+He sell a fabric for men and women clothing.
+At nine or ten in the morning he goes to his shop, unpack all the goods,
+rolling the display, to make some space inside the shop so customer can walk
+and view the goods.
+At night, he pack all the goods back and close the shop.
+He does this every day.
+No weekend.
+
+The man has a junior.
+Unlike other people in their small city, the junior does not understand the
+concept of bargaining.
+He a little bit shy and have a small tendencies to pursue one thing until he
+good at it, psychologist label it as disorder (does not we all?)
+He think that selling goods should have a price tag, so customer does not need
+to ask every time he want to know the price of goods in the shop.
+This make everything simple.
+The junior then decide to become an engineer.
+And so he become a software engineer.
+
+I believe that the future of software is open source.
+People changes ... or bored, hardware changes.
+In closed source system the changes is slow because its driven by the maker.
+Even if the maker can tried to cope up with their ecosystem, they have limited
+resources and other makers who have more resources or better idea that can
+make the same function of software with a greater look and performance.
+Eventually one of the maker will die or born again with new skin and body.
+Just like the circle of life.
+This is also why human is doomed.
+Every new born does not automatically have knowledges of their accestor.
+They must learn again and again and again.
+But, machine made everything to be simple, even learning.
+Only human that does not learned who will doomed.
+
+If the market keep doing this, we will just reiterating the same thing again
+and again, wasting a resource for the sake of competition and margin.
+On one side this is good, giving jobs to the market, making the money flow.
+But on the scale of future, where human only have an average 60 to 70 years to
+live, this is definitely wasting of time.
+
+
+==  Professional Experiences
+
+===  Myabuy LLC
+
+Period:: October 2015 - 2019
+
+Positions::  Development and Operations (DevOps) and Software Engineer
+
+Development Tools::  Ansible, Go, Consul, Vault, Nats Streaming Server,
+Influxdb, AngularJS (JavaScript)
+
+Project::  One of the main project at Myabuy is email communication platform
+called Proofn™.
++
+As DevOps my main works is to manage and maintain the infrastructure of our
+application in the cloud (AWS) and in our internal networks.
+We use buildbot for our continuous integration and development.
+For monitoring, we use TICK stack by Influxdata.
+As Software Engineer, I help building and maintaining our first version of web
+application and helping the backend team.
+
+
+===  Private IT Consultant
+
+Period::  2010 - 2015
+
+Positions::  System Analyst, Software Engineer, and Database Administrator
+
+Projects::  As private consultant, I works across different companies, mostly
+through government contracts.
+The following list the projects that I have been working with during my
+consultancy.
+
+====  Sistem Informasi Manajemen Aset Negara (SIMAN)
+
+Client::  Kementerian Keuangan Republik Indonesia, Direktorat Jenderal
+Kekayaan Negara (Ministry of Treasury of Republic Indonesia)
+
+Development tools::  Java, Apache Tomcat, Oracle database, Extjs, and git
+
+Operating system:: Sun Solaris
+
+====  Sistem Informasi Kekayaan Negara Dipisahkan - Early Warning System (KND - EWS)
+
+Client::  Kementerian Keuangan Republik Indonesia, Direktorat Jenderal
+Kekayaan Negara
+
+Development tools:: Java, Apache Tomcat, Oracle database, Extjs, and git
+
+Operating system::  Sun solaris
+
+====  E-Arsip
+
+Client::  Bank Pembangunan Daerah Jawa Tengah
+
+Development tools::  Java, Apache Tomcat, PostgreSQL, Extjs, and git
+
+Operating system::  Windows
+
+Description::  Develop web application for digital archive management system.
+
+====  Lontar
+
+Client::  Perpustakaan Fakultas Kedokteran UI
+
+Development tools::  Java, Apache Tomcat, Mysql
+
+Description::  Fix several bugs in current web application (LONTAR)
+http://perpustakaan.fk.ui.ac.id/
+
+====  Paket Aplikasi Sekolah SMU Web (PAS-SMU Web)
+
+Client::  Departemen Pendidikan Nasional
+
+Development tools::  PHP, Apache, MySQL, Extjs, and git
+
+Operating system::  Windows
+
+Description::  Develop web application for system information in SMU (senior
+high school).
+
+====  Sistem Informasi K3PL (SI-K3PL)
+
+Client::  PT. Perusahaan Gas Negara
+
+Development tools::  Java, Apache Tomcat, Microsoft SQL Server, Extjs, and git
+
+Operating system::  Windows
+
+Description:: Develop web application for system and management, data
+processing and reporting in K3PL Department of PGN.
+
+====  JejaGPS
+
+Client::  PT. Ander Cakra Buana
+
+Development tools:: Python, lighttpd, Postgresql, Extjs, and git
+
+Operating system:: Windows
+
+Description::  Develop web application (server) and software (client) for
+tracking Panasonic Toughbook notebook through GPS.
+
+====  NEFI – EVDO
+
+Client::  PT. TELKOM (ISC)
+
+Development tools::  Java, Apache Tomcat, and git
+
+Operating system::  Linux
+
+Description::  Extend and maintain current application (NEFI) to work with new
+requirements and specifications.
+
+
+===  PT. Swamedia Insan Informatika
+
+Period::  2007 - 2010
+
+Position::  Software Engineer
+
+Projects::  List of projects that I am working on at PT. Swamedia.
+
+====  TDP – Wholesale & IRB (Telkom billing application)
+
+Client::  PT. TELKOM Bandung
+
+Development tools::  C, C++ (gcc), OCI, OCCI, Oracle database
+
+Operating system::  Sun Solaris, Linux
+
+Description::  Develop software for processing data transaction (in text file)
+and daemon for automatic processing.
+
+====  SMS Gateway
+
+Period::  PT. Ritra Cargo Indonesia
+
+Development tools:: Kannel, Shell script
+
+Operating system:: Linux
+
+Description::  Install and maintain SMS gateway application.
+
+====  Database replicate for Oracle
+
+Development tools::  C++ (gcc), libvos
+
+Operating system::  Sun Solaris, Linux
+
+Description::  Research and develop software for replicating Oracle Database
+in near real-time, using zizzy code as a base implementation.
+
+
+===   Telematika Development Center (TDC)
+
+Period::  2006 - 2007
+
+Position::  Sofware Developer
+
+Projects::  List of project while I am working at TDC.
+
+====  Paket Aplikasi Sekolah SMU, Paket Aplikasi Sekolah SMP
+
+Client::  Departemen Pendidikan Nasional
+
+Development tools::  Power Builder, MySQL, InstallShield
+
+Description::  Develop desktop application for system information in junior
+and senior high school.
+
+====  Sistem Informasi Pendidikan Nasional
+
+Client::  Departemen Pendidikan Nasional
+
+Development tools::  Power Builder, Microsoft SQL Server
+
+Operating system:: Windows
+
+====  Sistem Informasi Penerimaan dan Pemantauan PBB
+
+Client:: Pemerintahan Daerah Kota Bandung
+
+Development tools::  Power Builder 9.0, Oracle 8i
+
+Operating system::  Windows
+
+
+===  PT. Solusi247
+
+Period::  2005 - 2006
+
+Position::  Programmer and Technical Support
+
+Projects::
+
+====  JSP application for migrating database from Microsoft SQL to Oracle
+
+Client::  PT. Telkomsel
+
+Development tools::  Apache Tomcat, JSP, Microsoft SQL, Oracle
+
+Operating system:: Unix
+
+====  Scripting for generating and maintaining report for a large database
+
+Client::  PT. Telkomsel
+
+Development tools::  CoSort, Shell script
+
+Operating system::  Unix
+
+
+==  Educational Backgrounds
+
+===  Master's degree from Institut Teknologi Bandung
+
+Department:: School of Electrical Engineering and Informatics
+
+Majors:: Business Intelligence
+
+Period:: 2013 - 2016
+
+Thesis:: Detecting Vandalism on English Wikipedia Using LNSMOTE Resampling and
+Cascaded Random Forest Classifier
+
+Development:: The program is written using Go on GNU/Linux operating system.
+
+Abstract:: Wikipedia.org is an online encyclopedia which can edited by anyone.
+Those feature has benefit, which make the article in Wikipedia rapidly
+increased in size and can be fixed subsequently, and their drawbacks was prone
+to vandalism in the forms of invalid information, deletion, ads, or
+meaningless content.
+This paper propose a framework for detecting vandalism on English Wikipedia
+using machine learning technique by training Cascaded Random Forest (CRF)
+classifier on English Wikipedia dataset (PAN-WVC-10) that has been resampled
+using Local Neighbourhood SMOTE (LNSMOTE).
+Those two methods then compared with Random Forest (RF) for classifier and
+SMOTE for resampling.
+The result of training both classifiers that has been tested on Wikipedia
+Vandalism Corpus 2011 (PAN-WVC-11) English only dataset showed that the
+dataset resampled using LNSMOTE have true-positive rate better than SMOTE.
+CRF on LNSMOTE with 200 stages and 1 tree gave the better result among others
+with true-positive rate value 0.9904.
+From training computation time, CRF 1.6 times faster than RF in resampled
+dataset.
+
+Sources::
+List of repositories as result of this thesis,
+
+*  Program for data mining: https://github.com/shuLhan/go-mining
+*  Wikipedia vandalism dataset generator: https://github.com/shuLhan/wvcgen
+*  Paper: https://github.com/shuLhan/thesis
+
+
+===  Bachelor's degree from Universitas Padjadjaran
+
+Department:: Mathematics
+
+Majors:: Computer Science
+
+Period:: 2006 - 2009
+
+Minor Thesis:: Comparing the Running Time Several Variations of Sorting
+Algorithms to Sort A Large Amount of Data
+
+Development:: The program for thesis is written using C++ on GNU/Linux
+operating system.
+
+Summary::  Analyzing and comparing four different sorting algorithms (Merge
+sort, Binary sort, Quicksort, and Bucket sort) to find the most eficient
+algorithm (in processing time) to sort large data where their size is larger
+than internal computer RAM.
+
+
+===  Associate's degree from Politeknik Negeri Bandung
+
+Majors:: Computer Engineering
+
+Period:: 2002 - 2005
+
+Final Project:: Voice Communication using SCTP
+
+Development::  The prgoram is written using C++ and GTK on GNU/Linux operating
+system.
+
+Summary::  SCTP is the new transport protocol that provides services
+unavailable from either of the workhorse transport protocols that have
+supported the Internet for more than twenty years: reliable,
+connection-oriented TCP or unreliable, connectionless UDP.
+Using this new protocol we try to test and develop voice communication
+software.
+
+
+==  Contact
+
+Email::  m.shulhan@gmail.com
+
+Phone::  +62 856 0302 5036

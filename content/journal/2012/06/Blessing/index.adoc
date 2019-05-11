@@ -1,0 +1,6 @@
+=  Blessing
+:stylesheet: /assets/style.css
+
+Saya berpikir berapa lama Tuhan telah menunggu kita berpikir seperti ini,
+
+image::/assets/images/jimkb_-_i_wonder.jpg[]

@@ -1,0 +1,4 @@
+=  Pengetahuan
+:stylesheet: /assets/style.css
+
+Setiap pengetahuan baru akan membawa ke suatu pertanyaan baru.

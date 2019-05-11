@@ -1,0 +1,79 @@
+=  I Am Not Anti-Windows, its just ...
+:stylesheet: /assets/style.css
+
+Banyak yang bilang kalau saya ini termasuk anti-Windows, dari sejak kuliah
+sampai kerja, di undang ke seminar .NET atau apalah-itu-namanya saya tidak
+mau.
+
+Sebenarnya bukan begitu.
+
+Jadi begini ceritanya.
+
+Dulu itu waktu awal-awal masih kuliah dimana saya masih awam dengan dunia IT,
+kecuali menggunakan Internet Explorer dan Microsoft Word, kebanyakan orang
+menggunakan Windows di PC-nya, termasuk saya.
+Beberapa bulan kemudian, sekitar semester 2, mulai terdengar yang namanya klub
+Linux.
+
+SeteLah mencari info, berbicara dengan teman-teman, browsing, dll; ternyata
+saya tahu ternyata Linux itu sejenis OS yang 'Gratis'[1] (walau pada
+kenyataannya Linux itu sendiri hanyalah nama kernel).
+Kemudian timbullah pertanyaan, "Ada apa dengan Windows? Memangnya Windows
+bayar?"
+Yah, untuk memakai sebuah OS yang bernama Windows itu ternyata harus membayar.
+Dan harganya tidaklah terlalu murah.
+
+Kemudian saya mencoba memakai GNU/Linux, membuat tugas pakai GNU/Linux, buat
+laporan pakai GNU/Linux, sampai Tugas Akhir berbasis GNU/Linux.
+
+**Q: Kenapa tidak menggunakan Windows saja, bukankah banyak yang menjual di dekat kampus? atau pinjam dari temen?**
+
+A: Mungkin teman-teman saya juga banyak yang berpikir atau bilang kalau saya
+menggunakan GNU/Linux buat gaya-gayaan saja, atau sok-sok hacker atau apalah.
+Jadi begini, prinsip saya sebenarnya hanya sederhana, "Kalau mau dihormati
+orang, maka hormatilah orang lain"
+Hal ini berlaku tidak hanya dalam hal hormat-menghormati saja, juga berlaku di
+bagian hidup yang lain.
+Kalau saya mau menjual hasil karya saya kepada orang lain maka saya juga harus
+menghargai hasil karya orang lain.
+
+Karena kebetulan saya bergerak dibidang IT, berarti kalau saya mau membuat
+software dan berharap supaya digunakan/dibeli oleh orang lain berarti saya
+juga harus menggunakan software yang saya beli juga kan?
+Gampang.
+
+Tapi, sejujurnya, di harddisk saya itu masih ada Windows, tapi bukan buat
+produksi/belajar hanya buat bermain game.
+Perlu dicatat: sejak kuliah saya tidak pernah pakai Windows buat BELAJAR atau
+buat tugas - kecuali terpaksa bila dosennya atau mata kuliah kebetulan
+mengharuskan menggunakan Windows, seperti tugas dari mata kuliah Software
+Engineering yang waktu itu harus menggunakan Power Builder, habis mau
+bagaimana lagi mau nilai E atau A?
+
+**Q: Kalau saja misalnya memiliki duit berlebih, mau tidak membeli Windows?**
+
+A: Tentu saja, kenapa tidak, tetapi tetap saja hanya buat bermain game.
+Malah punya rencana mau membeli Windows 98 original, tapi tidak tahu mau beli
+dimana :(
+Mau dicari yang jualnya juga kayaknya tidak terlalu penting, jadi ya, saya
+biarkan saja.
+
+Dan, kalau pun "benar-benar" punya duit berlebih, saya lebih memilih membeli
+laptop kosong tanpa OS.
+Sekali lagi, bukan anti-Windows, hanya "Kalau ada yang Gratis -dan lebih baik-
+kenapa harus beli?"
+
+**Q: Terus, bagaimana pendapat anda tentang Windows?**
+
+A: Bagus, secara pemakaian Windows itu user-friendly.
+Kalau dipakai buat sehari-hari masih wajar, dan boleh dibilang masuk akal,
+terutama bagi orang yang awam tentang komputer.
+Tetapi kalau dipakai terlalu lama banyak penyakit-nya.
+Sekali lagi, bukan anti-Windows, hanya "Kalau ada yang Gratis -dan lebih baik-
+kenapa harus beli?"
+
+[1] Gratis disini maksudnya lebih ke makna "libre", kebebasan pemakaian bagi
+user dan user lainnya, salah satunya yaitu penggunaan software yang bisa tanpa
+berbayar.
+Salah satu kebebasan lainnya yaitu dimana software dapat dirubah sesuai
+keinginan user karena sumber kode dari software tersebut tersedia secara umum.

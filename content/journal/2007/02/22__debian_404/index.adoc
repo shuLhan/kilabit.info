@@ -1,0 +1,36 @@
+=  Debian 404
+:stylesheet: /assets/style.css
+
+Sejak beberapa hari ini saya memanfaatkan sumber daya pemerintah dengan
+sebijak-bijaknya.
+Sebut saja sumber daya ini dengan nama bandwidth.
+
+Setelah menimbang dengan masak akhirnya aku memutuskan untuk men-download CD
+iso salah satu distro Linux yang jumlahnya--demi topan badai--12 biji;
+dan per bijinya itu rata-rata 650 MB.
+Pertama saya coba download memakai "tool" yang katanya direkomendasikan oleh
+distro itu sendiri.
+
+CD 1 sukses.
+
+CD 2, ada 5 file yang tidak bisa di-download, entah kenapa.
+Tidak apa-apa, nanti saya coba download menggunakan mirror yang lain.
+
+CD 3, ada 2 file yang tidak bisa di-download, entah kenapa juga.
+
+Sekarang saya ganti cara download dengan men-download iso filenya langsung,
+tanpa pakai tool, dan ternyata lebih cepat 2x lipat.
+
+CD 4 sukses.
+
+CD 5 ok, tarik mang!
+
+Sekarang saya mau coba download ulang cd 2 dan 3.
+
+CD 2 sukses.
+
+CD 3 ... 404 NOT FOUND
+
+anying!
+
+image::/assets/images/debian_404.jpg[]

@@ -1,0 +1,105 @@
+=  Anonymous using Tor and Privoxy
+:stylesheet: /assets/style.css
+
+Besides JAP, which sometimes hard to establishing connection to free server,
+there is another alternative for connect anonymous on Internet and bypassing
+proxy limit.
+The alternative is called Tor.
+
+The benefit of using Tor besides JAP is beside anonymous connection it can
+also allow user to tunnelling and forwarding/redirecting port.
+
+Here is the list of packages/software that you need to install,
+
+*  Tor [1],
+*  Privoxy [2],
+*  dante [3] or tsocks [4],
+*  Tork (Optional, GUI for Tor) [5]
+
+In OpenSuSE you can install it from RPM directly.
+You can search for packages in http://packages.opensuse-community.org/ [6].
+
+==  Configurations
+
+===  Privoxy Setting Example
+
+Edit file `/etc/privoxy/config`,
+
+----
+actionsfile	standard       # Internal purpose, recommended
+actionsfile	default        # Main actions file
+actionsfile	user           # User customizations
+filterfile	default.filter
+logfile		logfile
+debug		4096           # Startup banner and warnings
+debug		8192           # Errors - we highly recommended enabling this
+toggle		1
+listen-address	127.0.0.1:8118
+buffer-limit	4096
+forward /       10.1.10.17:8080	  # redirect http traffic to your proxy
+forward :443    10.1.10.17:8080   # redirect https traffic to your proxy
+forward-socks4a	/ 127.0.0.1:9050  # redirect socks traffic to tor
+----
+
+===  Tor Setting Example
+
+Edit file `/etc/tor/torrc`,
+
+----
+SocksPort          9050         # port for client connections
+SocksListenAddress 127.0.0.1    # accept connections only from localhost
+DataDirectory      /var/lib/tor
+ControlPort        9051	        # for tork (optional)
+Nickname           bubu
+
+HttpProxy          10.1.10.17:8080
+HttpsProxy         10.1.10.17:8080
+
+mapaddress         10.40.40.40  mejokbp2brhw4omd.onion # for IRC
+mapaddress         10.40.40.41  5t7o4shdbhotfuzp.onion # for IRC
+----
+
+===  Dante Setting Example
+
+----
+resolveprotocol: fake
+route {
+        from: 0.0.0.0/0 to: . via: 127.0.0.1 port = 9050
+        protocol: tcp
+        proxyprotocol: socks_v4 socks_v5
+}
+----
+
+==  Testing/Running
+
+After everything is set now we need to run it one by one,
+
+----
+	# rcprivoxy restart
+	# rctor restart
+----
+
+Next, you need to set your application to use 127.0.0.1:8080 as http/https
+proxy or 127.0.0.1:9050 for SOCKS.
+
+Tor also has an utility to wrap application to connect to local tor, it name
+is torify.
+Example,
+
+----
+	$ torify kopete
+----
+
+==  References
+
+[1] https://www.torproject.org/
+
+[2] http://www.privoxy.org/
+
+[3] http://www.inet.no/dante/
+
+[4] http://tsocks.sf.net/
+
+[5] http://tork.sourceforge.net/
+
+[6] http://packages.opensuse-community.org/

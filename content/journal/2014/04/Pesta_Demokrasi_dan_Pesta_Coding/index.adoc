@@ -1,0 +1,40 @@
+=  Pesta demokrasi dan pesta _coding_
+:stylesheet: /assets/style.css
+
+Selama tiga hari belakangan saya menghabiskan waktu secara semi-aktif membantu
+pelaksanaan pesta demokrasi di salah satu partai yang berlokasi di Jakarta
+dengan membuat dua buah aplikasi untuk menghitung surat suara.
+
+Saya menghabiskan waktu tidur sekitar empat jam selama tiga hari untuk
+membereskan aplikasi ini.
+
+Sebelumnya ada aplikasi dekstop yang dibuat oleh orang lain menggunakan VB dan
+MS Access, tapi form untuk memasukan datanya tidak bisa digunakan, alias ada
+bug-nya.
+
+Saya coba untuk mengulik sebisa mungkin dan menyerah.
+Bahasa VB terlalu aneh bagi saya, belum lagi cara mengakses data di Access
+yang tidak bisa di query dengan SQL tanpa harus membuat "Query Design"
+(mungkin saya yang tidak tahu atau memang sebenarnya tidak bisa).
+
+Walhasil, saya bikin ulang dengan menggunakan Java.
+
+Butuh waktu sekitar delapan jam dengan bantuan Netbeans, lumayan.
+Mengingat saya terakhir menggunakan Netbeans hampir lebih dari dua tahun yang
+lalu.
+
+Dua hari berikutnya saya habiskan dengan membuat web aplikasi untuk menampung
+data-data dari aplikasi desktop dan menampilkannya supaya bisa di akses lewat
+web.
+Import data, report, report, dan report.
+
+Sumber kode untuk kedua aplikasi itu bisa dilihat di sini [1] untuk desktop
+dan di sini [2] untuk aplikasi web.
+
+Capek.
+
+Sekarang waktunya tidur.
+
+[1] https://github.com/shuLhan/Quickcount
+
+[2] https://github.com/shuLhan/Quickcount-web

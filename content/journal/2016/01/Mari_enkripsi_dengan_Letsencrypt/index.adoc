@@ -1,0 +1,222 @@
+=  Mari enkripsi dengan Letsencrypt
+:stylesheet: /assets/style.css
+
+Letsencrypt.org adalah organisasi non-profit yang menyediakan otoritas
+sertifikat (Certificate Authority, CA) untuk domain web secara gratis.
+Lama berlaku sertifikat dari Letsencrypt yaitu 90 hari, setelah itu harus
+diperbarui kembali.
+
+Ini adalah catatan dari pemasangan aplikasi kliennya, permintaan sertifikat
+secara manual, dan penggunaannya.
+Untuk dokumentasi lebih lanjut bisa dilihat di https://letsencrypt.readthedocs.org/.
+
+
+==  Lingkungan
+
+Instalasi dilakukan di sistem operasi Arch Linux, dengan kebutuhan paket yaitu
+git, python, dan openssl.
+
+
+==  Pemasangan Letsencrypt
+
+Arch Linux sebenarnya telah menyediakan paket untuk letsencrypt, namun dalam
+tulisan ini dibahas cara menggunakan dari sumber kode langsung.
+
+----
+$ mkdir ~/git
+$ cd ~/git
+$ git clone https://github.com/letsencrypt/letsencrypt
+$ cd letsencrpyt
+----
+
+Lakukan inisialisasi awal,
+
+----
+$ ./letsencrypt-auto --debug
+Bootstrapping dependencies for Archlinux...
+[sudo] password for ms:
+menyelesaikan ketergantungan...
+mencari paket paket yang tidak berkecocokan...
+
+Paket (2)                Versi baru  Perubahan Bersih  Ukuran Unduhan
+
+community/augeas         1.4.0-1             1,82 MiB        0,44 MiB
+extra/python-virtualenv  13.1.2-2            1,78 MiB        1,52 MiB
+
+Ukuran Unduhan Total:     1,95 MiB
+Total Ukuran Terpasang :  3,61 MiB
+...
+Creating virtual environment...
+Updating letsencrypt and virtual environment dependencies.....
+Requesting root privileges to run with virtualenv: sudo /home/ms/.local/share/letsencrypt/bin/letsencrypt --debug
+[sudo] password for ms:
+No installers are available on your OS yet; try running "letsencrypt-auto certonly" to get a cert you can install manually
+----
+
+Letsencrypt telah terpasang, selanjutnya adalah pembuatan sertifikat.
+
+
+==  Pembuatan CSR
+
+Langkah ini mengasumsikan kita sudah memiliki private key sendiri yang
+digunakan untuk menandai permintaan sertifikat, untuk memastikan bahwa
+sertifikat yang dibuat nantinya adalah benar dari yang mengajukannya.
+
+Letsencrypt mengharuskan format CSR dalam format DER (binary), dengan tambahan
+subject alternative names (SAN).
+
+Buat berkas konfigurasi "openssl.cnf" yang dibutuhkan untuk pembuatan CSR yang
+isinya seperti berikut,
+
+----
+RANDFILE               = $ENV::HOME/.rnd
+
+[ req ]
+default_bits           = 4096
+distinguished_name     = req_distinguished_name
+prompt                 = no
+req_extensions         = v3_req
+default_md             = sha256
+
+[ req_distinguished_name ]
+C                      = NamaNegaraAnda
+ST                     = NamaProvinsiAnda
+L                      = NamaKotaAnda
+O                      = NamaPerusahaaanAnda
+OU                     = NamaUnitdiPerusahaanAnda
+CN                     = NamaDomainAnada
+emailAddress           = EmailAnda
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints       = CA:FALSE
+keyUsage               = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName         = @alt_names
+
+[ alt_names ]
+DNS.1 = NamaAlternativeDariDomainAnda
+----
+
+Ganti nilai "Nama*" sesuai dengan informasi anda.
+
+Buat CSR dengan perintah berikut
+
+----
+openssl req -out domain.der \
+    -key id_rsa.nopass \
+    -new \
+    -outform DER \
+    -nodes \
+    -config openssl.cnf
+----
+
+Perintah diatas membuat berkas CSR dengan nama "domain.der", dengan
+menggunakan private key "id_rsa.nopass", dengan format DER, dan membaca
+konfigurasi dari berkas "openssl.cnf".
+
+
+==  Permintaan Sertifikat
+
+Untuk mendapatkan sertifikat anda harus memiliki akses ke mesin di mana domain
+yang akan anda registrasi berada, karena nanti aplikasi server letsencrypt
+akan melakukan verifikasi pada path tertentu dari webserver anda.
+
+Sekarang lakukan permintaan sertifikat dengan perintah berikut,
+
+----
+. ~/git/letsencrypt/letsencrypt-auto -vvv -t \
+    certonly --csr domain.der \
+    --manual \
+    --email NamaEmailAnda
+----
+
+Jika perintah di atas berjalan dengan sukses, anda akan diminta untuk menambah
+sebuah file di webserver anda, contoh keluaran dari perintah di atas.
+
+----
+NOTE: The IP of this machine will be publicly logged as having requested this
+certificate. If you're running letsencrypt in manual mode on a machine that is
+not your server, please ensure you're okay with that.
+
+Are you OK with your IP being logged?
+(Y)es/(N)o: y
+Make sure your web server displays the following content at
+http://[domain]/.well-known/acme-challenge/NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc before continuing:
+
+NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc.fSeSxLp1jVFtH988RyKbq8xHgkYrP_P-OSobmio_3u8
+
+If you don't have HTTP server configured, you can run the following
+command on the target server (as root):
+
+mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
+cd /tmp/letsencrypt/public_html
+printf "%s" NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc.fSeSxLp1jVFtH988RyKbq8xHgkYrP_P-OSobmio_3u8 > .well-known/acme-challenge/NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc
+# run only once per server:
+$(command -v python2 || command -v python2.7 || command -v python2.6) -c \
+"import BaseHTTPServer, SimpleHTTPServer; \
+s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
+s.serve_forever()"
+Press ENTER to continue
+----
+
+Sekarang lakukan SSH ke webserver anda.
+
+Jika tidak menggunakan webserver (apache, nginx, dll) tapi menggunakan proxy
+(seperti HAProxy), atau ingin melakukan verifikasi dengan manual, berhentikan
+semua aplikasi yang menggunakan port 80 dan 443 kemudian buat berkas dengan
+nama "verifikasi.sh" yang isinya seperti informasi di atas.
+
+----
+#!/bin/sh
+
+mkdir -p /tmp/letsencrypt/public_html/.well-known/acme-challenge
+cd /tmp/letsencrypt/public_html
+printf "%s" NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc.fSeSxLp1jVFtH988RyKbq8xHgkYrP_P-OSobmio_3u8 > .well-known/acme-challenge/NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc
+# run only once per server:
+$(command -v python2 || command -v python2.7 || command -v python2.6) -c \
+"import BaseHTTPServer, SimpleHTTPServer; \
+s = BaseHTTPServer.HTTPServer(('', 80), SimpleHTTPServer.SimpleHTTPRequestHandler); \
+s.serve_forever()"
+----
+
+Jalankan skrip tersebut dengan akses root,
+
+----
+$ chmod +x verifikasi.sh
+$ sudo ./verifikasi.sh
+----
+
+Kembali ke klien di komputer, tekan Enter untuk melanjutkan verifikasi.
+
+Aplikasi letsencrypt akan melakukan verifikasi dengan melakukan request ke:
+
+----
+http://domain/.well-known/acme-challenge/NtGxEz0bdA-0Y0zIrIUsn4DkTkRcL-t71OGga1Swhnc
+----
+
+Jika sukses akan terlihat keluaran seperti berikut,
+
+----
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at
+   [dipotong]/0001_chain.pem.
+   Your cert will expire on 2016-04-04. To obtain a new version of the
+   certificate in the future, simply run Let's Encrypt again.
+ - If you like Let's Encrypt, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+----
+
+Di direktori sekarang akan ada tiga berkas baru `0000_cert.pem` yaitu berkas
+sertifikat, `0000_chain.pem` yaitu CA dari letsencrypt, dan `0001_chain.pem`
+yaitu berkas gabungan dari keduanya.
+
+Untuk dapat menggunakan sertifikat anda harus menggabungkan berkas private key
+anda dengan sertifikat,
+
+----
+$ cat id_rsa.nopass 0001_chain.pem > domain.pem
+----
+
+Sekian, sertifikat anda sekarang sudah dapat dipasang di webserver anda.

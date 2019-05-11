@@ -1,0 +1,11 @@
+=  Ide untuk Film: Suku Primitif
+:stylesheet: /assets/style.css
+
+Apa yang akan terjadi jika kita menggabungkan suku kuno dari Papua atau
+Aborigin Australia.
+Apakah mereka akan berperang?
+Siapa yang akan menang?
+Atau jika mereka "berkomunikasi" apakah mereka akan mengerti satu sama lain?
+Seandainya mereka tidak berperang, berapa lama waktu yang dibutuhkan sampai
+mereka mengerti bahasa satu sama lain?
+Apakah salah satu dari mereka dapat beradaptasi dengan lingkungan baru?

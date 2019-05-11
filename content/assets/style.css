@@ -1,0 +1,102 @@
+body {
+	color: black;
+	font-family: sans-serif;
+	margin: 0 auto;
+	width: 800px;
+	padding: 0;
+	line-height: 20px;
+}
+code {
+	font-size: 14px;
+}
+div {
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+}
+h1 {
+	font-size: 28px;
+	border-bottom: 1px solid grey;
+	padding-bottom: 8px;
+}
+h2 {
+	font-size: 22px;
+}
+h3,
+h4 {
+	font-size: 16px;
+}
+h3::before {
+	content: "> ";
+}
+h4::before {
+	content: ">> ";
+}
+h2,
+h3,
+h4,
+h5 {
+	border-bottom: 1px solid grey;
+	padding: 2px;
+	color: black;
+}
+pre {
+	background-color: #002b36;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	color: #839496;
+	display: block;
+	font-size: 13px;
+	line-height: 1.42857143;
+	margin: 0 0 10px;
+	padding: 9.5px;
+	word-break: break-all;
+	word-wrap: break-word;
+	overflow: auto;
+}
+li {
+	line-height: 18px;
+}
+
+.topbar-left {
+	font-size: 24px;
+	font-weight: bold;
+	width: 48%;
+	display: inline-block;
+}
+.topbar-left a {
+	text-decoration: none;
+}
+.topbar-left a:visited {
+	color: black;
+}
+.topbar-info {
+	font-size: 12px;
+	font-weight: normal;
+	font-family: Monospace;
+}
+.topbar-right {
+	width: 50%;
+	display: inline-block;
+	text-align: right;
+}
+.topbar-right img {
+	width: 40px;
+}
+
+.page {
+	margin: 24px 0px;
+}
+
+.quoteblock .attribution {
+	text-align: right;
+	margin-right: 56px;
+}
+
+.footer {
+	text-align: center;
+	color: #444;
+	margin: 20px auto;
+}

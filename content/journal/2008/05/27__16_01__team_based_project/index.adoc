@@ -1,0 +1,63 @@
+=  Team based project
+:stylesheet: /assets/style.css
+
+____
+"I am a egocentric programmer, and right know I am writing my ego."
+____
+
+Read these
+http://www.joelonsoftware.com/articles/fog0000000043.html[link] [1], it's more
+clearer than this writing.
+
+Working in a team, whether you are a programmer or a team leader, is need a lot of schedule rather than work. This is my point of view of what you should do when building software in a formal team.
+
+For a team leader :
+
+*  http://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html[Read this
+   first] [2].
+
+*  Make a meeting review at least once a week, except when you have a deadline.
+
+**  Leader and worker must communicate to gain more acceptable output.
+**  This is the time where the leader explain the next plan.
+**  This is the time where the programmer tell the leader which task that has
+been complete, which task are has not complete (yet), and others problem that
+maybe need clarification with the leader.
+**  This is the time where the leader give solution, or with suggestion from
+others programmer of course.
+
+*  Make a right schedule for your plan, milestones, and maybe schedule for your programmer, if they do not mind.
+*  After meeting, set a schedule for your next plan.
+*  After meeting, leave your programmer, do not make any conversation/meeting after the next meeting schedule.
+Some of my friends say, don't stand or sit behind programmer, that irritating
+him.
+*  If your programmer does not have their own schedule, give them a deadline!
+*  More important one, a team leader must expert in programming, theory and
+   practice;
+   if its not, what can you do to make a better software and helping your
+   programmer?
+   I am asking you?
+
+For the programmer (this will be a question based list) :
+
+*  Do you have a schedule?  A very minimum/light schedule is TO-DO list.
+*  Do you know what software/application that you will build?
+*  Do you have a problem? about what?
+**  If the problem is a concept, ask the team leader
+**  If he problem is a programming language, do search in Google first.
+*  Do you have a suggestion about a better algorithm? or better concept for your software?
+**  If you have, tell to the team leader.
+**  If you cannot or does not want to tell them, write what they want, it does
+not hurt at all and make your life more easy.
+*  Make a test procedure and test for program.
+
+Like
+http://en.wikipedia.org/wiki/Scrum_(development)[scrum] [3].
+
+--
+
+[1] http://www.joelonsoftware.com/articles/fog0000000043.html
+
+[2] http://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html
+
+[3] http://en.wikipedia.org/wiki/Scrum_(development)

@@ -1,0 +1,152 @@
+=  Manajemen informasi
+:stylesheet: /assets/style.css
+
+==  Pengembangan Aplikasi Lanjut
+
+===  Performansi Konkurensi Pengurut
+
+Pada umumnya, aplikasi perlu membuat angka yang berurutan untuk setiap
+transaksi (seperti identifikasi unik dari sebuah baris).
+Jika penghitung urutan dikunci dengan cara dua-fase, ia akan mengakibatkan
+penyumbatan (bottleneck) konkurensi.
+Hal ini disebabkan karena transaksi harus menunggu transaksi sebelumnya yang
+melakukan penguncian supaya kuncinya dilepas sebelum dapat melakukan
+pembacaan/pembaruan terhadap data.
+Jika transaksi mengunci terlalu lama, hal ini akan mempengaruhi performansi
+pada aplikasi secara keseluruhan.
+
+Penguncian dua-fase secara sederhana untuk memasukan data bentuknya seperti
+berikut,
+
+----
+lock (data);
+naikan nilai pengurut;
+lakukan pemasukan data;
+unlock (data);
+----
+
+Oleh karena itu banyak sistem basisdata mendukung penghitung urutan yang tidak
+dikunci dengan cara dua-fase;
+saat transaksi membutuhkan angka terurut, penghitung dikunci, dinaikan dan
+dilepas kembali.
+Hal ini bisa memperbaiki konkurensi karena mengurangi waktu dalam
+penguncian-dan-pelepasan.
+Penguncian tidak dilakukan untuk semua proses, hanya pada saat mendapat nilai
+pengurut.
+Prosesnya seperti berikut,
+
+----
+get_counter ()
+begin
+lock (data);
+naikan nilai pengurut;
+unlock (data);
+end
+id := get_counter ();
+lakukan pemasukan data (id, record);
+----
+
+Dari proses di atas dapat dilihat bahwa pelepasan kunci pada penghitung
+langsung dilakukan setelah nilainya dinaikan.
+Kelemahan dari metode ini yaitu adanya "ruang" antara penghitung.
+Misalnya, nilai awal pengurut adalah 1000.
+Transaksi `T1` menaikan nilai pengurut menjadi 1001, dan kemudian transaksi
+`T2` menaikan nilai pengurut menjadi 1002 sebelum T1 selesai.
+Jika `T1` dibatalkan dan nilai pengurut dikembalikan, misalkan dengan
+mengembalikan ke nilai sebelumnya atau menguranginya, menjadi 1000, maka
+transaksi selanjutnya bisa saja menggunakan nilai urut yang sama dengan `T2`,
+yaitu 1002.
+Oleh karena itu, nilai pengurut tidak boleh diputar kembali jika transaksi
+dibatalkan.
+
+===  Cluster
+
+Diberikan relasi `r(a,b,c)`.
+Contoh situasi yang mana performansi pencarian kesamaan pada atribut `a` dapat
+dipengaruhi dari bagaimana r dikelompokan (_clustered_) adalah bila atribut
+`a` memiliki nilai yang sama, misalnya,
+
+----
+mahasiswa (angkatan, nim, jurusan)
+----
+
+Atribut angkatan akan lebih mudah dicari bila terurut dan memiliki
+_dense clustered_ indeks.
+
+Seandainya diinginkan query rentang pada atribut b, relasi tersebut dapat di-
+_cluster_ pada atribut b dengan menggunakan _b+ tree_.
+
+===   Performansi
+
+Misalkan aplikasi basisdata tampak tidak memiliki satu pun penyumbatan;
+yang mana, penggunaan CPU dan disk tinggi, dan semua antrian ke basisdata
+seimbang, apakah itu berarti aplikasi tidak bisa di- _tuning_?
+
+Hal pertama yang harus diperhatikan adalah tingginya penggunaan CPU dan disk,
+misalnya di atas 80%, adalah tanda bahwa adanya proses yang berjalan lama.
+Bisa jadi karena proses memang lama atau karena _paging_?
+_Paging_ yaitu pada saat aplikasi harus menulis dan membaca dari memori ke
+disk, dan sebaliknya, karena kebutuhan memori dari pemrosesan terlalu besar
+sementara buffer dari aplikasi/database terlalu kecil.
+
+Jika proses dari aplikasi berjalan lama perhatikan pada modul bagian mana,
+apakah pada saat query ke database atau proses lain (misalnya konversi data).
+
+Misalkan sebuah sistem menjalankan tiga tipe transaksi.
+Transaksi tipe A dengan laju 50 per detik, transaksi B 100 per detik, dan
+transaksi C dengan laju 200 per detik.
+Misalkan dari semua transaksi memiliki transaksi A 25 persen, transaksi B 25
+persen, dan transaksi C 50 persen.
+
+Dari data tersebut kita dapat menghitung kemampuan sistem, yaitu
+
+----
+3 / ((1/50) + (1/100) + (1/200)) = 100 transaksi per detik
+----
+
+Gangguan yang dapat menghambat ketiga transaksi tersebut misalnya adalah
+transaksi A dan B adalah bersifat update yang membutuhkan penguncian yang
+sering, sementara transaksi C adalah pembacaan.
+Seringnya penguncian pada transaksi A dan B dapat memperlambat transaksi C,
+atau sebaliknya.
+
+Tiga tingkat di mana sistem basisdata dapat disetel untuk meningkatkan performansi,
+
+*  Hardware, contohnya,
+**  penambahan disk jika penyumbatan terjadi pada I/O;
+**  penambahan memori jika penyumbatan terjadi pada buffer disk;
+**  atau upgrade processor jika penyumbatan terjadi pada pemrosesan.
+*  Parameter pada sistem basisdata, contohnya,
+**  ukuran buffer,
+**  rentang waktu commit (penyimpanan dari memory ke disk)
+*  Skema dan transaksi, contohnya,
+**  pembuatan indeks,
+**  perancangan ulang skema, pada beberapa kasus aplikasi, penyimpanan data
+    berbasis column bisa meningkatkan performansi pada saat eksekusi transaksi
+**  perancangan query yang lebih efisien pada aplikasi.
+    Misalnya, daripada mengeksekusi query insert satu persatu, akan lebih
+    cepat bila query di kelompokan menjadi multi-insert (per batch).
+    Tentu saja hal ini bergantung kepada sistem basisdata yang digunakan,
+    apakah mendukung operasi tersebut atau tidak.
+
+Ketiga tingkat tersebut berkaitan satu sama lain.
+Bisa saja pada saat melakukan tuning pada tingkat skema akan menyebabkan
+penyumbatan pada tingkat hardware.
+Hal pertama yang harus dilakukan adalah melihat penyumbatannya dimana, jika
+penyumbatan terjadi pada tingkat perangkat keras, perhatikan query atau
+prosesnya apakah bisa diperbaiki untuk lebih baik atau tidak.
+Jika query sudah diperbaiki, maka lihat kembali hasilnya apakah masih
+tersendat pada tingkat hardware atau tidak.
+
+===  Standard
+
+Kelebihan _anticipatory standard_ dibandingkan _reactionary standard_ yaitu
+standar diterapkan di semua vendor sistem basisdata.
+Contohnya, perintah SQL untuk insert, update, dan delete adalah _anticipatory
+standard_ yang sama disemua vendor sistem basisdata.
+
+Kekurangan _anticipatory standard_ yaitu lambatnya perkembangan fitur-fitur
+standar baru yang dibutuhkan oleh sistem basisdata untuk membuat performansi
+database lebih bagus sehingga setiap vendor membuat fitur sendiri sehingga
+cara penggunaannya (dalam hal sintaks) berbeda dari vendor yang lain.
+Contohnya, yaitu perintah _bulk insert_ atau multi-insert.

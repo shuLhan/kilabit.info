@@ -1,0 +1,91 @@
+=  Rescached is here!
+:stylesheet: /assets/style.css
+
+I am too excited to not published it now, because this pet is really save my
+bandwidth and make my Internet connection one step more fast than before.
+Although it's not finished yet, but for daily use It rocks!
+
+So here it is,
+
+----
+			      <<< rescached >>>
+			 ~ a resolver cache daemon ~
+		 { brought to you by kilabit.info (ɔ) 2010 }
+----
+
+I should make a logo and attach it here or add a blink tag, but my soul is on
+vacation right now.
+
+**So what is rescached? what can it do?**
+
+rescached is a program that caching all DNS queries and answers that user ask
+to him.
+
+To make it simple, when you opening www.reddit.com page on your browser,
+browser will ask the system "what is the IP address of www.reddit.com ?"
+System will pass this question to one of the DNS servers that you set on your
+system;
+and after one of the DNS server answer it, system will extract it and pass the
+answer to your browser, "this is IP address of www.reddit.com: 77.67.126.99".
+
+----
+browser -> system -> (one or more DNS server) -> system -> browser
+----
+
+Your browser and your system will do this every times, every days, and every
+nights you opening www.reddit.com page.
+Remember that those DNS servers probably is not in your neighbourhood, it
+could be in another city, state, or country;
+traveling across buildings, under the sea, just to ask "what is IP address of
+www.reddit.com ?"
+
+Rescached come to your system, with an empty box ready to filled up with
+anything about hostname and IP address.
+So, when you opening www.reddit.com page, instead of asking DNS servers,
+system will ask rescached program first, rescached program will check in his
+box if it had an IP address of www.reddit.com.
+If it does not exist, rescached will pass the question to DNS servers, save
+the answer in his box and pass the answer back to the system.
+
+----
+browser -> system -> rescached -> system -> browser
+----
+
+All this process only happened in your internal computer, does not pass
+through the wire.
+
+Now, imagine average user browsing activity.
+Lots of page, lots of links, lots of DNS query pass through the wires.
+
+**What is the different between rescached and another DNS cache daemon ?**
+
+Your computer does not run every times, some times you need to restart it or
+shutting it down.
+Rescached developer know this.
+So, instead of passing the same question every times computer restarted,
+rescached save all IP address that his have in his box to your hard disk when
+the system down or when you turned the rescached program off.
+So, after computer is restarted and rescached program is running again,
+rescached will read all IP address that his save on your hard disk and put it
+in his box again.
+So, rescached still know the answer for any host name that the system ask from
+last activity.
+
+**How many IP address it can hold in his box ?**
+
+A lot.
+It is depend on your setting, it can be 100, 2000, 30000, or 400000.
+You can set this value on rescached configuration file.
+Of course it also depend on how much memory do you have on your system.
+
+So, why you still here ? Go there [1] .
+
+Arch Linux user can installed it from AUR [2].
+
+Git it, make it, run it!
+
+--
+
+[1] http://github.com/shuLhan/rescached
+
+[2] https://aur.archlinux.org/packages/rescached-git/

@@ -1,0 +1,79 @@
+=  Aplikasi Terbaik di Linux
+:stylesheet: /assets/style.css
+
+Kalau kita menggunakan Linux terlalu lama, kita terkadang pasti sudah capek
+mencoba semua aplikasi yang ada.
+Berikut beberapa aplikasi terbaik di linux, menurut saya, sebagai refensi bagi
+yang juga capek atau malas coba-coba, jadi waktu anda tidak terbuang percuma.
+
+Sistem operasi utama saya yaitu Arch Linux, yang berjalan di atas laptop Acer
+Aspire 4736 dengan spesifikasi.
+
+*  prosesor Intel Core Duo T6600
+*  grafik Intel GMA 4500MHD
+*  memori 1 GB
+
+**Display Manager:** http://www.freedesktop.org/wiki/Software/LightDM/[lightdm]
+
+lightdm adalah display manager yang dikembangkan langsung oleh tim xorg.
+Kekurangannya saat ini adalah tidak bisa dikonfigurasi lewat UI.
+
+**Window Manager:** http://xfce.org/[xfce4]
+
+Kalau anda hanya ingin window manager yang cepat dan bisa dikonfigurasi, xfce4
+adalah pilihan yang terbaik.
+Xfce4 menyediakan file manager Thunar yang bisa automount media penyimpanan
+anda.
+
+Elementary? Lambat.
+
+Gnome 3? Lambat dan tidak stabil.
+
+KDE 4? Lambat sekali.
+
+**Audio dan Video Player:** SMPlayer
+
+Dengan menggunakan mplayer sebagai backendnya, SMPlayer bisa memutar file
+musik atau video apa saja.
+UI-nya sederhana dan fiturnya yang tidak tertandingi yaitu pencarian subtitle.
+SMPlayer tidak menyediakan fasilitas pustaka untuk menyimpan file musik/video
+anda, jadi pengelompokan file bergantung kepada anda menggunakan struktur
+folder.
+
+**Audio tag:** easytag
+
+Dengan bantuan easytag anda akan dengan mudah menyusun berkas musik anda dan
+mengubah tagnya.
+
+**Terminal:** xterm
+
+Aplikasi virtual terminal yang paling cepat diantara yang lainnya. Kalau tidak
+percaya coba anda 'dmesg' di terminal dan bandingkan hasilnya.
+
+**Editor:** vim
+
+Dengan fungsi tab dan plugin nerdtree, pathogen, vim-fugitive, vim bisa
+menjadi IDE yang sederhana dan cepat.
+
+**Browser:** chromium
+
+Dengan akun google anda bisa sinkronisasi bookmark anda di mana saja.
+Butuh apa lagi? Selain itu chromium menyediakan developer panel bagi programer
+untuk mempermudah mendebug aplikasi.
+
+**Office:** libreoffice
+
+**Document Viewer (PDF):** Evince
+
+**Email Reader:** -
+
+Saya menggunakan GMail lewat browser.
+
+**SQL Browser and Management:** DBeaver
+
+DBeaver adalah aplikasi untuk mengakses database apapun selama memiliki jdbc
+driver.
+Kalau anda pengembang perangkat lunak yang menggunakan database dan terkadang
+setiap aplikasi menggunakan database yang berbeda, dbeaver sangat membantu
+anda dengan hanya membuka satu aplikasi untuk beberapa database yang berbeda.
+Alternatif lainnya yaitu `squirrel-sql`.

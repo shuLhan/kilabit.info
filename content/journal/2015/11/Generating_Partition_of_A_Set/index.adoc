@@ -1,0 +1,150 @@
+=  Generating Partition of A Set
+:stylesheet: /assets/style.css
+
+**Problem:** given a set of discrete value {A,B,C} generate k partition of set
+where there is no empty partition and no duplicate value exist in subset of a
+partition.
+
+**Rules:**
+
+*  No empty subset is returned.
+*  No duplicate value exist in each partitions, i.e. when partitioning into two subset, if subset one contain {A} and then the another subset must not contain {A}
+*  If k is 1 return the original set.
+*  If k is equal to number of value in set, return each element of set as a partition and as a subset.
+
+**Example:**
+
+Given input set {A,B,C}, if k is 1 then the number of generated partition is 1
+which is equal to original set: {A,B,C}.
+If k is 2 then the number of generated partition is 3 which consist of
+{{A},{BC}}, {{B},{C,D}}, and {{C},{A,B}}.
+If k is three then the number of generated partition is 3 which consist of
+{{A},{B},{C}}.
+
+Another example, given input set {A,B,C,D}, if k is 1 then the number of
+generated partition is 1: {A,B,C,D}.
+If k is 2 then the number of generated partition is 7, which is {{A},{B,C,D}},
+{{B},{A,C,D}}, {{C},{A,B,D}}, {{D},{A,B,C}}, {{A,B},{C,D}}, {{A,C},{B,D}},
+{{A,D},{B,C}}.
+If k is 3 then the number of generated partition is 6, which is
+{{A},{B},{C,D}}, {{A},{C},{B,D}}, {{A}{D}{B,C}}, {{A,B},{C},{D}},
+{{A,C},{B},{D}}, {{A,D},{B},{C}}.
+If k is 4 then the number of possible generated partition is 4:
+{{A},{B},{C},{D}}
+
+In mathematics, this problem is known as subproblem of combinatrics where the
+number of partition can be computed using "Stirling number of the second way"
+[1], which take n objects and the number of partition or k, and return number
+of possible partition of n using k.
+In computer science, the problem is called "Partition of a set".
+
+If you are a thinker and interested on solving this problem, go ahead, grab
+some paper and a pencil and close this journal.
+
+* * *
+
+Now, back to the problem.
+This is an old problem, oldest than computer it self.
+There are more papers out there which trying to be a fastest algorithm using
+iterative or parallel method (of course the last paper is the winner).
+Some of them using sequence of bit to mark wether a value is a group of
+partition.
+Here is the gist of it, given three value with two partition the possible
+sequence of bits are,
+
+----
+0 0 0 = 1 partition
+0 0 1 = 2 partition
+0 1 0 = 2 partition
+0 1 1 = 2 partition
+1 0 0 = 2 partition
+1 0 1 = 2 partition
+1 1 0 = 2 partition
+1 1 1 = 3 partition
+----
+
+Can you see the pattern? The 0's bit is group one and 1's bit is another
+group.
+There are some problem with this solution: first, we must check for duplicate
+partition, i.e. 001 is duplicate with 110.
+Second problem, we must generate all bit for all values, for example partition
+with 3 subset is generated even if we only need 2 partitions.
+
+There is another alternative without needed to check for duplicate and does
+not waste than k defined partition.
+The solution is using recursive function.
+Here is the algorithm,
+
+**Function name:** partition
+
+**Input:**
+
+*  A: set of value
+*  k: number of partition
+
+**Output:**
+
+P: a set contain subsets of A into k possible partition without an empty set
+and duplicate value.
+
+**Process:**
+
+(1) If k equal 1, then return A
+
+(2) if k equal to length of A, then
+
+(2.1) create new set A'
+
+(2.2) for each value in A as a
+
+(2.2.1) create new partition p contain only a
+
+(2.2.2) add p to the new set A'
+
+(2.2.3) return A'
+
+(3) Create new set B for partitions
+
+(4) move the first elemen of A to a1, which make A contain n-1 element.
+
+(5) call function partition with parameter A and k, save the result to A'
+
+(6) for each partition in A' as p
+
+(6.1) for each subset in p as sub
+
+(6.1.1) create new partition p' by joining element a1 with subset sub and add
+it to B
+
+(7) call function partition with parameter A and k-1, save the result to A''
+
+(8) for each partition in A'' as p
+
+(8.1) create new partition p' by appending element a1 as subset to partition p
+and add it to B
+
+(9) return B
+
+Procedurally, if we give set {A,B,C} with 2 as partition number and call and
+print the algorithm, we will see the output like these,
+
+----
+partition({A,B,C},2)
+  B:{}
+  A: partition({B,C},2)
+    B:{{B},{C}}
+    return {B},{C}
+  B:{{{B,A},{C}},{{B},{C,A}}
+  A: partition({B,C},1)
+    return {B,C}
+  B:{{{B,A},{C}},{{B},{C,A}},{{B,C},{A}}
+  return B
+----
+
+Simple.
+
+==  Reference
+
+[1] https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind
+
+[2] https://en.wikipedia.org/wiki/Partition_of_a_set

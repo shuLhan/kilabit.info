@@ -1,0 +1,157 @@
+=  Bahasa Pemrograman Go
+:stylesheet: /assets/style.css
+
+Untuk mempelajari bahasa pemrograman Go, saya telah menerjemahkan Go Tour ke
+Bahasa Indonesia, silahkan lihat di sini: https://tour.golang-id.org.
+
+==  Pemasangan
+
+Artikel ini berisi catatan mengenai instalasi bahasa pemrograman
+http://golang.org/[Go] [1].
+
+Go memberikan kemudahan instalasi lewat
+https://golang.org/dl/[binari] [2],
+tapi untuk instalasi dari sumber membutuhkan koneksi internet yang cukup
+cepat, karena semua sumber kode, dokumentasi, dan tutorial diunduh lewat git.
+Pada bagian ini saya akan menjelaskan bagaimana memasang Go toolkit dari
+sumber kode langsung, Go-doc untuk melihat dokumentasi secara lokal, dan
+Go-tour untuk tutorial belajar bahasa Go supaya dapat dibuka di lokal tanpa
+harus terhubung ke internet.
+Untuk artikel lebih lengkapnya bisa dilihat di
+https://golang.org/doc/install/source[sini] [3]
+dalam bahasa Inggris.
+
+Sebelumnya pengenalan terhadap variabel lingkungan yang digunakan oleh Go.
+
+*  `GOROOT_BOOTSTRAP`: tempat pemasangan binari Go toolkit hasil unduhan.
+   Binari ini diperlukan untuk meng-compile Go dari sumber kode.
+*  `GOROOT`: tempat sumber kode atau instalasi dari Go toolkit.
+*  `GOBIN`: secara otomatis merujuk ke direktori "bin" pada `GOROOT`.
+*  `GOPATH`: ruang kerja atau tempat Go mengunduh paketnya.
+   Pada saat melakukan "import" di dalam kode, Go akan mencari paket di
+   direktori yang ditunjuk oleh $GOROOT dan $GOPATH.
+
+
+===  Pemasangan Go Toolkit dari Sumber
+
+Berikut langkah untuk meng- _compile_ dari sumber,
+
+*  Unduh Go compiler di https://golang.org/dl/[sini] [2]
+*  Ekstrak berkas tersebut, misalkan di `$HOME/go-bootstrap`
+*  Set variabel lingkungan `GOROOT_BOOTSTRAP` ke `$HOME/go-bootstrap`,
++
+----
+export GOROOT_BOOTSTRAP=$HOME/go-bootstrap
+----
+
+*  Buat direktori tempat menyimpan sumber kode dari git, misalkan di
+   `$HOME/git`
+*  Set variabel lingkungan `GOROOT` ke tempat sumber kode unduhan,
++
+----
+export GOROOT=$HOME/git/go
+----
+
+*  Unduh sumber kode Go dari repository,
++
+----
+$ cd $HOME/git
+$ git clone https://go.googlesource.com/go
+----
+
+*  Kompilasi sumber kode,
++
+----
+$ cd go/src
+$ ./all.bash
+----
+
+*  Jika kompilasi berhasil, program go akan terpasang di $HOME/git/go/bin
+*  Atur PATH anda supaya merujuk ke direktori tersebut untuk menjalankan,
++
+----
+    $ export PATH=$GOROOT/bin:$PATH
+----
+
+*  Buat direktori untuk menyimpan paket unduhan dengan menset variabel
+   `$GOPATH`, misalkan di `$HOME/go`,
++
+----
+$ export GOPATH=$HOME/go
+----
+
+
+===  Pemasangan Dokumentasi Go (godoc)
+
+Setelah compiler Go terpasang, selanjutnya memasang paket dokumentasinya, langkahnya adalah sebagai berikut,
+
+*  Unduh Google AppEngine untuk Go di sini sesuai dengan OS anda
+*  Ekstrak berkas app-engine zip, misalkan di "$HOME/Programs/AppEngine/", dan atur variabel untuk tempat app-engine berada,
++
+----
+$ export APPENGINE_SDK=$HOME/Programs/AppEngine/go_appengine
+----
+
+*  Buat direktori untuk hasil pembuatan dokumentasi, misalkan di "$HOME/go/godoc-app"
++
+----
+$ mkdir -p $HOME/go/godoc-app
+$ export APPDIR=$HOME/go/godoc-app
+----
+
+*  Unduh paket Go tools,
++
+----
+$ go get -d golang.org/x/tools
+----
+
+*  Pindah ke direktori "cmd/godoc" dari paket tools,
++
+----
+$ cd $GOPATH/src/golang.org/x/tools/cmd/godoc
+----
+
+*  Jalankan skrip "setup-godoc-app.bash", yang ada di dalam direktori tersebut,
++
+----
+$ ./setup-godoc-app.bash
+
+GOROOT = /home/ms/git/go
+APPDIR = /home/ms/go/godoc-app
+*** Fetching godoc (if not already in GOPATH)
+*** make /home/ms/go/godoc-app/app.yaml
+*** make /home/ms/go/godoc-app/godoc.zip
+*** make /home/ms/go/godoc-app/godoc.index
+2015/09/26 20:30:37 initialize file systems
+2015/09/26 20:31:14 writing index file /home/ms/go/godoc-app/godoc.index
+2015/09/26 20:31:15 done
+*** split /home/ms/go/godoc-app/godoc.index
+*** make /home/ms/go/godoc-app/golang.org/x/tools/cmd/godoc/appconfig.go
+*** setup complete
+----
+
+*  Program godoc akan terpasang di $GOBIN
+*  Jalankan godoc dengan parameter index berdasarkan APPDIR sebelumnya,
++
+----
+    $ godoc -http=:6060 -index -index_files="$HOME/go/godoc-app/godoc.index"
+----
+
+*  Buka peramban anda dengan URL http://127.0.0.1:6060 untuk melihat hasilnya
+
+===  Pemasangan Tutorial Go (gotour)
+
+----
+$ go get golang.org/x/tour/gotour
+----
+
+Kemudian jalankan dengan perintah gotour, maka peramban akan terbuka secara
+otomatis sama seperti dengan membuka situs golang.org.
+
+==  Referensi
+
+[1] http://golang.org/
+
+[2] https://golang.org/dl/
+
+[3] https://golang.org/doc/install/source

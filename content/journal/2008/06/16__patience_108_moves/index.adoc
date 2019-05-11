@@ -1,0 +1,7 @@
+=  Patience: 108 moves
+:stylesheet: /assets/style.css
+
+image::/assets/images/patience_108.jpg[]
+
+I am the king-of-boredom.
+Beat that! :)

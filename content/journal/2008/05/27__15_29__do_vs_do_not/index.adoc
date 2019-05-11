@@ -1,0 +1,37 @@
+=  Dos and Donts
+:stylesheet: /assets/style.css
+
+This is a list of what I have learned from my experience in the past, and I
+hope I do not make the same mistake in the future.
+
+If you an Analyst,
+
+*  Do make a good documentation before development.
+**  A good documentation can make a fast development.
+**  A good documentation can make track every change while in development.
+**  A good documentation can make a programmer know about a problem with means
+they will know which algorithm or logic is the best that they will applied to
+the problem.
+
+If you a DBA,
+
+*  Do not change a field name in table occasionally.
+**  Changes in fields name impact to programmer time, and most programmer does
+not like it.
+**  If you really need to change a field name, make a new field but do not
+delete the old one, mark them as an absolute.
+*  Trigger is fast but trigger can make you triggered in the late of the night
+   after it.
+*  Believe me with this one, Oracle suck! do not use it.
+
+If you are a Programmer,
+
+*  Do read and learn. Don't wasting others team with your stupid question,
+   what you must do is: Googling.
+*  Read,
+*  Read,
+*  and Read!
+*  Then ask your friend, if you cannot solve the problem.
+*  Algorithm is cheap, time was expensive! Make or use a fastest algorithm as
+   possible!
+*  Comment your code, please.

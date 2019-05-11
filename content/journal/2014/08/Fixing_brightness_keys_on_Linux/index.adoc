@@ -1,0 +1,57 @@
+=  Fixing brightness keys on Linux
+:stylesheet: /assets/style.css
+
+If you have graphics card like mine, Intel GMA 4500MHD, with unfunctioning
+brightness key (e.g., Fn-brightness key up/down) you can fix it by using acpid
+handler.
+
+First, install acpid package based on your GNU/Linux distribution.
+After installation, open journal log by executing
+
+----
+sudo journalctl -xf
+----
+
+Let it open and press your brightness key down or up, you will see in the log
+output something like this,
+
+----
+logger[30158]: ACPI group/action undefined: video/brightnessup / BRTUP
+logger[28965]: ACPI group/action undefined: video/brightnessdown / BRTDN
+----
+
+Now, to fix this edit file `/etc/acpi/handler.sh`, add script below,
+
+----
+    video/brightnessdown)
+    case "$2" in
+    BRTDN)
+        let x=`cat /sys/class/backlight/intel_backlight/actual_brightness`
+        let x=$x-500000
+        echo $x > /sys/class/backlight/intel_backlight/brightness
+        logger "Brigtness down $x"
+        ;;
+    *)
+        logger "ACPI action undefined: $2"
+        ;;
+    esac
+    ;;
+    video/brightnessup)
+    case "$2" in
+    BRTUP)
+        let x=`cat /sys/class/backlight/intel_backlight/actual_brightness`
+        let x=$x+500000
+        echo $x > /sys/class/backlight/intel_backlight/brightness
+        logger "Brigtness up $x"
+        ;;
+    *)
+        logger "ACPI action undefined: $2"
+        ;;
+    esac
+    ;;
+----
+
+What will it do was increasing/decreasing brightness by change its value in
+file descriptor `/sys/class/backlight/intel_backlight/brightness`.
+If you have different card try to change `intel_brightness` with other value.
+See list of `/sys/class/blacklight` directory for further examination.

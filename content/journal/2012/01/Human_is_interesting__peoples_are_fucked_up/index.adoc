@@ -1,0 +1,4 @@
+=  Human is interesting, peoples are fucked up.
+:stylesheet: /assets/style.css
+
+Happy New Year! :)

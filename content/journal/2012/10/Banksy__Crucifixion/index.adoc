@@ -1,0 +1,4 @@
+=  Banksy - Crucifixion
+:stylesheet: /assets/style.css
+
+image::/assets/images/banksy_-_crucifixion.jpg[]

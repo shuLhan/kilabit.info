@@ -1,0 +1,380 @@
+=  A Poor Man's Feed Parser and Viewer
+:stylesheet: /assets/style.css
+
+I just add a new section in this site called 'Home - Recent Activities', as
+part of WUI [1] project, which showed my recent activities on the Internet;
+a site I have been submitted (read and like) and what changes has been made to
+all of my projects.
+
+Before delving more into this journal, I should state the goal of this task:
+
+*  parsing feed content (using JavaScript),
+*  sort all feed entry by date,
+*  and display it in html page.
+
+Now, you may wonder why it's called "poor man's feed parser" because I tackled
+all the code in reverse order, instead of read the feed specification first, I
+download each of the feed and looks for the pattern.
+
+**Disclaimer:** To all experienced Web Developer out there, please excuse my
+poor solution.
+As far I as hate web development, this is the best way I can do :)
+
+==  Parsing Feed Content
+
+There is two feed that I need to parsing, github public feed [2] and reddit
+submission [3].
+
+
+===  Parsing Atom Feed Content
+
+First is github public feed.
+The feed content is look like this,
+
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:/shuLhan</id>
+  <link type="text/html" rel="alternate" href="https://github.com/shuLhan"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/shuLhan.atom"/>
+  <title>shuLhan's Activity</title>
+  <updated>2011-01-07T21:58:02-08:00</updated>
+  <entry>
+    <id>tag:github.com,2008:PushEvent/1070663767</id>
+    <published>2011-01-07T21:58:02-08:00</published>
+    <updated>2011-01-07T21:58:02-08:00</updated>
+    <link type="text/html" rel="alternate" href="https://github.com/shuLhan/kilabit.info/compare/09a6024d91...284d3800b0"/>
+    <title>shuLhan pushed to master at shuLhan/kilabit.info</title>
+    <author>
+      <name>shuLhan</name>
+          <email>ms@kilabit.info</email>
+          <uri>https://github.com/shuLhan</uri>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/80e039afe2e0ecb9bbe7e78fef270ede?s=30&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png"/>
+    <content type="html">
+	...
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:PushEvent/1069771445</id>
+    <published>2011-01-07T10:20:19-08:00</published>
+    <updated>2011-01-07T10:20:19-08:00</updated>
+    <link type="text/html" rel="alternate" href="https://github.com/shuLhan/kilabit.info/compare/9fb7c7418a...09a6024d91"/>
+    <title>shuLhan pushed to master at shuLhan/kilabit.info</title>
+    <author>
+      <name>shuLhan</name>
+          <email>ms@kilabit.info</email>
+          <uri>https://github.com/shuLhan</uri>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/80e039afe2e0ecb9bbe7e78fef270ede?s=30&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png"/>
+    <content type="html">
+	...
+    </content>
+  </entry>
+	...
+----
+
+(Some of feed content has been cut and replaced by "...")
+
+Just by quick look you can see that each feed content is enclosed by entry
+tag.
+I don't care the content of entry right now, because that will be handled in
+the third task.
+
+JavaScript function to parsing Atom feed,
+
+----
+function feed_atom_parsing()
+{
+	var entries = _xml.getElementsByTagName('entry');
+
+	for (var i = 0; i < entries.length; i++) {
+		var entry = {};
+
+		entry.type = 'atom';
+
+		for (var c = 0; c < entries[i].childNodes.length; c++) {
+			var child = entries[i].childNodes[c];
+
+			if (child.nodeType != 1) {
+				continue;
+			}
+
+			switch (child.nodeName) {
+			case 'link':
+				entry[child.nodeName] = child.getAttribute('href');
+				break;
+			case 'published':
+				entry['my_date'] = new Date(child.textContent);
+				/* no break */
+			default:
+				entry[child.nodeName] = child.textContent;
+			}
+		}
+
+		_feeds[_feeds.length] = entry;
+	}
+----
+
+Quick explanation,
+
+`_xml` is XMLHttpRequest responseXML value.
+
+`var entry = {}`, this is where we will save the feed entry, as an object.
+
+`child.nodeType != 1`, skip child content which content is "#text".
+
+`entry['my_date']`, we need feed date in Date object for sorting the feed
+later.
+
+`_feeds[_feeds.length] = entry;`, save the feed entry in an array.
+
+
+===  Parsing RSS Feed Content
+
+Second feed is reddit submission.
+To bad, reddit is not using Atom but RSS version 2.0, so we need another
+function to parsing it.
+A snippet example of RSS feed content,
+
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+  <channel>
+    <title>reddit: the voice of the internet -- news before it
+happens</title>
+    <link>http://www.reddit.com/</link>
+    <description/>
+    <image>
+      <url>http://static.reddit.com/reddit.com.header.png</url>
+      <title>reddit: the voice of the internet -- news before it
+happens</title>
+      <link>http://www.reddit.com/</link>
+    </image>
+    <item>
+      <title>Turning Info Tech into Clean Tech</title>
+      <link>http://www.reddit.com/r/technology/comments/evv4d/turning_info_tech_into_clean_tech/</link>
+      <guid
+isPermaLink="true">http://www.reddit.com/r/technology/comments/evv4d/turning_info_tech_into_clean_tech/</guid>
+      <pubDate>Mon, 03 Jan 2011 23:38:41 -0700</pubDate>
+      <description>
+	...
+	</description>
+    </item>
+    <item>
+      <title>Archive Testing: Comparison On Close-to-realistic Tasks.</title>
+      <link>http://www.reddit.com/r/linux/comments/esk1g/archive_testing_comparison_on_closetorealistic/</link>
+      <guid
+isPermaLink="true">http://www.reddit.com/r/linux/comments/esk1g/archive_testing_comparison_on_closetorealistic/</guid>
+      <pubDate>Tue, 28 Dec 2010 07:36:02 -0700</pubDate>
+      <description>
+	...
+</description>
+    </item>
+	...
+----
+
+(Some of feed content has been cut and replaced by "...")
+
+And by quick look the RSS feed content is enclosed by item tag.
+
+A function to parsing RSS (version 2.0),
+
+----
+function feed_rss20_parsing()
+{
+	var entries = _xml.getElementsByTagName('item');
+
+	for (var i = 0; i < entries.length; i++) {
+		var entry = {};
+
+		entry.type = 'rss20';
+
+		for (var c = 0; c < entries[i].childNodes.length; c++) {
+			var child = entries[i].childNodes[c];
+
+			if (child.nodeType != 1) {
+				continue;
+			}
+			if (child.nodeName == 'pubDate') {
+				entry['my_date'] = feed_rss_pubdate_to_date(child.textContent);
+			}
+
+			entry[child.nodeName] = child.textContent;
+		}
+
+		_feeds[_feeds.length] = entry;
+	}
+}
+----
+
+The code is almost like Atom feed parser, except for additional function
+feed_rss_pubdate_to_date(), because of format of RSS date is not easily
+converted to JavaScript Date object, we need a function to convert it.
+
+RSS publication date (pubDate) is like this:
+
+----
+Mon, 03 Jan 2011 23:38:41 -0700
+----
+
+and I need to parsing it and rewrite it back just like Atom published date value format,
+
+----
+YYYY-MM-DDTHH:MM:SS<GMT-format>
+----
+
+So, here is the function to convert RSS pubDate to Atom date format,
+
+----
+function feed_rss_pubdate_to_date(pubDate)
+{
+	var mm_to_m	= {
+			  Jan:'01', Feb:'02', Mar:'03', Apr:'04', May:'05'
+			, Jun:'06', Jul:'07', Aug:'08', Sep:'09', Oct:'10'
+			, Nov:'11', Dec:'12'
+			};
+	var arr_date	= pubDate.split(' ');
+	var d		= arr_date[1];
+	var mm		= arr_date[2];
+	var y		= arr_date[3];
+	var time	= arr_date[4];
+	var gmt_l	= arr_date[5].substring(0,3);
+	var gmt_r	= arr_date[5].substring(3,5);
+	var sdate	= '';
+
+	sdate = y +"-"+ mm_to_m[mm] +"-"+ d +"T"+ time
+		+ gmt_l +":"+ gmt_r;
+
+	return new Date(sdate);
+}
+----
+
+==  Sort All Feed Entry by Date
+
+After I have got all the feed contents in array (`_feeds`), I need to sort all
+the feeds by date (descending).
+This is how I do it,
+
+----
+function feed_sort(a, b)
+{
+	return b.my_date - a.my_date;
+}
+
+...
+	_feeds.sort(feed_sort);
+...
+----
+
+==  Display It in HTML Page
+
+The feed is ready and sorted and now I need create a HTML output for display
+all feed.
+
+----
+function feed_create_output()
+{
+	for (var i = 0; i < _feeds.length; i++) {
+		switch(_feeds[i].type) {
+		case 'atom':
+			_act	+= "<div class='activity'>"
+				+ "<div class='activity_header'>"
+				+ "<a href='"+ _feeds[i].link +"'>"
+				+ _feeds[i].title
+				+ "</a>"
+				+ "<span class='activity_date'>"
+				+ feed_convert_date(_feeds[i].my_date)
+				+ "</span>"
+				+ "</div>"
+				+ _feeds[i].content
+				+ "</div>";
+			break;
+		case 'rss20':
+			_act	+= "<div class='activity'>"
+				+ "<div class='activity_header'>"
+				+ "<a href='"+ _feeds[i].link +"'>"
+				+ _feeds[i].title
+				+ "</a>"
+				+ "<span class='activity_date'>"
+				+ feed_convert_date(_feeds[i].my_date)
+				+ "</span>"
+				+ "</div>"
+				+ _feeds[i].description
+				+ "</div>";
+			break;
+		}
+	}
+}
+----
+
+Later, I can insert it to any element on web page,
+
+----
+...
+	var e;
+	e = document.getElementById('my_activity');
+	e.innerHTML = _act;
+...
+----
+
+==  Deployment
+
+Since browser does not allow JavaScript request across domain, I need to pull
+all the feed from the web server and save it in www public folder so it can be
+accessed by JavaScript.
+
+By using cron jobs I can make it automatically refresh once a hour.
+
+----
+#!/bin/bash
+
+curl -k -o ~/www/my_github_feed.atom https://github.com/shuLhan.atom
+curl -o ~/www/my_reddit_feed.rss http://www.reddit.com/user/rv77ax/submitted/.rss
+----
+
+In user browser, JavaScript just need to request only from original server using the pull output file.
+
+----
+function wui_get_feed(url)
+{
+	var type;
+
+	wui_get(url);
+
+	type = _xml.firstChild;
+
+	switch (type.nodeName) {
+	case 'feed':
+		feed_atom_parsing();
+		break;
+	case 'rss':
+		var version = type.getAttribute('version');
+		switch (version) {
+		case '2.0':
+			feed_rss20_parsing();
+			break;
+		}
+		break;
+	}
+}
+
+function feed_init()
+{
+	wui_get_feed("/my_github_feed.atom");
+	wui_get_feed("/my_reddit_feed.rss");
+
+	_feeds.sort(feed_sort);
+
+	feed_create_output();
+}
+----
+
+
+==  References
+
+[1] http://kilabit.info/labs/wui/index.html.
+
+[2] https://github.com/shuLhan.atom
+
+[3] http://www.reddit.com/user/rv77ax/submitted/.rss

@@ -1,0 +1,62 @@
+=  Auto...what?
+:stylesheet: /assets/style.css
+
+==  Autoconf + Automake
+
+In my opinion Autoconf + Automake is bad, because:
+
+.  I don't like it.
+   Four years (maybe not long enough, but...) being a programmer in *nix
+   environment, I never want to touch or event to read about "What is
+   Autoconf/Automake".
+   OK, I lie.
+   I have read it several time, try to understand what it is, how to used it,
+   but it does not make sense to me, since I first know it.
+
+.  It's become hard to maintain a source code.
+   Source program become large and large, to make the program can run in other
+   system.
+   It's mean more "if", "ifndef". BAD.
+   Even if the process to make the source-that-can-compile-in-your-system is
+   handled automatically by Autoconf program it self, but programmer still
+   need to create some configuration for Autoconf + Automake by hand.
+
+.  It is not a magnet.
+   Remember that auto* itself is a program that could have a bug in it.
+   Make a newbie hard to understand the flow of program.
+   The only way to make a newbie can read the code is by "make" the source first.
+
+.  Complexity.  Still in my opinion, Autoconf + Automake make it complex
+   automatically.
+
+Why don't separated the original source code, and then create another source
+directory for patch for different system?
+
+In my stupid example:
+
+----
+original-source/
+ a.c  # 1024 Lines
+ b.c  # 512 Lines
+ main.c  # 256 Lines
+ Makefile # 128 Lines
+patch/
+ Linux-x86/ --> Link to original-source
+ sun-x86/
+  a.c  # 512 (max) Lines
+  b.c  # 256 (max) Lines
+  main.c  # 128 (max) Lines
+  Makefile # 64 (max) Lines
+  patch.sh # 5-8 Lines
+----
+
+When user want to compile this source for sun-x86 they go to "patch/sun-x86"
+directory, run the "patch.sh", go back to original-source and then run "make"
+like usual.
+
+Programmer who want to fix the program based on their system, will create
+another patch in their system patch directory without touching the
+"original-source", and make original and another system maintainer happy.
+
+A Newbie that want to fix a bug or want to contribute to the program can start
+from the "original-source".

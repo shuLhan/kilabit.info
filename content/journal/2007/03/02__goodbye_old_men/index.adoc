@@ -1,0 +1,38 @@
+=  Goodbye old men!
+:stylesheet: /assets/style.css
+
+"goodbye, and don't miss me!"
+
+Thank you to Yahoo! that has been with me, for almost 4 years in the internet.
+
+Today I am deleting my account 'mshulhan@yahoo.com' in Yahoo!
+
+image::/assets/images/yahoo_rip.jpg[]
+
+----
+    ** This is only a notification. You do NOT need to respond. **
+
+    This email is to confirm that your Yahoo! account, "mshulhan,"
+    has been recently terminated per your request. Your account
+    has been deactivated and will be deleted from our user registration
+    database in approximately 90 days. This delay is necessary to
+    discourage users from engaging in fraudulent activity. To satisfy
+    terms agreed to in the Yahoo! Finance Terms of Service, personal
+    information for users subscribed to Yahoo! Finance Premium
+    Services will be kept by Yahoo! for at least 3 years after the
+    subscription date.
+
+    If you did not request this action or believe you've received
+    this message in error, please contact
+    asia-account@yahoo-inc.com.
+
+    Thank you for using Yahoo!. You can always sign up for a new
+    account by clicking on any "Sign In" or "Sign Me Up" link
+    appearing on the front page of most Yahoo! Services.
+
+    Yahoo! Member Services
+----
+
+And guest what ... today is
+http://www.wired.com/wired/archive/13.03/yahoo.html[March 2, where Yahoo!]
+celebrating their success in the web.
