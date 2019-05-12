@@ -79,6 +79,15 @@ Oracle Client Interface module.
 https://github.com/shuLhan/libvos[Source]
 
 
+==  Notes
+
+*  link:/notes/A_guide_to_readable_and_performance_wise_code[A guide to
+   readable and performance wise code]
+
+*  link:/notes/A_guide_to_version_control[A guide to version control]
+
+*  link:/notes/A_guide_to_versioning[A guide to versioning]
+
 ==  Journal
 
 ===  2018

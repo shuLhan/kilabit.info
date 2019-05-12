@@ -1,0 +1,361 @@
+=  A guide to readable and performance wise code
+:stylesheet: /assets/style.css
+
+Most of the time code is about reading rather than writing.
+
+==  Always validate input
+
+Most common error is from program that process input from user.
+
+When writing a function or method, the top statement should be checking or
+validating input, then followed by processing the input, and finally returning
+the output from processing itself.
+
+----
+FUNCTION login(username, password) BOOLEAN
+  // Check if username and password is not empty
+
+  // Process login
+
+  // Return the result of process
+END FUNCTION
+----
+
+==  Use Constant
+
+**Rationale:** using constant will minimize typo and provide easy refactoring.
+
+Bad code example,
+
+----
+IF user == "administartor" THEN
+END IF
+----
+
+will not print any error on build because typo on string.
+But if we use constant there will be an error or at least a hint on our IDE
+that the variable is undeclared.
+
+Good code example,
+
+----
+const USER_ADMIN = "administrator"
+
+IF user == USER_ADMIN THEN // OK
+END IF
+...
+IF user == USER_ADNIN THEN // will return build error or hint (for example,
+                           // red color or underscore) on our IDE.
+END IF
+----
+
+==  Return first
+
+Return first or return immediately is a concept to structuring our code to
+minimize if-else statements which in turn minimize code indentation.
+
+Bad code example,
+
+----
+login(user, password) boolean {
+	if user is exist {
+		if password is equal {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	return false
+}
+----
+
+Good code example,
+
+----
+login(user, password) boolean {
+	if user is not exist {
+		return false
+	}
+	if password is not equal {
+		return false
+	}
+
+	return true
+}
+----
+
+===  Programming challenges
+
+* Write IF without ELSE
+* Write function body less than your screen size
+
+==  Variable Naming
+
+The name of variable should provide the context or data that their hold, it
+should be concise, not more than three words.
+
+For example, instead of client, add prefix or suffix to indicate what client
+that variable hold for (tcpClient, httpClient).
+
+
+==  Never have loop or indentation deeper than two
+
+If we need loop deeper than two, then the second or third loop or indentation
+body should be moved to function.
+
+At some point, we may have the following code in our function,
+
+----
+switch x {
+case a:
+	for ...
+		if ...
+
+case b:
+	...
+}
+...
+----
+
+If body of "case a" may take more lines and indentations, that is an
+indication that the body should be moved to their own function.
+
+
+==  The law of speed
+
+===  Memory is faster than disk
+
+There are two component where you can store data: disk or memory.
+Reading or writing data from disk is slower than memory.
+Reading or writing from disk is slower but the data will be stored
+permanently.
+Reading or writing data from memory is faster than disk but they were
+volatile.
+To get the advantages from disk and memory (permanent and faster) the
+technique is to load data from disk to memory at startup and store it again
+later when finished or when data changed.
+
+Common technique to sync data from disk to memory and vice versa,
+
+. Load data from disk at startup
+. Setup a timer, for example, for every 1 minute, dump data to disk only data
+  is changing (e.g. have a dirty flag on each record)
+. Dump data to disk when exit
+
+
+===  Use integer for index/key instead of string
+
+Comparing integer is faster than comparing string, because processor has a
+native comparison for integer.
+The naive algorithm for comparing two strings is actually works like these (*),
+
+----
+FUNCTION CMP_STRING(a STRING, b STRING) BOOLEAN
+BEGIN
+	FOR c1 := each character in a {
+		FOR c2 := each character in b {
+			IF c1 != c2 {
+				RETURN false;
+			}
+		}
+	}
+	RETURN true;
+END;
+----
+
+The worst case for above algorithm is `O(n*m)` where string is equally
+matched, and the best case is `O(2)` where the first IF condition will return
+false.
+
+(*) Some programming language may have optimization where string is compared
+by bulk instead of per octet.
+
+This is bad example of code using string as key,
+
+----
+Record {
+	key string
+	value string
+}
+
+...
+
+IF r.key == "person" THEN
+	...
+END;
+
+SWITCH r.key {
+CASE "person":
+	...
+CASE "alien":
+	...
+}
+----
+
+We can refactor the key to use constant and integer and still make the code readable,
+
+----
+ENUM RecordType {
+	PERSON: 0
+	ALIEN: 1
+}
+
+Record {
+	key RecordType
+	value string
+}
+
+
+IF r.key == RecordType.PERSON
+	...
+END;
+
+SWITCH r.key {
+case RecordType.PERSON:
+	...
+case RecordType.ALIEN:
+	...
+}
+----
+
+
+===  Use temporary variable
+
+There are two common cases where using variable make the code more readable
+and faster.
+The first case is by storing each return function call to temporary variable
+instead of chaining them;
+the second case is by storing each computation in temporary variable.
+
+Bad example of first case,
+
+----
+doX(doY(x, y))
+----
+
+In the above example, call to function `doX` based on return value of function
+`doY`.
+It may give clear statement because in the example the function name is short,
+but we recommended if we split them into two statements,
+
+----
+y = doY(x, y)
+doX(y)
+----
+
+Bad example of second case,
+
+----
+a = y + z*10
+b = doB(z*10)
+----
+
+It is common that I found sometimes the same computation is declared more than
+once on the same function.
+In this case is "z*10".
+We can rewrite the function by storing known computation into temporary
+variable,
+
+----
+tmp := z * 10
+a = y + tmp
+b = doB(tmp)
+----
+
+Note that, some compilers may or may not how to optimize the static computation
+depends on the type of `z`.
+
+
+===  Use string concatenation instead of Printf
+
+**Rationale:** printf-like statement require parsing formatted parameter,
+checking the "%x" input with type of arguments, and then converting back to
+string.
+Logically, it will use more operations than concatenation because its happened
+at compile time.
+
+This is may vary between programming language, but in most case using "+" is
+faster that "Printf" or join function.
+
+For Go, see the following benchmark.
+
+----
+## Run: go test -benchmem -bench .
+## Output
+## goos: linux
+## goarch: amd64
+## BenchmarkJoin-2         10000000               142 ns/op              32 B/op          2 allocs/op
+## BenchmarkSprintf-2       2000000               609 ns/op              96 B/op          6 allocs/op
+## BenchmarkConcat-2       20000000               106 ns/op               0 B/op          0 allocs/op
+## BenchmarkBuffer-2       10000000               176 ns/op             112 B/op          1 allocs/op
+## PASS
+## ok      _/home/ms/Unduhan/sandbox/go/stringsconcat      7.614s
+
+package stringsconcat
+
+import (
+	"bytes"
+	"fmt"
+	"strings"
+	"testing"
+)
+
+var (
+	testData = []string{"a", "b", "c", "d", "e"}
+)
+
+func BenchmarkJoin(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s := strings.Join(testData, ":")
+		_ = s
+	}
+}
+
+func BenchmarkSprintf(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s := fmt.Sprintf("%s:%s:%s:%s:%s", testData[0], testData[1], testData[2], testData[3], testData[4])
+		_ = s
+	}
+}
+
+func BenchmarkConcat(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s := testData[0] + ":" + testData[1] + ":" + testData[2] + ":" + testData[3] + ":" + testData[4]
+		_ = s
+	}
+}
+
+func BenchmarkBuffer(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		var b bytes.Buffer
+		b.WriteString(testData[0])
+		b.WriteByte(':')
+		b.WriteString(testData[1])
+		b.WriteByte(':')
+		b.WriteString(testData[2])
+		b.WriteByte(':')
+		b.WriteString(testData[3])
+		b.WriteByte(':')
+		b.WriteString(testData[4])
+		s := b.String()
+		_ = s
+	}
+}
+----
+
+
+===  Prevent using regex if possible
+
+Technically, regular expression or regex actually is a meta language.
+They need to be parsed and checked; and when doing processing of input
+require reading each octet from beginning until end.
+
+Using regex on testing is make sense to match the output with expected case,
+in case output is arbitrary and require their own parsing.
+
+
+==  Further readings
+
+*  Big-O or how to calculate an algorithm performance
+

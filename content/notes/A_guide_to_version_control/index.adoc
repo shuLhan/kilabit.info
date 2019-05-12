@@ -1,0 +1,319 @@
+=  A guide to version control
+:stylesheet: /assets/style.css
+
+This documentation provide a guide to work with version control system (VCS),
+how to write a good commit message, what to include in commit, and when to use
+branch.
+The VCS tool used in the example of this documentation is Git.
+Reader should be familiar with the concept of commit and branch in Git.
+For background knowledge of Git see
+link:/journal/2016/03/Git_Tutorial__slides[Git tutorial: slides].
+
+[#background]
+==  Background
+
+The primary purpose of VCS is to keep and track history of changes or
+revisions in document files.
+In this case, document files refer to the source code.
+A history of revision includes the person who made the change, the time when
+the change is made, and the differential between files included in revision.
+
+
+[#guide_to_write_commit]
+==  Guide to Write Commit
+
+A commit should represent a single change.
+That's it.
+The idea is,
+
+*  to allow commit to be cherry picked in arbitrary order and to be reverted
+   without breaking the source code, and
+*  to easily review the commit.
+
+The mental model when creating a commit is "If I cherry pick or delete/revert
+this commit, the source code should be able to build successfully".
+
+A change should be independent.
+A change could depends on another change, as long as their order is
+historically linear.
+For example, if `Rev2` depends on `Rev1`, `Rev1` must be committed before
+`Rev2`, and deleting or reverting `Rev2` should not break the build or source
+code.
+
+Another important part on commit is a commit message.
+A good commit message should describe the context and purpose of change, even
+if the files differential (for short we will called it _diff_) clearly show
+the revision.
+
+[#writing_good_commit_message]
+==  Writing Good Commit Message
+
+A good commit message contains three components: a summary of changes,
+description of changes, and a reference.
+
+A summary is the first line of commit message.
+Its should be short, less than 50 characters.
+The most common format for summary line is,
+
+----
+(module/component/class/file): (summary)
+----
+
+module/component/class/file is logical or physical representation of source
+code or software that affected by changes.
+This is to signal the reviewer that the changes is related to specific module,
+component, class, or file only;
+and also to prevent to changes into two or more different
+module/components/class.
+When a commit represent two or more components, the committer either should
+split the commit or make summary become general.
+
+The next component in commit message is description.
+The description should describe the behavior of changes in the source code.
+It seems repetitive, but it will help a committer or reviewer to better
+understand the changes and later when doing regression.
+The common format for commit message description,
+
+----
+The top paragraphs explain the behavior of previous program.
+Committer could give an example of bug, new specification for new feature, or
+benchmark if its available.
+
+The next paragraphs explain the new behavior of program after code changes.
+It should explain how the bug is being fixed, how the logic in new
+specification or feature, or the new benchmark result if available.
+----
+
+A good commit message should limit the paragraph length to 78.
+There is no limit on how many paragraphs in commit messages, but keep it
+concise and to the point.
+
+We must remember that reviewer may not familiar with logic of program but may
+understand the code changes.
+
+Not all commit require description, for example when updating dependencies, or
+reformatting the source code using tools;
+those commits usually does not need description.
+
+The last component of commit message is a reference.
+A reference is a pointer to task or other related commits that introduce the
+change.
+This is specific to issue tracker that is being use in the project or
+repository.
+For Phabricator we use task number as reference [1].
+
+
+==  Case Example
+
+Imagine we are writing a function for user authentication.
+The function accept two parameters: a username and a password.
+
+----
+FUNCTION Authenticate(username, password): BOOLEAN
+BEGIN
+  IF NOT exist(username) THEN
+    RETURN fail
+  END
+
+  user := GetAccount(username)
+
+  IF user.password != password THEN
+    RETURN fail
+  END
+
+  RETURN success
+END
+----
+
+Later we found a bug that function sometimes fail because username is compared
+in case insensitive and we did not check for possible spaces in beginning or
+end of it.
+Also, the specification is change, we need another parameter: role.
+To accommodate this, we change the function into,
+
+----
++ // A comment that describe the function.
++ FUNCTION Sanitize(username): STRING
++ BEGIN
++   out := TrimSpace(username)
++   out := ToLower(out)
++   RETURN out
++ END
+
+- FUNCTION Authenticate(username, password): BOOLEAN
++ FUNCTION Authenticate(username, password, role): BOOLEAN
+BEGIN
++  username := Sanitize(username)
+
+  IF NOT exist(username) THEN
+    RETURN fail
+  END
+
+  user := GetAccount(username)
+
+  IF user.password != password THEN
+    RETURN fail
+  END
+
++  IF user.role < role THEN
++    RETURN fail
++  END
+
+  RETURN success
+END
+----
+
+If we commit this into single revision, the commit break the first rule: a
+commit should represent a single change;
+because we actually have three independent changes.
+The first change is about adding function to sanitize username, the second
+change should be about fixing bug in the username, and the third change should
+be about adding third parameter to function `Authenticate`.
+
+An example of first commit and its message that reference to task `Txxx`,
+
+----
+login: add function to sanitize username
+
+The function remove space at the beginning and end of username and convert all characters to lower case.
+
+Ref Txxx
+--
++ // A comment that describe the function.
++ FUNCTION Sanitize(username): STRING
++ BEGIN
++   out := TrimSpace(username)
++   out := ToLower(out)
++   RETURN out
++ END
+----
+
+An example of second commit that fix task in TXXX,
+
+----
+login: fix validating username on Authentication
+
+Previously, we did not check for space on username and we also compare the username in case sensitive which cause the Authentication process sometimes fail.
+
+This change fix the Authentication by sanitizing username using Sanitize function.
+
+Fixes TXXX
+--
+BEGIN
++  username := Sanitize(username)
+
+  IF NOT exist(username) THEN
+----
+
+An example of third commit that implement new specification in task Tyyy,
+
+----
+login: add parameter role to Authenticate
+
+The role parameter indicate the level of user in system.  The role in parameter then compared with user's role that is registered on system, if its lower or not equal, the authentication process will fail.
+
+Ref Tyyy
+--
+- FUNCTION Authenticate(username, password): BOOLEAN
++ FUNCTION Authenticate(username, password, role): BOOLEAN
+BEGIN
+...
+  END
+
++  IF user.role < role THEN
++    RETURN fail
++  END
+
+  RETURN success
+----
+
+Since the case example is simple, the changes maybe obvious.
+In the real world, the changes may be bigger and take several dozens lines.
+If we can not separate changes, it will be hard for future review and
+regression in our software.
+
+
+[#guide_to_branching]
+==  Guide to Branching
+
+Branch is a concept in VCS (especially Git) that allow developer to create a
+copy of other branch (usually the main branch or `master`) and add another
+commits into it.
+
+Usually in single repository, a single branch is used as main branch (master
+branch in Git) where all changes from others branches will be pulled or merged
+into it.
+
+
+===  Why branching?
+
+In simple analogy, branch is a copy of another branch, where a developer can
+make changes without polluting or conflict with others works.
+
+We create branch when we want to experiment with new algorithm or logic, when
+we want to create a new feature, or when we want to fix a bug.
+
+By using branch we can switch into next works without affecting previous
+works.
+For example, we can create a new branch to work for new feature X, create one
+or two commits into it;
+and then create another branch to fix bug.
+
+Any developer that works on branch with Git should be familiar with concept
+rewriting history [2],
+especially `git commit --amend` and `git rebase --interactive`.
+This tools help requester to create clean commit in case reviewer request for
+changes.
+
+This document will not explain how to use the tools, but we will give an
+example of bad commits when creating pull request.
+
+
+**Case 1: fixing commit by adding another commit**
+
+Developer A create commit C to fix a bug.
+Reviewer that ask for changes on commit C.
+Developer A then create a new commit to fix requested.
+Now, instead of single commit for fixing single bug, we now have two commits.
+Its works but its not a good practice.
+
+In this case, developer A should not create another commit to fix the changes,
+either using `git amend` or `git rebase` to merge the changes back to previous
+commit.
+
+
+**Case 2: multiple commits with single changes**
+
+When developer working in their own branch, sometimes they get distracted,
+commit the change, and switch to another branch for quick fix for another
+task.
+At the pull request the commits usually become like these,
+
+----
+new feature
+WIP: work on new feature
+WIP: work on new feature
+----
+
+This is not a good practice.
+Once again: one commit one change.
+Use the tools to merge/rebase/squash all commits into one commit that reflect
+the change.
+
+
+===  How to resolve merge/rebase conflict?
+
+When the works in a branch is finished, usually we create a request to other
+developer to review our works (a pull request, if we may call it).
+Sometimes, our commits conflicts with other commits in main branch.
+Its the job of requester to fix it, not reviewer.
+
+The requester usually rebase their works with latest commits in main branch,
+fix the conflict, and push it again for review.
+
+
+==  References
+
+[1] https://secure.phabricator.com/T5132
+
+[2] https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History

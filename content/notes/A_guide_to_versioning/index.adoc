@@ -1,0 +1,103 @@
+=  A guide to versioning
+:stylesheet: /assets/style.css
+
+Most of open source software development use the semantic versioning [1],
+where each release is tagged with numbers in the following format:
+`major.minor.patch`.
+This article try to explain what, why, when, and how to use versioning in our
+software development cycle.
+
+
+==  What is versioning?
+
+A version indicate a milestone, a release, a time between development cycle
+since last release to the next release.
+
+----
+vX.Y.Z --> features/bugs --> UI/UX design --> development --> testing --> vX'.Y'.Z'
+----
+
+==  Why versioning?
+
+By using versioning,
+
+*  Help on regression.
+   For example, user report that a specific bug is occured after version
+   X.20.0 but not before that.
+   By knowing this, developer can do a regression on their commits after those
+   version to look for the cause.
+
+*  Incremental changes.
+   Versioning can help product owner and developers to track their progress
+   and tasks.
+   After releasing new version, product owner then prioritize the next tasks
+   (feature or bugs) for the next version.
+
+
+==  When to create new version?
+
+Version should be create every T times, where T could be number of weeks or
+months.
+For example, every 6 weeks, 1 month, every 3 months, etc.
+Product owner and developer must consistent on T, except when there is a
+security related fixes.
+
+
+==  How to versioning
+
+There are three number in version: major, minor, and patch.
+One of number will be incremented on the next release depends on the changes
+from previous release.
+
+*  **Major number.** Major number is rarely incremented, because its indicate
+   a major changes that is affect all function in a program.
+   When the major number incremented all minor and patch number must be reset
+   to zero.
+   Version 0 usually indicate software in development phase, not feature
+   complete.
+   A program will get version 1 if all features has been implemented.
+   The next value (version 2) will happened if a program has major
+   refactoring, since this changes affect all function in application, the
+   version must be incremented.
+   For example,
+
+**  when backend API has new version,
+**  when framework change from X to Y,
+**  when changing the storage layer from using X to another embedded database.
+
+*  **Minor number.**
+   Minor number is incremented when an application introduce or remove at
+   least one feature since their previous release.
+   When minor number is incremented the patch number must be reset to zero.
+
+*  **Patch number.**
+   Patch number is incremented when the next release only has bug fixes
+   (including security related fixes).
+
+==  Question and Answers
+
+===  Should version include prefix v?
+
+Yes, otherwise it would be interpreted as another information, for example a
+date, a time, or Dewey Decimal Number.
+
+===  What if we have N tasks for the next T, but at the end of T, one or more tasks is not finished yet?
+
+If the unfinished tasks is feature, it should be postponed to the next
+release.
+If its bug then it should also be postponed to the next release.
+Project owner and development should prioritize bug fixes on top of new
+features as possible and know which bugs should be higher than any other bugs
+so they can prioritize it higher for the next release.
+
+===  What if we have a feature and a bug fix for the next release?
+
+It counted as increment in minor number.
+For example, if previous version is v1.2.3 and the next release has one new
+feature and one or more bug fixes, then the next release should be `v1.3.0`,
+not `v1.3.1`.
+
+
+==  References
+
+[1] https://semver.org/
