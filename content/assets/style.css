@@ -3,8 +3,6 @@ body {
 	font-family: sans-serif;
 	margin: 0 auto;
 	width: 800px;
-	padding: 0;
-	line-height: 20px;
 }
 code {
 	font-size: 14px;
@@ -49,15 +47,11 @@ pre {
 	color: #839496;
 	display: block;
 	font-size: 13px;
-	line-height: 1.42857143;
 	margin: 0 0 10px;
 	padding: 9.5px;
 	word-break: break-all;
 	word-wrap: break-word;
 	overflow: auto;
-}
-li {
-	line-height: 18px;
 }
 
 .topbar-left {
@@ -99,4 +93,28 @@ li {
 	text-align: center;
 	color: #444;
 	margin: 20px auto;
+}
+
+@media only screen and (max-width: 992px) {
+	body {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	.topbar {
+		padding: 1.5em;
+	}
+	.topbar-left,
+	.topbar-right {
+		width: 100%;
+		display: block;
+		text-align: left;
+	}
+	.page {
+		padding: 0 1.5em;
+	}
+	.footer {
+		text-align: left;
+		padding: 0 1.5em;
+	}
 }
