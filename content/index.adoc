@@ -178,12 +178,6 @@ https://github.com/shuLhan/libvos[Source]
 *  link:/journal/2014/08/Android_reverse_tether_di_Linux[Android reverse
    tether di Linux]
 
-*  link:/journal/2014/07/Mencoba_memahami_konflik_Israel_dan_Palestina[Mencoba
-   memahami konflik Israel dan Palestina]
-
-*  link:/journal/2014/07/Kenapa_Saya_Mendukung_Dekriminalisasi_Ganja[Kenapa
-   saya mendukung dekriminalisasi ganja]
-
 *  link:/journal/2014/05/Dosa_Bersama[Dosa bersama]
 
 *  link:/journal/2014/05/Arch_Linux_di_IBM_X3650_M4[Arch Linux di IBM X3650
@@ -207,8 +201,6 @@ https://github.com/shuLhan/libvos[Source]
 *  link:/journal/2013/07/VirtualBox__Bridge_Network[VirtualBox: bridge
    network]
 
-*  link:/journal/2013/07/This_Society_and_Culture[This society and culture]
-
 *  link:/journal/2013/07/Imagination_Is_More_Important_Than_Knowledge[Imagination
    is more important than knowledge]
 
@@ -222,12 +214,7 @@ https://github.com/shuLhan/libvos[Source]
 
 *  link:/journal/2013/05/Goblok_vs__Lucu[Goblok dan lucu]
 
-*  link:/journal/2013/04/Noam_Chomsky_tentang_hutang[Noam Chomsky tentang
-   hutang]
-
 *  link:/journal/2013/04/Daging_dan_Karbon[Daging dan karbon]
-
-*  link:/journal/2013/03/Monoteisme[Monoteisme]
 
 *  link:/journal/2013/01/30__ulasan_film_a_separation[Ulasan film: A
    Separation]
@@ -241,39 +228,16 @@ https://github.com/shuLhan/libvos[Source]
 
 *  link:/journal/2012/11/Arti_Nama[Arti nama]
 
-*  link:/journal/2012/10/Tuhan_Menciptakan_Segalanya[Tuhan menciptakan
-   segalanya]
-
-*  link:/journal/2012/10/Banksy__Crucifixion[Banksy: Crucifixion]
-
-*  link:/journal/2012/09/Nasionalisme[Nasionalisme]
-
-*  link:/journal/2012/08/Kebun_Binatang_dan_Evolusi[Kebun binatang dan
-   evolusi]
-
 *  link:/journal/2012/07/Narcism[Narcism]
 
 *  link:/journal/2012/06/Blessing[Blessing]
 
-*  link:/journal/2012/04/Virusism[Virusism]
-
-*  link:/journal/2012/02/Bill_Hicks__on_Religion[Bill Hicks: on religion]
-
-*  link:/journal/2012/01/Human_is_interesting__peoples_are_fucked_up[Human is
-   interesting - peoples are fucked up]
-
-
 ===  2011
-
-*  link:/journal/2011/12/Siapakah_yang_mengajarkan_Adam_dan_Hawa_bercinta[Siapakah
-   yang mengajarkan Adam dan Hawa bercinta?]
 
 *  link:/journal/2011/11/Pengetahuan[Pengetahuan]
 
 *  link:/journal/2011/10/Ide_untuk_Film__Suku_Primitif[Ide untuk film: Suku
    primitif]
-
-*  link:/journal/2011/08/Perancang_Bodoh_itu_Bodoh[Perancang Bodoh itu Bodoh]
 
 *  link:/journal/2011/08/OLD_NEWS__All_people_on_earth_will_die[Old news: all
    people on earth will dies]
@@ -290,12 +254,10 @@ https://github.com/shuLhan/libvos[Source]
 *  link:/journal/2011/01/08_a_poor_mans_feed_parser_and_viewer[A Poor man's
    feed parser and viewer]
 
-
 ===  2010
 
 *  link:/journal/2010/07/13__life_game_connect_the_dots[Life game: connect the
    dots]
-
 
 ===  2009
 
@@ -325,7 +287,6 @@ https://github.com/shuLhan/libvos[Source]
 *  link:/journal/2009/01/01__00_01__salt_and_pepper[Salt and pepper]
 
 *  link:/journal/2009/01/01__00_00__mergesort_rulez[Mergesort rulez!]
-
 
 ===  2008
 
