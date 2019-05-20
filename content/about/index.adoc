@@ -38,17 +38,28 @@ But, machine made everything to be simple, even learning.
 Only human that does not learned who will doomed.
 
 If the market keep doing this, we will just reiterating the same thing again
-and again, wasting a resource for the sake of competition and margin.
+and again, wasting resources for the sake of competition and margin.
 On one side this is good, giving jobs to the market, making the money flow.
 But on the scale of future, where human only have an average 60 to 70 years to
 live, this is definitely wasting of time.
+
+When developing software I have a high standard, clean code and stable
+program.
+The main principles that I always keep is “Stable, Simple, Speed, and
+Secure”.
+Stable, always manage to deliver no-crash program;
+every modules and functions of program should be tested.
+Simple, software should be easy to be configured and easy to use.
+Speed, having a knowledge on the cause of slow in a program and how to make it
+faster with a better solution and algorithms.
+Secure, know how to avoid security problems the right ways.
 
 
 ==  Professional Experiences
 
 ===  Myabuy LLC
 
-Period:: October 2015 - 2019
+Period:: October 2015 - May 2019
 
 Positions::  Development and Operations (DevOps) and Software Engineer
 
@@ -68,7 +79,7 @@ application and helping the backend team.
 
 ===  Private IT Consultant
 
-Period::  2010 - 2015
+Period::  January 2010 - September 2015
 
 Positions::  System Analyst, Software Engineer, and Database Administrator
 
@@ -84,8 +95,6 @@ Kekayaan Negara (Ministry of Treasury of Republic Indonesia)
 
 Development tools::  Java, Apache Tomcat, Oracle database, Extjs, and git
 
-Operating system:: Sun Solaris
-
 ====  Sistem Informasi Kekayaan Negara Dipisahkan - Early Warning System (KND - EWS)
 
 Client::  Kementerian Keuangan Republik Indonesia, Direktorat Jenderal
@@ -93,15 +102,11 @@ Kekayaan Negara
 
 Development tools:: Java, Apache Tomcat, Oracle database, Extjs, and git
 
-Operating system::  Sun solaris
-
 ====  E-Arsip
 
 Client::  Bank Pembangunan Daerah Jawa Tengah
 
 Development tools::  Java, Apache Tomcat, PostgreSQL, Extjs, and git
-
-Operating system::  Windows
 
 Description::  Develop web application for digital archive management system.
 
@@ -111,7 +116,7 @@ Client::  Perpustakaan Fakultas Kedokteran UI
 
 Development tools::  Java, Apache Tomcat, Mysql
 
-Description::  Fix several bugs in current web application (LONTAR)
+Description::  Maintenance web application (LONTAR)
 http://perpustakaan.fk.ui.ac.id/
 
 ====  Paket Aplikasi Sekolah SMU Web (PAS-SMU Web)
@@ -119,8 +124,6 @@ http://perpustakaan.fk.ui.ac.id/
 Client::  Departemen Pendidikan Nasional
 
 Development tools::  PHP, Apache, MySQL, Extjs, and git
-
-Operating system::  Windows
 
 Description::  Develop web application for system information in SMU (senior
 high school).
@@ -131,8 +134,6 @@ Client::  PT. Perusahaan Gas Negara
 
 Development tools::  Java, Apache Tomcat, Microsoft SQL Server, Extjs, and git
 
-Operating system::  Windows
-
 Description:: Develop web application for system and management, data
 processing and reporting in K3PL Department of PGN.
 
@@ -142,8 +143,6 @@ Client::  PT. Ander Cakra Buana
 
 Development tools:: Python, lighttpd, Postgresql, Extjs, and git
 
-Operating system:: Windows
-
 Description::  Develop web application (server) and software (client) for
 tracking Panasonic Toughbook notebook through GPS.
 
@@ -152,8 +151,6 @@ tracking Panasonic Toughbook notebook through GPS.
 Client::  PT. TELKOM (ISC)
 
 Development tools::  Java, Apache Tomcat, and git
-
-Operating system::  Linux
 
 Description::  Extend and maintain current application (NEFI) to work with new
 requirements and specifications.
@@ -173,8 +170,6 @@ Client::  PT. TELKOM Bandung
 
 Development tools::  C, C++ (gcc), OCI, OCCI, Oracle database
 
-Operating system::  Sun Solaris, Linux
-
 Description::  Develop software for processing data transaction (in text file)
 and daemon for automatic processing.
 
@@ -184,15 +179,11 @@ Period::  PT. Ritra Cargo Indonesia
 
 Development tools:: Kannel, Shell script
 
-Operating system:: Linux
-
 Description::  Install and maintain SMS gateway application.
 
 ====  Database replicate for Oracle
 
 Development tools::  C++ (gcc), libvos
-
-Operating system::  Sun Solaris, Linux
 
 Description::  Research and develop software for replicating Oracle Database
 in near real-time, using zizzy code as a base implementation.
@@ -221,15 +212,11 @@ Client::  Departemen Pendidikan Nasional
 
 Development tools::  Power Builder, Microsoft SQL Server
 
-Operating system:: Windows
-
 ====  Sistem Informasi Penerimaan dan Pemantauan PBB
 
 Client:: Pemerintahan Daerah Kota Bandung
 
 Development tools::  Power Builder 9.0, Oracle 8i
-
-Operating system::  Windows
 
 
 ===  PT. Solusi247
@@ -238,23 +225,18 @@ Period::  2005 - 2006
 
 Position::  Programmer and Technical Support
 
-Projects::
-
-====  JSP application for migrating database from Microsoft SQL to Oracle
+Projects::  JSP application for migrating database from Microsoft SQL to
+Oracle.
 
 Client::  PT. Telkomsel
 
 Development tools::  Apache Tomcat, JSP, Microsoft SQL, Oracle
-
-Operating system:: Unix
 
 ====  Scripting for generating and maintaining report for a large database
 
 Client::  PT. Telkomsel
 
 Development tools::  CoSort, Shell script
-
-Operating system::  Unix
 
 
 ==  Educational Backgrounds
