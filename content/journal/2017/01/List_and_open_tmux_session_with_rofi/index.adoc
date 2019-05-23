@@ -9,7 +9,8 @@ to selected server.
 But what if we want to start or create new tmux session using predefined list
 of session name like this one:
 
-image::/assets/images/rofi-tmux-list.png[]
+image::https://lh3.googleusercontent.com/-5q0xsFActkJJWTbhb0GpXBj3HYvbvsoWKiR9mO2NwJUCMFBgvOMNQwkb2Z59_4ysy386CcReLF-v3P61OFUxOjMLUGG8KVGUGzp0Vj6-g2t-eU2HVrsvVmJp50savI5UuTouBdbMqA5WWbVmuBKpRu5nKQQ20smFCdk6rhDzX0Q4abXjVvlQhLD6HwExGsAypbkldk8Aw6nuD6IGq0SEyrTA-tTe6EBKymRon3F22aCAxbsT-kKN9qdE76J-hlvSuTiCFyklDNwr8FMnJ6MStFpudUsc2xTpw0HbK4Twgu49WrKtpFZ8TRIQw4mZlYoFdbnusHdw1TUv4Vabvf4xQs4vAh1xmXOXSnuWuXMJQmI9vzEEoFsEhkjM63PBDExUPj7dXoNxLBPymBqPqd-bZw2-e-qk10H5nKKXOGUbWvBW_iIFbBQeR3XRyYmwDF0yG44Rw8CLXPkDfQ6vGJnQMN3DA543B4RMWPD6VaH56zTAXxP_xXyKKY3tY49do12x46FC5Lu_jzBlWgFXwcgoKKdA9Ckdxmj0NjDRPkBERcKG0xdCVEYcN-8ttRNgjaL4-wH7hJJlzmRyu29bVLqARhvpu-9_fY02C_Bizo-2-uYlG4j23t3RXrgUFECcx70pDpCVzTVrCgJIFVaNvWS1xEO65xmqbj5GPc7E27Ilwqc2DQF5byLzdCgrzeLz7K56TYA-f2ZRO6j62OEc_vhejU2gg=w800-h409-no[Rofi
+sessions]
 
 Lets start by creating a zsh script as module that can be executed by rofi.
 

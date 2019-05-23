@@ -3,7 +3,8 @@
 
 "it's almost perfect! very nice OS"
 
-image::/assets/images/opensuse_102_wow.jpg[]
+image::https://lh3.googleusercontent.com/hnzxKD-cVbZjIwkeOJaz_DMBWq5pg78N34MbmstKKJX1ckG08yuywbVbnPmwLifQ5c_L6IBfNv4_RwCfUdMsmYRzrHbBhaQbb8lNBJj5NSASX3HjaNnrLsRKo6wv7MAEMm0suIwGsqMkEJW05T_vp1Alig5IJEi6Yc3HZHbV1R120TCAHfwhigtGCVOMCdjFGOm0qYwXsD5Sa_jX7SRB3BF772ta84i7C4OE2X3Y4JmwmqbBC4I4SSLfRzilL5EvtHPVl9vxEKRheM-K3W0LZSEkulQXWxy4lsZQ-RQa5oLcYmNmSSgL4xtPMpJQvbdmM-8Sw-YBa5XnfzC9OjFtxqMiB2T-76P3pqwkmJN99OH1TwhS1MQrfN01GgD3IjxvtKcy6cKFLNbNBKWej64_AWOLQfYZvPD2xtVPLJvC-N7B-NL90eL-6rzOLmv8SO3yorDWfziAne3yHUUOqm0ExJ2RV7ZJ4P6jR1ead7nSC-Izyt3IHmNaFK-0QAHWTAGn9lojs5kTHVTdySnZvoS3kjf3ihPH7g-d-pq6iS1_QlIMxhYBiysPT-6QHRTm7GmB1pPh6YEe9IiWRZcg873W85YlCYPLM6PTTGFgJweF5EpPpbBTlrbW5WzFDSAi4tnUmHx8fu19J6V-m6cUXTuJjHNr0rWd0lNc01mjV76RVP_Mg0KYmhQC29uuEQvt3NvS7rreBrYU2MIqPvVGOzkNhtjN1g=w400-h300-no[OpenSuSE
+10.2]
 
 Wah, akhirnya setelah dikecewakan oleh debian, saya mendownload distro yang
 telah saya pakai selama 3 ... 4 ... hampir 5 tahun, yang sekarang telah

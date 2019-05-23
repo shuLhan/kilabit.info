@@ -42,7 +42,8 @@ Some notes:
 +-------+------------------+----------+---------+----------+----------+----------+
 ----
 
-image::/assets/images/mergesort_random.png[]
+image::https://lh3.googleusercontent.com/GXE4AFcE8FGkwvuJaA1oLVyXD9yW3pruR5r68rVztL-rov2Gr1xI8scNOPcyqn9hJAIGGw1PJIHuWxNNZ-m6YE9uDIlRPqt08UOT6pRz9knJ2ORF_FzaaWERFlUWR6IiJcxqj_4dSVlBjktNRJAlZhBDBrtGBlgF3WVxUydmCbz-RocDuE5iD41kXu8Sq4mQPHtQ9ppdDSN2Wa8kL12r-jphQg2TGoZf3CmfuFJi21B_mP_klzshSvYWJQdfS5LibVmPGVRQPq5IzhT-R-gv-bqzqa-_MoNnnsKQtp7S8-XLPbl3PHydZAKzP-59gcsiZyle4_jcBihASsvtniCMbyWPPM0Y5hrNQbwdxDy-vHVvs1w_7CIIk9-z8_AYlAjT6hpGSA8Rk-n0GHHRdLD-5OCvp4xygCnrZE6x3Y8pHw3s1vYa1X-msOXl_vaepWsPZn77YyNGDYjBiWleN4ZmApbnO4PoIv4_LWmEZTsj1mW9nPEUVC_HxI_u2TcFwlNjrT8Y02fa4qz59jkKq7QiRPLnFgyPJnqqz8okbdqpU_s2BU3zoytU4ExmDMH2tI-6ulMxFAkh-hHZ5dpUEsnf3ZQUZYGNDLEHECLE4Fx71DusGHWC6zL14loYtiqwVNZErvg5xgdDVXCS4SKEpPq3p7-ZxuAFIi0Qs9JlT6Ehq-jikSCW6Ef66oKonOIYImXNhqGcf8qe01oHp1vmeg6_dpWtAQ=w481-h421-no[Comparison
+of sorting algorithm with random data]
 
 ===  Test 2 Sorting Ascending Data (data that already sorted)
 
@@ -59,7 +60,8 @@ image::/assets/images/mergesort_random.png[]
 +-------+------------------+----------+---------+----------+----------+----------+
 ----
 
-image::/assets/images/mergesort_ascending.png[]
+image::https://lh3.googleusercontent.com/7anejh0FYkhHBysbAxXBOXNQ6ZILeVsiTl6psODNdxlg0Tegp4DvdJ9JAtTtqVz0FBZCFOhjL9k29BZGKaTBy16rxVvURgjwhamMasOCswAK7TwIo2MEpBXb_DMOFJLJqT9hhmHAqYJtIkEa_Y4cwqeUaX_3gNTf5Sl5GqG54LtH5da1lGtvdzXrQY_-Pxp7kiwpAJ_9HFKOYSZK6CkHGISYAZXg_XjKVGLDiUMXsvU2FsgGoTBLsqIUBszEBRQv2nPbEmp0cwm6VhzV0OFgWwxDhSqnD5Lf0jthgjpQy0uiPx4sJktQrNxYSOP8ffvCMh4Mnqe7DeLdpHTvJb-y_SO3HXRJfi5ULmBEYzPE7nq_K_vJsaq5n0KGyJIKPPO8tTTuZk7ahT-6fWpAsD_OG_snIej-1qPz7YuP8vzKiXE-rXsst-xcrEzg64SN7TSQqI2T206ZYFg40WJnIEeV5I17bgTh0AQ8tKhnEsUEDp_57XMaIjNyAwSxjCjSJflsrwMzh1bIRZqQaHheqpbqgPJxNj9Rd_tXcYRm_MMn2SSKg5jWeMW0VJ6rxCk3G7REolrJcPBPqlJwWPxvFJTSIA1kK71nTZ7ODGVrcdGqb88shIaAi53eUMGFYgKsk9SPoIieCI-Sy3EuNEUEYiruwCJgwA414vliRWFgCo52QzFDaQEDhTtCUP2wWXSNfMz1kjTiv6nZxhbAMyVM0QYqfPPJvQ=w481-h421-no[Sort
+comparison ascending order]
 
 
 ===  Test 3: Sorting Descending Data
@@ -79,5 +81,5 @@ This benchmark sort data that already sorted in reverse order.
 +-------+------------------+----------+---------+----------+----------+----------+
 ----
 
-image::/assets/images/mergesort_descending.png[]
-
+image::https://lh3.googleusercontent.com/WVaF5aVp7XspncF7E9KZ7aeS9NCfCjsK0fOmjxdzo1-B6oMsuHs5ZldeAOnjjLsR5_GEB8eZF26d55psZRihkZ2w0fBtMs0uzCBNACTyCkHRLa1852VqREtGwEplN6yc5AMJOOfyTaaKeNaI1djAmOegZCQjersUxmZ2_VN2Nn5JwMn88_GSbIYtzciUTEQTkgmgxKGQxh_qkHOWR7MyoSI144HjbjvnMySpfAGB2UK3RMAJt1bpFrPU5zYDkWilZmvMMcSzzGvGrsiW9MYjeD1BIWeW7zyUEjYwFQ51150fXXClAc5fKHHQnYT-i9op6f_UYNejVQWI94W7vWVkEtFJmL1741KZ7rDDU4jCqbsum1DKNleLfXDHDqeyiV23LxuXbFhLkzQUFcXCsl850sJzpkMp0fplsxuIpBUHryss-LycM0iUWcTXw98GHCtM2Z5naVqXMtdnjwOeKKuw4NFJZjxbhL8SrMrdrNL74EzqX8Eg9n31cqxGWYztU2lQQG6e2cCNR0xtnwHCHOXeFqcAyF5Lmsv-7W9plKPDYDXkoKEKK01Pe_Md8hz2GdmSw8S9jPemONZRvKHCUqs72jIGNoP9m_A5wK-yZflnW5Ttzt6gannyxAooWG8PC7ndPwiK9ODqu-qWpXpg7pWnRMQMYVtP-yHzbmSmiz-fvcdDS0bSRYm-qX8tAQnK7oA4CUiNlXIIDd7IvWaCfKjrxT5TzA=w481-h421-no[Comparison
+of sorting algorithm with descended data]
