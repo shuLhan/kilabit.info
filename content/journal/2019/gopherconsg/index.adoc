@@ -1,0 +1,88 @@
+= Gophercon Singapore 2019
+:stylesheet: /assets/style.css
+
+I made it!
+
+For GopherCon Singapore 2019 I try to submit two papers.
+The first paper is about "Re-learning Slice",
+
++++
+<iframe
+	src="https://docs.google.com/presentation/d/e/2PACX-1vTwKUo9uqyMLkJdz5-U9DP6e8Sbx7YFHMSXESwGTN6e5T4qGDcm_nA3qGqhZkUx0x-rEYIE05ZDwpkl/embed?start=false&loop=false&delayms=3000"
+	frameborder="0" width="480" height="299" allowfullscreen="true"
+	mozallowfullscreen="true" webkitallowfullscreen="true"
+></iframe>
++++
+
+and the second paper is about
+https://github.com/shuLhan/haminer[haminer: mining HAProxy logs].
+
++++
+<iframe
+	src="https://docs.google.com/presentation/d/e/2PACX-1vRusQhz9fx2-Innw4fENdWNLMqSc9HZnLe36QvRmBIdV1hdf0zsgdPu5IMWFPVOsN4BS7vvrFZzOzaf/embed?start=false&loop=false&delayms=3000"
+	frameborder="0" width="480" height="299" allowfullscreen="true"
+	mozallowfullscreen="true" webkitallowfullscreen="true"
+></iframe>
++++
+
+Both are not accepted.
+Sad.
+But its OK!
+
+My first day of GopherCon is going to workshop at Google Singapore.
+
+.Google Singapore
+image::https://lh3.googleusercontent.com/JIZNZlFOzJSnCnSEycbNg5g8RJXs34k5b8fVXVnr1bm3Km5jJHah7zufS6ATzKXtzRk1MBS5xXs0nL3KDot3T8qAO1Qnc8WPQxzzUGdDH6GHQXMRxPEuJFM3LkY-y7MMfO9woZRHihKFusdgqWc3gbxHrg_c3bOqpo1f_GAMti3mV4CooFKmsiGWqKjRuv-rx3NIKl1IHBTyTEYirFRyqtviyLln2AHZsrUYCkoy_gHymt7GFLMhI9DFhx7RHQFRgbKVeFjbcmBRJEauNGX1g_sUv4Gw5YifMTCZyVuA31a-7fJjtt0qn7gR_qTjS2XKkamiwUeprQ-PpNT49UXx4ZOrukPoFqxAGCHpA3TtRkDeLoIeHQKE2971D127OzC_OczGhF_epdPLMG5u5qgUJi5GSbX1mA4WP_GrKaxV7qVnJsiFvNCVNagkd1qnys0WMHxVTfnDhCx6uccQdojifLlc4gY81L4ZNo8o843s0MCdrRkkHucACSGvxCLtIWQBvksYd45INbjV6dKI7bwARqymBxTOBWwtMhz7FCkML1gteIyzIoeBXL6_TE89rwtSYTXMYGgZN6e1SJLROjHkIqiE8Cct810a75vzuUBHckYPuZ7fkT8oO9xh4C4Ah9IO06Xr3j3Osa7LZ3CQQ_2azoDWIID-SKPsdGYadsbjIMuD81YM0mlolS-76PsFc-ycttc8CM-L5_V-0MBMZl7zOp4brA=w1592-h413-no[Google
+Singapore,800,align="center"]
+
+Actually, this is second day of three days workshop.
+I can afford only for single day, so I chose the Dave's session.
+The instructure is Mr. Dave "Druid" Cheney ;)
+He gave a talk about
+https://dave.cheney.net/practical-go/presentations/qcon-china.html[Practical
+Go: Real world advice for writing maintainable Go programs], which is
+available on his website, for free.
+A truly druid.
+
+.Me with Dave `Druid` Cheney
+image::https://lh3.googleusercontent.com/UTTvytlezUCXjhEX6YjVC2t_BbpepKyot4G24P6uWfnK_7v4xDWIihq1CSRByhCA5aV1NMHSYkA19myThov0J5n0dmn2g924YI26uwhZ3hOUku1pSKZm-M9l_uprAlzvlcuvHjCtg7uF6A-KMNhyXsISTctmjApETdFYvfO2QtvEqyF9sFCNrVu1cwQYD6Yrq4GkoxvTWLyNuxukq8CFGdb1oM10_17VAkU5AJX3QiE3uTwgcmqE1yBUgmvpQKS5BY962rzEcAlCb4AOr1ZmOeV20OgHlgXclkqG_oidftMHMEwe9L2upJghHO81XTihKFClr33cxeltWegBfsdZY9H0oFXADAGpLSoYe1ty8w5j8_zC_BuUgfnNyxsSlZxeMDS0tWANA4X0Jv5sGgzjV3-hi3MmoILzEe0o9h9bC9hz5deA1s5FUYOUd8mC5erwV2wfsx8NW-qM7gLWF4KXSLLcRCw0oH-jG4UBjrvMTb6gUGYyEb79WRmtWPmh060Zx0xLXchMC05hymydF7gFC-zqwEa22PPJvf-jHlfWbIhGokYaMtjeeavQpWNJWmhps0hz3IZXO6zdo38r8EkG5qIStO7lMGd-dI9vjEwBNBWs_DrLqbTHKz-C1RfgWFZsozObdk7ktlGVEieNmRpoBhNKAhxgPEH-=w589-h785-no[Me
+with Dave "Druid" Cheney,400,align="center"]
+
+The final day, the conference, is at Marina Bay Sands Expo and Convention
+Centre.
+There are probably more than 500 gophers attending there,
+not only from South East Asia, also from Japan, Austria, and Russia.
+
+.GopherCon Singapore 2019
+image::https://lh3.googleusercontent.com/gmgfcGImihZxmVJbPOXXaw-WmrovW5mJOrjDtb86I0i58IONNhZK18rVWHWoLK0UsJLL2KSqCsTdaXPkFTnI1vRr4nT7MtF4bsh9gJzeKyu2wvyp1pfIxvpdb6hwm_qCdLkzXesvykhjfZrwYDkWtpxr1_HA3eCOtHRiiDUFa9nd28Z_rlrfKOI2TQUUO7xdLCTSNq3aEjctKCDL_W2weMEZlrpoJWUg-g0ZuufuS9NhMSuPclw6WL-KACXSwiJoMMr0GBH-nV3qCzD8As3Mg7WTDcR5tho1JHzHRiiPOHizYlljZehj8j1TqeQV4-csSSuvW4XFfEDgdbROnBQdtBdEV8wr5vhzUEb-7nBueQNwbybI5UiJDokY8cBz9llL2kCSZHz6_oY3xYWnOdkUM02psk1_aT-2_kUby-ojH-ARXAXJRJjBgKzYlY9AVAti46C_O-EwxqsrOhUFdiSfvCwIghM63dd-pQeNsPGFrKDKedTXJyQc3PAW5C0d-RsR3Dd3kTlqNkOH_vVBOGhqu4TUX9WdgUJwObh37XMr20Wg_ihqBue7jQnFnk5jML9S1QZEUdlZ67AEeEPsUedv-487PZ925QYoLFcwaENqhMA-nWrg16FfV0aPNWHZGjcDqO6OtEou7vUDp1D32E8yE6RbytJnVWDe=w1592-h313-no[GopherCon
+Singapore 2019,800]
+
+I met so many awesome people there, enthusiastic gophers, and even
+people from @ardanlabs and Go team.
+
+Some of the talks I like are from Jacob Walker,
+https://www.youtube.com/watch?v=ZMZpH4yT7M0&list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu&index=4["Understanding
+Allocations: the Stack and the Heap"];
+
+.Hi Jacob!
+image::https://lh3.googleusercontent.com/n09yZDv3GfkVmaFA6Pzv8MYkGA3cBZIY4vsta7HXfOns3n1gZBBluEqE1xBNZEBJvYffwgrYyc3VsnPFFapa3BQoR_k3SXDO9R87ABaWKB1RLEp3OXSwNRE6VrlUImHH0oYMVWqUbjvYBrv2kIcA7-nkNaDmpanloLlTfk7Fa5jz2H8KlGOXuIbax6AxsIKApEHitoGVWu-ch8pRLQHBZL5n2sucecP6bw89XXOA5nktogDmHLU3jlxrgPaM9aMc-IpeqJni6TQ6SIoYDZ6rB8Mv6PHhp9WfM0oLbet_VRZx67ZOpZB8iDg2nJ_UBePLZGpSgqKZjzGiQHfpEIRAv1ZsvBIIWH6fXn-F5PFS-fRFW1cxySCoSpp7RosnRiVedfcW9gmoKmpR2svBV_Kjtqx3etCY0XGno5JO9RU5nAQgxUHGLjziZAsY6UB-j6rvoZa8ZnZPaq0xVrrbxIXRUuphnJ41b2uTAkZSVJNCmgQcvnhxCT2EqwkHbrA4xRAYkgVfjeTXy2J0pecGP4EUG_INMSLpnOR24uLr4pIYgvMZ5PeC3WQ6M1DiXS3Kw9I2GLj56LfqilG7E0sqv94IpiwQ3BNZ0Akv-11JZDf0d7esmhmwfPDbesCPGxEu1t5msGon06_MNSeoT7PtAkZrLLC2Te3g-Zus=w1047-h785-no[Me
+and Jacob Walker from @ardanlabs,400]
+
+Michael Matloob,
+https://www.youtube.com/watch?v=HDJE-_s3x8Q&list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu&index=6["Using
+and Writing Go Analyses"];
+and from Rebecca Stambler,
+https://www.youtube.com/watch?v=gZ7N3HulAb0&list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu&index=9["Go
+pls stop breaking my editor"] (the one who responsible for
+https://github.com/golang/go/wiki[gopls]).
+
+.Hi @matloob and @stamblerre!
+image::https://lh3.googleusercontent.com/pltlDjefuV44anE3SporusMEPV8D4yEQIwVgAlLbrerEg4rUcB7bpe9y07a-Qv7DadWtXHjwZu16fzcmyEfl41XfPpxHuywaSDWJRii_wLGPCBgTmR6HtlvzP2fqGsC3_giD8C-gy3RDijcnzwzwa2MXKdpThIE1QZdudD8mHKYP3SYCg4K6PHTdIj8WN9WzXr3784pO5lngXs87cJN7B4pZJ7lwcpIexnl6FwHypGfmy2CeMfq86gHHv8Nq-Q7AbwoyYhoQVQkNjNxnFuR1xbhXK61RqrRvZuuBcaKKTjugOu-DomegIF5MpMsHF2LqXZYQxXTJiVt3dtaMn0j6Te5f7NLLjtp6-oio8Hrew1wpKGy9aGzdNVZOk9o15gYXqNAkyclDE-7QT_O-tCeActvqKDv16G9fXym-we8AG2mP6RjeYPdEgsaYBfh8KtlqzVMab_sgixrZzatiz3255m8UBDOrFDe9kMaszO96QlyJ4sej4HuMgPRMBRCVG11Nlds-7oGkV_Db0VJkdckOKkhaTudXQUjaN61gsEJpDccy8y5BQko0TjKbtnlvF6vRVcoQnMUdAloqE2U0rUlcZH0BpBNHuO0_sZMIOlVWCFAGq5ruXMPatWe5b4V7cI35Oyjr3aZvUB7S9lCbLiBneMtlhyMQDdlm=w1047-h785-no[Me
+with @matloob and @stamblerre,400]
+
+All of the talks are available
+https://www.youtube.com/watch?v=ftE39xyaJyQ&list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu[online].
+
+image::https://lh3.googleusercontent.com/phe9pmjTYoAQfhVNcN2VmM2DcOGIrHSkKAfLT_3TkLas4WSkqQmbCW_KvfRr0ZxvMiad4W_lu0rb_nU9NugoGXZZBjf5tazV1Lc8IksxUKV1uj0NUY8VZ7stX-Qy0V-gAMufVqeEVCMj6f9zVkngzqwavqs-Vrs3emuBxVEYBuAZZ8h41dmTOcbNQe0CRG3AaQR2BkokiDjw6DstCC1Q-0FRc2VIP5-oKAUvRF-XEd_suz0PlAF-l7_YhoGlmx2wQPWFTsOTKz2jynrn6lCUHV3kgLoOqMRnK86fDiBiNlxpjz5RvWJbaG1rDj4vMxI9gcOcL_h8_kbwKCsyAt6Gfj5Z8PtzjWekpEuT1NyJZbqlKyVwvXWkpwsPGX2MfMBKToItTj7bh1p1oxgCdz_WZ6s3gU7V6Qrx6TvoogyNY578eLuQjSRDiOzahvmqyz-Np4yzRy75VqIGEqrPFVU0jSa0HYZo2qCDD84OQzNky34LTXEY5K5-PPCf7K_HIrLpsxx2TiEKzrZO42eZSga2pX-HOAgg2X34Zrf7HNU94_PEIpkGRdl5YvYXP0iUOM_S91HxxmI32npc-Z3zY4Dc7f423ueEurv9V7py-A1HPZzdhW0JhsQI_PQuoP2yrPiW2XCW3UbDhfA0MhfVHU3YLFvC3v8spM7H=w1592-h534-no[Singapore,800]
+
+See you next time GopherCon!
