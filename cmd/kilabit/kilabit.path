@@ -1,0 +1,9 @@
+[Unit]
+Description="Watch kilabit"
+
+[Path]
+PathChanged=/home/ms/go/bin/kilabit
+Unit=systemctl-restart@%p.service
+
+[Install]
+WantedBy=multi-user.target

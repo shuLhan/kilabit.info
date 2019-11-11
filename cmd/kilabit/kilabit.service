@@ -1,0 +1,9 @@
+[Unit]
+Description=kilabit
+
+[Service]
+Type=simple
+ExecStart=/home/ms/go/bin/kilabit
+
+[Install]
+WantedBy=default.target

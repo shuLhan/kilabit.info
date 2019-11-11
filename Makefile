@@ -8,3 +8,6 @@ build:
 
 deploy: build
 	rsync ./kilabit gcp-webserver:~/bin/kilabit
+
+deploy-local: build
+	rsync ./kilabit $(GOBIN)/
