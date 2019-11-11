@@ -8,6 +8,6 @@ import (
 
 func main() {
 	log.SetFlags(0)
-	srv := ciigo.NewServer(":7000")
+	srv := ciigo.NewServer("", ":7000", "templates/html.tmpl")
 	srv.Start()
 }
