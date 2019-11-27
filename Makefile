@@ -11,3 +11,6 @@ deploy: build
 
 deploy-local: build
 	rsync ./kilabit $(GOBIN)/
+
+serve:
+	DEBUG=1 go run ./cmd/kilabit
