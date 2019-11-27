@@ -1,0 +1,250 @@
+=  Understanding WebSocket
+:author: M. Shulhan
+:date: 11 November 2019
+:toc:
+
+==  Introduction
+
+The WebSocket protocol, as defined in
+https://tools.ietf.org/html/rfc6455[RFC 6455], is TCP based protocol to allow
+client, commonly web browser, to open connection to server as long as they
+want.
+This article is an attempt to simplify the RFC 6455 in the hope that it will
+help new programmer to understand what is WebSocket, when to use it, and which
+technology (stack, library, or framework) they should use it.
+
+In order to do it, we will break it down into two articles.
+The first article will explain the protocol itself (this one), the
+link:/websocket/example[next article]
+will give some examples of code using the Go programming language and
+https://godoc.org/github.com/shuLhan/share/lib/websocket[lib/websocket]
+to see how the WebSocket server and client communicate.
+
+
+==  Background
+
+There are two issues that WebSocket can help (web) application.
+First, the issue with long, active connection or repetitive request from
+client of web application.
+Second, to provide generic "wrapper" or format to transfer data between client
+and server, which in turn the WebSocket protocol itself.
+
+To understand this issues, lets assume that we want to create a simple
+messaging application inside a web browser.
+In this messaging platform we have three users: X, Y, and Z;
+and one server S.
+
+
+===  Persistent connection
+
+The first issue is that if X send a message to Y, Y should receive the
+message immediately.
+
+----
+X -> Y: "Hi y"
+----
+
+HTTP in its general form is fire-and-forget, open and close communication.
+If Y want to know if there is a message in the server for them, they need to
+do continuous request with an interval, lets say every 5 seconds.
+
+----
+Y -> S: do you have message for me?
+S -> Y: No
+(OK, I will sleep for 5 seconds)
+Y -> S: do you have message for me?
+S -> Y: Yes, here is new message for you
+(OK, I will sleep for 5 seconds)
+Y -> S: do you have message for me?
+...
+----
+
+This is time and resource consuming.
+Each request for asking whether Y have new message require opening new
+connection, sending HTTP GET, and closing the connection.
+
+----
+Y -> S: (open new connection)
+Y -> S: GET /messages
+S -> Y: 204 No Content
+Y -> S: (close the connection)
+(Sleep for 5 seconds)
+Y -> S: (open new connection)
+Y -> S: GET /messages
+S -> Y: 200 OK "Hi y"
+Y -> S: (close the connection)
+(OK, I will sleep for 5 seconds)
+Y -> S: (open new connection)
+Y -> S: GET /messages
+...
+----
+
+How can we minimize the GET request?
+One of the solution is to use
+https://en.wikipedia.org/wiki/HTTP_persistent_connection[HTTP keep-alive],
+where the client connection keep opened by server until one of them close it.
+
+----
+Y -> S: (open new connection)
+Y -> S: GET /messages
+S -> Y: 204 No Content
+(Sleep for 5 seconds)
+Y -> S: GET /messages
+S -> Y: 200 OK "Hi y"
+(OK, I will sleep for 5 seconds)
+Y -> S: GET /messages
+...
+----
+
+The more users that we have in the platform, the more GET will be requested
+and need to be responded.
+
+This is where WebSocket can help to minimize this issue.
+Instead of continuous request, the client identify itself when creating new
+connection to the server, and when new message receive to that user, the
+server than send the message directly.
+
+----
+Y -> S: (open new websocket connection)
+S: map the connection as from user Y
+S -> Y: "Hi y"
+----
+
+===  Message format
+
+The second issue is regarding the size of message.
+
+Lets say that X send a large file (blob) to Y or unknown size of stream.
+If we want to send large blob, we should chop it into smaller pieces, in case
+the server does not fully receive all the file, client should not need to
+re-send it again from beginning, only send the pieces that is missing in
+server.
+
+Assume that web browser can open raw TCP socket to server, what would
+happen?
+Client and server would need write their own protocol, defining the structure
+and rules on how to send the first piece and the last piece of message.
+
+In WebSocket, each data, whether its part of file or part of message, is
+"wrapped" inside the format called frame.
+Each frame can be sent as binary or text.
+The binary or text frame can be split into multiple frames, which is called
+fragmentation, where client or server can sent/receive them one-by-one in
+order through WebSocket connection.
+
+
+==  The Handshake Protocol
+
+Just like HTTP, WebSocket also have their own scheme:
+"ws://" for unsecure connection and "wss://" for secure connection.
+After the connection has been established, client then send the HTTP GET
+request to server to communicate which version and sub-protocol that both can
+agree on.
+There are five required HTTP headers that must be send along GET request:
+"Host", "Upgrade", "Connection", "Sec-WebSocket-Key", and
+"Sec-WebSocket-Version".
+Two others optional HTTP headers are "Sec-WebSocket-Protocol", and
+"Sec-WebSocket-Extensions".
+Client is allowed to send other headers, for example "Authorization" for
+authenticating the client connection.
+
+A minimum HTTP GET request would be like these,
+
+----
+GET / HTTP/1.1
+Host: <Hostname>
+Upgrade: websocket
+Connection: Upgrade
+Sec-Websocket-Key: <WebSocketKey>
+Sec-Websocket-Version: 13
+----
+
+The Hostname value should be the host name of server.
+The WebSocketKey value is 16 random bytes value encoded in base64.
+
+An open WebSocket server that capable of handling WebSocket protocol version
+13 will respond to the request with HTTP status 101 and a computed accept
+key.
+Here is the minimum response from server looks like,
+
+----
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-Websocket-Accept: <AcceptKey>
+----
+
+The AcceptKey is a concatenation of WebSocketKey and predefined GUID
+"258EAFA5-E914-47DA-95CA-C5AB0DC85B11", which then hashed using SHA-1 and then
+encoded as base64.
+
+
+==  The Message Protocol
+
+All of data sent between client and server must be wrapped inside a format
+called frame.
+There are three types of frame: text, binary, and control frame.
+There is not much different between text and binary frame.
+In general, if we want to send data that is readable, for example a chat
+message, we could use the text frame, and if we want to transfer audio or
+video or any binary stream, we should use binary frame.
+
+Control frame is out-of-band data to communicate the state of connection.
+There are three type of control frame: ping, pong, and close.
+The close frame is used to notify the other side of communication that the
+connection will be closed.
+The ping frame is used by one of the side to keep and check whether the
+connection is still alive or not.
+The pong frame is used as a reply of ping frame.
+
+
+===   Masking
+
+Masking is a process to mask the data send from client to server using four
+random bytes.
+The data sent from server to client must not be masked.
+After mask key has been selected randomly, then its applied to data to be send
+using XOR.
+A simple pseudocode to illustrate the process of masking,
+
+----
+x := 0
+for y := uint64(0); y < payloadSize; y++ {
+	out[x] = payload[y] ^ maskKey[y%4]
+	x++
+}
+----
+
+
+===  Fragmentation
+
+Fragmentation is a process to split large data into multiple frames.
+Each frame will be send to other side in order with the last frame contains
+the flag that indicated the finish bit set to 1.
+
+Inside the frame there are two flags: the opcode flags and the FIN flag.
+The opcode flag is used to set whether the frame is text, binary, control, or
+continuation.
+The FIN flag is used to indicate whether the frame is last frame or not.
+
+In fragmented message, the first frame usually set the opcode either to binary
+or text with FIN is 0.
+The next frames (except the last one) will have the opcode flag set to
+continuation (0) and the FIN flag also 0.
+The last frame will have the opcode flag set to 0 and the FIN flag set to 1.
+
+For example, fragmentation of packet "ABC" into three frames: "A", "B", and
+"C" would look like this,
+
+----
++----------------------+  +----------------------+  +-------------------+
+| OP:TEXT,FIN:0,DATA:A |  | OP:CONT,FIN:0,DATA:B |  | OP:0,FIN:1,DATA:C |
++----------------------+  +----------------------+  +-------------------+
+----
+
+==  Conclusion
+
+The WebSocket protocol allow long-lived connection between client and server
+either inside a web application or system application.
+This behaviour combined with the message format allow the application to focus
+on writing more responsive and near real-time communication.

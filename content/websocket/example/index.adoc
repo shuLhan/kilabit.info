@@ -1,0 +1,449 @@
+=  Example of WebSocket: Group Chat
+:author: M. Shulhan
+:date: 27 November 2019
+:toc:
+
+==  Introduction
+
+In the
+link:/websocket/understanding/[previous article]
+we have explain how the WebSocket protocol works, in simplified words.
+In this article we will create a simple group chat using WebSocket (server
+and client) with Go programming language and
+https://godoc.org/github.com/shuLhan/share/lib/websocket[lib/websocket],
+so we can get the inner working mechanism in real world usage.
+
++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4iC4BQlcTsI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
++++
+
+==  Background
+
+Like most of the server, its primary tasks are to accept new connection, read
+request from client, and sent the response back to client, read request
+and reply it again, and so on; until the client or server decide to close the
+connection.
+One way to do this is by letting the connection running inside one loop inside
+a thread or in our case, using Go, inside a goroutine.
+
+Imagine the following line is a single goroutine,
+
+----
+   [1] read ---- process request --- reply
+----
+
+Now, imagine we have N lines that do the same things,
+
+----
+   [1] read ---- process request --- reply
+   [2] read ---- process request --- reply
+   ...
+   [N] read ---- process request --- reply
+----
+
+In system level, switching between 1 to N require what we call
+context-switching, "[1] do we have request? No", "[2] do we have request? No",
+"[3] do we have request? Yes, process request", "[4] continuing process
+request", "[5] continuing reply" and so on, until the N goroutine and then we
+repeat it again overtime.
+The context-switching does not need to be in order, it could be random.
+
+To minimize this context-switching between goroutine, especially on checking
+if we have request on connections, we can use the low-level technique called
+I/O event notification.
+In Linux system, the API to do this is called epoll(5), in Darwin or BSD like
+system is called kqueue(5).
+Our read tasks is now combined into one level, notified by kernel:
+
+----
+   epoll of [1...N]
+
+   [2,5,100] +-- [2] process request --- reply
+             |
+             +-- [5] process request --- reply
+	     |
+	     +-- [100] process request --- reply
+----
+
+The epoll will keep client connections and when one or more connections is
+ready for read (for example connection number 2, 5, and 100), kernel will pass
+those connection number to our application.
+With this method we can minimize context-switching and focus on processing the
+request and sending the reply.
+
+The 
+https://godoc.org/github.com/shuLhan/share/lib/websocket[lib/websocket]
+decide to use the epoll/kqueue to minimize the context-switching on read and
+let the process request and reply run in goroutine.
+
+==  The Server
+
+Our server is authenticated server, which means each new connection need to be
+authenticated using specific key to get specific user's account.
+Let's say that we have three users in our system,
+
+----
+type Account struct {
+	ID   int64
+	Name string
+	Key  string // The Key to authenticate user during handshake.
+}
+
+var Users map[int64]*Account = map[int64]*Account{
+	1: {
+		ID:   1,
+		Name: "Groot",
+		Key:  "iamgroot",
+	},
+	2: {
+		ID:   2,
+		Name: "Thanos",
+		Key:  "thanosdidnothingwrong",
+	},
+	3: {
+		ID:   3,
+		Name: "Hulk",
+		Key:  "arrrr",
+	},
+}
+----
+
+The user ID are 1, 2, and 3; and each user have name and key for
+authentication.
+Lets create the WebSocket server on port 9001 and register the handler for
+authentication,
+
+----
+	var server *websocket.Server
+	server = websocket.NewServer(9001)
+	server.HandleAuth = handleAuth
+----
+
+Each time the user connected to server, it will send the message to other
+users to notify that new user is joining the chat, and when user disconnect
+from server it will also send leave message to other connected users.
+
+----
+	server.HandleClientAdd = handleClientAdd
+	server.HandleClientRemove = handleClientRemove
+----
+
+One last thing, we need an endpoint where user will send the message to
+server.
+In this case we create a routing using the string "POST" as the `method`
+and "/message" as the `target` name.
+This is the feature of "lib/websocket", where user can register any routing
+just like in HTTP server.
+The method and target string could be anything, as long as its unique.
+
+----
+	err := server.RegisterTextHandler(http.MethodPost, "/message", handlePostMessage)
+	if err != nil {
+		log.Fatal(err)
+	}
+----
+
+Later, when client send a text frame that contains JSON request like,
+
+----
+{
+	"id": 1234,
+	"method": "POST",
+	"target": "/message"
+}
+----
+
+it will trigger and run the `handlePostMessage` function in the server.
+
+Finally. we can start our WebSocket server,
+
+----
+	server.Start()
+----
+
+That's it.
+Now we will look how to handle authentication, handling new user and user that
+leave, and handling the message endpoint.
+
+
+===  Handling authentication
+
+Handling client authentication is quite easy.
+We retrieve the "Key" from request header (remember that the initial WebSocket
+connection can sent custom header), and check if the key match with one of our
+users.
+
+----
+func handleAuth(req *websocket.Handshake) (ctx context.Context, err error) {
+	key := req.Header.Get("Key")
+
+	for id, user := range examples.Users {
+		if user.Key == key {
+			ctx = context.WithValue(context.Background(), websocket.CtxKeyUID, id)
+			return ctx, nil
+		}
+	}
+
+	return nil, fmt.Errorf("user's key not found")
+}
+----
+
+If the key exist, we put the user ID into the context and return it.
+The context will be keep by the server for later use and its have 1-to-1
+corresponding to the connection.
+
+
+===  Handling new connection
+
+If the handleAuth return non-nil ctx, its mean the connection is accepted, and
+server will invoke the function that we registered on HandleClientAdd.
+
+The handleClientAdd will create new broadcast message with type
+`BroadcastSystem` that contains text that say "user X joining conversation".
+The message will be send to all active connections in the server, except the
+current connection.
+
+----
+func handleClientAdd(ctx context.Context, conn int) {
+	log.Printf("server: adding client %d ...", conn)
+
+	uid := ctx.Value(websocket.CtxKeyUID).(int64)
+	user := examples.Users[uid]
+
+	// Broadcast to other connections that new user is connected.
+	body := user.Name + " joining conversation..."
+	packet, err := websocket.NewBroadcast(examples.BroadcastSystem, body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, c := range server.Clients.All() {
+		if c == conn {
+			continue
+		}
+		err := websocket.Send(c, packet)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+}
+----
+
+===  Handling closed connection
+
+Every time the client close the connection, our server will invoke the handler
+that is registered in HandleClientRemove.
+The handler will receive the context and the connection that is being removed.
+Just like HandleClientAdd, in handleClientRemove we will also send broadcast
+message with type `BroadcastSystem` that say "user X leaving connection" to all
+active connection, except the current closed connection.
+
+----
+func handleClientRemove(ctx context.Context, conn int) {
+	log.Printf("server: client %d has been disconnected ...", conn)
+
+	uid := ctx.Value(websocket.CtxKeyUID).(int64)
+	user := examples.Users[uid]
+
+	// Broadcast to other connections that user is disconnected.
+	body := user.Name + " leaving conversation..."
+	packet, err := websocket.NewBroadcast(examples.BroadcastSystem, body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, c := range server.Clients.All() {
+		if c == conn {
+			continue
+		}
+		err := websocket.Send(c, packet)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+}
+----
+
+===  Handling message endpoint
+
+The last thing that server do is handling message that is sent by user.
+The handlePostMessage will be invoked and receive three parameters: the
+context of connection, the request from client, and the response object where
+reply will be written.
+
+In this handler, we extract the message that send by client and broadcast it
+to other user that are connected to server with type `BroadcastMessage`, not
+`BroadcastSystem`, to differentiate with system message that we use previously
+for handling new and leaving user.
+
+----
+func handlePostMessage(ctx context.Context, req *websocket.Request, res *websocket.Response) {
+	uid := ctx.Value(websocket.CtxKeyUID).(int64)
+	user := examples.Users[uid]
+
+	log.Printf("server: message from %s: %q\n", user.Name, req.Body)
+
+	body := user.Name + ": " + req.Body
+	packet, err := websocket.NewBroadcast(examples.BroadcastMessage, body)
+	if err != nil {
+		res.Code = http.StatusInternalServerError
+		res.Body = err.Error()
+		return
+	}
+
+	// Broadcast the message to all connected clients, including our
+	// connections. Remember, that user could connected through many
+	// application.
+	for _, conn := range server.Clients.All() {
+		if conn == req.Conn {
+			continue
+		}
+		err = websocket.Send(conn, packet)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
+	// Set the response status to success.
+	res.Code = http.StatusOK
+}
+----
+
+
+==  The Client
+
+In the client side, we need a small struct to wrap the user account and
+connection.
+
+----
+type ChatClient struct {
+	user *examples.Account
+	conn *websocket.Client
+}
+----
+
+To create the WebSocket client connection we set the Endpoint to port number
+of server and the set the Header's "Key" with the user Key for authentication.
+
+----
+func NewChatClient(user *examples.Account) (cc *ChatClient) {
+	cc = &ChatClient{
+		user: user,
+		conn: &websocket.Client{
+			Endpoint: "ws://127.0.0.1:9001",
+			Headers: http.Header{
+				"Key": []string{user.Key},
+			},
+		},
+	}
+
+	cc.conn.HandleText = cc.handleText
+	cc.conn.HandleQuit = func() {
+		log.Println("connection has been closed...")
+		os.Exit(0)
+	}
+
+	err := cc.conn.Connect()
+	if err != nil {
+		log.Fatal("Connect: " + err.Error())
+	}
+
+	log.Printf("%s: connected ...", user.Name)
+
+	return cc
+}
+----
+
+The client will have two handler: HandleText to handle message from server ,
+and HandleQuit to handle when the connection is closed.
+After that we call conn.Connect to connect to server.
+
+
+===  Sending message
+
+Since our application is command line, we need to read input from terminal and
+send it to server.
+We do this using for loop, read one line from standard input, generate unique
+ID, and encode the request as JSON.
+The JSON message then wrapped and sent inside TEXT frame by passing it to
+`conn.SendText()`.
+
+----
+func (cc *ChatClient) Start() {
+	req := &websocket.Request{
+		Method: http.MethodPost,
+		Target: "/message",
+	}
+
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		fmt.Print(cc.user.Name + "> ")
+
+		req.Body, _ = reader.ReadString('\n')
+		req.Body = strings.TrimSpace(req.Body)
+		if len(req.Body) == 0 {
+			continue
+		}
+
+		req.ID = uint64(time.Now().Unix())
+
+		packet, err := json.Marshal(req)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = cc.conn.SendText(packet)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+	}
+}
+----
+
+
+===  Receiving message
+
+The handleText handler extract the broadcast message from server and print it:
+if its `BroadcastSystem` add the prefix "system>" to indicate the message is
+from system; and if its `BroadcastMessage` print it as is to indicate the
+message is from other user.
+
+----
+func (cc *ChatClient) handleText(cl *websocket.Client, frame *websocket.Frame) (err error) {
+	res := &websocket.Response{}
+
+	err = json.Unmarshal(frame.Payload(), res)
+	if err != nil {
+		return err
+	}
+
+	// Print message if its a broadcast message.
+	if res.ID == 0 {
+		switch res.Message {
+		case examples.BroadcastMessage:
+			fmt.Printf("\n%s\n%s> ", res.Body, cc.user.Name)
+		case examples.BroadcastSystem:
+			fmt.Printf("\nsystem: %s\n%s> ", res.Body, cc.user.Name)
+		}
+	}
+
+	return nil
+}
+----
+
+That is all of our code for chat client using WebSocket.
+
+==  Conclusion
+
+In this article, we have seen how to create a simple, command line group chat
+using WebSocket, implemented using Go and
+https://godoc.org/github.com/shuLhan/share/lib/websocket[lib/websocket].
+Its quite simple.
+
+The full working example of the server code can be viewed
+https://github.com/shuLhan/share/blob/master/lib/websocket/examples/cmd/server/main.go[here],
+and client code can be viewed
+https://github.com/shuLhan/share/blob/master/lib/websocket/examples/cmd/client/main.go[here].
+
+If you have any question feel free to mailto:m.shulhan@gmail.com[email me] any
+time.

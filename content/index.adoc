@@ -1,5 +1,4 @@
 =  Index
-:stylesheet: /assets/style.css
 
 link:/about[About]
 
@@ -87,6 +86,13 @@ https://github.com/shuLhan/libvos[Source]
 *  link:/notes/A_guide_to_version_control[A guide to version control]
 
 *  link:/notes/A_guide_to_versioning[A guide to versioning]
+
+
+==  WebSocket
+
+*   link:/websocket/understanding/[Part 1: Understanding WebSocket]
+*   link:/websocket/example/[Part 2: Example of WebSocket: Group Chat]
+
 
 ==  Journal
 
