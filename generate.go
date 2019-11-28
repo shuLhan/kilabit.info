@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	ciigo.Generate("./content", "cmd/kilabit/static.go", "templates/html.tmpl")
+	ciigo.Generate("./content", "cmd/www-kilabit/static.go", "templates/html.tmpl")
 }

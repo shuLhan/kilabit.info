@@ -4,13 +4,13 @@ all: build
 
 build:
 	go generate
-	go build ./cmd/kilabit
+	go build ./cmd/www-kilabit
 
 deploy: build
-	rsync ./kilabit gcp-webserver:~/bin/kilabit
+	rsync ./www-kilabit gcp-webserver:~/bin/www-kilabit
 
 deploy-local: build
-	rsync ./kilabit $(GOBIN)/
+	rsync ./www-kilabit $(GOBIN)/
 
 serve:
-	DEBUG=1 go run ./cmd/kilabit
+	DEBUG=1 go run ./cmd/www-kilabit
