@@ -21,23 +21,17 @@ For example,
 
 ----
 import (
-	// This is system packages
 	"os"
 	"net/http"
-	...
 
-	// Empty line followed by third party packages
 	"third/party/library"
-	...
 
-	// Empty line followed by our packages
-	"github.com/yourcompany/yourlib"
-	...
+	"github.com/yourrepo/yourlib"
 )
 ----
 
 
-==  Structure code as in Godoc layout
+==  Structure the code as in Godoc layout
 
 If you looks at the Godoc layout, each sections is ordered by the following
 format,
@@ -49,7 +43,7 @@ format,
 *  type
 *  type's methods
 
-Builtin functions, like `init()`, `main()`, and `TestMain()` must be at the
+Builtin functions, like `init()`, `main()`, and `TestMain()` should be at the
 bottom of the source code.
 As an example see net package [1].
 
@@ -59,11 +53,11 @@ know where each of section is located.
 [1] https://golang.org/pkg/net/
 
 
-==  Package must have a file with the same name
+==  Package should have a file with the same name
 
-Package `mypkg` must have source file with the name `mypkg.go`.
-This file will be used to declare global variables, constanta, and `init()`
-function.
+Package `mypkg` should have source file with the name `mypkg.go`.
+This file will be used to declare global variables, constants, and/or maybe
+`init()` function.
 
 **Rationale:** easy to search where global variables, constants, and `init()`
 defined.
@@ -71,9 +65,9 @@ defined.
 
 ==  One type (struct/interface) per file
 
-The filename must follow the name of the type.
+The filename should follow the name of the type.
 For example, package `X` have two exported structs: `Y` and `Z`.
-So, in the directory `X` there would be two files: `Y.go` and `Z.go`.
+So, in the directory `X` there would be two files: `y.go` and `z.go`.
 
 **Rationale:**
 
@@ -111,47 +105,6 @@ x := ADT{
 *  Easy to read.
 
 
-==  Define variable name in function return
-
-This will minimize the chance of duplicate variables (especially error), one
-time declaration, and allow calling return without parameter.
-
-For example, the following code is ok,
-
-----
-func DoSomething(x, y int) (int, error) {
-	...
-	err := callOtherFunc(x,y)
-	...
-	v, err = doOther()
-	...
-
-	return v, err
-}
-----
-
-But recommended way is,
-
-----
-func DoSomething(x, y int) (v int, err error) {
-	...
-	err = callOtherFunc(x,y)
-	...
-	v, err = doOther()
-	...
-
-	return
-}
-----
-
-**Rationale:**
-
-*  Programmer can know the type of variable (allow quick reading of code
-   without guessing/searching the type through API)
-*  Minimize variable creation. Technically, each `:=` statement will create
-   new variable and the previous one will be garbage collected.
-
-
 ==  Use short variable names if possible
 
 Common short variable names,
@@ -172,14 +125,20 @@ Common prefix for variable or function,
 *  `bXXX` for message in slice of bytes ([]byte)
 *  `DefXXX` or `defXXX` for default variable/constanta
 
+**Rationale:**
+
+* Searchability, find-and-replace with three characters is more easy than
+  single character.
+* Readability, knowing what variable hold can help reader on longer function
+  body.
 
 ==  Comment grammar 
 
 In Go, exported field or function denoted by capital letter on the first
-letter, and it must have comment.
+letter, and it should have comment.
 
 For field (on struct, var, or const) the recommended comment format is by
-using "define" verb after variable name.
+using "define" or "contains" verb after variable name.
 
 For example,
 
@@ -205,6 +164,7 @@ func GetEnv(envName string) (v string, err error) {
 	...
 }
 ----
+
 
 ==  Package that create binary should be in "cmd" directory
 
