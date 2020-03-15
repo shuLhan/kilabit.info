@@ -78,7 +78,7 @@ Oracle Client Interface module.
 https://github.com/shuLhan/libvos[Source]
 
 
-==  Notes
+==  Articles on Software Engineering
 
 *  link:/notes/A_guide_to_readable_and_performance_wise_code[A guide to
    readable and performance wise code]
@@ -88,6 +88,15 @@ https://github.com/shuLhan/libvos[Source]
 *  link:/notes/A_guide_to_versioning[A guide to versioning]
 
 
+==  Articles on Go programming language
+
+*  link:/journal/2020/re-learning_slice/[Re-learning slice],
+   March 2020
+
+*  link:/journal/2017/05/Go_Informal_Coding_Style[Go (informal) coding style],
+   March 2017
+
+
 ==  WebSocket
 
 *   link:/websocket/understanding/[Part 1: Understanding WebSocket]
@@ -95,6 +104,10 @@ https://github.com/shuLhan/libvos[Source]
 
 
 ==  Journal
+
+===  2020
+
+*  link:/journal/2020/re-learning_slice/[Go: Re-learning slice]
 
 ===  2019
 
