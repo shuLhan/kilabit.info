@@ -658,10 +658,11 @@ The sub-slice `ss` now use new backing storage, different with `s`.
 *  Unless the backing storage is not changed, the sub-slice can change the
    content that its referenced
 *  If the backing storage in sub-slice changed, both original slice and
+	fmt.Println(slice)
    sub-slice will have different backing storage
 
-
 ===  Zeroing slice
+//{{{
 
 What is the best way to reset slice to zero?
 Is it `s = nil` or `s = [:0]`?
@@ -719,6 +720,70 @@ The answer to above question is depends on how you use the slice,
 * use `[:0]` if we want to keep the slice backing storage, to minimize
   reallocation.
 
+//}}}
+//{{{
+===  Range on slice
+
+The next questions regarding slice is when we do for-range loop on slice, does
+the second variable returned by range is a copy of item or a pointer to an
+item?
+Can we change the value inside for-range loop?
+
+----
+	slice := []int{1, 2, 3}
+	for _, item := range slice {
+		item += 1
+	}
+	fmt.Println(slice)
+
+	// Output:
+	// [1 2 3]
+----
+
+Let see their address,
+
+----
+	slice := []int{1, 2, 3}
+	for x, item := range slice {
+		fmt.Printf("&slice[%d]:%p &item:%p\n", x, &slice[x], &item)
+		item += 1
+	}
+
+	// Output:
+	// &slice[0]:0x40e020 &item:0x40e02c
+	// &slice[1]:0x40e024 &item:0x40e02c
+	// &slice[2]:0x40e028 &item:0x40e02c
+----
+
+Looking at the address, the item is a scope variable inside loop.
+Which means, each iteration in for-range loop, it will copy the value in slice
+into item.
+Changing the value of item will not change the value in slice.
+
+Only when the slice type is pointer, we can change the value using for-range
+loop,
+
+----
+	a := int(1)
+	b := int(2)
+	c := int(3)
+	slice := []*int{&a, &b, &c}
+	for x, item := range slice {
+		fmt.Printf("&slice[%d]:%p &item:%p\n", x, &slice[x], &item)
+		*item += 1
+	}
+
+	fmt.Printf("Value of slice:")
+	for x := range slice {
+		fmt.Printf(" slice[%d]:%d", x, *slice[x])
+	}
+	fmt.Println()
+	fmt.Printf("Value of a:%d, b:%d, c:%d\n", a, b, c)
+----
+
+I think this is obvious for someone who familiar with pointer.
+
+//}}}
 
 ==  Slice gotchas
 
@@ -778,7 +843,7 @@ func doX(in []int) (out []int){
 doX([]int{1,2,3,4,5})
 ----
 
-The allocation decrease to 1 (on initial make),
+The allocation now decreased to 1 (on initial make),
 
 ----
 // Output: 1 allocation
