@@ -1,3 +1,4 @@
 *.html
 /cmd/www-kilabit/static.go
 /www-kilabit
+/www-kilabit-linux-amd64
