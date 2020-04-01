@@ -15,6 +15,7 @@ deploy: www-kilabit-linux-amd64
 	rsync --progress $< aws-www:~/bin/www-kilabit
 
 deploy-local:
+	go build ./cmd/www-kilabit
 	rsync ./www-kilabit $(GOBIN)/
 
 serve:
