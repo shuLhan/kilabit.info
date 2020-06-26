@@ -1,5 +1,4 @@
 =  Go: things that I learned writing dsv
-:stylesheet: /assets/style.css
 
 This is my notes on learning Go language while developing `dsv` [1].
 My background is C/C++ with a little Java.

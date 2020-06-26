@@ -1,5 +1,4 @@
 =  Oracle 10g Clusterware and RAC Installation on Solaris
-:stylesheet: /assets/style.css
 
 Notes:
 

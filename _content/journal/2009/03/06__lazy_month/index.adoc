@@ -1,5 +1,4 @@
 =  Lazy month
-:stylesheet: /assets/style.css
 
 Now lets review some of movie that I has been watching for the last month.
 

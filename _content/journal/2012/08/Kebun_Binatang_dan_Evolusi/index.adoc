@@ -1,5 +1,4 @@
 =  Kebun binatang dan evolusi
-:stylesheet: /assets/style.css
 
 Kebun binatang sebagai sarana hiburan, juga mengajarkan kepada kita sedari
 kecil bahwa manusia "tampak" seperti penguasa alam dengan menangkap dan

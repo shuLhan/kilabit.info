@@ -1,5 +1,4 @@
 =  Aplikasi Terbaik di Linux
-:stylesheet: /assets/style.css
 
 Kalau kita menggunakan Linux terlalu lama, kita terkadang pasti sudah capek
 mencoba semua aplikasi yang ada.

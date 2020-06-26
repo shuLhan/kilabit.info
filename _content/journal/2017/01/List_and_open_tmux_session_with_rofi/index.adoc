@@ -1,5 +1,4 @@
 =  List and open tmux session with rofi
-:stylesheet: /assets/style.css
 
 This article assume that you already know about rofi [1] and tmux [2].
 

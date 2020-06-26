@@ -1,5 +1,4 @@
 = So High
-:stylesheet: /assets/style.css
 
 Damn, this song is so ... high.
 

@@ -1,5 +1,4 @@
 =  Ide untuk Film: Suku Primitif
-:stylesheet: /assets/style.css
 
 Apa yang akan terjadi jika kita menggabungkan suku kuno dari Papua atau
 Aborigin Australia.

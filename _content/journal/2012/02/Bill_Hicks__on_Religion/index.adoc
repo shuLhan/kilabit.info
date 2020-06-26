@@ -1,5 +1,4 @@
 =  Bill Hicks: on religion
-:stylesheet: /assets/style.css
 
 [quote, Bill Hicks]
 "Lots of Christians wear cross around their neck. Do you think when Jesus come

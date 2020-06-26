@@ -1,5 +1,4 @@
 =  Saya Bodoh, Anda Pintar
-:stylesheet: /assets/style.css
 
 Jika saya mengetahui semua isi Wikipedia di luar kepala, mengetahui semua isi
 buku di luar kepala; saya di sebut dengan apa? Orang yang pintar?

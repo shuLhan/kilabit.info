@@ -1,5 +1,4 @@
 =  Ulasan film: A Separation
-:stylesheet: /assets/style.css
 
 ____
 "Kebohongan dan kebenaran adalah alat dan konstruksi.

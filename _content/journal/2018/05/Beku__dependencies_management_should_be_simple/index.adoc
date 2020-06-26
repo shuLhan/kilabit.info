@@ -1,5 +1,4 @@
 = beku: dependencies management should be simple
-:stylesheet: /assets/style.css
 
 In the heat of current discussion between dep vs vgo, it would be foolish to
 create another tool to manage packages in Go.

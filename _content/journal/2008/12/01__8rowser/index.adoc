@@ -1,5 +1,4 @@
 =  8rowser
-:stylesheet: /assets/style.css
 
 `Draft version 0.1`
 

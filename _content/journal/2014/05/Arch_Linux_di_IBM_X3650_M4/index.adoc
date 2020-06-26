@@ -1,5 +1,4 @@
 =  Arch Linux di IBM X3650 M4
-:stylesheet: /assets/style.css
 
 Pertanyaan pertama yang saya pikirkan saat mau install Arch Linux di server
 IBM adalah "Apakah bisa?"

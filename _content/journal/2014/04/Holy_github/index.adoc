@@ -1,5 +1,4 @@
 =  Holy Github!
-:stylesheet: /assets/style.css
 
 I use git to keep tracks of my home configuration and github as my backup
 server.

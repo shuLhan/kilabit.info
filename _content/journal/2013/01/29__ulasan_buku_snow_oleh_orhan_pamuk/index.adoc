@@ -1,5 +1,4 @@
 =  Ulasan Buku: Snow oleh Orhan Pamuk
-:stylesheet: /assets/style.css
 
 Saat saya selesai membaca novel ini saya pikir sebagian isu yang diangkat
 dalam buku ini hanyalah fiksi: sejumlah wanita muda dari keluarga muslim bunuh

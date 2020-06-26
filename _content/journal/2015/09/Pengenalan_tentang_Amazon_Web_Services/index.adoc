@@ -1,5 +1,4 @@
 =  Pengenalan tentang Amazon Web Services
-:stylesheet: /assets/style.css
 
 Bagi yang baru mengenal tentang Amazon Web Services (AWS) biasanya akan
 kebingungan dengan jargon yang mereka gunakan pada produk dan jasa mereka,

@@ -1,5 +1,4 @@
 =  Manajemen informasi
-:stylesheet: /assets/style.css
 
 ==  Pengembangan Aplikasi Lanjut
 

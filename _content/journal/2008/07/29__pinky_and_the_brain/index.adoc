@@ -1,5 +1,4 @@
 =  Pinky and The Brain
-:stylesheet: /assets/style.css
 
 Last Friday, like usual in the middle of jum'at prayer, I am usually listening
 to the khotib, but when the talk is rather boring, same content but different

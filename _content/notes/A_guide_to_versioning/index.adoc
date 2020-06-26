@@ -1,5 +1,4 @@
 =  A guide to versioning
-:stylesheet: /assets/style.css
 
 Most of open source software development use the semantic versioning [1],
 where each release is tagged with numbers in the following format:

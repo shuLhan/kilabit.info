@@ -1,5 +1,4 @@
 =  Protractor: Tips and Trick
-:stylesheet: /assets/style.css
 
 ==  Disable animations
 

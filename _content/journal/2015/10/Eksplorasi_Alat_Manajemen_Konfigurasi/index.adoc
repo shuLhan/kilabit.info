@@ -1,5 +1,4 @@
 =  Eksplorasi Alat Manajemen Konfigurasi
-:stylesheet: /assets/style.css
 
 Alat Manajemen Konfigurasi (_Configuration Management_ -- CM) yaitu aplikasi
 yang membantu administrator atau DevOps untuk melakukan instalasi, konfigurasi

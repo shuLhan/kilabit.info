@@ -1,5 +1,4 @@
 =  Why Google
-:stylesheet: /assets/style.css
 
 "Starting with just one page, www.google.com has become a billion dollars
 company now"

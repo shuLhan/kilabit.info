@@ -1,5 +1,4 @@
 =  A Poor Man's Feed Parser and Viewer
-:stylesheet: /assets/style.css
 
 I just add a new section in this site called 'Home - Recent Activities', as
 part of WUI [1] project, which showed my recent activities on the Internet;

@@ -1,5 +1,4 @@
 =  The Stupid IDE
-:stylesheet: /assets/style.css
 
 The stupid IDE = Konsole + vim.
 

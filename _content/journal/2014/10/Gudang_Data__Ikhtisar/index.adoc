@@ -1,5 +1,4 @@
 =  Gudang data: ikhtisar
-:stylesheet: /assets/style.css
 
 ==  Gudang data (_data warehouse_)
 

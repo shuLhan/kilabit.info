@@ -1,5 +1,4 @@
 =  Rebuild the system
-:stylesheet: /assets/style.css
 
 Since i am too lazy to build
 http://www.gentoo.org/[Gentoo Linux]

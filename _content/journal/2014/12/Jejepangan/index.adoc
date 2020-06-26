@@ -1,5 +1,4 @@
 =  Jejepangan
-:stylesheet: /assets/style.css
 
 Waktu kecil saya pernah mendengar cerita dari bapak saya tentang bagaimana
 ayahnya meninggal di zaman peperangan.

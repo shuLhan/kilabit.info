@@ -1,5 +1,4 @@
 =  A guide to readable and performance wise code
-:stylesheet: /assets/style.css
 
 Most of the time code is about reading rather than writing.
 

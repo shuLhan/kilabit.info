@@ -1,5 +1,4 @@
 =  Mari enkripsi dengan Letsencrypt
-:stylesheet: /assets/style.css
 
 Letsencrypt.org adalah organisasi non-profit yang menyediakan otoritas
 sertifikat (Certificate Authority, CA) untuk domain web secara gratis.

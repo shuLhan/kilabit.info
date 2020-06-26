@@ -1,5 +1,4 @@
 =  Two passengers
-:stylesheet: /assets/style.css
 
 Luna were just arrived in the Jelang city international airport, so does Sun.
 They are not from the same country but have the same purpose, for vacation in

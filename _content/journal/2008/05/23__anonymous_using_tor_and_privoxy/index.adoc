@@ -1,5 +1,4 @@
 =  Anonymous using Tor and Privoxy
-:stylesheet: /assets/style.css
 
 Besides JAP, which sometimes hard to establishing connection to free server,
 there is another alternative for connect anonymous on Internet and bypassing

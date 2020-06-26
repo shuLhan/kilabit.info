@@ -1,5 +1,4 @@
 =  Inteligensi Bisnis: Ikhtisar
-:stylesheet: /assets/style.css
 
 ==  Definisi Inteligensi Bisnis
 

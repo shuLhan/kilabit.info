@@ -1,5 +1,4 @@
 =  Nasionalisme
-:stylesheet: /assets/style.css
 
 Nasionalisme itu seperti agama.
 Seseorang mendukung suatu negara hanya karena kebetulan orangtuanya lahir

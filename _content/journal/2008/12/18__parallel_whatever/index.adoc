@@ -1,5 +1,4 @@
 =  Parallel, whatever
-:stylesheet: /assets/style.css
 
 SQLite creator, the one who have a second greatest quote
 

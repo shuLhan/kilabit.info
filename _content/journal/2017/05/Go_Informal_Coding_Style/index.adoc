@@ -1,5 +1,4 @@
 =  Go (Informal) Coding Style
-:stylesheet: /assets/style.css
 
 In general Go already have `gofmt` that will format the code according to Go
 standard.

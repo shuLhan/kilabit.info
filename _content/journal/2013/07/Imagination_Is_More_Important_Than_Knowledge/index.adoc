@@ -1,5 +1,4 @@
 =  Imagination Is More Important Than Knowledge
-:stylesheet: /assets/style.css
 
 There is an anecdotal or inspirational quote from famous and genius people
 Albert Einstein that circulating around the internet, which rendered in an

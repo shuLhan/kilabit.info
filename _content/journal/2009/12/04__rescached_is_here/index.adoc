@@ -1,5 +1,4 @@
 =  Rescached is here!
-:stylesheet: /assets/style.css
 
 I am too excited to not published it now, because this pet is really save my
 bandwidth and make my Internet connection one step more fast than before.

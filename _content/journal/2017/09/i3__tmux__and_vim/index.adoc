@@ -1,5 +1,4 @@
 = i3 with tmux and vim
-:stylesheet: /assets/style.css
 :link-r-vim: https://www.reddit.com/r/vim/comments/6xeo0d/what_are_a_sane_set_of_key_bindings_between_i3wm/
 
 Someone ask on /r/vim:

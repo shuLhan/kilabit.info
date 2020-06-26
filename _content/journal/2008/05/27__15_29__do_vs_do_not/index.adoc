@@ -1,5 +1,4 @@
 =  Dos and Donts
-:stylesheet: /assets/style.css
 
 This is a list of what I have learned from my experience in the past, and I
 hope I do not make the same mistake in the future.

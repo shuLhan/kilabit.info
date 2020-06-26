@@ -1,5 +1,4 @@
 =  Blessing
-:stylesheet: /assets/style.css
 
 Saya berpikir berapa lama Tuhan telah menunggu kita berpikir seperti ini,
 

@@ -1,5 +1,4 @@
 =  Integrating Buildbot and Mattermost
-:stylesheet: /assets/style.css
 
 In this journal, I would like to explain how to integrate Mattermost [1] slash
 command to build, test, and deploy project on specific repository and branch

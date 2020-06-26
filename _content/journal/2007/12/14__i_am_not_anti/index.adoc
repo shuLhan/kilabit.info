@@ -1,5 +1,4 @@
 =  I Am Not Anti-Windows, its just ...
-:stylesheet: /assets/style.css
 
 Banyak yang bilang kalau saya ini termasuk anti-Windows, dari sejak kuliah
 sampai kerja, di undang ke seminar .NET atau apalah-itu-namanya saya tidak

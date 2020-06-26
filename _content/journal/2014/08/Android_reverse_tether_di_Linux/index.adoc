@@ -1,5 +1,4 @@
 =  Android reverse tether di GNU/Linux
-:stylesheet: /assets/style.css
 
 **Skenario:** Anda memiliki koneksi internet di laptop/PC, baik itu
 menggunakan LAN atau modem USB, dan ingin menggunakan koneksi tersebut di

@@ -1,5 +1,4 @@
 =  Destiny
-:stylesheet: /assets/style.css
 
 [quote, Charles Dickens, The Old Curiosity Shop]
 "No man knocks himself down; if his destiny knocks him down, his destiny must

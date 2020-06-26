@@ -1,5 +1,4 @@
 =  Narcism
-:stylesheet: /assets/style.css
 
 Being a narcissist is one of the key trait to survive in the 21th century.
 

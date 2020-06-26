@@ -1,5 +1,4 @@
 =  Cara Menutupi Harddisk bad-sector di Linux
-:stylesheet: /assets/style.css
 
 Sebelumnya, sedikit pesan singkat dari saya:
 

@@ -1,5 +1,4 @@
 =  A guide to version control
-:stylesheet: /assets/style.css
 
 This documentation provide a guide to work with version control system (VCS),
 how to write a good commit message, what to include in commit, and when to use

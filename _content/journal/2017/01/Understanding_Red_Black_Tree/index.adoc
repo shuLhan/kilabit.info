@@ -1,5 +1,4 @@
 =  Understanding Red-Black tree
-:stylesheet: /assets/style.css
 :toc:
 
 This is a note when I try to implement Red-Black Tree (RBT) by

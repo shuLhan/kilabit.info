@@ -1,5 +1,4 @@
 =  Go: six line assert without any (external) library
-:stylesheet: /assets/style.css
 
 If you familiar with Go language, you knew that Go does not have an assert
 function or library.

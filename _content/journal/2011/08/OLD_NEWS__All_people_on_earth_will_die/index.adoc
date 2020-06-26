@@ -1,5 +1,4 @@
 =  Old news: All people on earth will die.
-:stylesheet: /assets/style.css
 
 You silly peoples,
 

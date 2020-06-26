@@ -1,5 +1,4 @@
 =  Is ext3 slow?
-:stylesheet: /assets/style.css
 
 Or, rm?
 

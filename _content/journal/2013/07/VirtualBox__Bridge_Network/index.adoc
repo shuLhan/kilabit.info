@@ -1,5 +1,4 @@
 =  VirtualBox: Bridge Network
-:stylesheet: /assets/style.css
 
 Biasanya, untuk membuat jaringan bridge pada Virtualbox, antara Host dan Guest
 tidak perlu pengaturan apapun lagi, karena VirtualBox versi terbaru sudah

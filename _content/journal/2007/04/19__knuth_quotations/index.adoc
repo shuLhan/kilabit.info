@@ -1,5 +1,4 @@
 =  Knuth's Quotation
-:stylesheet: /assets/style.css
 
 [quote, Donald Knuth]
 "I have always liked the concept of universities as they were in Ancient

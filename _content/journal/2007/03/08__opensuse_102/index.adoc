@@ -1,5 +1,4 @@
 =  openSuSE 10.2
-:stylesheet: /assets/style.css
 
 "it's almost perfect! very nice OS"
 

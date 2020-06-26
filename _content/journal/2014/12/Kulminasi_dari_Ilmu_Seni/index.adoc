@@ -1,5 +1,4 @@
 =  Kulminasi dari Ilmu Seni
-:stylesheet: /assets/style.css
 
 Kulminasi dari bidang ilmu komputer adalah permainan komputer (_game_).
 Dalam sebuah game yang tercanggih diterapkan semua sub-bidang dari ilmu

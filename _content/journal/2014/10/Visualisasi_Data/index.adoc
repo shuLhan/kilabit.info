@@ -1,5 +1,4 @@
 =  Visualisasi data
-:stylesheet: /assets/style.css
 
 Visualisasi data yaitu kajian tentang representasi visual dari data abstrak
 untuk meningkatkan ulang kognisi manusia.

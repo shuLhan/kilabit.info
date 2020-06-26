@@ -1,5 +1,4 @@
 =  Bagaimana mengurangi KKN di Indonesia?
-:stylesheet: /assets/style.css
 
 ==  Pemisahan antara wilayah administratif dengan wilayah bisnis.
 

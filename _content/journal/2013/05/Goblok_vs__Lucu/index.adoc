@@ -1,5 +1,4 @@
 =  Goblok dan lucu
-:stylesheet: /assets/style.css
 
 Mobil dan motor berpacu mengejar lampu merah.
 Kadang goblok dan lucu itu beda tipis.

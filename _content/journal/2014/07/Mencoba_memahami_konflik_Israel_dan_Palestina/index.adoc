@@ -1,5 +1,4 @@
 =  Mencoba memahami konflik Israel dan Palestina
-:stylesheet: /assets/style.css
 
 Sebenarnya saya tidak terlalu tertarik dengan masalah konflik, apalagi konflik
 luar, dan untuk masalah konflik Israel dan Palestina ini saya benar-benar

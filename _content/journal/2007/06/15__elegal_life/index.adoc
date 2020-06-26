@@ -1,5 +1,4 @@
 =  e-Legal Life
-:stylesheet: /assets/style.css
 
 ____
 Use a legal software,

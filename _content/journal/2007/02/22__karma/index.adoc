@@ -1,5 +1,4 @@
 =  Karma
-:stylesheet: /assets/style.css
 
 "Do you believe in karma ?"
 

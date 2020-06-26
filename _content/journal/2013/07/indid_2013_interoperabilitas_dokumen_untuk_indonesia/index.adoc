@@ -1,5 +1,4 @@
 =  INDID 2013: Interoperabilitas Dokumen untuk Indonesia
-:stylesheet: /assets/style.css
 
 Dua hari yang lalu, tepatnya pada tanggal 2 Juli 2013, Direktorat Keamanan
 Informasi bersama dengan Asosiasi Open Source Indonesia (AOSI) mengadakan

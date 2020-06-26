@@ -1,5 +1,4 @@
 =  Mergesort rulez!
-:stylesheet: /assets/style.css
 
 ==  Analysis of Sorting Algorithm for Large Data
 

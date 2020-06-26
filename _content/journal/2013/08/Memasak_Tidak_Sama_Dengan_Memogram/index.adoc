@@ -1,5 +1,4 @@
 =  Memasak tidak sama dengan memprogram
-:stylesheet: /assets/style.css
 
 Dulu, pas waktu kuliah dasar-dasar pemrograman, ada dosen yang menganalogikan
 cara membuat program dengan memasak.

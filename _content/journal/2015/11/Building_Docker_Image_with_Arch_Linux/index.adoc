@@ -1,5 +1,4 @@
 =  Building Docker Image with Arch Linux
-:stylesheet: /assets/style.css
 
 If you happen to be a Archer fanatic, you may want everything run on Arch
 Linux instead of any other distro.

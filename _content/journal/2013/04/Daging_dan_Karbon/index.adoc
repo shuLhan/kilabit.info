@@ -1,5 +1,4 @@
 =  Daging dan karbon
-:stylesheet: /assets/style.css
 
 Kebanyakan kita yang membeli makanan di pasar, menganggap bahwa kita memiliki
 hak atas semua yang kita beli.

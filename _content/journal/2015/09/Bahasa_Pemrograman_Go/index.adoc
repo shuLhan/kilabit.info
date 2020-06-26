@@ -1,5 +1,4 @@
 =  Bahasa Pemrograman Go
-:stylesheet: /assets/style.css
 
 Untuk mempelajari bahasa pemrograman Go, saya telah menerjemahkan Go Tour ke
 Bahasa Indonesia, silahkan lihat di sini: https://tour.golang-id.org.

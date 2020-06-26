@@ -1,5 +1,4 @@
 =  Ulasan Buku: Scandal oleh Shusaku Endo
-:stylesheet: /assets/style.css
 
 Jika disuruh mendeskripsikan buku ini dalam tiga kata saya akan menyebutkan
 "manusia, sex, anxiety".

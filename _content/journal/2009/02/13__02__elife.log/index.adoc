@@ -1,5 +1,4 @@
 =  elife.log
-:stylesheet: /assets/style.css
 
 Friday, 13 February 2009.
 

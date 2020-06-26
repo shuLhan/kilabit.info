@@ -1,5 +1,4 @@
 =  Goodbye old men!
-:stylesheet: /assets/style.css
 
 "goodbye, and don't miss me!"
 

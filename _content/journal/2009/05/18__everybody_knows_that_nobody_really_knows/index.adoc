@@ -1,5 +1,4 @@
 =  Everybody knows, that nobody really knows
-:stylesheet: /assets/style.css
 
 Everybody knows, that nobody really knows: musik Indonesia sekarat semenjak
 tahun 1997, setelah Dewa 19 meluncurkan album " Pandawa Lima " dan Potret

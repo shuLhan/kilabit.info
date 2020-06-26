@@ -1,5 +1,4 @@
 =  Too much movies, must ...
-:stylesheet: /assets/style.css
 
 Usually every saturday my friends and I have a LAN party at his "apartment".
 I usually come once a month too sync :) my "world" with the outside "world".

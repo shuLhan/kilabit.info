@@ -1,5 +1,4 @@
 =  Memperbaiki keluaran coreutils (ls) pada Bahasa Indonesia
-:stylesheet: /assets/style.css
 
 atau _menerjemahkan ke Bahasa Indonesia itu tidak mudah_.
 

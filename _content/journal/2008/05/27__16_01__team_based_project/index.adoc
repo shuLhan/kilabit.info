@@ -1,5 +1,4 @@
 =  Team based project
-:stylesheet: /assets/style.css
 
 ____
 "I am a egocentric programmer, and right know I am writing my ego."

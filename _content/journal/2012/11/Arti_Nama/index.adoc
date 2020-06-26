@@ -1,5 +1,4 @@
 =  Arti nama
-:stylesheet: /assets/style.css
 
 Hanya dengan nama orang bisa memiliki penilaian yang berbeda.
 

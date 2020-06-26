@@ -1,5 +1,4 @@
 =  Ulasan Buku: Bad Pharma oleh Ben Goldacre
-:stylesheet: /assets/style.css
 
 Ini adalah bacaan saya yang paling lama selesai.
 Bukan karena ketebalannya tapi karena isinya yang kompleks dan dalam, di luar

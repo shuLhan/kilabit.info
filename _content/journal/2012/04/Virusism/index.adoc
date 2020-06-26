@@ -1,5 +1,4 @@
 =  Virusism
-:stylesheet: /assets/style.css
 
 I'm thinking about creating virusi-sm movement.
 

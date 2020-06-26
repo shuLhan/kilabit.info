@@ -1,3 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#375EAB" />
+
+		<title>{{.Title}}</title>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-2502278-8"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || []
+			function gtag() {
+				dataLayer.push(arguments)
+			}
+			gtag("js", new Date())
+
+			gtag("config", "UA-2502278-8")
+		</script>
+
+		<style>
 body {
 	color: black;
 	font-family: sans-serif;
@@ -141,3 +166,51 @@ pre {
 		padding: 0 1.5em;
 	}
 }
+		</style>
+	</head>
+	<body>
+		<div class="topbar">
+			<div class="topbar-left">
+				<div>
+					<a href="/">kilabit.info</a>
+				</div>
+				<div class="topbar-info">Simple | Small | Stable | Secure</div>
+			</div>
+
+			<div class="topbar-right">
+				<a href="https://github.com/shuLhan" target="_blank">
+					<img src="/assets/images/github.svg" />
+				</a>
+				<a href="https://twitter.com/_shuLhan" target="_blank">
+					<img src="/assets/images/twitter.svg" />
+				</a>
+			</div>
+		</div>
+
+		<div class="page">
+			<div class="container">
+				<h1>{{.Title}}</h1>
+				{{ if .Author }}
+				<div class="meta">
+					{{.Author}}
+					<br />
+					{{.Date}}
+				</div>
+				{{ end }} {{.Body}}
+			</div>
+			<!-- .container -->
+		</div>
+		<!-- .page -->
+
+		<div class="footer">
+			<p>
+				Copyright 2020, Shulhan &lt;m.shulhan@gmail.com&gt;. All rights
+				reserved.
+			</p>
+			<p>
+				Powered by
+				<a href="https://github.com/shuLhan/ciigo" target="_blank">ciigo</a>
+			</p>
+		</div>
+	</body>
+</html>

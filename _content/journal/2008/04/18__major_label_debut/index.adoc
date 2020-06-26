@@ -1,5 +1,4 @@
 =  Major label debut
-:stylesheet: /assets/style.css
 
 +++
 <iframe width="560" height="315"

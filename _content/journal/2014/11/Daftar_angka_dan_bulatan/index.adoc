@@ -1,5 +1,4 @@
 =  Daftar Angka dan Bulatan
-:stylesheet: /assets/style.css
 
 Pada saat mengubah suatu dokumen secara online, bersamaan, salah satu anggota
 kelompok saya, mahasiswa S3, mengubah sebuah daftar dari bulatan menjadi

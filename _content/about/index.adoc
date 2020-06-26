@@ -1,5 +1,4 @@
 =  About
-:stylesheet: /assets/style.css
 :toc:
 
 The man is a merchant.

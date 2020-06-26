@@ -1,5 +1,4 @@
 =  Debian 404
-:stylesheet: /assets/style.css
 
 Sejak beberapa hari ini saya memanfaatkan sumber daya pemerintah dengan
 sebijak-bijaknya.

@@ -1,5 +1,4 @@
 =  Simbol dan
-:stylesheet: /assets/style.css
 
 Penulisan Bahasa Indonesia menggunakan dan diturunkan dari bahasa latin.
 Bahasa latin yang paling umum sekarang ini adalah Bahasa Inggris.

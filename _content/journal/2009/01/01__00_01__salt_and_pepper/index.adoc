@@ -1,5 +1,4 @@
 =  Salt and pepper
-:stylesheet: /assets/style.css
 
 Wondering how many account do we have today on the internet, from Yahoo to
 Google, from MySpace to Friendster accounts.

@@ -1,5 +1,4 @@
 =  Generating Partition of A Set
-:stylesheet: /assets/style.css
 
 **Problem:** given a set of discrete value {A,B,C} generate k partition of set
 where there is no empty partition and no duplicate value exist in subset of a

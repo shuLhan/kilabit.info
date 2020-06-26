@@ -1,5 +1,4 @@
 =  Oracle 10g Installation on Linux
-:stylesheet: /assets/style.css
 
 * Set hostname, see "/etc/hosts".
 

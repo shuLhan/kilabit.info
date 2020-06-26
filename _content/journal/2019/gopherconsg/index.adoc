@@ -1,5 +1,4 @@
 = Gophercon Singapore 2019
-:stylesheet: /assets/style.css
 
 I made it!
 

@@ -1,5 +1,4 @@
 =  Fixing brightness keys on Linux
-:stylesheet: /assets/style.css
 
 If you have graphics card like mine, Intel GMA 4500MHD, with unfunctioning
 brightness key (e.g., Fn-brightness key up/down) you can fix it by using acpid

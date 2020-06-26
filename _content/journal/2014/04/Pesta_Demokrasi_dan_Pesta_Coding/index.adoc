@@ -1,5 +1,4 @@
 =  Pesta demokrasi dan pesta _coding_
-:stylesheet: /assets/style.css
 
 Selama tiga hari belakangan saya menghabiskan waktu secara semi-aktif membantu
 pelaksanaan pesta demokrasi di salah satu partai yang berlokasi di Jakarta

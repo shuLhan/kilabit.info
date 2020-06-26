@@ -1,5 +1,4 @@
 =  Auto...what?
-:stylesheet: /assets/style.css
 
 ==  Autoconf + Automake
 
