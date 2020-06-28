@@ -35,6 +35,18 @@ The first implementation was written in C++ and then re-written using Go.
 https://github.com/shuLhan/rescached[C++ version (unmaintained)] |
 https://github.com/shuLhan/rescached-go[Go version]
 
+awwan:: Configuration management software, infrastructure as file and
+directory layout.
+awwan is command-line interface to execute multiple lines of command in the
+local or remote server using SSH.
+Do you have a collection of shell scripts to manage one more similar server?
+Do you ever want to execute only part of your script? Are you get tired with
+learning others syntax and tools for provisioning your own server, while you
+need is a handful of shell script?
+If yes, awwan is the right tools for you.
++
+https://sr.ht/~shulhan/awwan/[Source]
+
 share::  `share` is collection of Go packages.
 The most outstanding packages is websocket, dns, email, smtp, memfs, and
 mining.
