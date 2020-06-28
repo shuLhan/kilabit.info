@@ -1,0 +1,511 @@
+= The mountain of Kubernetes
+:author: Shulhan <ms@kilabit.info>
+:date: 27 June 2020
+:toc:
+
+I have seen and read the hype about Kubernetes and finally had a first chance
+to experience it on the first hand.
+Like other new software technology, most of software engineer or system
+administrator want to try and experiment with it.
+They will learn and acquired knowledges, to see if its feasible; is it good
+or bad?
+This article is one of out many articles out there that try to understand and
+make sense of what is Kubernetes.
+We will take a hike on the mountain of Kubernetes and see the world from one
+of their hill.
+
+The preliminary of this article is written in this single tweet,
+
++++
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I could be wrong but
+Kubernetes is one of the greatest software marketing. The premise is
+&quot;autoscaling&quot;, but in the end we still pay by number of nodes (VM)
+not by pods.</p>&mdash; shuLhan (@_shuLhan) <a
+href="https://twitter.com/_shuLhan/status/1253140666470686721?ref_src=twsrc%5Etfw">April
+23, 2020</a></blockquote> <script async
+src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
++++
+
+Let see if the assumption and premise is still stand.
+
+
+==  What is Kubernetes?
+
+Its begin with container.
+
+Let say we have an application that run on port 80.
+To use Kubernetes, we pack all the application artifacts into a container,
+make it run and open port 80, and deploy it using "Deployment" into one or
+more Pods.
+
+You can instruct Kubernetes to run 1, 2, or more pods on the same container,
+statically or dynamically based on CPU and memory usage, so we will have
+"auto-scale".
+
+Since the pods is internal to Kubernetes (inside the cluster), we need to
+expose it using Service.
+There are three types of Service: ClusterIP, NodePort, and LoadBalancer.
+The ClusterIP service will create single IP inside cluster to access the
+application inside the cluster only.
+The NodePort service will open a port in each node and forward the traffic
+from outside using that port to our application port.
+The LoadBalancer service will create external IP (in the same subnet as the
+cluster) to access the application from outside the cluster.
+
+To sum it up, we got the following diagram for a single application
+deployment,
+
+----
+            CLIENT
+              ^^
+              ||
+              vv
+       +----------+  +------------------+
+  +----| Node IP  |--| LOAD BALANCER IP |--+
+  |    +----------+  +------------------+  |
+  |           ^^             ^^            |
+  |           ||             ||            |
+  |           vv             vv            |
+  |      +--------------------------+      |
+  |  +---| NODE PORT                |---+  |
+  |  |   +--------------------------+   |  |
+  |  |        ^^                        |  |
+  |  |        ||                        |  |
+  |  |        vv                        |  |
+  |  |  +-------------+                 |  |
+  |  |  | CLUSTER IP  |                 |  |
+  |  |  +-------------+                 |  |
+  |  |  | SERVICE     |                 |  |
+  |  |  +-------------+                 |  |
+  |  |  | 1*POD       |                 |  |
+  |  |  +-------------+                 |  |
+  |  |  | 1*CONTAINER |                 |  |
+  |  |  +-------------+                 |  |
+  |  |                                  |  |
+  |  +----------------------------------+  |
+  |     1*Node                             |
+  +----------------------------------------+
+     Cluster
+----
+
+There are at least five layers before a single request from client to reach
+the application. Amazing!
+
+A cluster is a group of one or more nodes.
+Kubernetes recommended minimum three nodes.
+This nodes also have auto-scaling capability based on resource consumption of
+our pods and/or services.
+
+A Node is a VM. In Google Cloud Platform (GCP) this would be represented by
+Compute Engine, and in AWS it would be by Elastic Compute instance.
+
+Of course, this is just a glimpse of overview on overall Kubernetes layer, but
+at least we got a big picture on how it operates to provide an illustration in
+the next section.
+
+
+==  Why Kubernetes?
+
+We search for
+https://duckduckgo.com/?q=why+kubernetes&t=ffab&ia=news[Why kubernetes?]
+and take three articles in the first page and summarize the
+answer to take the key points.
+
+The
+https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/#why-you-need-kubernetes-and-what-can-it-do[first
+article]
+is come from the Kubernetes site itself, which state
+(emphasis on mine),
+
+____
+Kubernetes provides you with a framework to run distributed systems
+resiliently. It takes care of _scaling_ and _failover_ for your application,
+provides deployment patterns, and more.
+____
+
+The key points here is _scaling_, _failover_, and _deployment patterns_.
+
+https://www.infoworld.com/article/3173266/4-reasons-you-should-use-kubernetes.html[The second article]
+is from infoworld.com.
+It provide four answers which can be summarized as,
+
+.  An infrastructure framework for today. ... Kubernetes eliminates
+   infrastructure _lock-in_ by providing core capabilities for containers
+   without imposing restrictions.
+
+.  Better management through modularity. ... Containers allow applications
+   to be decomposed into smaller parts with clear separation of concerns.
+   The abstraction layer provided for an individual container image allows us
+   to fundamentally rethink how distributed applications are built.
+
+.  Deploying and updating software at scale. This reason come with seven
+   bullet points: scalability, visibility, time savings, version control,
+   horizontal autoscaling, rolling updates, and canary deployments.
+
+.  Laying the foundation for cloud-native apps. ... Kubernetes allows us to
+   derive maximum utility from containers and build cloud-native applications
+   that can run anywhere, independent of cloud-specific requirements.
+
+The point number 1, 2 and 4 seems have one key point: _abstraction_.
+With existing Kubernetes configurations (data?) in hand, we can deploy the
+same infrastructure in other cloud service.
+
+The point number 3 can be grouped into _scaling_ and _failover_, with one
+new key point: _version control_.
+Time savings, rolling updates, visibility, and canary development can be
+grouped into _version control_.
+
+The last article is from
+https://stackoverflow.blog/2020/05/29/why-kubernetes-getting-so-popular/[stackoverflow's blog]
+on "Why is Kubernetes getting so popular?".
+The blog have five main points,
+
+* Infrastructure as YAML, or they called infrastructure as data which has the
+  following benefits: GitOps or Git Operations Version Control, Scalability
+  (again), Security and Controls, Cloud Provider Integrations.
+
+* Extensibility. One can extend the Kubernetes and add custom resource and/or
+  Operators.
+
+* Innovation. Kubernetes release every three of four months.
+
+* Community. "... gathers thousands of technologists and professionals who want
+  to improve Kubernetes and its ecosystem as well as make use of some of the
+  new features released every three months."
+
+* Future. One of the main challenges developers face in the future is how to
+  focus more on the details of the code rather than the infrastructure where
+  that code runs on. For that, serverless is emerging as one of the leading
+  architectural paradigms to address that challenge.
+
+There are four new key points here _extensibility_, _innovation_, _community_,
+and _future_.
+
+So, over three articles we have eight key points on why should we use
+Kubernetes: _scaling_, _failover_, _abstraction_, _version control_,
+_extensibility_, _innovation_, _community_, and _future_.
+
+
+=== Auto scaling
+
+One of the key factor that I often read now a days is "scaling".
+Startup with < 100 users, seems have fear that their application will hit the
+peak and can't handle client requests if its deployed in normal VM.
+So, they need to think one step ahead, how do we scale this application or
+service later.
+The short answer is provides by Kubernetes: we auto scale your application,
+dynamically.
+You only provide the maximum CPU and memory limit, and let us take care of the
+rest.
+
+This is true. Kubernetes can handle that for us, automatically; but its
+not free.
+When deployed on cloud services, we still pay per node, per load balancer,
+per static IP, and so on.
+Most of the time, the resource that it will consumed I bet is still below 75%
+of what cluster have, and by "most" probably by two or three years until we
+run out of funding.
+
+So, in long term I can say, the cloud service is still the winner here.
+
+Lets say we take the old way, using VM for deployment, and we hit the peak of
+resource, let say 90% of resource in VM is already consumed.
+Does adding another VM really the answer?
+Is it possible that the problem is in the application itself, in the database,
+in the network, or in the storage?
+
+
+===  Failover
+
+There is no specific definition of failover on kubernetes.io page, so we take
+a guest.
+One item that may describe failover in kubernetes.io page is the following
+snippet,
+
+____
+Self-healing: Kubernetes restarts containers that fail, replaces containers,
+kills containers that don’t respond to your user-defined health check, and
+doesn’t advertise them to clients until they are ready to serve.
+____
+
+This model may be useful if we deploying binary that got segmentation fault
+and the application (container) will auto re-created.
+OK.
+In the case of application that need to connect to database on startup but
+failed (for any reasons) and exit immediately, Kubernetes will re-create the
+container and start again from beginning, over and over.
+In the case of application using scripted programming language, for example
+PHP, we did not known if the application fail or not until we inspect the
+log, because the container will not get restarted.
+
+So, whether the container it self-healing or not we still need to known why
+is it fail, and to known this we will have another task in our hand after
+deploying with Kubernetes: logging and monitoring.
+
+Is there an alternative to failover using the old VM?
+Yes, a process manager like monit or systemd.
+
+
+===  Abstraction
+
+I remember trying to learn writing simple graphical user interface (GUI) the
+first time in Linux.
+I use X11 library, despite the GTK2 and Qt3 is already exist that day.
+Why? Just for fun.
+
+Creating GUI application using X11 is not portable.
+You can't compile and build it on Windows (except using Cygwin/X, I think,
+never tried it).
+But, if we use GTK2 or Qt3 it will cross-compiled to other operating system
+(OS).
+GTK2 or Qt3 provide an abstraction for our code for different OS.
+
+Another abstraction is Object-Relational Mapping (ORM).
+Two of the promises that ORM provide is we did not have to know about SQL and
+we can use different database (as long as the ORM library support it).
+Many people who support ORM sometimes denying the second point.
+ORM is make sense for generic application like Customer Relationship Manager
+(CRM) or Content Management System (CMS), where our client can choose whether
+to use SQLite, MariaDB, PostgreSQL, or other proprietary database; and we did
+not want to limit your client.
+But does it make sense for our own application?
+If we use ORM because we think maybe we need to use other database later,
+maybe we need to rethink again.
+
+The same argument also can be applied to Kubernetes.
+Do we really want to migrate from AWS to GCP or vice versa? Or to other cloud
+services while still developing our application?
+I can imagine the whole mess of changing configuration ensue if we did that.
+
+Cloud service is already an abstraction.
+We can add new CPU or memory by single click.
+We can add new VM by single click.
+Of course there is a little works we need to do if we want to vertical scale
+our application.
+We need to create new VM, and register its IP address to DNS or proxy server.
+But if we use somethings scriptable, probably through CLI, we can automated
+this, no?
+
+
+===  Version control
+
+There are three paragraph that mentions about version control.
+
+The first one is from StackOverflow's blog,
+
+____
+GitOps or Git Operations Version Control. With this approach, you can keep all
+your Kubernetes YAML files under git repositories, which allows you to know
+precisely when a change was made, who made the change, and what exactly
+changed. This leads to more transparency across the organization and improves
+efficiency by avoiding ambiguity as to where members need to go to find what
+they need. At the same time, it can make it easier to automatically make
+changes to Kubernetes resources by just merging a pull request.
+____
+
+The great things about infrastructure as code/data is we can see the (almost)
+whole infrastructure by walking through files.
+We can create new deployment by copy/paste previous deployment files.
+We can update the current infrastructure using command line interface (CLI),
+without touching/SSH the browser/node directly.
+
+Not only Kubernetes, most of cloud provider now can be modified using CLI or
+APIs.
+GCP provide `gcloud`, AWS have `aws-cli`.
+Ansible or Puppet made the abstraction using the HTTP APIs that cloud
+provides.
+If we write down how to create or modify the resources on the cloud using
+those CLI on text files, we are already in the right path.
+
+The second and third paragraphs that mention about versioning is from
+infoworld.com article,
+
+____
+*Version control.* Update deployed Pods using newer versions of application
+images and roll back to an earlier deployment if the current version is not
+stable.
+____
+
+Each time we deploy new container, the Kubernetes will increment the revision
+number of that container.
+In case the new deployment is not as we expected, we can rolled back to
+previous version.
+At this point we need to know what is "not stable" means and how
+we know if its "not stable".
+Once again, we will need logging and monitoring.
+
+____
+*Canary deployments.* A useful pattern when deploying a new version of a
+deployment is to first test the new deployment in production, in parallel with
+the previous version, and scale up the new deployment while simultaneously
+scaling down the previous deployment.
+____
+
+This is plausible if our deployments does not depends on specific protocol.
+
+For example, in the microservices land, let say we have two services A and B.
+Service A is a frontend that can be scaled up to 2 or more, but service B
+must be 1 instance.
+Application A talk with B using specific message, let say using protocol
+buffer.
+
+On the new deployment, we add new field X to message.
+Using the canary deployment, we got A-B' and A'-B'.
+Does the service B' will reject request from A because the message missing
+field X?
+Should be all A replaced with A' to make all the system works?
+
+
+===  Extensibility
+
+I think this one fallen under _abstraction_, from the stackoverflow's blog,
+
+____
+users and developers can add more resources in the form of Custom Resource
+Definitions.  For example, if we’d like to define a CronTab resource, we could
+do it with something like this ...
+____
+
+and then continued with,
+
+____
+...
+Another form of Kubernetes extensibility is its ability for developers to
+write their own Operators, a specific process running in a Kubernetes cluster
+that follows the control loop pattern. An Operator allows users to automate
+the management of CRDs (custom resource definitions) by talking to the
+Kubernetes API.
+____
+
+The StackOverflow's blog show an example of how to create crontab resource
+inside Kubernetes.
+I repeat, crontab resource using Kubernetes.
+
+I use vim.
+If I need some feature in vim, I search if its already have plugin in vim.
+I wish other editor is vim.
+
+An old adage said, "If your only tool is a hammer then every problem looks
+like a nail".
+
+
+===  Innovation
+
+Quote from stackoverflow's blog,
+
+____
+Over the last few years, Kubernetes has had major releases every three or four
+months, which means that every year there are three or four major releases.
+The number of new features being introduced hasn’t slowed, evidenced by over
+30 different additions and changes in its last release. Furthermore, the
+contributions don’t show signs of slowing down even during these difficult
+times as indicated by the Kubernetes project Github activity.
+____
+
+Here is the fact about software: it will have bugs.
+Whether it will break our system or not, that is unforeseen.
+
+Kubernetes it self is
+https://www.globenewswire.com/news-release/2018/12/11/1665419/0/en/As-Kubernetes-Nears-2-Million-Lines-of-Code-Commit-Velocity-and-API-Point-to-Project-Maturity-Innovation-Moves-to-Increasing-Satellite-Projects.html[not a small software].
+The level of abstraction that Kubernetes provide so it can works on different
+cloud provider is amazing.
+
+One thing to consider is we should use stable channel when deploying
+Kubernetes and only enable automatic upgrade only if we can manage it later.
+I enable automatic upgrade, but hope I have never seen a failure due to failed
+upgrade, because it will affect some of pods on some of nodes.
+
+Cloud provider like GCP and AWS also a software.
+They have a Service Level Agreement (SLA), which we can claim credit if they
+did not achieve it.
+Check the Kubernetes service provider SLA before deploying new cluster.
+
+
+===  Community
+
+One of great things about open and large community is we will have someone
+who will answer or help with our issue when we have a problem, either its in
+stackoverflow, reddit, or local Kubernetes Telegram group.
+
+Ironically, we have one more problem in our infrastructure.
+
+
+===  Future
+
+Quote from stackoverflow's blog,
+
+____
+One of the main challenges developers face in the future is how to
+focus more on the details of the code rather than the infrastructure where
+that code runs on. For that, serverless is emerging as one of the leading
+architectural paradigms to address that challenge.
+____
+
+Yes.
+That is the point.
+Do developers really need Kubernetes to deploy their application with 1-100
+users?
+
+
+==  Summary
+
+If you read until this paragraph, you may seems feel my arguments become
+snarky.
+There are reasons for that.
+
+Layer. Layer everywhere.
+
+We have seen that Kubernetes is not run on specific hardware by itself.
+Its run on VM which may run on hypervisor or on top of another software that
+abstract the CPU and memory in the real hardware.
+With this additional layer we will have additional infrastructure to manage,
+another latency to application.
+I have not experienced it may self, but I hope I will never have to
+experience the joy of debugging network issue on this layer.
+
+The cost of premature scaling.
+
+As we have discussed on the "What is Kubernetes?", we will pay for VMs (three
+at least), a load balancer, and an external static IP for single application
+in Kubernetes.
+An application that previously can handle traffics with 1 CPU and 2 GB memory
+now run inside three nodes with 2 CPU 4 GB, with probably 75% unused
+resources.
+If you can afford the cost (as in money), then go with it.
+
+Logging, alerting, and monitoring.
+
+Deploying an application that can "scale" does not end up with just packing it
+in container and let the Kubernetes handle the rest.
+The second major task in infrastructure is to gather information about all
+resources, including metrics of CPU, memory, data, networks, application logs,
+and so on.
+In case of request fail on application level, we need to know where to look at
+it, so we need a central logging.
+In case of timeout we need to know what cause it, does it cause by high CPU
+usage in one of application which block the rest of request or because the
+application itself, so we need an alert and monitoring.
+
+Kubernetes recommended using Prometheus, if you were afraid of vendor
+lock-in (you basically already locked in if you use one of cloud provider
+anyway).
+You will need to setup a Prometheus, and some graphical interface like Grafana
+for dashboard, but that is just for alerting and monitoring.
+For logging, you will need setup another stack, like ELK because
+https://prometheus.io/docs/introduction/faq/#how-to-feed-logs-into-prometheus[Prometheus
+is not an event logging system].
+Finally, now you have one application plus two or more containers to manage
+for monitoring.
+
+Or ... you could use one single binary monitoring, like influxdb.
+
+In GCP, they already provide native logging and monitoring, so we did not
+need to setup or install another applications.
+Unfortunately for logging we need to setup CloudFunctions that consume the
+log from Pub/Sub that published by Log Viewer.
+Once again, there is a price for everything in the cloud.
+
+That's it.
+Does the original assumption about Kubernetes still stand?
+You decide, but in my opinion maybe you need a good logging, alerting, and
+monitoring tools for your infrastructure.

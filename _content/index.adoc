@@ -107,6 +107,8 @@ https://github.com/shuLhan/libvos[Source]
 
 ===  2020
 
+*  link:/journal/2020/the_mountain_of_kubernetes/[The mountain of Kubernetes]
+
 *  link:/journal/2020/re-learning_slice/[Go: Re-learning slice]
 
 ===  2019
