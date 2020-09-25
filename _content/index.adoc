@@ -119,6 +119,12 @@ https://github.com/shuLhan/libvos[Source]
 
 ===  2020
 
+*  link:/journal/2020/unix_linux_system_administration_101/[UNIX/Linux System
+   Administration 101]
+
+*  link:/journal/2020/things_that_i_dislike_from_gcp/[Things that I dislike
+   from GCP]
+
 *  link:/journal/2020/the_mountain_of_kubernetes/[The mountain of Kubernetes]
 
 *  link:/journal/2020/re-learning_slice/[Go: Re-learning slice]
