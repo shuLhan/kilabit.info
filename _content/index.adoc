@@ -5,7 +5,10 @@ link:/about[About]
 ==  Projects
 
 Most of my personal projects is open source and available on my
-https://github.com/shuLhan[Github account].
+https://github.com/shuLhan[Github]
+and
+https://sr.ht/~shulhan[Sourcehut accounts].
+
 
 tour.golang-id.org::   The tour.golang-id.org is translation of their original
 website tour.golang.org to Indonesian language, to help newcomers learning Go
@@ -14,6 +17,7 @@ This is my first contribution to Go community.
 +
 https://tour.golang-id.org[Link] |
 https://github.com/golang-id/tour[Source]
+
 
 golang-id.org::  This website is my second contribution to Go community.
 Its goal is not only to provide help, through translation, for Indonesian to
@@ -25,6 +29,7 @@ The website is freshly launched, they are still more works to be done, though.
 https://golang-id.org[Link] |
 https://github.com/golang-id/web[Source]
 
+
 rescached::  Rescached is resolver cache daemon.
 It is a DNS forwarding server, serve the clients queries, but also caching all
 the queries and answers for later use.
@@ -34,6 +39,7 @@ The first implementation was written in C++ and then re-written using Go.
 +
 https://github.com/shuLhan/rescached[C++ version (unmaintained)] |
 https://github.com/shuLhan/rescached-go[Go version]
+
 
 awwan:: Configuration management software, infrastructure as file and
 directory layout.
@@ -47,28 +53,34 @@ If yes, awwan is the right tools for you.
 +
 https://sr.ht/~shulhan/awwan/[Source]
 
+
 share::  `share` is collection of Go packages.
 The most outstanding packages is websocket, dns, email, smtp, memfs, and
 mining.
 +
 https://github.com/shuLhan/share[Source]
 
-beku::  Beku is command line program to manage packages in user's
-environment (GOPATH or vendor directory).
-Beku provide syntax like pacman.
+
+ciigo::  ciigo is a program to write static web server with embedded files
+using asciidoc markup language.
+This site and golang-id.org is written with `ciigo` as framework.
 +
-https://github.com/shuLhan/beku[Source]
+https://sr.ht/~shulhan/ciigo[Source]
+
 
 haminer::  haminer is a library and program to parse and forward HAProxy logs
 to InfluxDB for mining HTTP requests.
 +
 https://github.com/shuLhan/haminer[Source]
 
-ciigo::  ciigo is a program to write static web server with embedded files
-using asciidoc markup language.
-This site and golang-id.org is written with `ciigo` as framework.
+
+beku::  Beku is command line program to manage packages in user's
+environment (GOPATH or vendor directory).
+Beku provide syntax like pacman.
+This program exist long before before `godep` or Go module exist and stable.
 +
-https://github.com/shuLhan/ciigo[Source]
+https://github.com/shuLhan/beku[Source (frozen)]
+
 
 vos::  Vos is a program to process formatted data, i.e. CSV data.
 Vos is designed to process a large input file, a file where their size is
@@ -78,7 +90,8 @@ Vos can do sorting, formatting, filtering, and join, by reading input file and
 its configuration script.
 Its written in C.
 +
-https://github.com/shuLhan/vos[Source]
+https://github.com/shuLhan/vos[Source (unmaintained)]
+
 
 libvos::  libvos is a C++ library.
 First implementation was intended for reading and writing Delimited Separated
@@ -87,7 +100,7 @@ Current features included Buffer module, File module, Socket module, reading
 and writing INI file format, FTP (server and client) module, DNS module, and
 Oracle Client Interface module.
 +
-https://github.com/shuLhan/libvos[Source]
+https://github.com/shuLhan/libvos[Source (unmaintained)]
 
 
 ==  Articles on Software Engineering

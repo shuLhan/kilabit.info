@@ -1,7 +1,7 @@
 git.sr.ht/~shulhan/asciidoctor-go v0.0.0-20201108174645-8fb69e9e17f1 h1:3NTMPuFEXs0MdW0+oMS5CCfFWpyV6j2xKGVwsZ9vwC4=
 git.sr.ht/~shulhan/asciidoctor-go v0.0.0-20201108174645-8fb69e9e17f1/go.mod h1:fPrOtGyyO+frAW3M9IjmuulkhC6ti/hAF6U41gxIr9E=
-github.com/shuLhan/ciigo v0.2.1-0.20201108175550-d407e926cec1 h1:GqiT33AJXEN9oS7HF5h8NmH+PDuBI6PmEn4LckVRzu8=
-github.com/shuLhan/ciigo v0.2.1-0.20201108175550-d407e926cec1/go.mod h1:lqNtDM9hbjB4fsR0fID1yuXUuQ0e6alWXPp7tnWIq1Y=
+git.sr.ht/~shulhan/ciigo v0.2.1-0.20201111155426-9d7fb5db0adf h1:0FJr8gs6WGa1SiepzGzb8XL01k90m1lObObJ7QYbVCo=
+git.sr.ht/~shulhan/ciigo v0.2.1-0.20201111155426-9d7fb5db0adf/go.mod h1:PaukGMHVWVjqGN9cqeh6QQwtFmXkL3qfEebl5fIuwZs=
 github.com/shuLhan/share v0.20.0/go.mod h1:FqPloTQlDTAmMXxaWft/V5tPmxEHBJeyJMAzVm4/1og=
 github.com/shuLhan/share v0.20.1 h1:ETiOMVgIBY37k/2pvRe2X+uH1OPhj/XUVugZB6rE9vc=
 github.com/shuLhan/share v0.20.1/go.mod h1:oBv+CGHG6u4Sa71+nJJJji8mCgPAadywjsB3I3k/b0o=
