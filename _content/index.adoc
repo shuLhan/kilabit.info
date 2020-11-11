@@ -119,6 +119,9 @@ https://github.com/shuLhan/libvos[Source]
 
 ===  2020
 
+*  link:/journal/2020/service_management_with_systemd/[Service management with
+   systemd]
+
 *  link:/journal/2020/unix_linux_system_administration_101/[UNIX/Linux System
    Administration 101]
 

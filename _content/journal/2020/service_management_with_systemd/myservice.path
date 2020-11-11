@@ -1,0 +1,9 @@
+[Unit]
+Description="Watch /data/app/bin/myservice"
+
+[Path]
+PathChanged=/data/app/bin/myservice
+Unit=systemctl-restart@%p.service
+
+[Install]
+WantedBy=multi-user.target

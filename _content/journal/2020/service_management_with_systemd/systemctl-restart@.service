@@ -1,0 +1,5 @@
+[Unit]
+Description=systemctl-restart@%i
+
+[Service]
+ExecStart=/bin/systemctl restart %i

@@ -1,0 +1,10 @@
+[Unit]
+Description=My service
+After=syslog.target network.target
+
+[Service]
+ExecStart=/data/app/bin/myservice
+#User=<your username>
+
+[Install]
+WantedBy=multi-user.target

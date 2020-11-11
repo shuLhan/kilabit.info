@@ -1,4 +1,5 @@
 *.html
+/_content/journal/2020/service_management_with_systemd/myservice
 /cmd/www-kilabit/static.go
 /www-kilabit
 /www-kilabit-linux-amd64

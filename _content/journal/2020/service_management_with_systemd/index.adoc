@@ -1,0 +1,315 @@
+= Service management with systemd
+Shulhan <ms@kilabit.info>
+v1.0.0, 11 November 2020
+:toc:
+
+This is tutorial on how to manage a program or script inside Linux operating
+system using systemd service.
+This is an alternative for developer or operational team who still use third
+party process manager (like monit) or terminal multiplexer (screen/tmux) to
+run the program in the background on any Linux server that use systemd.
+
+
+== What is systemd?
+
+In short, systemd is the init program that will be executed by kernel, it will
+have process ID (pid) 1, the parent of all processes.
+See the output of `pstree -p` for an example.
+
+Any programs or scripts that need to be executed by systemd can register them
+self using systemd.service(5), which is a file that have extension ".service".
+The location of the service files for global (system) is in
+`/etc/systemd/system/`.
+
+
+== Use case 1: starting program at boot
+
+Lets say that we have
+link:myservice.go[a Go program]
+that run indefinitely and we want to run it when the system started or
+rebooted,
+
+----
+package main
+
+import (
+    "fmt"
+    "log"
+    "time"
+)
+
+func main() {
+    version := "v0.1.0"
+    x := 0
+    for {
+        fmt.Printf("stdout: %s: %d\n", version, x)
+        log.Printf("stderr: %s: %d\n", version, x)
+        x++
+        time.Sleep(3 * time.Second)
+    }
+}
+----
+
+We can build this program and run it,
+
+----
+$ go build myservice.go
+$ ./myservice
+stdout: v0.1.0: 0
+2020/11/11 17:22:05 stderr: v0.1.0: 0
+stdout: v0.1.0: 1
+2020/11/11 17:22:08 stderr: v0.1.0: 1
+stdout: v0.1.0: 2
+2020/11/11 17:22:11 stderr: v0.1.0: 2
+^C
+----
+
+To make the program run in any linux system with systemd, we need to copy it
+to directory that are writeable by user.
+Of course, we can put it in `/usr/bin` or `/usr/local/bin` but I prefer if we
+put it somewhere that is not default for system packages.
+
+For example, we create directory `/data/app/bin/` and copy the `myservice`
+into it.
+Then, we create a service file inside `/etc/systemd/system/`, lets name the
+file
+link:myservice.service[`myservice.service`],
+
+----
+[Unit]
+Description=My service
+After=syslog.target network.target
+
+[Service]
+ExecStart=/data/app/bin/myservice
+#User=<your username>
+
+[Install]
+WantedBy=multi-user.target
+----
+
+That is the common and basic systemd service file for common programs.
+
+A brief explanation,
+
+* `After` option means the service will run after system logs and network is
+  up.
+* `ExecStart` is the absolute path to the program that will be executed
+* `User` is the user that will run the program, by default it will run as
+  root.
+
+To make the program start at boot run,
+
+----
+$ sudo systemctl enable myservice.service
+Created symlink /etc/systemd/system/multi-user.target.wants/myservice.service → /etc/systemd/system/myservice.service.
+----
+
+Note that the ".service" suffix is optional, you can just write `myservice`
+instead.
+
+To make the program start now execute,
+
+----
+$ sudo systemctl start myservice
+----
+
+We can check if the program running or not by using `status` command,
+
+----
+$ sudo systemctl status myservice
+----
+
+or by viewing the service logs using `journalctl`,
+
+----
+$ journalctl --follow --unit myservice
+----
+
+
+== Use case 2: auto restart the service when program changes
+
+Lets say we have updated our program to add new features or fixes some bug, or
+let just changes the `version` variable from previous Go code example from
+`v0.1.0` to `v0.2.0` and rebuild the binary.
+
+----
+package main
+
+import (
+    "fmt"
+    "log"
+    "time"
+)
+
+func main() {
+    version := "v0.2.0"
+    x := 0
+    for {
+        fmt.Printf("stdout: %s: %d\n", version, x)
+        log.Printf("stderr: %s: %d\n", version, x)
+        x++
+        time.Sleep(3 * time.Second)
+    }
+}
+----
+
+To deploy the new binary we copy them to remote server, SSH into it, and
+restart the service.
+What if we can just copy the binary and let the systemd restart it
+automatically?
+Yes, systemd can do that.
+
+First, we create a middle service that will restart any service by using
+parameter, we name it
+link:systemctl-restart@.service[`systemctl-restart@.service`] and put it also
+in `/etc/systemd/system/`,
+
+----
+[Unit]
+Description=systemctl-restart@%i
+
+[Service]
+ExecStart=/bin/systemctl restart %i
+----
+
+The `%i` is any string between `systemctl-restart@` and `.service`.
+
+Second, we create a systemd unit systemd.path(5) that will watch the
+program file and `systemctl-restart@.service` when its changed,
+
+----
+[Unit]
+Description=Watch /data/app/bin/myservice
+
+[Path]
+PathChanged=/data/app/bin/myservice
+Unit=systemctl-restart@%p.service
+
+[Install]
+WantedBy=multi-user.target
+----
+
+The unit file name MUST have the same name with our previous service file
+but with ".path" suffix.
+Put it in
+link:myservice.path[`/etc/systemd/system/myservice.path`].
+The `%p` parameter is the current unit file name, in this case `myservice`.
+So, when systemd detect a file changes on `/data/app/bin/myservice` it will
+activate `systemctl-restart@myservice.service`.
+
+Enable and start the unit path,
+
+----
+$ sudo systemctl enable myservice.path
+Created symlink /etc/systemd/system/multi-user.target.wants/myservice.path → /etc/systemd/system/myservice.path.
+$ sudo systemctl start myservice.path
+----
+
+Lets try!
+
+Oh, by the way, we can't use `scp` to copy the program, we must use `rsync`,
+because scp replace the file directly, while rsync create a temporary file
+first and then move it to the destination.
+
+Lets start our service first and watch the log,
+
+----
+$ sudo systemctl restart myservice
+$ journalctl -f -u myservice
+-- Logs begin at Thu 2020-10-22 05:15:25 UTC. --
+Nov 11 11:51:52 myserver myservice[57614]: stdout: v0.1.0: 0
+Nov 11 11:51:52 myserver myservice[57614]: 2020/11/11 11:51:52 stderr: v0.1.0: 0
+Nov 11 11:51:55 myserver myservice[57614]: stdout: v0.1.0: 1
+Nov 11 11:51:55 myserver myservice[57614]: 2020/11/11 11:51:55 stderr: v0.1.0: 1
+Nov 11 11:51:58 myserver myservice[57614]: stdout: v0.1.0: 2
+Nov 11 11:51:58 myserver myservice[57614]: 2020/11/11 11:51:58 stderr: v0.1.0: 2
+----
+
+Update the `version` in the code, rebuild it, and sync it to server,
+
+----
+$ GOOS=linux GOARCH=amd64 go build myservice.go
+$ rsync myservice myserver:/data/app/bin/
+----
+
+Switch back to terminal that tailing our service logs you will see that the
+counter is started back to zero,
+
+----
+Nov 11 11:53:50 myserver myservice[57614]: 2020/11/11 11:53:50 stderr: v0.1.0: 39
+Nov 11 11:53:53 myserver myservice[57614]: stdout: v0.1.0: 40
+Nov 11 11:53:53 myserver myservice[57614]: 2020/11/11 11:53:53 stderr: v0.1.0: 40
+Nov 11 11:53:54 myserver myservice[57667]: stdout: v0.2.0: 0
+Nov 11 11:53:54 myserver myservice[57667]: 2020/11/11 11:53:54 stderr: v0.2.0: 0
+Nov 11 11:53:57 myserver myservice[57667]: stdout: v0.2.0: 1
+Nov 11 11:53:57 myserver myservice[57667]: 2020/11/11 11:53:57 stderr: v0.2.0: 1
+Nov 11 11:54:00 myserver myservice[57667]: stdout: v0.2.0: 2
+Nov 11 11:54:00 myserver myservice[57667]: 2020/11/11 11:54:00 stderr: v0.2.0: 2
+Nov 11 11:54:03 myserver myservice[57667]: stdout: v0.2.0: 3
+----
+
+
+== Use case 3: storing program logs into file
+
+By default, all output of program is collected by `systemd-journald(8)` and
+you can be view it using `journalctl` command.
+
+There are two methods to store the program output or error to file.
+
+The first method is by wrapping the program with shell script.
+The reason for this is systemd does not support shell redirection and pipe in
+`ExecStart` option.
+
+We can not do this,
+
+----
+ExecStart = /data/app/bin/myservice 2> file
+----
+
+but we can do this,
+
+----
+...
+ExecStart = /data/app/bin/myservice.sh
+...
+----
+
+where `/data/app/bin/myservice.sh` is a normal shell script,
+
+----
+#/bin/sh
+
+/data/app/bin/myservice \
+    2>> /data/app/logs/myservice-error.log \
+    1>> /data/app/logs/myservice.log
+----
+
+The second method is by upgrading systemd to version 236 or latest with `Unit`
+options `StandardOutput` and `StandardError` set to file location, for
+example,
+
+----
+[Unit]
+Description=My service
+After=syslog.target network.target
+
+[Service]
+ExecStart=/data/app/bin/myservice
+StandardOutput=append:/data/app/logs/myservice.log
+StandardError=append:/data/app/logs/myservice-error.log
+
+[Install]
+WantedBy=multi-user.target
+----
+
+The `append:` flag will append the log to file if its already exist.
+
+
+== Summary
+
+Systemd as the system and service manager have powerful features that user can
+use, especially for deploying application, either binary or script.
+With systemd one can auto start the program after boot, auto restart when the
+program file changes, and storing the program standard output and/or error
+into files.
