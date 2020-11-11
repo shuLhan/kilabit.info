@@ -29,9 +29,10 @@ body {
 	line-height: 1.25em;
 	margin: 0 auto;
 	width: 800px;
+	font-size: 16px;
 }
 code {
-	font-size: 14px;
+	font-size: 16px;
 }
 div {
 	margin: 0;
@@ -72,8 +73,8 @@ pre {
 	border: 1px solid #ccc;
 	color: #ccc;
 	display: block;
-	font-size: 13px;
-	line-height: 1em;
+	font-size: 16px;
+	line-height: 1.25em;
 	margin: 0 0 10px;
 	overflow: auto;
 	padding: 9.5px;
@@ -194,14 +195,7 @@ pre {
 
 		<div class="page">
 			<div class="container">
-				<h1>{{.Title}}</h1>
-				{{ if .Author }}
-				<div class="meta">
-					{{.Author}}
-					<br />
-					{{.Date}}
-				</div>
-				{{ end }} {{.Body}}
+				{{.Body}}
 			</div>
 			<!-- .container -->
 		</div>
