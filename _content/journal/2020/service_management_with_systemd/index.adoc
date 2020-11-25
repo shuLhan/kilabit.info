@@ -1,6 +1,6 @@
 = Service management with systemd
 Shulhan <ms@kilabit.info>
-v1.0.0, 11 November 2020
+11 November 2020
 :toc:
 
 This is tutorial on how to manage a program or script inside Linux operating
@@ -16,8 +16,9 @@ In short, systemd is the init program that will be executed by kernel, it will
 have process ID (pid) 1, the parent of all processes.
 See the output of `pstree -p` for an example.
 
-Any programs or scripts that need to be executed by systemd can register them
-self using systemd.service(5), which is a file that have extension ".service".
+Any programs or scripts that need to be managed by systemd can register them
+self using systemd.service(5), which is a file that have extension ".service",
+".timer", or ".path".
 The location of the service files for global (system) is in
 `/etc/systemd/system/`.
 
@@ -126,8 +127,53 @@ or by viewing the service logs using `journalctl`,
 $ journalctl --follow --unit myservice
 ----
 
+== Use case 2: auto restart the service when program crash
 
-== Use case 2: auto restart the service when program changes
+We know that non of our program is free from bugs, right?
+So, in case our program crash and terminate we want it to start again from
+beginning.
+With systemd service we can do this by setting "Restart=" and "RestartSec="
+options to "[Service]".
+Here is the example of service that restart the program 5 seconds after killed
+or crashed,
+
+----
+[Unit]
+Description=My service
+After=syslog.target network.target
+
+[Service]
+ExecStart=/data/app/bin/myservice
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+----
+
+We can try this by killing our `myservice`,
+
+----
+$ kill -9 `pidof myservice`
+$ journalctl -f -u myservice.service
+myservice[102962]: 2020/11/25 16:54:00 stderr: v0.2.0: 1
+myservice[102962]: stdout: v0.2.0: 2
+myservice[102962]: 2020/11/25 16:54:03 stderr: v0.2.0: 2
+myservice[102962]: stdout: v0.2.0: 3
+myservice[102962]: 2020/11/25 16:54:06 stderr: v0.2.0: 3
+myservice[102967]: stdout: v0.2.0: 0
+myservice[102967]: 2020/11/25 16:54:11 stderr: v0.2.0: 0
+myservice[102967]: stdout: v0.2.0: 1
+myservice[102967]: 2020/11/25 16:54:14 stderr: v0.2.0: 1
+----
+
+As you can see, the program restarted automatically after being killed.
+
+There are many options for "Restart=" options, please consult your
+systemd.service(5) man page for more information.
+
+
+== Use case 3: auto restart the service when program changes
 
 Lets say we have updated our program to add new features or fixes some bug, or
 let just changes the `version` variable from previous Go code example from
@@ -250,7 +296,7 @@ Nov 11 11:54:03 myserver myservice[57667]: stdout: v0.2.0: 3
 ----
 
 
-== Use case 3: storing program logs into file
+== Use case 4: storing program logs into file
 
 By default, all output of program is collected by `systemd-journald(8)` and
 you can be view it using `journalctl` command.
@@ -303,13 +349,101 @@ StandardError=append:/data/app/logs/myservice-error.log
 WantedBy=multi-user.target
 ----
 
-The `append:` flag will append the log to file if its already exist.
+The `append:` prefix will append the log to file if its already exist.
+
+
+== Use case 5: start program at specific time or interval
+
+You may think that, "well, I can do this with cronjobs".
+Yes, you can but systemd unit timer is more powerful than that.
+
+Imagine that we have 30 or more cron jobs.
+If one of the job is failed we can not know which one, unless we pipe the
+job command to file, like most good sysadmin will do.
+We also can not inspect the current jobs status, except using another cron
+frontend.
+We also can not stop specific jobs without re-setting the whole jobs.
+
+With systemd timer, not only we did not need to pipe it to file (since the
+service can have "StandardOutput=" and/or "StandardError="), we can inspect
+the schedule of all jobs, and stop and start specific job.
+
+To give you an example we will create simple shell script and systemd timer
+that will execute it every three seconds,
+
+----
+#!/bin/sh
+
+echo "Hello world!"
+----
+
+Put the script in file `/data/app/bin/myservice.sh`, and create systemd timer
+`myservice.timer` in `/etc/systemd/system/`,
+
+----
+[Unit]
+Description=Run myservice every 3 seconds
+
+[Timer]
+OnCalendar=*:*:0/3
+AccuracySec=1us
+
+[Install]
+WantedBy=timers.target
+----
+
+NOTE: By default `AccuracySec=` option is set to 1 minute, which means on
+normal scenario you did not need to set the `AccuracySec=1us` option.
+
+The systemd know which service to be run based on the file name.
+So, in our case since the unit timer name is "myservice.timer" then systemd
+will trigger the "myservice.service".
+We did not need to enable or start the `myservice.service`, only the
+`myservice.timer`.
+
+First, we need to stop and disable our previous `myservice.service`,
+
+----
+$ sudo systemctl stop myservice.service
+$ sudo systemctl disable myservice.service
+----
+
+and change the `ExecStart=` to point to `/data/app/bin/myservice.sh`, and then
+enable and start the timer,
+
+----
+$ sudo systemctl enable myservice.timer
+$ sudo systemctl start myservice.timer
+----
+
+Lets inspect the output of `myservice.sh` immediately,
+
+----
+$ journalctl -f -u myservice.service
+Nov 25 17:40:18 local myservice.sh[103782]: Hello world!
+Nov 25 17:40:21 local myservice.sh[103784]: Hello world!
+Nov 25 17:40:24 local myservice.sh[103785]: Hello world!
+^C
+----
+
+Now, lets see the status of all timers in our systems,
+
+----
+$ sudo systemctl list-timers
+NEXT                        LEFT          LAST                        PASSED        UNIT                         ACTIVATES
+Wed 2020-11-25 17:46:51 UTC 1s left       Wed 2020-11-25 17:46:48 UTC 1s ago        myservice.timer              myservice.service
+...
+----
+
+We can see that our timer will run again at `Wed 2020-11-25 17:46:51 UTC` or
+1 second from now, and has been successfully running at 17:46:48 or 1 second
+ago.
 
 
 == Summary
 
 Systemd as the system and service manager have powerful features that user can
-use, especially for deploying application, either binary or script.
-With systemd one can auto start the program after boot, auto restart when the
-program file changes, and storing the program standard output and/or error
-into files.
+use, especially for deploying application, either binary or script.  With
+systemd one can auto start the program after boot, auto restart when the
+program crash or when the file changes, and storing the program standard
+output and/or error into files.
