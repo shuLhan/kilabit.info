@@ -14,4 +14,5 @@ deploy-local:
 	rsync ./www-kilabit $(GOBIN)/
 
 serve:
+	ulimit -n 8192
 	DEBUG=1 go run ./cmd/www-kilabit
