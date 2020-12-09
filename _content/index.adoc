@@ -1,4 +1,4 @@
-=  Index
+=  kilabit.info
 
 link:/about[About]
 
@@ -140,6 +140,8 @@ https://github.com/shuLhan/libvos[Source (unmaintained)]
 
 *  link:/journal/2020/things_that_i_dislike_from_gcp/[Things that I dislike
    from GCP]
+
+*  link:/journal/2020/the_art_of_timeout/[The art of timeout]
 
 *  link:/journal/2020/the_mountain_of_kubernetes/[The mountain of Kubernetes]
 
