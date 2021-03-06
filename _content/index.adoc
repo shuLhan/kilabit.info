@@ -135,6 +135,11 @@ Oracle Client Interface module.
 
 ==  Journal
 
+===  2021
+
+*  link:/journal/2021/benchmarking_kubernetes/[Benchmarking Kubernetes (part 2)]
+
+
 ===  2020
 
 *  link:/journal/2020/service_management_with_systemd/[Service management with

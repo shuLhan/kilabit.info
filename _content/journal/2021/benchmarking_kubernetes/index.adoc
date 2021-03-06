@@ -1,0 +1,114 @@
+= Benchmarking Kubernetes (part 2)
+Shulhan <ms@kilabit.info>
+6 March 2021
+:toc:
+
+In the part 1, The mountain of Kubernetes, I have writen my opinions about
+Kubernetes.
+In this journal I will share the results of load testing benchmark of HTTP
+services deployed in compute engine (normal VMs) versus in Kubernetes, so I
+can prove my words, not just ranting.
+
+* link:/journal/2020/the_mountain_of_kubernetes/[The mountain of Kubernetes
+  (part 1), target=_blank]
+* Benchmarking Kubernetes (this journal)
+
+== Goals
+
+The goal of load testing is to find the maximum throughput, or transaction per
+second (TPS), that can be served by HTTP services deployed on VMs, with a
+minimum success ratio of 99%.
+
+
+== Environment
+
+The HTTP services that we will benchmarking are written in Go 1.15.
+The infrastructure is run on Google Cloud Platform (GCP).
+There are four parts on the whole infrastructure: the proxy server, the HTTP
+services, Nats (for message broker), and MySQL database on Cloud SQL.
+Except for proxy server and database, the difference between deploying in
+Kubernetes and with VM are only the location of HTTP services and Nats.
+
+The benchmark tools that we use is
+https://github.com/tsenart/vegeta[vegeta library]
+written with custom web user interface so that we can repeat the same process
+with different parameters, especially requests per second (RPS).
+
+.Infrastructure with Kubernetes
+----
+                 Kubernetes
++-------+       +------------+       +-----------+
+| Proxy | <===> | Service 1  | <===> | Cloud SQL |
++-------+       |------------|       +-----------+
+                |    ...     |
+                +------------+
+                | Service N  |
+                |------------|
+                | Nats       |
+                +------------+
+----
+
+The deployment on Kubernetes is usual, all services run on its pods, with
+resource limit set to 1200m for CPU and 1Gi for memory.
+
+.Infrastructure without Kubernetes
+
+----
+                    VMs
++-------+       +------------+       +-----------+
+| Proxy | <===> | Service 1  | <===> | Cloud SQL |
+|       |       | Nats       |       |           |
+|       |       +------------+       |           |
+|       |                            |           |
+|       |       +------------+       |           |
+|       | <===> | Service N  | <===> |           |
++-------+       +------------+       +-----------+
+----
+
+The deployment on VMs is normal, all services run with systemd, one service
+run along with Nats, and another's is in its own VM.
+Each VMs is a custom machine with 1 vCPU, 1 GB.
+
+
+== Load testing with the same RPS
+
+We have run the load testing previously with Kubernetes.
+The RPS values in this result is the maximum RPS with success ratio 99% on
+Kubernetes.
+
+
+The load testing is run for 10 seconds for each endpoints.
+
+image:/journal/2021/benchmarking_kubernetes/kubernetes_benchmark_result_1.png[Kubernetes
+benchmark result 1,700].
+
+Notes,
+
+* Latency is in seconds.
+* A good result would be positive values on delta Throughput and Success ratio
+  and negative value on delta Latency.
+
+== Load testing with maximum RPS
+
+In this testing we are looking for the maximum throughput that we can achieve
+on environment without Kubernetes and compare them.
+
+image:/journal/2021/benchmarking_kubernetes/kubernetes_benchmark_result_2.png[Kubernetes
+benchmark result 1,700].
+
+
+== Summary
+
+On average, overall APIs throughput increase ~92% and the latency decreases
+~65%.
+This means we get more performance when not deploying the services using
+Kubernetes.
+
+Why?
+
+I cannot say that I am familiar with Kubernetes platform in detail, but from
+link:/journal/2020/the_mountain_of_kubernetes/[previous article]
+we can see that there are at least three layers before the actual requests from
+proxy reached our services: the cluster, the node, and the container layer.
+All of this layers must be routed in and out, which cause increase in the
+latencies and decrease in the throughputs.
