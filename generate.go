@@ -10,8 +10,10 @@ import (
 
 func main() {
 	opts := ciigo.GenerateOptions{
-		Root:           "_content",
-		HTMLTemplate:   "_content/template.gohtml",
+		ConvertOptions: ciigo.ConvertOptions{
+			Root:         "_content",
+			HtmlTemplate: "_content/template.gohtml",
+		},
 		GenPackageName: "main",
 		GenVarName:     "memfsContent",
 		GenGoFileName:  "cmd/www-kilabit/memfs_content.go",

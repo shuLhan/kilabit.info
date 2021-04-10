@@ -11,7 +11,16 @@ var memfsContent *memfs.MemFS
 
 func main() {
 	log.SetFlags(0)
-	err := ciigo.Serve(memfsContent, "_content", ":7000", "_content/template.gohtml")
+	serveOpts := &ciigo.ServeOptions{
+		ConvertOptions: ciigo.ConvertOptions{
+			Root:         "_content",
+			HtmlTemplate: "_content/template.gohtml",
+		},
+		Address: "127.0.0.1:7000",
+		Mfs:     memfsContent,
+	}
+
+	err := ciigo.Serve(serveOpts)
 	if err != nil {
 		log.Fatal(err)
 	}
