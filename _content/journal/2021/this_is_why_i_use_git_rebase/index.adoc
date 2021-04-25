@@ -1,0 +1,107 @@
+= This is why I use git rebase
+
+Suppose that we use three branches, one for development (`main`), one for
+testing (`staging`), and one for live (`production`); and one time you need to
+quickly push a commit to production to quick fix somethings.
+
+Someone then create a commit to fix it, push to main, another one review it
+and merge to main and then to staging.
+The code then deployed to staging environment, where quality assurance (QA)
+make sure that the fix is correct, probably for the third times.
+
+QA approve it, the maintainer then merge them to production.
+
+This is what the history looks like with git merge,
+
+image:/journal/2021/this_is_why_i_use_git_rebase/this_is_why_i_dont_use_git_merge.png[This
+is why I do not use git merge].
+
+Of course, one can use `gitk \--no-merges` to preview the history with less
+clutters but it does not hide the merge commits.
+
+If one use git rebase, the history is clean and linear, we don't have three
+"Merge xxx" only single commit from the fix,
+
+image:/journal/2021/this_is_why_i_use_git_rebase/this_is_why_i_use_git_rebase.png[This
+is why I use git rebase]
+
+== _Does it matter?_
+
+It depends.
+If you value the history of your project, it matter.
+
+There are several advantages when using linear git history.
+
+First, the obvious reason is it give a calm sensation for some people brains.
+
+Second, when your application break and you did not know what cause it, you may
+depends on the git history to review the code again on specific path or file
+that may cause it.
+The quick ways maybe using `git blame`, but its require two steps: running git
+blame and searching the offending commit.
+Sometimes reviewing commit by commit can be helpful, since we already knew
+what the commit does and when, so we can skip some commits and jump to
+specific commits for reviewing.
+
+Third, one can manage commits into several branches.
+All commits goes to `master`, some commits that is ready for testing goes to
+`staging`, and commits that has been tested and ready to be release goes to
+`production`.
+
+.Warehouse logistics by https://www.reddit.com/user/baderxeea/[/u/baderxeea]
+video::/journal/2021/this_is_why_i_use_git_rebase/warehouse_logistics.mp4[options="autoplay,loop"]
+
+Once in a while, the maintainer rebase the `staging` branch to `main` and
+`production` to `staging`, which result in clean single line history.
+
+image:/journal/2021/this_is_why_i_use_git_rebase/git-branch-linear.png[Git
+branches with linear history]
+
+
+== A critic to git(hub) flow
+
+There is https://nvie.com/posts/a-successful-git-branching-model/[an article]
+circulating and has been suggested to me, twice, where the author suggest that
+each feature should be developed on its branch and merged back to `develop`
+branch when it's ready for release.
+
+There are two things that irks me about the article.
+
+First, people seems completely miss the point of git.
+The building block of git is commits, and commits is about history.
+Branch is another way to collect the commits as part of the workflow.
+By putting emphasis only on branch, people seems ignore important point on
+how to create link:/notes/A_guide_to_version_control[a good git commit], which
+in effect causes one line commit behaviour (also, the GUI tools for Git user
+even encourage this behaviour, for example VS Code, Github desktop).
+
+Second, a feature developed on a branch and merged to `develop` is assumed to
+be perfect, non-free bugs code.
+Suppose that we have three features being merged to `develop` branch: F1, F2,
+and F3.
+What would happen if one the feature has bug?
+Let say F1 has a bug, F2 is pass the QA, and F3 missing some requirements.
+Do we create another branch for that?
+`F1-fix` and `F3-update`?
+And merge them again?
+Can we just release only F2 first?
+No, the article seems to suggest to wait for F1 and F3 complete before going
+for release.
+
+Another
+https://guides.github.com/introduction/flow/[article about github flow] also
+has this defect, but this one paragraph even more harmful than later, emphasis
+on mine,
+
+[quote]
+Once your pull request has been reviewed and the branch passes your tests, you
+can deploy your changes to verify them in production. _If your branch causes
+issues, you can roll it back by deploying the existing main branch into
+production._
+
+Is not that cute?
+It seems like an issue is a new normal on github platform, "Hey we lost our
+client money because the latest release forgot to add the user balance, lets
+roll back to previous main branch".
+No github, we should not rollback, we move forward by fixing the issue, so the
+history know what we do wrong in the past and how to fix it.
