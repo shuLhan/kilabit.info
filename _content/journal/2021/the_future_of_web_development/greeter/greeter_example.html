@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Greeter example</title>
+	</head>
+	<body onload="main()">
+		<div id="greeter"></div>
+		<script>
+			var exports = {}
+		</script>
+		<script src="greeter.js"></script>
+		<script src="../models/models.js"></script>
+		<script>
+			function main() {
+				let greeter = new Greeter("greeter")
+				let user = new Student("Jane", "M.", "User")
+				greeter.Greet(user)
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,205 @@
+= The future of web development
+Shulhan <ms@kilabit.info>
+25 July 2021
+:toc:
+:sectanchors:
+:sectlinks:
+
+In this journal, I want to try developing a typescript library that will be
+used on web application (browser).
+Instead of using
+https://www.typescriptlang.org/docs/bootstrap[framework^],
+I will start from scratch using documentation from
+https://www.typescriptlang.org[the official typescript]
+website.
+Lets pretend that I am a complete beginner on web development and
+see how easy or hard to develop JavaScript library in 2021 using the famous
+TypeScript language.
+
+All of the source codes will be available on
+https://git.sr.ht/~shulhan/kilabit.info/tree/main/item/_content/journal/2021/the_future_of_web_development[this repository^].
+
+Let's begin!
+
+== Environment
+
+The library developed using typescript version 4.3.5 on Arch Linux.
+
+
+== The library
+
+We will follows the
+https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html[TypeScript
+Tooling in 5 minutes^], but instead of one file `greeter.ts` we will
+separated it into two modules: `models` and `greeter`.
+
+The `models` module contains an interface `Person` and class `Student` that
+will be used by `greeter` module and HTML file.
+Lets create it,
+
+----
+$ mkdir -p models
+$ cat > models/models.ts <<EOF
+export class Student {
+	fullName: string
+	constructor(public firstName: string, public middleInitial: string, public lastName: string) {
+		this.fullName = firstName + " " + middleInitial + " " + lastName
+	}
+}
+
+export interface Person {
+	firstName: string
+	lastName: string
+}
+EOF
+----
+
+The `greeter` module contains a class Greeter that generate and display a HTML
+text inside the `div` element specified by `id`.
+Lets create it,
+
+----
+$ mkdir -p greeter
+$ cat > greeter/greeter.ts <<EOF
+import { Person, Student } from '../models/models';
+
+class Greeter {
+	private el
+
+	constructor(id: string) {
+		this.el = document.getElementById(id)
+		if (!this.el) {
+			console.error("element id not found:", id)
+			return
+		}
+	}
+
+	Greet(person: Person) {
+		this.el.innerHTML = "Hello, " + person.firstName + " " + person.lastName;
+	}
+}
+EOF
+----
+
+Lets compile the greeter.ts into JavaScript first,
+
+----
+$ tsc greeter/greeter.ts
+
+----
+
+Seems like there is no error.
+Lets create a simple HTML to test the generated JavaScript file,
+
+----
+$ cat > greeter/greeter_example.html <<EOF
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Greeter example</title>
+	</head>
+	<body onload="main()">
+		<div id="greeter"></div>
+		<script src="greeter.js"></script>
+		<script>
+			function main() {
+				let greeter = new Greeter("greeter")
+			}
+		</script>
+	</body>
+</html>
+EOF
+----
+
+If we open it in the browser we will get the following error,
+
+----
+Uncaught ReferenceError: exports is not defined
+    <anonymous> file:///home/ms/go/src/git.sr.ht/~shulhan/kilabit.info/_content/journal/2021/the_future_of_web_development/greeter/greeter.js:2
+greeter.js:2:1
+Uncaught TypeError: Greeter is not a constructor
+    main file:///home/ms/go/src/git.sr.ht/~shulhan/kilabit.info/_content/journal/2021/the_future_of_web_development/greeter/greeter_example.html:12
+    onload file:///home/ms/go/src/git.sr.ht/~shulhan/kilabit.info/_content/journal/2021/the_future_of_web_development/greeter/greeter_example.html:1
+greeter_example.html:12:19
+----
+
+Here is the content of `greeter.js`,
+
+----
+"use strict";
+exports.__esModule = true;
+var Greeter = /** @class */ (function () {
+    function Greeter(id) {
+        this.el = document.getElementById(id);
+        if (!this.el) {
+            console.error("element id not found:", id);
+            return;
+        }
+    }
+    Greeter.prototype.Greet = function (person) {
+        this.el.innerHTML = "Hello, " + person.firstName + " " + person.lastName;
+    };
+    return Greeter;
+}());
+----
+
+What is this error?
+The first search result on
+https://www.google.com/search?hl=id&q=Uncaught%20ReferenceError%3A%20exports%20is%20not%20defined["Uncaught
+ReferenceError: exports is not defined"^]
+link to
+https://stackoverflow.com/questions/43042889/typescript-referenceerror-exports-is-not-defined[this
+stackoverflow page^].
+There are 23 answers on this page (and there are more confusing hints in the
+comments on question and one answers).
+
+The accepted answer mention about removing `"module": "commonjs"` in
+`tsconfig.json`.
+Since we did not use `tsconfig.json`, yet, then the instruction is unclear.
+
+The second answer mention about declaring `exports` variable,
+
+----
+<script>var exports = {};</script>
+----
+
+Lets try this one.
+
+----
+        </head>
+        <body onload="main()">
+                <div id="greeter"></div>
++               <script>
++                       var exports = {}
++               </script>
+                <script src="greeter.js"></script>
+                <script>
+                        function main() {
+----
+
+Reload the HTML file on browser.
+Seems like there are no error anymore.
+
+Now, lets use try to use Student class like in the example, and pass it to
+Greet() method.
+
+----
+@@ -10,9 +10,12 @@
+                        var exports = {}
+                </script>
+                <script src="greeter.js"></script>
++               <script src="../models/models.js"></script>
+                <script>
+                        function main() {
+                                let greeter = new Greeter("greeter")
++                               let user = new Student("Jane", "M.", "User")
++                               greeter.Greet(user)
+                        }
+                </script>
+        </body>
+----
+
+Reload the HTML file on browser, again, and you should see text: "Hello, Jane
+User".
+Everything is working as expected.
