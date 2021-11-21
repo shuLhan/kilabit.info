@@ -76,13 +76,28 @@ karajo is the library and program to implement HTTP workers and manager
 similar to AppEngine cron.
 karajo has the web user interface for monitoring the jobs.
 
+https://sr.ht/~shulhan/trunks[trunks^]::
+trunks is a Go module that provide HTTP service with web user interface for
+testing HTTP endpoints (like Postman) and for load testing.
+For the load testing we use
+https://github.com/tsenart/vegeta[vegeta^]
+as the backend.
+
+
+https://sr.ht/~shulhan/gotp[gotp^]::
+Command line interface for Time-based One Time Password (TOTP).
+
 
 https://github.com/shuLhan/haminer[haminer,target=_blank]::
 haminer is a library and program to parse and forward HAProxy logs
 to InfluxDB for mining HTTP requests.
 
 
-https://github.com/shuLhan/beku[beku (unmaintained),target=_blank]::
+https://github.com/shuLhan/hunspell-id[hunspell-id^]::
+Hunspell dictionary for Bahasa Indonesia.
+
+
+https://github.com/shuLhan/beku[beku (deprecated, in favor of Go module)^]::
 Beku is command line program to manage packages in user's
 environment (GOPATH or vendor directory).
 Beku provide syntax like pacman.
