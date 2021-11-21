@@ -6,19 +6,22 @@ import (
 	"log"
 
 	"git.sr.ht/~shulhan/ciigo"
+	"github.com/shuLhan/share/lib/memfs"
 )
 
 func main() {
-	opts := ciigo.GenerateOptions{
+	opts := ciigo.EmbedOptions{
 		ConvertOptions: ciigo.ConvertOptions{
 			Root:         "_content",
 			HtmlTemplate: "_content/template.gohtml",
 		},
-		GenPackageName: "main",
-		GenVarName:     "memfsContent",
-		GenGoFileName:  "cmd/www-kilabit/memfs_content.go",
+		EmbedOptions: memfs.EmbedOptions{
+			PackageName: "main",
+			VarName:     "memfsContent",
+			GoFileName:  "cmd/www-kilabit/memfs_content.go",
+		},
 	}
-	err := ciigo.Generate(&opts)
+	err := ciigo.GoEmbed(&opts)
 	if err != nil {
 		log.Fatal(err)
 	}
