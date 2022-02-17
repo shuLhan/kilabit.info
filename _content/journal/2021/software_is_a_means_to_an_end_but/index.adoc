@@ -1,0 +1,132 @@
+= Software is a means to an end, but ...
+Shulhan, 22 November 2021
+
+Ten years ago, I works as private consultant for five years, more or less.
+We built software from scratch, that means we gathers the requirements,
+create the database, create prototype, doing demo, fixing, re-factoring, until
+our clients satisfied.
+During that time, we have six clients and eight projects. Six projects built
+with Java, one with PHP, and one with Python.
+Three projects using Oracle database, three in PostgreSQL, two in MySQL, and
+one in Microsoft SQL Server.
+
+In all of those projects, did they ever ask us to review the code?
+How the database is normalized?
+What framework did we use?
+No.
+There are projects that require specific programming language and specific
+database because the system administrator or the IT department already has
+experienced with one of them and/or they already have contract with the
+database vendor.
+Beyond that, technically, they trust us, specifically its all on us.
+
+What they pay attention mostly is how to use the application and the
+documentation.
+Is the generated report format correct?
+Is the input form can be understood enough by user?
+How can we edit or delete the data?
+Where I can see the latest input?
+And all that jazz.
+They don't care how hard it is to optimize joining four tables to generate one
+report.
+They don't understand that how uneasy to align two or more input fields
+horizontally with buttons, or showing the calculation of all inputs before
+save.
+All they care is how to use the application that can be used by their
+users with less hassle as possible.
+
+From all that experiences, we, as a team, kinda understand what most people
+needs and what we needs when building software.
+What clients needs is a simple and ready to use application.
+What we needs as developers is some code that is understandable by all of us
+and easy to adapt, in case the requirements changes or new features
+added in the middle of project.
+In this journal, I would like to discuss the later; the but.
+
+When a team of software developers has been working on several projects
+several times with the same programming language, they kind of develop a
+pattern.
+If the first project take one year, the second projects may take 6-8 months,
+the third projects may take four or six months.
+Of course, this depends on how big the projects are, but once we have develop
+the pattern, the rest is just connecting the dot.
+For example, developing and implementing user accounts and authentication
+pretty much is the same.
+Once we have implement account management in the first project, the second and
+the next project just following the same pattern, much like copy-and-paste.
+
+We learn how to optimize the database, how to talk with the language, what
+kind of library to use for specific case, things that we should avoid, part of
+code that we should keep loose to allow future changes, how to fix the library
+or error when there is bugs in application, and so on.
+All of this take times and experiences.
+
+Things become disoriented when new project require new programming language.
+
+A new database on new project, does not have that much issues, because we have
+an SQL standard.
+Basically the create, insert, update, and delete statements in MySQL and
+SQL Server have the same syntax, the rest of statements, when it can not be
+executed can be solved by reading their documentation, but the concept is
+nearly identical.
+
+So, what makes the programming language different?
+
+Programming language has different syntax, different way to use.
+Even as simple as creating a variable is different between them.
+Once, we figure it out how to create variable, a function or class, and doing
+looping;
+the next task is to figuring which library to use for specific task, for
+example, what library to use for database, a library for HTTP server, a
+library for reading and writing file, and so on.
+Each of those tasks require trial and error.
+
+That just the beginning.
+
+Maybe in the middle of project we found out that we use the wrong directory
+structure, the library does not support specific feature that we need and we
+must replace them, or figuring it out how to deploy the application, how to
+incrementally migrate the database, until we can do the first demo to client.
+
+\* * *
+
+Before this start-up things and internet become omnipresence, technology
+adoption (in my country) is really slow.
+I don't know if its because people reluctant to changes (if its not
+broken, do not change it) or we have some great filters in between United
+States/Europe and South East Asia, where new technologies battle tested until
+it is adopted widespread and used by most of corporations here.
+For example, I have never seen any application written with Perl, Python, or
+Ruby on Rails here, despite how booming they are couple of years ago in the
+internet.
+
+Probably, they are some that I did not know --couple years after I leave the
+freelances works-- or has been replaced because no one can maintenance them,
+or still alive but no one can touch them.
+
+Maintenance.
+
+Like any other things, if no one (can) maintenance it, the software will
+became obsolete, unused, and/or replaced.
+But unlike other things, software is never finished.
+Name three software, open or closed source, that you use ten years ago, never
+updated but still active and in use by people today.
+
+If you have problems with your house or car, any house contractor or car
+mechanics with long, good experiences probably can fix it,
+because the building blocks of house or car mostly identical, the hardest part
+probably finding the spare parts to replace them.
+(I am not saying that I am an expert on building house or expert on car
+mechanics, but I believe you know what I means)
+
+In software, first you need to find the person that can read the
+code, specific to the programming language which the application is written.
+Second, before they can find where the issue is lying, they need to understand
+how it works.
+Each software is unique, works and written differently.
+Fixing the program blindly without knowing how the input and output processed,
+may cause another issues in another parts of the application.
+The more complex the software is, the more time needed to fix it.
+
+And believe it or not, after working for one or two months reading the code,
+the fix sometimes one or ten lines, sometime.
