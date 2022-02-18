@@ -150,6 +150,8 @@ Oracle Client Interface module.
 
 ==  Journal
 
+include::journal/2022/index.adoc[]
+
 ===  2021
 
 *  link:/journal/2021/software_is_a_means_to_an_end_but/[Software is a means to an end but ...]

@@ -1,0 +1,139 @@
+= Measurements in the wrong ways
+Shulhan <ms@kilabit.info>
+18 February 2022
+
+
+An Acme company want to give bonus to their sales team.
+In order to decide which person is the best and how much amount of bonus
+should be distributed, their use a methodology called "data-driven", by
+collecting all sales person data for each days.
+There are three data that their collect: how many kilometers did the person
+travel each day to the clients, how many clients they meets each day, and how
+many deals their made each day.
+
+At the end of months we got the reports for the three salesmen sorted by
+distance, number of clients, and number of deals; in descending order:
+
+----
++------------+----------------+-------------------------+-------------+
+| Sales name | Total distance | Total potential clients | Total deals |
++------------+----------------+-------------------------+-------------+
+| John       | 204 km         | 30                      | 3           |
++------------+----------------+-------------------------+-------------+
+| Jerry      | 150 km         | 10                      | 8           |
++------------+----------------+-------------------------+-------------+
+| Jane       | 103 km         | 22                      | 4           |
++------------+----------------+-------------------------+-------------+
+----
+
+The management looks at the data and find that the distance number is larger
+and decided to use that as measurement for giving bonus.
+
+\* * *
+
+An IT department wants to measure the performances of their developer.
+Once again, they decide to use "data-driven" by collecting number of commits
+each developers made each day, number of bugs they solved each days, and
+number of tasks their completed each days.
+
+At the end of the months, the management get the following reports,
+
+----
++--------+---------------+-------------------+-----------------------+
+| Name   | Total commits | Total bugs fixed  | Total tasks completed |
++--------+---------------+-------------------+-----------------------+
+| John   | 204           | 30                | 3                     |
++--------+---------------+-------------------+-----------------------+
+| Jerry  | 150           | 10                | 8                     |
++--------+---------------+-------------------+-----------------------+
+| Jane   | 103           | 22                | 4                     |
++--------+---------------+-------------------+-----------------------+
+----
+
+The management thoughts that the commits number can be manipulated, so they
+decided to based the performances based on the total of bugs fixed.
+One thing that management not know is the bugs that the developer John
+fixed is from the 3 tasks that he completed.
+
+\* * *
+
+A food manufacture that produce instant foods has four pipelines.
+The first pipeline is for preparing and cleaning up the materials, handled by
+one machine.
+The second pipeline is for cooking up the materials, handled by three
+machines.
+The third pipeline is for finishing and quality assurance, handled by one
+machine and by two humans for checking and sampling the output.
+The last pipeline is packaging, handled by one machine and three humans to
+store and load the packages.
+
+Given 1000 materials each day, the manufacture can only produce around 800
+foods with left over 200 materials from the first pipeline and around 100
+produced foods not sampled by humans.
+Also, most of the times 5 to 10% output got rejected due to the taste is not
+good, "a little bit stale" according to one of the human that test it, "taste
+weird" according to others.
+
+The inspector trying to figure out why there is a left over materials and why
+some finished foods is rejected.
+First, they measure the time in each pipeline, how long the process take times
+from the start until it finished and get processed by the next pipeline.
+Second, they measure the number of input and output produced by each pipeline.
+Third they measure the number of sample that each quality assurance check
+each day.
+
+After the data has been collected, the inspector see the report:
+
+----
++-----------+----------------+-------------+--------------+--------------+
+| Pipeline  | Time (minutes) | Total input | Total output | Total sample |
++-----------+----------------+-------------+--------------+--------------+
+| 1st       | 30             | 100         | 100          | 0            |
++-----------+----------------+-------------+--------------+--------------+
+| 2nd       | 320            | 100         | 100          | 0            |
++-----------+----------------+-------------+--------------+--------------+
+| 3rd       | 60             | 100         | 95           | 5            |
++-----------+----------------+-------------+--------------+--------------+
+| 4th       | 60             | 95          | 9 boxes      | 0            |
++-----------+----------------+-------------+--------------+--------------+
+----
+
+The inspector see that the second pipeline take most of times and concluded
+that they need to add more machines to decrease the process.
+
+The factory add the second machine to the second pipeline and gather new data.
+
+----
++-----------+----------------+-------------+--------------+--------------+
+| Pipeline  | Time (minutes) | Total input | Total output | Total sample |
++-----------+----------------+-------------+--------------+--------------+
+| 1st       | 30             | 100         | 100          | 0            |
++-----------+----------------+-------------+--------------+--------------+
+| 2nd       | 110            | 100         | 100          | 0            |
++-----------+----------------+-------------+--------------+--------------+
+| 3rd       | 110            | 100         | 95           | 5            |
++-----------+----------------+-------------+--------------+--------------+
+| 4th       | 110            | 95          | 9 boxes      | 0            |
++-----------+----------------+-------------+--------------+--------------+
+----
+
+The time to process on the second pipeline decreased but the time on third and
+fourth pipelines now increased due to amount of input that need to be
+processed double.
+
+A couple of weeks later, a government from public health department inspect
+the factory after some reports from people that they got sicks from the
+instant foods that the factory produced.
+
+Upon inspection they found that 40% of raw materials that they use are not
+fresh and there is a dead insects in one of pipeline due to the sweetness that
+attract them.
+
+\* * *
+
+All of the examples above is fictitious, especially the first one, since no
+sane manager could decide bonus based on number of distance.
+
+The idea of this article is to show us that applying the "data-driven" in the
+wrong ways may result in the wrong decision, even worse, may blind us from
+the real issues and cause further damages to our self.
