@@ -97,7 +97,7 @@ https://github.com/shuLhan/hunspell-id[hunspell-id^]::
 Hunspell dictionary for Bahasa Indonesia.
 
 
-https://github.com/shuLhan/beku[beku (deprecated, in favor of Go module)^]::
+https://github.com/shuLhan/beku[beku (deprecated in favor of Go module)^]::
 Beku is command line program to manage packages in user's
 environment (GOPATH or vendor directory).
 Beku provide syntax like pacman.
