@@ -14,4 +14,4 @@ deploy-local:
 	rsync ./www-kilabit $(GOBIN)/
 
 serve:
-	DEBUG=1 go run ./cmd/www-kilabit
+	go run ./cmd/www-kilabit -env=dev
