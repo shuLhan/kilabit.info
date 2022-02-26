@@ -1,0 +1,309 @@
+= Flag based continuous deployment
+Shulhan <ms@kilabit.info>
+26 February 2022
+
+In the
+link:/journal/2021/this_is_why_i_use_git_rebase/[previous article^], I propose
+to use linear git history for development.
+Some issues arise when we have multiple environments, where an application
+deployed with different features active at the same times.
+In this article, we looks on how to manage multiple, different features run on
+different environment while still keeping the git history linear.
+
+Assume that we have two environments: staging and production.
+The staging environment is where all commits has been reviewed being
+collected, and ready to be tested and consumed by internal testers.
+The production environment is where all commits (features/bugs) has past the
+test, deployed to be consumed by public.
+
+Lets say that currently we have a class User that have two fields for name:
+FirstName and LastName.
+
+----
+interface IUser {
+	first_name: string
+	last_name: string
+}
+
+class User {
+	FirstName: string
+	LastName: string
+
+	constructor(data: IUser) {
+		this.FirstName = data.first_name
+		this.LastName = data.last_name
+	}
+
+	Name() {
+		return FirstName +" "+ LastName
+	}
+}
+----
+
+This user data is filled from HTTP API with JSON format like below,
+
+----
+{
+	"first_name": "John"
+	"last_name":  "Doe"
+}
+----
+
+At some point, the backend decide to changes the JSON response into,
+
+----
+{
+	"name": {
+		"first": "John",
+		"middle": "",
+		"last": "Doe"
+	}
+}
+----
+
+The question is how we manage this API changes while still keeping other
+features/bugs deployed into staging and production at the same time.
+
+* * *
+
+First, we need to define a global variable that define the environment where
+the application currently running and the list of constants for all of our
+environments.
+
+----
+const ENV_STAGING = "staging"
+const ENV_PRODUCTION = "production"
+
+var env;
+----
+
+There are many ways to set this `env` variable, some of them are
+
+. By the build process based on the branch being processed.
++
+--
+For example, for branch `staging` the build process set the
+system environment variable named `ENV` to "staging" and then build the
+application.
+
+----
+export ENV=staging
+
+// Run the build process.
+// The build read and set the env variable from system, for example
+//
+//	var env = '${process.env.ENV}';
+----
+--
+
+. By the domain of where the application is running.
++
+--
+If we have two different domains that can differentiate the environment we can
+set the `env` based on that, but this approach is not recommended because we
+need to lock the initial process before any processes can run.
+For example,
+
+----
+if (domain == "staging.example.com") {
+	env = ENV_STAGING
+} else {
+	env = ENV_PRODUCTION
+}
+----
+--
+
+Once, we know _where_ application is currently running, through the global
+`env` value, we create a flag then made the changes.
+We name the flag `FlagNewUserFormat`.
+If its value is true, the code will fetch and use the User format, otherwise
+it will use the old format.
+
+----
+interface IUser {
+	first_name: string
+	last_name: string
+}
+
+interface IUserNew {
+	first: string
+	middle: string
+	last: string
+}
+
+var FlagNewUserFormat = false
+
+if env == ENV_STAGING {
+	FlagNewUserFormat = true
+}
+
+class User {
+	FirstName: string
+	MiddleName: string
+	LastName: string
+
+	constructor(data: IUser|IUserNew) {
+		if (FlagNewUserFormat) {
+			name = data as IUserNew
+			this.FirstName = name.first
+			this.MiddleName = name.middle
+			this.LastName = name.last
+		} else {
+			name = data as IUser
+			this.FirstName = data.first_name
+			this.LastName = data.last_name
+		}
+	}
+
+	Name() {
+		if (FlagNewUserFormat) {
+			name = this.FirstName
+			if this.MiddleName.length > 0 {
+				name += " "+ this.MiddleName
+			}
+			name += " " + this.LastName
+			return name
+		}
+		return this.FirstName +" "+ this.LastName
+	}
+}
+----
+
+We commit this into `main` branch as "update user structure with new
+format", reviewed, and merged into `staging` branch, along with another
+commits.
+
+----
+F: critical bug fix (HEAD -> main)
+E: ...
+D: update user structure with new format
+C: ... (staging)
+B:
+A: ... (production)
+----
+
+Once the backend team signal us that the new API has been deployed to staging
+environment, we then move the staging branch incorporated all commits from
+`main`.
+
+----
+$ git rebase main staging
+$ git push
+----
+
+The tree now become,
+
+----
+F: critical bug fix (HEAD -> staging, main)
+E: ...
+D: update user structure with new format
+C: ...
+B:
+A: ... (production)
+----
+
+* * *
+
+The tester then said that the critical bug fix that we have worked on commit
+`F` is pass the acceptance criteria and need to be deployed as soon as
+possible.
+What should we do?
+
+We can cherry-pick the commit `F` only into branch `production` or we can
+rebase the branch `production` into `staging` directly.
+
+Cherry-picking the commit `F` only require use to rebase the others branch to
+"remove" the picked commit.
+Also, when too many cherry-pick involved and we forgot to rebase the other
+branches, the `production` can become live on their own and become hard to
+track which commits has been picked or not and potentially have conflicts.
+
+----
+* (production)
+*
+*
+*
+*
+| * (main, staging)
+| *
+| *
+| *
+| *
+| *
+| *
+----
+
+Since we have flagged all features to be active only on specific environment,
+we can safely rebase the branch production into staging without worrying that
+the new features conflicts with each others.
+
+----
+$ git rebase staging production
+$ git push
+----
+
+This is where the flag based approach shining.
+The history is still linear with development, we know the state of our
+production and staging environment.
+
+----
+F: critical bug fix (HEAD -> production, staging, main)
+E: ...
+D: update user structure with new format
+C: ...
+B:
+A:
+----
+
+* * *
+
+The tester then accept the feature on commit "D: update user structure with
+new format".
+What should we do no next?
+
+We remove the `FlagNewUserFormat` along with old code.
+
+----
+interface IUser {
+	first: string
+	middle: string
+	last: string
+}
+
+class User {
+	FirstName: string
+	MiddleName: string
+	LastName: string
+
+	constructor(data: IUser) {
+		name = data as IUserNew
+		this.FirstName = name.first
+		this.MiddleName = name.middle
+		this.LastName = name.last
+	}
+
+	Name() {
+		name = this.FirstName
+		if this.MiddleName.length == 0 {
+			name += " "+ this.MiddleName
+		}
+		name += " " + this.LastName
+		return name
+	}
+}
+----
+
+Commit it,
+
+----
+H: enable new user format on all environment (main)
+G: ... 
+F: critical bug fix (HEAD -> production, staging)
+E: ...
+D: update user structure with new format
+C: ...
+B:
+A:
+----
+
+And its ready to deployed in all environments.

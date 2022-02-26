@@ -1,4 +1,9 @@
 
 === 2022
 
-*  link:/journal/2022/measurements_in_the_wrong_ways/[Measurements in wrong ways]
+*  link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous deployment].
+   This article looks on how to manage multiple features developed,
+   activated, and deployed in multiple environments while still maintaining
+   linear history.
+
+*  link:/journal/2022/measurements_in_the_wrong_ways/[Measurements in the wrong ways].
