@@ -23,24 +23,26 @@ The junior then decide to become an engineer.
 And so he become a software engineer.
 
 I believe that the future of software is open source.
+
 People changes ... or bored, hardware changes.
-In closed source system the changes is slow because its driven by the maker.
-Even if the maker can tried to cope up with their ecosystem, they have limited
-resources and other makers who have more resources or better idea that can
-make the same function of software with a greater look and performance.
+In closed source system the changes is either slow or steady depends on the
+maker resources.
+If one maker tried to cope up with their ecosystem,
+other makers who have more resources or better idea can make the same software
+with a greater look and performance.
 Eventually one of the maker will die or born again with new skin and body.
 Just like the circle of life.
 This is also why human is doomed.
-Every new born does not automatically have knowledges of their accestor.
+Every new born does not automatically have knowledges of their ancestors.
 They must learn again and again and again.
-But, machine made everything to be simple, even learning.
+But, machine made everything simple, even learning.
 Only human that does not learned who will doomed.
 
-If the market keep doing this, we will just reiterating the same thing again
-and again, wasting resources for the sake of competition and margin.
+If the makers keep doing this, we will just reiterating the same thing
+again and again, wasting resources for the sake of competition and margin.
 On one side this is good, giving jobs to the market, making the money flow.
-But on the scale of future, where human only have an average 60 to 70 years to
-live, this is definitely wasting of time.
+But on the scale of future, where human only have an average 60 to 70 years
+lifespan, this is definitely wasting of resources.
 
 When developing software I have a high standard, clean code and stable
 program.
