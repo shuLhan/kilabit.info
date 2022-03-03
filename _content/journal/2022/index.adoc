@@ -1,6 +1,10 @@
 
 === 2022
 
+*  link:/journal/2022/gpl/["Finally, I use GPL"].
+   My inner thoughts on why I finally choose GPL.
+
+
 *  link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous deployment].
    This article looks on how to manage multiple features developed,
    activated, and deployed in multiple environments while still maintaining

@@ -1,0 +1,166 @@
+= Finally, I use GPL
+Shulhan <ms@kilabit.info>
+2 March 2022
+
+DISCLAIMER: The topic, content, and arguments of this article may be sensitive
+to some peoples.
+Any arguments written below only applicable to my GPL software,
+it may not applicable to all software released under GPL.
+
+When I publish my first software to the public, I choose
+https://github.com/shuLhan/libvos/blob/aa92c4ef206bbe5117aa0c661e15420b3f771d91/LICENSE[BSD like license],
+for the following reasons: it is free and open source (FOSS) license, easy to
+read and understand, and simple.
+There are others license that are simple and short too, of course, like
+Expat (MIT) license; but I did not choose it for the reason that BSD is
+enough.
+That is the first license that I use through of my all my free software.
+
+After ten years, I never thought about it.
+I had changes the license format once, from 4-clauses to 3-clauses,
+removing the "advertising material" clause, and that was it.
+Couple of weeks ago, I began thinking and research about GPL, and finally
+decide to changes the license of my free software.
+
+This article does not try to compare between free and open source licenses,
+there are too many of them, but to understand my inner thoughts on why I
+finally choose GPL.
+
+* * *
+
+*What do you think about (BSD and GPL) license?*
+
+FOSS license is a unsigned, social contract between me, the copyright holder,
+and you as the user that receive a copy of my software.
+
+Under BSD license, you can copy and do whatever you want with the software, in
+other words no one care.
+As long as you retain the copyright holder, you can sell it, changes it,
+and/or make it proprietary.
+That is the line that BSD license draw between you and me, the copyright
+holder.
+Nothing I can do about it.
+
+Under the GPL my software is guaranteed to be free!
+
+If someone copy my software, if something happened to me (even if no one use
+my software), my software is guaranteed to be free.
+Of course, I will not know who and what people do to my software.
+You can copy it, modify it, remove copyright holders, and publish it under
+different name, commercialized or not like what you did with software under
+BSD license.
+It is not my obligation to tell you what to do with my software, but under
+GPL, it is up to your conscience.
+If you redistribute your changes, that means you giving back to community.
+
+This is the line I want to draw with my software and where I stand and want to
+be in community.
+I want my software, and any derivates (changes) from it, to be free too.
+Period.
+
+
+*Why you want your software to be free?*
+
+People changes ... or bored, hardware changes.
+In closed source system the changes is either slow or steady depends on the
+maker resources.
+If one maker tried to cope up with their ecosystem,
+other makers who have more resources or better idea can make the same software
+with a greater look and performance.
+Eventually one of the maker will die or born again with new skin and body.
+Just like the circle of life.
+This is also why human is doomed.
+Every new born does not automatically have knowledges of their ancestors.
+They must learn again and again and again.
+But, machine made everything simple, even learning.
+Only human that does not learned who will doomed.
+
+If the makers keep doing this, we will just reiterating the same thing
+again and again, wasting resources for the sake of competition and margin.
+On one side this is good, giving jobs to the market, making the money flow.
+But on the scale of future, where human only have an average 60 to 70 years
+lifespan, this is definitely wasting of resources.
+
+
+*Any program that use your GPL-ed software, now must licensed under GPL
+too. Is it true?*
+
+https://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL["Yes, if you use it
+as a library"];
+no, if you use it as a standalone program.
+
+But once again,
+it is not my obligation to tell you what to do with my software, but under
+GPL, it is up to your conscience.
+If you redistribute your changes or licensing your software under GPL that
+means you giving back to community.
+
+
+*Does that means GPL limiting other freedom to use your software?*
+
+The word "freedom" that some people use on when asking this question or
+questioning that GPL limiting the freedom to use the software is kinda
+misleading.
+How come something that I give, limiting other freedom?
+That does not make sense.
+Do I force you to use my software? No.
+
+I put peanuts on the table outside the street and write "Free peanuts" on
+top of it.
+You know you are allergic to peanut and see the written "Free peanuts", do you
+still take the peanuts?
+I am not forcing you or anyone to take the peanuts either.
+
+
+*If all is up to my conscience, what is the point?*
+
+Nothing actually.
+
+One of the reason that I use GPL on my software is to say thank you to all GPL
+software that I use for the last 15 years or more.
+
+[quote]
+Thank you for writing and publish your software under GPL so I can freely use
+it.
+I know that you have giving your invaluable time, skills, and patience to
+write and maintenance those software.
+As a respecting gesture, here is my software licensed under GPL for you or any
+one else to use it freely.
+
+It is now up to you, if you use my software (or any GPL software).
+
+
+*Any other reasons beside that?*
+
+Vision and community.
+
+If I choose BSD, I am a lone wolf, along with others.
+There is no a BSD Foundation.
+Although there is a NetBSD Foundation, FreeBSD Foundation, OpenBSD Foundation,
+but that is not strictly related to BSD as license.
+
+In GPL, they have one foundation called
+https://www.fsf.org/[Free Software Foundation].
+Anyone who use GPL, either share the same vision with FSF or support GNU (the
+operating system) which is "to promote computer user freedom".
+
+Of course, this does not mean that someone who create and publish their works
+using non-copyleft license (like BSD) or proprietary license can not support
+or join the FSF community.
+The world is not black-and-white, we play many, different roles in this life.
+
+
+== Further readings
+
+https://www.gnu.org/gnu/manifesto.html[The GNU Manifesto.]
+
+https://www.gnu.org/licenses/copyleft.html.en[What is Copyleft?]
+
+https://www.gnu.org/philosophy/categories.html.en[Categories of Free and
+Nonfree Software.]
+
+https://www.gnu.org/licenses/gpl-faq.html[Frequently Asked Questions about the
+GNU Licenses.]
+
+https://docs.freebsd.org/en/articles/bsdl-gpl/[Why you should use a BSD style
+license for your Open Source Project.]
