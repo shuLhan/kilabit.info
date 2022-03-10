@@ -2,6 +2,8 @@ git.sr.ht/~shulhan/asciidoctor-go v0.2.0 h1:CRlqq2CEONKvNfRBVZLwEArSsq5j77h6sU02
 git.sr.ht/~shulhan/asciidoctor-go v0.2.0/go.mod h1:B0a6l1ZfmXKPGOuC5ZT8ICjOMxV5z8dGkAJjAdW8DZc=
 git.sr.ht/~shulhan/ciigo v0.8.0 h1:1Pyo8X6F/v+P8YZpZqY1fCTZbSkrcjGrnoghz5Dbb7M=
 git.sr.ht/~shulhan/ciigo v0.8.0/go.mod h1:7eIjsXExC+k881ngPexYPcsLGmUB+9RALJtjVPJ/xAc=
+github.com/platformsh/config-reader-go/v2 v2.3.1 h1:Lj74RYc2toKhhMV7zgS8Ua2X/fVBgQzd7hrdONioe2U=
+github.com/platformsh/config-reader-go/v2 v2.3.1/go.mod h1:b1XoU9pi4yfOL2HGUKp40BQOhhqJFMNbNXBtwousNR0=
 github.com/shuLhan/share v0.35.0 h1:dS6q3rBvCLWfUinjpzpzkyZWP8vaXVYiJ5gQQw4SrHk=
 github.com/shuLhan/share v0.35.0/go.mod h1:laKGR1DNboj8+INRIC9VFYRiVEu/IIjrLurUmTHXkw0=
 golang.org/x/crypto v0.0.0-20220131195533-30dcbda58838/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=

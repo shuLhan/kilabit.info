@@ -5,15 +5,33 @@ import (
 	"log"
 	"strings"
 
+	psh "github.com/platformsh/config-reader-go/v2"
+
 	"git.sr.ht/~shulhan/ciigo"
 	"github.com/shuLhan/share/lib/memfs"
+)
+
+const (
+	envNameDev        = "dev"
+	envNamePlatformsh = "platform.sh"
 )
 
 var memfsContent *memfs.MemFS
 
 func main() {
 	var (
-		flagEnv string
+		port      = "7000"
+		serveOpts = ciigo.ServeOptions{
+			ConvertOptions: ciigo.ConvertOptions{
+				Root:         "_content",
+				HtmlTemplate: "_content/template.gohtml",
+			},
+			Mfs: memfsContent,
+		}
+
+		pshConfig *psh.RuntimeConfig
+		flagEnv   string
+		err       error
 	)
 
 	log.SetFlags(0)
@@ -25,20 +43,20 @@ func main() {
 		flagEnv = strings.ToLower(flagEnv)
 	}
 
-	serveOpts := &ciigo.ServeOptions{
-		ConvertOptions: ciigo.ConvertOptions{
-			Root:         "_content",
-			HtmlTemplate: "_content/template.gohtml",
-		},
-		Mfs:     memfsContent,
-		Address: "127.0.0.1:7000",
+	if flagEnv == envNamePlatformsh {
+		pshConfig, err = psh.NewRuntimeConfig()
+		if err != nil {
+			log.Fatal("Not in a Platform.sh environment.")
+		}
+		port = pshConfig.Port()
 	}
+	serveOpts.Address = ":" + port
 
-	if flagEnv == "dev" {
+	if flagEnv == envNameDev {
 		serveOpts.IsDevelopment = true
 	}
 
-	err := ciigo.Serve(serveOpts)
+	err = ciigo.Serve(&serveOpts)
 	if err != nil {
 		log.Fatal(err)
 	}

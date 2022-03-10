@@ -1,0 +1,6 @@
+"https://{default}/":
+  type: upstream
+  upstream: "www-kilabit:http"
+"https://www.{default}/":
+  type: redirect
+  to: "https://{default}/"
