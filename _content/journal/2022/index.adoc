@@ -1,9 +1,11 @@
 
 === 2022
 
+*  link:/journal/2022/mysql_surprise["MySQL, surprise!"]
+   Things that will surprise you when using MySQL.
+
 *  link:/journal/2022/gpl/["Finally, I use GPL"].
    My inner thoughts on why I finally choose GPL.
-
 
 *  link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous deployment].
    This article looks on how to manage multiple features developed,

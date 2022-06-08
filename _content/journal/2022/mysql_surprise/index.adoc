@@ -1,0 +1,97 @@
+= MySQL, surprise!
+Shulhan <ms@kilabit.info>
+11 May 2022
+:toc:
+:sectanchors:
+:sectlinks:
+
+This article collect all of the things that surprise me when using MySQL.
+I should have write this long time ago, so the future me can learn from this.
+
+
+[#you_cannot_rename_database]
+==  You cannot rename a database
+
+Use case: We finish migrating GBs of databases from different environment.
+Turns out some of databases name should be X instead Y (for any reasons).
+
+What would you do?
+
+There are two solutions for this: rename each table to use new database name,
+
+	RENAME TABLE olddb.table1 TO newdb.table1;
+	RENAME TABLE olddb.table2 TO newdb.table2;
+	...
+	RENAME TABLE olddb.tablen TO newdb.tablen;
+
+or dump the old database and then restore into new database [1].
+
+
+[#strict_trans_tables]
+== sql_mode=STRICT_TRANS_TABLES
+
+Use case: we have two environments: X and Y.
+When we run the application on X, all functions are working well.
+But when we run it on Y, some functions failed because we did not fill the
+non-null columns.
+
+What happened?
+
+After inspecting the error and do some research, turns out on the environment
+Y, they enable STRICT_TRANS_TABLES on `sql_mode`. [2]
+
+
+[#import_fail_due_to_definer]
+== Import fail due to DEFINER
+
+Use case: we want to migrate the database from one environment to Google Cloud
+SQL.
+We run mysqldump on the source database and got couple of GBs dump file.
+Then we copy it into work area in the destination environment, import it using
+mysql command.
+Turns out after waiting couple of minutes you got the following error,
+
+----
+ERROR 1227 (42000) at line 8673: Access denied; you need (at least one of) the SUPER privilege(s) for this operation
+----
+
+What would you do?
+
+Since we cannot have SUPER privilege on Google Cloud SQL, we need
+to replace any string "DEFINER='x'@'y'" in the GBs dump file using sed or vi
+manually.
+There is no option to disable this during export nor importing the database.
+
+== Select on integer column using string does not return an error
+
+Given the following table,
+
+----
+CREATE TABLE test (
+  col_int int
+);
+----
+
+and the following data,
+
+----
+INSERT INTO test(col_int) VALUES
+  (1),
+  (2);
+----
+
+The following query will return success,
+
+----
+SELECT * FROM test WHERE col_int = '1abc';
+
+col_int|
+-------+
+      1|
+----
+
+== References
+
+[1] https://serverfault.com/questions/195221/how-to-rename-a-mysql-database
+
+[2] https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sqlmode_strict_trans_tables
