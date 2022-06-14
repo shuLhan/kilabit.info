@@ -1,4 +1,8 @@
 =  Go (Informal) Coding Style
+Shulhan <ms@kilabit.info>
+:toc:
+:sectlinks:
+:sectanchors:
 
 In general Go already have `gofmt` that will format the code according to Go
 standard.
@@ -36,11 +40,11 @@ If you looks at the Godoc layout, each sections is ordered by the following
 format,
 
 *  package description
-*  package constanta
+*  package constants
 *  package global variables
 *  package global functions
 *  type
-*  type's methods
+*  type's methods (ordered alphabetically)
 
 Builtin functions, like `init()`, `main()`, and `TestMain()` should be at the
 bottom of the source code.
@@ -55,8 +59,8 @@ know where each of section is located.
 ==  Package should have a file with the same name
 
 Package `mypkg` should have source file with the name `mypkg.go`.
-This file will be used to declare global variables, constants, and/or maybe
-`init()` function.
+This file is used for documentation, declaring global variables,
+constants, and/or maybe `init()` function.
 
 **Rationale:** easy to search where global variables, constants, and `init()`
 defined.
@@ -131,6 +135,7 @@ Common prefix for variable or function,
 * Readability, knowing what variable hold can help reader on longer function
   body.
 
+
 ==  Comment grammar 
 
 In Go, exported field or function denoted by capital letter on the first
@@ -146,19 +151,14 @@ For example,
 var DefPort = 9002
 ----
 
-For function the recommended format is by using "will" verb after function
-name _if_ the function or method return an error; and explain what the
-function does and what the function will return on success and on failure.
+_If_ the function or method return an error, explain what cause them.
 
 For example,
 
 ----
+// GetEnv read system environment name `envName`.
 //
-// GetEnv will read system environment name `envName` and ...
-//
-// On success, it will return ...
-// On fail, it will return ...
-//
+// It will return an error if v envName is empty.
 func GetEnv(envName string) (v string, err error) {
 	...
 }
@@ -173,5 +173,60 @@ means, write library first, program later.
 This is a mistake that we have been taught since college, because we learn to
 write program not library.
 
-Go, in their subtle way, embrace this kind of thinking when developing
+Go, in subtle way, embrace this kind of thinking when developing
 software.
+
+
+== Log on service level, not on library
+
+Let say that we have HTTP service on package `service/myhttp` that use
+package `account` on the same module.
+
+On `myhttp` package, we call function `Get` on package `account`,
+
+----
+package myhttp
+
+import "account"
+
+func handleGet(...) {
+	...
+
+	acc, err = account.Get(...)
+
+	...
+}
+----
+
+In package `account` we should not log any error like these,
+
+----
+package account
+
+func Get() (Account, error) {
+	...
+	err = F()
+	if err != nil {
+		log.Printf("Get: %s", err)
+		return nil, err
+	}
+	...
+}
+----
+
+Instead, pass the error context inside the returned error to be logged by
+`myhttp` or any top packages that import it,
+
+----
+	...
+	if err != nil {
+		return nil, fmt.Errorf("account.Get: %w", err)
+	}
+	...
+----
+
+**Rationale**: A good library should not print any output, error or not.
+Centralizing the error on service level help us to forward the error to other
+output/services without modify or import third party module on library level.
+
+* * *
