@@ -1,8 +1,11 @@
-= Things that I dislike from GCP
-:author: Shulhan
-:date: 25 September 2020
+= Things I dislike from Google Cloud Platform (GCP)
+Shulhan <ms@kilabit.info>
+25 September 2020
+:toc:
+:sectanchors:
+:sectlinks:
 
-Google Cloud Platform (GCP) is one of the prominent cloud provider out there.
+GCP is one of the prominent cloud provider out there.
 With all the others Google's products that we praise and we mourned, GCP is
 one of them.
 In this article I want to rant about what I dislike with
@@ -17,7 +20,7 @@ The first thing that I dislike is the font size.
 Here is the screenshot that I took on macOS with 13,3-inch (2560 x 1600),
 right click and select "View image" if you want to see the full image.
 
-image:GCP_fonts.png[width=720]
+image:GCP_fonts.png[GCP fonts,720]
 
 Either I am getting old or the font size is too small for me? Or the
 screen size is to wide?
@@ -36,7 +39,7 @@ No offense Google but the layout and user interface design is like written by
 first grade computer science.
 Here is an example of user interface on details of VM instance.
 
-image:GCP_UI_VM.png[width=720]
+image:GCP_UI_VM.png[GCP user interface on VM,720]
 
 If I want to "Reset", "Stop", "Suspend" or "Delete" this VM; I would do it in
 the previous page, not in here.

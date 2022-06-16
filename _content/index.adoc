@@ -168,7 +168,7 @@ include::journal/2022/index.adoc[]
    Administration 101]
 
 *  link:/journal/2020/things_that_i_dislike_from_gcp/[Things that I dislike
-   from GCP]
+   from Google Cloud Platform]
 
 *  link:/journal/2020/the_art_of_timeout/[The art of timeout]
 
