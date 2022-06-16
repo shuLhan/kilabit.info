@@ -1,0 +1,126 @@
+= Things I dislike from Github
+Shulhan <ms@kilabit.info>
+16 June 2022
+:toc:
+:sectanchors:
+:sectlinks:
+
+image:github_pr_bad.jpg[Github PR is bad,720]
+
+If you active on Internet, you may have read Torvalds rant about how bad
+Github pull request (PR) is.
+If not, start reading the discussion
+https://news.ycombinator.com/item?id=3960876[here^]
+and
+https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests/[here^].
+
+Actually, is not only the pull request that is bad.
+There are many.
+I am collecting those things in these journal.
+
+== Github pull request flow is really bad
+
+Let me show you.
+
+I have four commits to be submitted to the upstream, each are independent.
+
+image:github_sending_pull_requests.png[One branch per pull request,720]
+
+To send each of this commit I need to,
+
+. Create new branch based on the `origin/master` branch
+. Cherry pick the commits
+. Push to my remote
+. Open the web, create pull request, select source and target branch, click
+  Create; or using `gh pr create`, which is have several steps as for the web.
+
+I need to repeat this steps for every PR.
+
+Things get out of hand if the first branch is indirect dependency of second
+branch, because you cannot just based a branch on another branch in the PR,
+otherwise all commits in the first branch PR are included in the second PR
+branch.
+
+Let me give you an example.
+
+----
+D -- branch-2
+|
+C
+|
+B -- branch-1
+|
+A
+|
+o -- upstream/master
+----
+
+If we submit branch-1, commits A and B are displayed on the PR.
+If we submit branch-2, that depends on C and D, commits A, B, C, and D are
+displayed on the PR.
+
+Why we are not basing the branch-2 on the upstream/master?
+Because it is not possible, the program is not buildable without branch-1.
+
+Why not submit all commits into single branch?
+It is possible but in my books
+link:/notes/A_guide_to_version_control/[its not a good practices^].
+Its hard to review and in case one of the commit need to be revised, I need to
+re-push the whole commits.
+
+
+Can it be more simple?
+Yes, in fact, the
+https://git-send-email.io[de facto way^]
+to send "pull-request" is really
+simple.
+
+This is how it should be.
+Lets view all of our commit hashes to be submitted.
+
+----
+$ git --no-pager log --oneline -n 4
+8fd061dc (HEAD -> master, shulhan/master) docs: set environment CI=true when building from source
+0985cbfe kms/uri: fix test on Parse for the next Go release
+84a0a348 cas/cloudcas: update createPublicKey test for Go 1.19
+fe04f93d all: reformat all go files with the next gofmt (Go 1.19)
+----
+
+To send the PRs for commit fe04f93d,
+
+----
+$ git send-email --to="recipient@domain.tld" --dry-run -1 fe04f93d
+----
+
+(The dry-run options is for testing.)
+
+To send the PRs for the rest of commits, independently,
+
+----
+$ git send-email --to="recipient@domain.tld" --dry-run -1 84a0a348
+$ git send-email --to="recipient@domain.tld" --dry-run -1 0985cbfe
+$ git send-email --to="recipient@domain.tld" --dry-run -1 8fd061dc
+----
+
+
+== Rebasing or ammending the commits break the history
+
+The more annoying than this is how Github handle reviewing the PR.
+If someone review your PR by commenting on the code and you push the fixes
+link:/notes/A_guide_to_version_control/[(by git rebase/git ammend)^]
+for the next round,
+the links between comments and previous patches is lose.
+
+The "Changes" on the comment section open the new commits, not on previous
+patches.
+
+Here is an example:
+
+image:github_comment_history.png[Github comment history lose history,720]
+
+https://github.com/systemd/systemd/pull/22796#discussion_r831375759[Source].
+
+The comment point to the line that has been fixed by the author.
+Now, can you figure it out what the line is from the linked Source?
+
+_Thats it for now, will update later when I have more screenshots._
