@@ -143,6 +143,22 @@ pre {
     margin: 4px;
 }
 
+.admonitionblock {
+    border: 1px solid #ddd;
+}
+
+.admonitionblock .icon {
+    background-color: aliceblue;
+    border-right: 1px solid #ddd;
+    margin: 0px;
+    padding: 8px;
+}
+
+.admonitionblock .content {
+    margin: 0px;
+    padding: 8px;
+}
+
 @media only screen and (max-width: 992px) {
     body {
         width: 100%;
