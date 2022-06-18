@@ -9,14 +9,17 @@ image:github_pr_bad.jpg[Github PR is bad,720]
 
 If you active on Internet, you may have read Torvalds rant about how bad
 Github pull request (PR) is.
-If not, start reading the discussion
+If not, read the discussion
 https://news.ycombinator.com/item?id=3960876[here^]
 and
 https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests/[here^].
 
-Actually, is not only the pull request that is bad.
+Actually, it is not only the pull request that is bad.
 There are many.
 I am collecting those things in these journal.
+
+NOTE: I use the term PR and patches in the same way.
+
 
 == Github pull request flow is really bad
 
@@ -56,8 +59,8 @@ o -- upstream/master
 ----
 
 If we submit branch-1, commits A and B are displayed on the PR.
-If we submit branch-2, that depends on C and D, commits A, B, C, and D are
-displayed on the PR.
+If we submit branch-2, that depends on A and B, commits A, B, C, and D are
+displayed on the PR (because A and B does not exist yet on `upstream/master`).
 
 Why we are not basing the branch-2 on the upstream/master?
 Because it is not possible, the program is not buildable without branch-1.
@@ -66,7 +69,8 @@ Why not submit all commits into single branch?
 It is possible but in my books
 link:/notes/A_guide_to_version_control/[its not a good practices^].
 Its hard to review and in case one of the commit need to be revised, I need to
-re-push the whole commits.
+re-base the whole commits
+(adding another commit to fix PR also is not a good practices).
 
 
 Can it be more simple?
@@ -103,7 +107,7 @@ $ git send-email --to="recipient@domain.tld" --dry-run -1 8fd061dc
 ----
 
 
-== Rebasing or ammending the commits break the history
+== Rebasing or ammending the patches break the web history
 
 The more annoying than this is how Github handle reviewing the PR.
 If someone review your PR by commenting on the code and you push the fixes
@@ -111,16 +115,26 @@ link:/notes/A_guide_to_version_control/[(by git rebase/git ammend)^]
 for the next round,
 the links between comments and previous patches is lose.
 
-The "Changes" on the comment section open the new commits, not on previous
-patches.
+The "View changes" on the comment section open the new commits, not on
+previous patches.
 
 Here is an example:
 
 image:github_comment_history.png[Github comment history lose history,720]
 
-https://github.com/systemd/systemd/pull/22796#discussion_r831375759[Source].
+https://github.com/systemd/systemd/pull/22796#discussion_r831375759[Source^].
 
 The comment point to the line that has been fixed by the author.
 Now, can you figure it out what the line is from the linked Source?
+
+Compare this with gerrit,
+
+image:gerrit_review.png[Gerrit review,720]
+
+https://go-review.googlesource.com/c/build/+/412754/1..2/internal/task/announce_test.go[Source^].
+
+At the left side you can see the offending code that needs to be fixed (this
+is Patchset 1), and on the right side you can see the fixes (Patchset 2).
+None of them mixed.
 
 _Thats it for now, will update later when I have more screenshots._
