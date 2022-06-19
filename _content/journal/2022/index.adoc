@@ -1,6 +1,9 @@
 
 === 2022
 
+*  link:/journal/2022/chrooting_ssh_user_into_systemd-nspawn/["Chrooting SSH
+   user into systemd-nspawn"^]
+
 *  link:/journal/2022/things_i_dislike_from_github/["Things I dislike from
    Github"]
 

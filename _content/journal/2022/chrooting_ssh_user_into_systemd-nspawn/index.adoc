@@ -1,0 +1,340 @@
+= Chroot-ing SSH user into systemd-nspawn
+Shulhan <ms@kilabit.info>
+18 June 2022
+:toc:
+:sectanchors:
+:sectlinks:
+
+[#introduction]
+== Introduction
+
+Use case: I want to give SSH access to someone to setup or install anything
+without breaking up my current setup.
+What should I do?
+
+Option 1:: Setup a chroot directory and then set sshd_config `ChrootDirectory`
+to jail SSH user to that directory.
++
+--
+Advantages,
+
+* Easy and simple.
+
+Disadvantages,
+
+* New SSH user need to be created on host.
+* Service running inside chroot need to be managed from the host machine.
+--
+
+Option 2:: Setup container using systemd-nspawn and use sshd_config
+https://man.archlinux.org/man/sshd_config.5#ForceCommand[`ForceCommand`]
+to redirect user SSH to that container.
++
+--
+Advantages,
+
+* Any services can be managed and run like usual systemd services inside the
+  container.
+* Host machine can limit the resources (RAM, CPU) on container.
+
+Disadvantages,
+
+* Required a extra steps to setup the container (enable auto login)
+* Both host and container require adding the same user.
+* scp or rsync does not works from the client side.
+--
+
+Option 3:: Setup container using systemd-nspawn and run SSH server on
+different port.
++
+--
+Advantages: same as Option 2 but scp/rsync works seamlessly and the user only
+need to be setup on the container side.
+
+Disadvantages:
+
+* Required a little extra steps to setup the container.
+--
+
+In this article, I want to explore option 3, using systemd-nspawn to run
+container and open an independent SSH server on container with different port.
+
+The SSH flow after setup,
+
+----
+            +----------------+
+            | host           |
+            |   | (1)        |
+            |   v            |
+            | /-----------\  |
+        (2) | | container |  |
+ user ----->| \-----------/  |
+            +----------------+
+
+ (1) host: run the container (include SSH server)
+ (2) user: ssh into container using "user@host:ssh-port-container".
+----
+
+My host OS is Arch Linux and the container/guest/machine also Arch Linux.
+
+
+[#step_1]
+== Step 1: install required package
+
+In Arch Linux we need the `arch-install-scripts` package to bootstrap a new
+system,
+Since the host machine is on VPS, we need to update the system and reboot
+to make sure every things are up to date.
+
+----
+$ sudo pacman -Sy --noconfirm archlinux-keyring
+$ sudo pacman -Su --noconfirm
+$ sudo pacman -S  --noconfirm arch-install-scripts
+$ sudo reboot
+----
+
+The systemd version after update is 251.2-1.
+
+
+[#step_2]
+== Step 2: setup container
+
+Goals,
+
+* The container is stored inside the `/var/lib/machines` to allow the host
+  automatically start it at boot.
+* The container name is `test`.
+* The container use Host networking, which means it use the same IP addresses
+  as host.
+* The container run its own SSH server on different port than host.
+* The container has one user that can ssh, named `test`.
+
+All the commands and configurations are executed/modified from the host.
+
+
+[#step_2_1]
+===  Step 2.1: bootstrapping
+
+Executes the following commands to bootstrap the container,
+
+----
+$ sudo mkdir -p /var/lib/machines/test
+$ sudo pacstrap -c /var/lib/machines/test base openssh sudo vim tmux
+----
+
+We install `sudo` package to allow users inside the container to run command
+as root.
+You can add additional packages to be used by user in this step.
+
+
+[#step_2_2]
+===  Step 2.2: Add configuration for container
+
+Create directory `/etc/systemd/nspawn` to configure the container,
+
+----
+$ sudo mkdir -p /etc/systemd/nspawn
+----
+
+Create file `test.nspawn` inside that directory with the following content
+[3],
+
+----
+[Network]
+VirtualEthernet=no
+----
+
+The `VirtualEthernet=no` means the container will use the host networking.
+The file name must match with the container name, for example if the container
+name is "xyz", then the file name should be "xyz.nspawn".
+
+
+[#step_2_3]
+===  Step 2.3: update sudoers file inside container
+
+Edit the `/var/lib/machines/test/etc/sudoers` to allow user with group wheel
+to run sudo without password,
+
+----
+## Same thing without a password
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL
+----
+
+
+[#step_2_4]
+===  Step 2.4: Enable SSH on container on port 2022
+
+On the container, edit `/var/lib/machines/test/etc/ssh/sshd_config` and changes the
+following options,
+
+----
+Port 2022
+PasswordAuthentication no
+----
+
+Then enable the sshd service to start on boot,
+
+----
+$ sudo systemd-nspawn --machine=test systemctl enable sshd.service
+Spawning container test on /var/lib/machines/test.
+Press ^] three times within 1s to kill container.
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service → /usr/lib/systemd/system/sshd.service.
+Container test exited successfully.
+----
+
+
+[#step_2_5]
+===  Step 2.5: create new user with SSH key inside container
+
+Create new user `test` on container,
+
+----
+$ sudo useradd --create-home --groups wheel \
+	--root /var/lib/machines/test \
+	test
+----
+
+Create SSH key for user `test` and authorized it,
+
+----
+$ sudo mkdir -p /var/lib/machines/test/home/test/.ssh
+
+$ sudo ssh-keygen -t ed25519 -q -N "" \
+    -f /var/lib/machines/test/home/test/.ssh/id_ed25519
+
+$ sudo cp /var/lib/machines/test/home/test/.ssh/id_ed25519.pub \
+	/var/lib/machines/test/home/test/.ssh/authorized_keys
+
+$ sudo chmod 0700 /var/lib/machines/test/home/test/.ssh
+$ sudo chmod 0600 /var/lib/machines/test/home/test/.ssh/id_ed25519
+$ sudo chmod 0600 /var/lib/machines/test/home/test/.ssh/id_ed25519.pub
+$ sudo chmod 0600 /var/lib/machines/test/home/test/.ssh/authorized_keys
+
+$ sudo systemd-nspawn --machine=test chown -R test:test /home/test
+----
+
+
+[#step_3]
+==  Step 3: enable and start container
+
+The last step is enabling the container to auto start at boot,
+
+----
+$ sudo machinectl enable test
+Created symlink /etc/systemd/system/machines.target.wants/systemd-nspawn@test.service → /usr/lib/systemd/system/systemd-nspawn@.service.
+
+$ sudo machinectl list
+MACHINE   CLASS     SERVICE        OS   VERSION ADDRESSES
+test      container systemd-nspawn arch -       -
+
+1 machines listed.
+----
+
+Start the container,
+
+----
+$ sudo machinectl start test
+----
+
+
+[#testing]
+==  Testing
+
+Now that every things setup and running, ssh into the container from the host
+machine,
+
+----
+$ sudo ssh -i /var/lib/machines/test/home/test/.ssh/id_ed25519 \
+    -p 2022 test@127.0.0.1
+ED25519 key fingerprint is SHA256:QSH7wbNf6Lak/zKHvVhN8c1LmFkcLecNkGANwCHIykg.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[127.0.0.1]:2022' (ED25519) to the list of known hosts.
+[test@test ~]$
+----
+
+Lets check the process inside this container,
+
+----
+[test@test ~]$ ps -e
+    PID TTY          TIME CMD
+      1 ?        00:00:00 systemd
+     17 ?        00:00:00 systemd-journal
+     29 ?        00:00:00 dbus-daemon
+     31 ?        00:00:00 systemd-logind
+     33 pts/0    00:00:00 agetty
+     34 ?        00:00:00 sshd
+     35 ?        00:00:00 sshd
+     38 ?        00:00:00 systemd
+     39 ?        00:00:00 (sd-pam)
+     45 ?        00:00:00 sshd
+     46 pts/1    00:00:00 bash
+     49 pts/1    00:00:00 ps
+----
+
+You can see the top PID is 1, run by systemd itself.
+
+Check if the networking is match with the host (the output should be different
+with your host),
+
+----
+[test@test ~]$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:50:56:45:ac:c2 brd ff:ff:ff:ff:ff:ff
+    inet <redacted>/22 brd 194.233.71.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 2407:3640:2083:2556::1/64 scope global
+       valid_lft forever preferred_lft forever
+    inet6 <redacted>/64 scope link
+       valid_lft forever preferred_lft forever
+3: wg0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1420 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/none
+    inet 10.8.0.1/24 scope global wg0
+       valid_lft forever preferred_lft forever
+----
+
+Check if the container can connect to Internet,
+
+----
+[test@test ~]$ ping kilabit.info
+PING kilabit.info (<redacted>) 56(84) bytes of data.
+64 bytes from test (<redacted>): icmp_seq=1 ttl=64 time=0.039 ms
+64 bytes from test (<redacted>): icmp_seq=2 ttl=64 time=0.119 ms
+----
+
+NOTE: for security reasons, some output has been <redacted>.
+
+Check the hostname,
+
+----
+[test@test ~]$ hostnamectl
+   Static hostname: n/a
+Transient hostname: test
+         Icon name: computer
+        Machine ID: cff56de396714debaed8fe8b9435449a
+           Boot ID: ecd3f864180b497897169735581805af
+    Virtualization: systemd-nspawn
+  Operating System: Arch Linux
+            Kernel: Linux 5.15.48-1-lts
+      Architecture: x86-64
+  Firmware Version: rel-1.14.0-0-g155821a1990b-prebuilt.qemu.org
+----
+
+That's it, happy hacking!
+
+
+[#references]
+== References
+
+[1] https://wiki.archlinux.org/title/Systemd-nspawn[systemd-nspawn on Arch
+Linux wiki].
+
+[2] https://man.archlinux.org/man/systemd-nspawn.1.en[systemd-nspawn(1) manual
+page^].
+
+[3] https://man.archlinux.org/man/systemd.nspawn.5.en[systemd.nspawn(5) manual
+page^].
