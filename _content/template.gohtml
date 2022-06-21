@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="theme-color" content="#375EAB" />
-		<title>{{.Title}}</title>
-		<link href="/index.css" rel="stylesheet" type="text/css" media="all">
-	</head>
-	<body>
-		<div class="topbar">
-			<div class="topbar-left">
-				<div>
-					<a href="/">kilabit.info</a>
-				</div>
-				<span
-					class="topbar-info"
-					title="Pick 2!"
-				>
-					Simple | Small | Stable | Secure
-				</span>
-			</div>
 
-			<div class="topbar-right">
-				<a href="https://sr.ht/~shulhan" target="_blank">
-					<span class="sourcehut-icon">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-							<path d="M256 8C119 8 8 119 8 256s111 248 248 248
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#375EAB" />
+    <title>{{.Title}}</title>
+    <link href="/index.css" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body>
+    <img class="background" src="/assets/images/maple-leaf-transparent-540.png" />
+
+    <div class="topbar">
+        <div class="topbar-left">
+            <div>
+                <a href="/">kilabit.info</a>
+            </div>
+            <span class="topbar-info" title="Pick 2!">
+                Simple | Small | Stable | Secure
+            </span>
+        </div>
+
+        <div class="topbar-right">
+            <a href="https://sr.ht/~shulhan" target="_blank">
+                <span class="sourcehut-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M256 8C119 8 8 119 8 256s111 248 248 248
 	248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256
 	56s200 89.5 200 200-89.5 200-200 200z">
-							</path>
-						</svg>
-					</span>
-				</a>
-				<a href="https://github.com/shuLhan" target="_blank">
-					<img src="/assets/images/github.svg" />
-				</a>
-				<a href="https://twitter.com/_shuLhan" target="_blank">
-					<img src="/assets/images/twitter.svg" />
-				</a>
-			</div>
-		</div>
+                        </path>
+                    </svg>
+                </span>
+            </a>
+            <a href="https://github.com/shuLhan" target="_blank">
+                <img src="/assets/images/github.svg" />
+            </a>
+            <a href="https://twitter.com/_shuLhan" target="_blank">
+                <img src="/assets/images/twitter.svg" />
+            </a>
+        </div>
+    </div>
 
-		<div class="page">
-			<div class="container">
-				{{.Body}}
-			</div>
-			<!-- .container -->
-		</div>
-		<!-- .page -->
+    <div class="page">
+        <div class="container">
+            {{.Body}}
+        </div>
+        <!-- .container -->
+    </div>
+    <!-- .page -->
 
-		<div class="footer">
-			<p>
-				Copyright 2020, Shulhan &lt;m.shulhan@gmail.com&gt;. All rights
-				reserved.
-			</p>
-			<p>
-				Powered by
-				<a href="https://sr.ht/~shulhan/ciigo" target="_blank">ciigo</a>
-			</p>
-		</div>
-	</body>
+    <div class="footer">
+        <div>
+            Copyright 2020, Shulhan &lt;m.shulhan@gmail.com&gt;. All rights
+            reserved.
+        </div>
+        <div>
+            Powered by
+            <a href="https://sr.ht/~shulhan/ciigo" target="_blank">ciigo</a>
+        </div>
+    </div>
+</body>
+
 </html>

@@ -66,6 +66,14 @@ pre {
     word-wrap: break-word;
 }
 
+img.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.1;
+}
+
 .topbar-left {
     font-size: 24px;
     font-weight: bold;
