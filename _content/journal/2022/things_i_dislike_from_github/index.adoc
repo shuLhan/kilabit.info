@@ -137,4 +137,25 @@ At the left side you can see the offending code that needs to be fixed (this
 is Patchset 1), and on the right side you can see the fixes (Patchset 2).
 None of them mixed.
 
+
+== Reviewing only allowed on affected code
+
+Given the following changes,
+
+image:github_review_bad.png[Github comment review bad, 720]
+
+User cannot comment on expanded lines 151 that affected by the above changes.
+
+
+==  Where is the open review?
+
+Another developer create pull request and assign you as the viewer,
+
+image:github_reviewer.png[Github reviewer,720]
+
+But you cannot see it in the
+https://github.com/pulls[Pull requests] page,
+
+image:github_review_request_empty.png[Github pull review request is empty,720].
+
 _Thats it for now, will update later when I have more screenshots._
