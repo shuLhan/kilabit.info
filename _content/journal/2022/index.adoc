@@ -1,6 +1,18 @@
 
 === 2022
 
+*  link:/journal/2022/karajo-example-aur/["Creating personal AUR builder and
+   repository with karajo"^].
+   This article describes step by step process to create personal AUR builder
+   and repository using
+   https://sr.ht/~shulhan/karajo[karajo^].
++
+--
+At the end of this article we will learn how to build AUR package with clean
+chroot, learn how to sign package using GnuPG, and learn how to operato karajo
+service.
+--
+
 *  link:/journal/2022/chrooting_ssh_user_into_systemd-nspawn/["Chrooting SSH
    user into systemd-nspawn"^]
 

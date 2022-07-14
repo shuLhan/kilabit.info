@@ -1,0 +1,527 @@
+= Creating personal AUR builder and repository with karajo
+Shulhan <ms@kilabit.info>
+10 July 2022
+:toc:
+:sectanchors:
+:sectlinks:
+:url-repo-example: https://git.sr.ht/~shulhan/karajo-example-aur
+
+Due to git.sr.ht does not support rendering asciidoc markup, you can view the
+HTML format at
+https://kilabit.info/journal/2022/karajo-example-aur/.
+
+This article describes step by step process to create personal AUR builder and
+repository using
+https://git.sr.ht/~shulhan/karajo[karajo^].
+
+At the end of this article we will,
+
+* learn how to
+  https://wiki.archlinux.org/title/DeveloperWiki:Building_in_a_clean_chroot[build
+  AUR package with clean chroot^],
+* learn how to sign package using GnuPG, and
+* learn how to operato karajo server.
+
+The complete
+https://sr.ht/~shulhan/awwan[`awwan`^] scripts for this tutorial is available
+at
+{url-repo-example}[this repository^].
+
+You can view the live karajo server at https://build.kilabit.info.
+
+
+[#requirements]
+==  Requirements
+
+Although in the
+{url-repo-example}[example repository^]
+we demonstrate using remote server, you can also setup in your own computer.
+
+Software requirements in local host: `git`, `gnupg` and `go`.
+
+Software requirements in remote host: `arch-install-scripts`, `devtools`, and
+`gnupg`.
+
+We call the local host as $LOCAL and remote host as $REMOTE.
+
+
+[#step_0]
+== Step 0: $LOCAL - clone the example repository
+
+The example repository contains some files for references that we need to
+modify and copy to remote server.
+
+----
+$ git clone https://git.sr.ht/~shulhan/karajo-example-aur karajo-example-aur
+----
+
+We will denoted the cloned directory as $REPO_EXAMPLE in this article.
+
+
+[#step_1]
+== Step 1: $REMOTE - setup and update the system
+
+Install required packages in the $REMOTE machine and reboot to make sure
+that everythings is up to date and workings normally.
+
+----
+$ sudo pacman -Sy --noconfirm archlinux-keyring
+$ sudo pacman -Su --noconfirm
+$ sudo pacman -S  --noconfirm arch-install-scripts gnupg devtools
+$ sudo reboot
+----
+
+
+[#step_2]
+== Step 2: $LOCAL - create GPG subkey for signing packages
+
+In this step, we create new subkey in the local machine for signing the
+package later.
+This script assume that you already have master key, if not please follow
+https://wiki.archlinux.org/title/GnuPG[the wiki page]
+on how to create master key.
+
+Lets print the key to get the master key ID,
+
+----
+$ gpg --list-keys
+/home/ms/.gnupg/pubring.kbx
+---------------------------
+sec   rsa2048/0xF8507EE9148A4CE3 2017-01-20 [SC] [expires: 2027-01-19]
+      CEF1AA87E337A6C390DE5550F8507EE9148A4CE3
+uid                   [ultimate] Muhammad Shulhan <ms@kilabit.info>
+...
+ssb   rsa2048/0x60A2AA092DA30E38 2017-01-20 [E] [expires: 2027-01-19]
+----
+
+The `0xF8507EE9148A4CE3` is my master key id, we call it `$GPG_MASTER_KEY`.
+
+Create new subkey for signing without passphrase,
+
+----
+$ export GPG_MASTER_KEY=0xF8507EE9148A4CE3
+$ gpg --quick-add-key --batch --passphrase '' $GPG_MASTER_KEY ed25519 sign never
+----
+
+If your master key use passphrase, the above command will ask you to enter the
+passphrase.
+
+Now, lets print all the keys again,
+
+----
+$ gpg --list-keys --with-subkey-fingerprint
+/home/ms/.gnupg/pubring.kbx
+---------------------------
+sec   rsa2048/0xF8507EE9148A4CE3 2017-01-20 [SC] [expires: 2027-01-19]
+      CEF1AA87E337A6C390DE5550F8507EE9148A4CE3
+uid                   [ultimate] Muhammad Shulhan <ms@kilabit.info>
+...
+ssb   rsa2048/0x60A2AA092DA30E38 2017-01-20 [E] [expires: 2027-01-19]
+      47EF3A3A06641395EBA2803B60A2AA092DA30E38
+ssb   ed25519/0x4A5360B500C9C4F0 2022-07-08 [S] <-- Signing key
+      B24B7E71D51210D9292E1B3E4A5360B500C9C4F0
+----
+
+Take a note on our new subkey for signing: `0x4A5360B500C9C4F0` or
+its fingerprint `B24B7E71D51210D9292E1B3E4A5360B500C9C4F0`.
+We will export this subkey and import it in remote server.
+Before that, lets test the key for signing,
+
+----
+$ echo "test" > test
+$ gpg --detach-sign --use-agent --local-user 0x4A5360B500C9C4F0 \
+	--output test.sig test
+$ cat test.sig
+$ rm -f test test.sig
+----
+
+Export subkey public and secret keys,
+
+----
+$ export GPG_SUBKEY_SIGN=0x4A5360B500C9C4F0
+$ gpg --armor --export --output ~/build.pub ${GPG_SUBKEY_SIGN}!
+$ gpg --armor --export-secret-subkeys --output ~/build.key ${GPG_SUBKEY_SIGN}!
+----
+
+NOTE: Do not forget the "!" at the end.
+
+In case you are not satisfied with the subkey here is the command to delete
+it,
+
+----
+$ gpg --list-keys --with-subkey-fingerprints
+$ gpg --delete-secret-and-public-keys <fingerprint>!
+----
+
+NOTE: Do not forget the "!" at the end.
+
+
+[#step_3]
+== Step 3: $REMOTE - create user for running karajo/build
+
+In the remote machine, create new user to run the karajo service and for
+building the packages.
+In this example we denoted the user name as $USER
+
+----
+$ sudo useradd --create-home --groups wheel $USER
+----
+
+
+[#step_4]
+==  Step 4: $REMOTE - import the subkey into user at remote server
+
+Copy the exported public and private subkey into the remote server as $USER
+(not your SSH user).
+For example using rsync on local,
+
+----
+$ rsync ~/build.pub $REMOTE:/tmp/build.pub
+$ rsync ~/build.pub $REMOTE:/tmp/build.key
+----
+
+And in the $REMOTE, move it to $USER home,
+
+----
+$ sudo mv /tmp/build.pub /home/$USER/
+$ sudo mv /tmp/build.key /home/$USER/
+$ sudo chown $USER:$USER /home/$USER/build.*
+----
+
+Import the subkey into the $USER in remote machine,
+
+----
+$ sudo su - $USER sh -c "gpg --batch --import build.pub"
+$ sudo su - $USER sh -c "gpg --batch --import build.key"
+gpg: directory '/home/$USER/.gnupg' created
+gpg: keybox '/home/$USER/.gnupg/pubring.kbx' created
+gpg: /home/$USER/.gnupg/trustdb.gpg: trustdb created
+gpg: key F8507EE9148A4CE3: public key "Muhammad Shulhan <ms@kilabit.info>" imported
+gpg: To migrate 'secring.gpg', with each smartcard, run: gpg --card-status
+gpg: key F8507EE9148A4CE3: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+----
+
+Check the imported subkey,
+
+----
+$ sudo su - $USER sh -c "gpg --list-secret-keys --with-subkey-fingerprint"
+/home/$USER/.gnupg/pubring.kbx
+-------------------------------
+sec#  rsa2048 2017-01-20 [SC] [expires: 2027-01-19]
+      CEF1AA87E337A6C390DE5550F8507EE9148A4CE3
+uid           [ unknown] Muhammad Shulhan <ms@kilabit.info>
+...
+ssb   ed25519 2022-07-07 [S] [expires: 2026-07-06]
+----
+
+Test it,
+
+----
+$ sudo su - $USER sh -c "echo test > test; gpg --detach-sign --use-agent \
+	--local-user 0x4A5360B500C9C4F0 \
+	--output test.sig test"
+$ sudo su - $USER sh -c "cat test.sig"
+----
+
+
+[#step_5]
+==  Step 5: $REMOTE - set makepkg.conf
+
+In the remote machine set the makepkg.conf for $USER to let `makepkg` known
+the packager, the signing key to use for signing the package, and where the
+package output will be stored.
+
+----
+$ cat /home/$USER/.makepkg.conf
+PACKAGER="Your name <your email here>"
+GPGKEY="Your GPG subkey for signing"
+PKGDEST="/home/$USER/srv/aur"
+----
+
+We will store and serve all builded packages inside `/home/$USER/srv/aur`
+later.
+
+
+[#step_6]
+==  Step 6: $REMOTE - setup the chroot
+
+In the remote machine create a chroot directory as base directory for building
+our AUR package later,
+
+----
+$ sudo su - $USER sh -c "mkdir /home/$USER/build"
+$ sudo su - $USER sh -c "mkarchroot /home/$USER/build/root base-devel systemd"
+$ sudo su - $USER sh -c "arch-nspawn -c /var/cache/pacman/pkg \
+ 	/home/$USER/build/root \
+ 	pacman -Syu --noconfirm"
+----
+
+Create any directories that is used by programming languages for downloading
+and/or building dependencies in the $USER home directory.
+For example, the following directories are used by Go, Java, and PHP,
+
+----
+$ sudo su - $USER sh -c "mkdir -p /home/$USER/go"
+$ sudo su - $USER sh -c "mkdir -p /home/$USER/.cache/go-build"
+$ sudo su - $USER sh -c "mkdir -p /home/$USER/.gradle"
+$ sudo su - $USER sh -c "mkdir -p /home/$USER/.m2"
+$ sudo su - $USER sh -c "mkdir -p /home/$USER/.cache/composer"
+----
+
+
+[#step_7]
+==  Step 7: $LOCAL - build the karajo binary
+
+Make sure that you have Go installed in your local machine, and then execute
+the following command to install the latest karajo binary into $GOBIN (should
+default to $HOME/go/bin),
+
+----
+$ go install git.sr.ht/~shulhan/karajo/cmd/karajo@main
+----
+
+Since the program is in development state, we install the latest commits on
+branch `main`.
+If you need to update it, run the above command again.
+
+You can actually do this on $REMOTE machine, thought.
+
+
+[#step_8]
+==  Step 8: $LOCAL - create karajo.conf
+
+In this example we will build the AUR package
+https://aur.archlinux.org/google-cloud-ops-agent-git.git[google-cloud-ops-agent],
+because its use two programming language Go and Java, and give us an example
+of how to bind multiple directories when running `makechrootpkg` later.
+
+For reference you can see the example for karajo.conf inside the
+`$REPO_EXAMPLE/_ops/build.kilabit.info/home/karajo/etc/karajo/karajo.conf`.
+
+----
+[karajo]
+Name = my-build
+listen_address = 0.0.0.0:31937
+http_timeout = 5m0s
+dir_base = /home/$USER
+dir_public = /home/$USER/srv
+secret = s3cret
+
+##---- AUR google-cloud-ops-agent-git.
+
+[hook "aur-google-cloud-ops-agent-git"]
+path = /aur/google-cloud-ops-agent-git
+secret = s3cret-for-hook
+
+command = \
+  git fetch --all --tags --prune || \
+  git clone -- https://aur.archlinux.org/google-cloud-ops-agent-git.git .
+command = git reset --hard HEAD
+command = git rebase origin/master
+
+command = makechrootpkg \
+	-d /tmp \
+	-d /home/$USER/go:/build/go \
+	-d /home/$USER/.cache:/build/.cache/go-build \
+	-d /home/$USER/.gradle:/build/.gradle \
+	-r /home/$USER/build \
+	-- --nocolor
+
+command = repo-add --sign \
+	/home/$USER/srv/aur/my-repo.db.tar.xz \
+	/home/$USER/srv/aur/*.tar.zst
+
+[job "aur-google-cloud-ops-agent-git"]
+description = AUR build for \
+ <a href="https://aur.archlinux.org/packages/google-cloud-ops-agent-git"> \
+ Google Cloud Ops-agent \
+ </a>.
+secret = s3cret-for-hook
+interval = 10m
+max_requests = 1
+http_method = POST
+http_url = /karajo/hook/aur/google-cloud-ops-agent-git
+http_request_type = json
+http_insecure = false
+----
+
+First, lets replace all occurrent of $USER with the user name that we create
+earlier.
+
+At the top we have `[karajo]` section with name "my-build".
+The karajo listen for incoming hook and serve the web user interface (WUI) at
+address 0.0.0.0 and on port 31937.
+The karajo section define default HTTP timeout for all jobs to 5 minutes.
+The karajo server have working directory set to the home directory of our
+user `/home/$USER`, what this means is when karajo started, it will create the
+following directory structure under that `dir_base`,
+
+* `/home/$USER/var/lib/karajo/hook/`
+* `/home/$USER/var/log/karajo/hook/`, and
+* `/home/$USER/var/log/karajo/log/`.
+
+All of files and sub-directories under `/home/$USER/srv` is served by karajo
+using HTTP.
+The s3cret value is the string to sign the request to pause or resume the
+job from WUI.
+
+Next, we have `[hook]` section.
+We create one hook named `aur-google-cloud-ops-agent-git`.
+This hook can be called from path
+`/karajo/hook/aur/google-cloud-ops-agent-git` (the prefix `/karajo/hook` is
+automatically added by karajo).
+Once the hook received request that authorized using `s3cret-for-hook`, it
+will run the list of `command` from top to bottom under directory
+`/home/$USER/var/lib/karajo/hook/aur-google-cloud-ops-agent-git`.
+
+The command to be executed is self-explanatory.
+The first three commands, we try to fetch the latest commits from AUR
+repository google-cloud-ops-agent-git or clone a new one.
+Then we build it inside chroot `/home/$USER/build` that we create at
+link:#step_6[step 6] with additional bindings to minimize storage usage and
+re-downloading/re-building dependencies later.
+The builded package is moved to `/home/$USER/srv/aur/`, as we have set in
+`.makepkg.conf` at
+link:#step_5[step 5].
+The last command is to add the package to `my-repo` database and sign it.
+
+The last section is `[job]` with the same name as above hook,
+aur-google-cloud-ops-agent-git.
+The job run every 10 minutes and when its time it will send HTTP POST request
+URL `/karajo/hook/aur/google-cloud-ops-agent-git`.
+Since this URL does not have scheme, it means it will send it to the karajo
+server itself.
+The s3cret-for-hook is the secret to sign the request body.
+At the end this is the HTTP request that the Job send looks like.
+
+----
+POST http://0.0.0.0:31937/karajo/hook/aur/google-cloud-ops-agent-git
+Content-Type: application/json
+x-karajo-sign: 7ead48db24fb9aa3f31cc77d9e61ff893174a173a371519bbdc6aeac9e4f08e9
+
+{"_karajo_epoch":1657814585}
+----
+
+which will trigger the hook that we create earlier.
+
+For all of the options to configure the karajo see the
+https://git.sr.ht/~shulhan/karajo[karajo^]
+repository.
+
+
+[#step_9]
+==  Step 9: deploy the karajo binary and configuration
+
+In the $REMOTE machine create a directory to store the binary and
+configuration,
+
+----
+$ mkdir -p /home/$USER/etc/karajo
+$ mkdir -p /home/$USER/bin
+----
+
+From the $LOCAL machine copy the,
+
+* karajo.conf to $REMOTE at `/home/$USER/etc/karajo/karajo.conf`,
+* karajo binary to $REMOTE at `/home/$USER/bin/karajo`,
+* systemd service file from
+  `$REPO_EXAMPLE/_ops/build.kilabit.info/etc/systemd/system/systemctl-restart@.service`
+  to `/etc/systemd/system/`,
+* systemd path file from
+  `$REPO_EXAMPLE/_ops/build.kilabit.info/etc/systemd/system/karajo.path`
+  to `/etc/systemd/system/`,
+* systemd service file from
+  `$REPO_EXAMPLE/_ops/build.kilabit.info/etc/systemd/system/karajo.service`
+  to `/etc/systemd/system/`, and
+* simple HTML file from
+  `$REPO_EXAMPLE/_ops/build.kilabit.info/home/karajo/srv/index.html`
+  to `/home/$USER/srv/`.
+
+Update the systemd karajo.path `PathChanged` so its point to karajo binary,
+
+----
+...
+[Path]
+PathChanged=/home/$USER/bin/karajo
+Unit=systemctl-restart@%p.service
+...
+----
+
+And update the systemd karajo.service to point the right location of binary
+and configuration,
+
+----
+...
+[Service]
+User=$USER
+WorkingDirectory=/home/$USER
+ExecStart=/home/$USER/bin/karajo -config /home/$USER/etc/karajo/karajo.conf
+RestartSec=5s
+...
+----
+
+Replace all occurrence of the $USER variable with the user name of karajo that
+we set earlier.
+
+Enable the karajo.path and karajo.service,
+
+----
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable karajo.path
+$ sudo systemctl start karajo.path
+$ sudo systemctl enable karajo.service
+$ sudo systemctl start karajo.service
+----
+
+
+[#last_step]
+==  Last step: testing
+
+Open the browser and point it to your $REMOTE machine IP address (or 127.0.0.1
+if you setup on your local machine) at port 31937, for example
+http://127.0.0.1:31937.
+It should show the simple page that have link "View build status".
+Click on that link, you will see the current Hook and Job status.
+
+Once the package is build and signed, you can test it by adding the repository
+to your pacman.conf,
+
+----
+...
+
+[my-repo]
+SigLevel = Optional TrustAll
+Server = http://127.0.0.1:31937/aur
+----
+
+NOTE: the `[my-repo]` name must have the same name with the database name
+during repo-add.
+
+Run `pacman -Sy`, and then try to install the builded package from the
+repository `pacman -S google-cloud-ops-agent-git`.
+
+
+[#maintenance]
+== Maintenance
+
+After you satisfy with the current example, you can add more hook and job to
+build more AUR packages.
+Update the karajo.conf and then restart the karajo.service.
+
+
+That's it, happy building!
+
+
+[#references]
+== References
+
+* https://sr.ht/~shulhan/karajo[karajo^]
+
+* https://wiki.archlinux.org/title/DeveloperWiki:Building_in_a_clean_chroot[DeveloperWiki:
+  Building in a clean chroot^]
+
+* https://wiki.archlinux.org/title/GnuPG[GnuPGP^]
