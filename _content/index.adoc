@@ -1,7 +1,20 @@
 = Index
 :toc:
 
+[#services]
+==  Services
 
+This server provides the following services to the public:
+
+* DNS over UDP at port 53
+* DNS over HTTPS at port 443
+* DNS over TLS at port 443.
+  Check the IP address using dig or ping to domain kilabit.info.
+* AUR repository at https://build.kilabit.info/aur.
+  See https://build.kilabit.info for more information.
+
+
+[#projects]
 ==  Projects
 
 Most of my personal projects is open source and available on my
