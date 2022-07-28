@@ -527,6 +527,25 @@ Update the karajo.conf and then restart the karajo.service.
 
 That's it, happy building!
 
+[#whats_next]
+== What's next?
+
+If we host the AUR or git repository in GitHub, we can add the
+https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks[WebHook]
+into it, so when we push new commits the hook will automatically triggered.
+
+To do this, set the hook `header_sign` to `X-Hub-Signature-256`;
+for example
+
+----
+[hook "aur-google-cloud-ops-agent-git"]
+path = /aur/google-cloud-ops-agent-git
+header_sign = X-Hub-Signature-256
+secret = s3cret-for-hook
+----
+
+and redeploy the configuration and restart the karajo service.
+
 
 [#references]
 == References
