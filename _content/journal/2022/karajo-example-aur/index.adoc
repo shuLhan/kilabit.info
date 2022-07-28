@@ -331,9 +331,15 @@ command = makechrootpkg \
 	-r /home/$USER/build \
 	-- --nocolor
 
-command = repo-add --sign \
-	/home/$USER/srv/aur/my-repo.db.tar.xz \
-	/home/$USER/srv/aur/*.tar.zst
+command = "PKG=$(basename `makepkg --packagelist`); \
+	echo $PKG; \
+	gpg --detach-sign --use-agent \
+		--local-user $GPG_SUBKEY_SIGN \
+		--output /home/$USER/srv/aur/${PKG}.sig \
+		--yes /home/$USER/srv/aur/${PKG}; \
+	repo-add --sign \
+		/home/$USER/srv/aur/my-repo.db.tar.xz \
+		/home/$USER/srv/aur/${PKG};"
 
 [job "aur-google-cloud-ops-agent-git"]
 description = AUR build for \
@@ -379,15 +385,21 @@ will run the list of `command` from top to bottom under directory
 `/home/$USER/var/lib/karajo/hook/aur-google-cloud-ops-agent-git`.
 
 The command to be executed is self-explanatory.
+
 The first three commands, we try to fetch the latest commits from AUR
 repository google-cloud-ops-agent-git or clone a new one.
+
 Then we build it inside chroot `/home/$USER/build` that we create at
 link:#step_6[step 6] with additional bindings to minimize storage usage and
 re-downloading/re-building dependencies later.
 The builded package is moved to `/home/$USER/srv/aur/`, as we have set in
 `.makepkg.conf` at
 link:#step_5[step 5].
-The last command is to add the package to `my-repo` database and sign it.
+
+The last command is to generate the signature and add the package to `my-repo`
+database.
+Do not forget to replace the `$GPG_SUBKEY_SIGN` with your own key ID or
+fingerprint.
 
 The last section is `[job]` with the same name as above hook,
 aur-google-cloud-ops-agent-git.
