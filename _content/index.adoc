@@ -4,14 +4,24 @@
 [#services]
 ==  Services
 
-This server provides the following services to the public:
+This server provides the following services to the public.
 
-* DNS over UDP at port 53
-* DNS over HTTPS at port 443
+DNS server::
++
+--
+The DNS server is run using
+https://github.com/shuLhan/rescached-go[rescached^]
+on the following port,
+
+* DNS over UDP at port 53,
+* DNS over HTTPS at port 443,
 * DNS over TLS at port 443.
-  Check the IP address using dig or ping to domain kilabit.info.
-* AUR repository at https://build.kilabit.info/aur.
-  See https://build.kilabit.info for more information.
+
+Check the IP address using `dig` or `ping` to domain `kilabit.info`.
+--
+
+AUR repository::
+See https://build.kilabit.info for more information.
 
 
 [#projects]
@@ -443,3 +453,15 @@ include::journal/2022/index.adoc[]
 *  link:/journal/2007/02/22__karma[Karma]
 
 *  link:/journal/2007/02/22__debian_404[Debian 404]
+
+
+== Links
+
+Some other websites worth to read,
+
+* https://komputeror.com[Komputeror.com] hadir didunia internet, khususnya di
+  Indonesia pada tahun 2022 Bulan Juni.
+  Komputeror.com Merupakan situs teknologi yang mengupas informasi seputar
+  komputer, internet, Aplikasi, Linux, android dan Dunia Open Source.
+  Situs ini juga membahas informasi lain, yang berkaitan dengan dunia
+  teknologi.
