@@ -1,14 +1,14 @@
 = Index
 :toc:
+:sectanchors:
+:sectlinks:
 
-[#services]
 ==  Services
 
 This server provides the following services to the public.
 
-DNS server::
-+
---
+===  DNS server
+
 The DNS server is run using
 https://github.com/shuLhan/rescached-go[rescached^]
 on the following port,
@@ -18,13 +18,13 @@ on the following port,
 * DNS over TLS at port 443.
 
 Check the IP address using `dig` or `ping` to domain `kilabit.info`.
---
 
-AUR repository::
+We use Google DNS as parent name servers.
+
+===  AUR repository
+
 See https://build.kilabit.info for more information.
 
-
-[#projects]
 ==  Projects
 
 Most of my personal projects is open source and available on my
@@ -32,39 +32,17 @@ https://github.com/shuLhan[Github^]
 and
 https://sr.ht/~shulhan[Sourcehut^].
 
+===  asciidoctor-go
 
-https://tour.golang-id.org[tour.golang-id.org^]::
-The tour.golang-id.org is translation of their original website
-tour.golang.org to Indonesian language, to help newcomers learning Go
-programming language.
-This is my first contribution to Go community.
-+
-https://github.com/golang-id/tour[Source^]
+The asciidoctor-go is the Go module to parse the
+https://asciidoctor.org/docs/what-is-asciidoc[AsciiDoc markup^]
+and convert it into HTML5.
 
+link:/project/asciidoctor-go/[Project page^] -
+https://git.sr.ht/~shulhan/asciidoctor-go[Repository^]
 
-https://golang-id.org[golang-id.org^]::
-This website is my second contribution to Go community.
-Its goal is not only to provide help, through translation, for Indonesian to
-learn more about Go but also to provide an ecosystem for Indonesian Go
-community, for example, vlog and blog in Indonesian language, and sharing open
-source works written in Go.
-The website is freshly launched, they are still more works to be done, though.
-+
-https://github.com/golang-id/web[Source^]
+===  awwan
 
-
-https://github.com/shuLhan/rescached-go[rescached^]::
-Rescached is resolver cache daemon.
-It is a DNS forwarding server, serve the clients queries, but also caching all
-the queries and answers for later use.
-The idea is to minimize network traffic for outside DNS queries and to manage
-local zone files.
-The
-https://github.com/shuLhan/rescached[first implementation^]
-was written in C++ and then re-written using Go.
-
-
-https://sr.ht/~shulhan/awwan/[awwan^]::
 Configuration management software, infrastructure as file and
 directory layout.
 `awwan` is command-line interface to execute multiple lines of command in the
@@ -75,59 +53,126 @@ learning others syntax and tools for provisioning your own server, while you
 need is a handful of shell script?
 If yes, awwan is the right tools for you.
 
+link:/project/awwan/[Project page^] -
+https://git.sr.ht/~shulhan/awwan[Repository^]
 
-https://github.com/shuLhan/share[share^]::
-`share` is collection of Go packages.
-The most outstanding packages is websocket, dns, email, smtp, memfs, and
-mining.
+===  beku (deprecated in favor of Go module)
 
+Beku is command line program to manage packages in user's
+environment (GOPATH or vendor directory).
+Beku provide syntax like pacman.
+This program exists long before before `godep` or Go module exist and stable.
 
-https://sr.ht/~shulhan/asciidoctor-go[asciidoctor-go^]::
-The asciidoctor-go is the Go module to parse the
-https://asciidoctor.org/docs/what-is-asciidoc[AsciiDoc markup^]
-and convert it into HTML5.
+https://github.com/shuLhan/beku[Repository^]
 
+=== ciigo
 
-https://sr.ht/~shulhan/ciigo[ciigo^]::
 ciigo is a program to write static web server with embedded files
 using asciidoc markup language.
 This site and golang-id.org is written with `ciigo` as framework.
 
+link:/project/ciigo/[Project page^] -
+https://git.sr.ht/~shulhan/ciigo[Repository^]
 
-https://sr.ht/~shulhan/karajo[karajo^]::
+===  golang-id.org
+
+This website is my second contribution to Go community.
+Its goal is not only to provide help, through translation, for Indonesian to
+learn more about Go but also to provide an ecosystem for Indonesian Go
+community, for example, vlog and blog in Indonesian language, and sharing open
+source works written in Go.
+The website is freshly launched, they are still more works to be done, though.
+
+https://golang-id.org[golang-id.org^] -
+https://github.com/golang-id/web[Repository^]
+
+===  gotp
+
+Command line interface for Time-based One Time Password (TOTP).
+
+link:/project/gotp/[Project page^] -
+https://sr.ht/~shulhan/gotp[Repository^]
+
+===  haminer
+
+haminer is a library and program to parse and forward HAProxy logs
+to InfluxDB for mining HTTP requests.
+
+link:/project/haminer/[Project page^] -
+https://github.com/shuLhan/haminer[Repository^]
+
+===  hunspell-id
+
+Hunspell dictionary for Bahasa Indonesia.
+
+https://github.com/shuLhan/hunspell-id[Repository^]
+
+===  karajo
+
 karajo is the library and program to implement HTTP workers and manager
 similar to AppEngine cron.
 karajo has the web user interface for monitoring the jobs.
 
-https://sr.ht/~shulhan/trunks[trunks^]::
+link:/project/karajo/[Project page^] -
+https://git.sr.ht/~shulhan/karajo[Repository^]
+
+===  libvos (unmaintained)
+
+libvos is a C++ library.
+First implementation was intended for reading and writing Delimited Separated
+Value (DSV) data, but then its evolved and have more capabilities.
+Current features included Buffer module, File module, Socket module, reading
+and writing INI file format, FTP (server and client) module, DNS module, and
+Oracle Client Interface module.
+
+https://github.com/shuLhan/libvos[Repository^]
+
+===  rescached
+
+Rescached is resolver cache daemon.
+It is a DNS forwarding server, serve the clients queries, but also caching all
+the queries and answers for later use.
+The idea is to minimize network traffic for outside DNS queries and to manage
+local zone files.
+The
+https://github.com/shuLhan/rescached[first implementation^]
+was written in C++ and then re-written using Go.
+
+link:/project/rescached/[Project page^] -
+https://github.com/shuLhan/rescached-go[Repository^]
+
+===  share
+
+`share` is collection of Go packages.
+The most outstanding packages is websocket, dns, email, smtp, memfs, and
+mining.
+
+link:/project/share/[Project page^] -
+https://github.com/shuLhan/share[Repository^]
+
+===  tour.golang-id.org
+
+The tour.golang-id.org is translation of their original website
+tour.golang.org to Indonesian language, to help newcomers learning Go
+programming language.
+This is my first contribution to Go community.
+
+https://tour.golang-id.org[tour.golang-id.org^] -
+https://github.com/golang-id/tour[Repository^]
+
+===  trunks
+
 trunks is a Go module that provide HTTP service with web user interface for
 testing HTTP endpoints (like Postman) and for load testing.
 For the load testing we use
 https://github.com/tsenart/vegeta[vegeta^]
 as the backend.
 
+link:/project/trunks/[Project page^] -
+https://sr.ht/~shulhan/trunks[Repository^]
 
-https://sr.ht/~shulhan/gotp[gotp^]::
-Command line interface for Time-based One Time Password (TOTP).
+===  vos (unmaintained)
 
-
-https://github.com/shuLhan/haminer[haminer^]::
-haminer is a library and program to parse and forward HAProxy logs
-to InfluxDB for mining HTTP requests.
-
-
-https://github.com/shuLhan/hunspell-id[hunspell-id^]::
-Hunspell dictionary for Bahasa Indonesia.
-
-
-https://github.com/shuLhan/beku[beku (deprecated in favor of Go module)^]::
-Beku is command line program to manage packages in user's
-environment (GOPATH or vendor directory).
-Beku provide syntax like pacman.
-This program exists long before before `godep` or Go module exist and stable.
-
-
-https://github.com/shuLhan/vos[vos (unmaintained)^]::
 Vos is a program to process formatted data, i.e. CSV data.
 Vos is designed to process a large input file, a file where their size is
 larger than the size of memory, and can be tuned to adapt with machine
@@ -136,14 +181,7 @@ Vos can do sorting, formatting, filtering, and join, by reading input file and
 its configuration script.
 Its written in C.
 
-
-https://github.com/shuLhan/libvos[libvos (unmaintained)^]::
-libvos is a C++ library.
-First implementation was intended for reading and writing Delimited Separated
-Value (DSV) data, but then its evolved and have more capabilities.
-Current features included Buffer module, File module, Socket module, reading
-and writing INI file format, FTP (server and client) module, DNS module, and
-Oracle Client Interface module.
+https://github.com/shuLhan/vos[Repository^]
 
 
 == Articles
@@ -547,7 +585,7 @@ linear history.
 
 == Links
 
-Some other websites worth to read,
+Sister sites,
 
 * https://komputeror.com[Komputeror.com^] hadir didunia internet, khususnya di
   Indonesia pada tahun 2022 Bulan Juni.
