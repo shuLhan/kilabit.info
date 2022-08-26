@@ -158,4 +158,16 @@ https://github.com/pulls[Pull requests] page,
 
 image:github_review_request_empty.png[Github pull review request is empty,720].
 
+Also, open the following links in your browser: https://github.com/pulls?q=is%3Aopen+is%3Apr
+
+You will see all of the open PR from all repositories is listed.
+
+image:github_pr_list.png[Github PR list,720]
+
+The URL is "/pulls" but the query still need `is:pr`.
+If you remove the `is:pr` field, you will get list of PR and open issues.
+Talks about inconsistency.
+
+* * *
+
 _Thats it for now, will update later when I have more screenshots._
