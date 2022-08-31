@@ -10,43 +10,53 @@ import (
 )
 
 const (
-	envNameDev = "dev"
+	cmdNameEmbed = `embed`
 )
 
 var memfsContent *memfs.MemFS
 
 func main() {
 	var (
-		port      = "7000"
+		convertOpts = ciigo.ConvertOptions{
+			Root:         `_content`,
+			HtmlTemplate: `_content/template.gohtml`,
+		}
 		serveOpts = ciigo.ServeOptions{
-			ConvertOptions: ciigo.ConvertOptions{
-				Root:         "_content",
-				HtmlTemplate: "_content/template.gohtml",
-			},
-			Mfs: memfsContent,
+			ConvertOptions: convertOpts,
+			Mfs:            memfsContent,
+			Address:        `127.0.0.1:7000`,
 		}
 
-		flagEnv string
-		err     error
+		cmd string
+		err error
 	)
 
 	log.SetFlags(0)
 
-	flag.StringVar(&flagEnv, "env", "", "set the environment to run")
+	flag.BoolVar(&serveOpts.IsDevelopment, "dev", false, "Run in development mode")
 	flag.Parse()
 
-	if len(flagEnv) > 0 {
-		flagEnv = strings.ToLower(flagEnv)
-	}
+	cmd = strings.ToLower(flag.Arg(0))
 
-	serveOpts.Address = ":" + port
+	switch cmd {
+	case cmdNameEmbed:
+		var embedOpts = ciigo.EmbedOptions{
+			ConvertOptions: convertOpts,
+			EmbedOptions: memfs.EmbedOptions{
+				PackageName: `main`,
+				VarName:     `memfsContent`,
+				GoFileName:  `cmd/www-kilabit/memfs_content.go`,
+			},
+		}
+		err = ciigo.GoEmbed(&embedOpts)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	if flagEnv == envNameDev {
-		serveOpts.IsDevelopment = true
-	}
-
-	err = ciigo.Serve(&serveOpts)
-	if err != nil {
-		log.Fatal(err)
+	default:
+		err = ciigo.Serve(&serveOpts)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }

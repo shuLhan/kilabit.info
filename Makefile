@@ -1,9 +1,12 @@
-.PHONY: all serve find-broken-symlinks
+.PHONY: all embed serve find-broken-symlinks
 
 all: serve
 
+embed:
+	go run ./cmd/www-kilabit embed
+
 serve:
-	go run ./cmd/www-kilabit -env=dev
+	go run ./cmd/www-kilabit -dev
 
 find-broken-symlinks:
 	@echo ">>> Finding broken symlinks ..."
@@ -15,8 +18,7 @@ find-broken-symlinks:
 
 .PHONY: local-setup local-deploy
 
-local-deploy: find-broken-symlinks
-	go generate
+local-deploy: find-broken-symlinks embed
 	go build ./cmd/www-kilabit
 	rsync --progress ./www-kilabit dev.local:/data/bin/
 
@@ -24,8 +26,7 @@ local-deploy: find-broken-symlinks
 
 .PHONY: deploy
 
-deploy: find-broken-symlinks
-	go generate
+deploy: find-broken-symlinks embed
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 		go build -o www-kilabit-linux-amd64 ./cmd/www-kilabit/
 	rsync --progress www-kilabit-linux-amd64 www-kilabit:/data/app/bin/www-kilabit
