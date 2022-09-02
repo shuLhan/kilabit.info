@@ -1,0 +1,128 @@
+= Story Points, what is the point?
+Shulhan <ms@kilabit.info>
+2 Sep 2022
+
+Before I am going to rant about Story Points (SP), I am going to tell a story
+how we build software before we know Scrum or Agile as a consultant.
+
+Once we have a project, we meet the client.
+Most of the software that we build usually translate the real world system
+(using form and manual input) into an application.
+The documentation is usually about how to use the software or the design
+behind it (database schemas, and so on).
+
+Most of discussion usually around how to fill the form, what kind of values is
+allowed in this field, who can use fill the form, what did the client
+expect from the application, and so on.
+If we are lucky, client know what the input and output should look likes,
+these make us easy to map and separate the process into modules.
+Once we can draw the line between modules we can calculate how much the cost
+to build it.
+We propose the cost and time to client, of course with additional
+unpredictable cost and time in our mind, client bargaining and then we make a
+deal.
+
+Later, we finish one module, go back to client, do the test, gather feedbacks,
+and goes back to home.
+One person usually handling the feedbacks, enhancements and bug fixes;
+while others continue developing the next module.
+
+Repeat this until we finish our project.
+
+I don't know what kind of methodology that we use back then, but none of us
+use story points.
+What the client care, and we too, is how much they pay and when it could be
+finished;
+both our goals is to finish this project, a software, hopefully, in the time
+we have agreed upon.
+If we can complete it before the time, we can move it into another project, or
+take the free time, both are happy.
+If we cannot complete it before the time, both of us will looks bad.
+From our perspective, we looks like incompetent, from client perspective they
+may have to delay the integration or report to higher command and explain why
+why their project is still not finished, which looks bad on them and us.
+
+Around 2014 I go back to works in the office, a start up.
+I may have heard about Agile before, but this is my first experience to works
+with sprint, user story, story points, epic, Jira, with all the bells and
+whistles.
+This is also the time where I experiences cloud, containers, new programming
+language, and all the shiny things in software development, so I did not pay
+attention to the workflow.
+In fact I can not remember if we use story points or not.
+I just buried with new experiences and excitements, so everything that I
+confronts seems like new to me and seems alright.
+The only things that I can remember and reflect today is that we may have
+over-engineered at some points (rewrite and refactor), at least we stick to
+some goals;
+but that is just another story.
+
+At the next company, is the place where I have bad experiences.
+I will focus on how we use story points, beside other bad practices.
+
+First, we associate a story point to one day.
+If you read any journal or articles about scrum or agile, this is a no-no.
+I let it go at that times.
+
+Second, we waste the times about not filling and updating the story points
+over empty story description.
+We have three fields for story points, one for "Original estimated points",
+one for "Story points", and another one for "completed points current sprint".
+There is one field for QA called "Completed QA Points".
+I am not kidding you.
+
+Third, they report the progress as a completed story points in one sprints.
+What could go wrong?
+
+----
+                   sprint ended
+                        |
+                        V
+o-----------------------o
+^                   ^
+|                   |
+sprint          implementation
+started         finished
+----
+
+Since each developer must have `X points = Y days` to fill in one sprint,
+at the end of sprints we may have some un-finished story (due to other bugs or
+unrelated tasks) or finished implementation but not yet tested.
+So, at the end of the sprint we never reached 100%, obviously, and this makes
+us looks bad.
+
+And somehow, the "product owner" always questioning, why?
+
+Fourth, they use this points to base our performance.
+Not based on outcomes, but points.
+
+_People over process, yes?_
+
+What is the point of SP?
+
+The problem on how to estimate the software project, I believe, has been
+researched long enough.
+If my memory served right, there is some formula that we taught in school on
+how to estimate based on number of functions.
+Some, estimates it based on number of tables in database.
+Estimation is small part of the whole picture, which is, how to breaking down
+a system so we can design and built an application.
+
+In fact, since couple last years, there is a movement called #NoEstimates.
+I hope that movement ripple through here, like how we got scrum.
+
+I have a bug.
+From the error logs, I believe it will take story points 0.5 (half a day).
+The fix is around 16 lines.
+To replicate the bugs, I need to refactor the code to make it testable, which
+cost 6-7 independent commits and takes 2 days.
+
+The way I do estimation is by breaking down it into small pieces that I can
+work in three day or less.
+If a story takes more than three day, or require more than two peoples, it may
+need to move into an epic.
+
+If I am CEO of software system or user of application, I did not care about
+story points.
+What I really care is a working application, satisfying my needs, and run
+without any issues; a usable application.
