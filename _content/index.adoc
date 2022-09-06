@@ -63,6 +63,7 @@ environment (GOPATH or vendor directory).
 Beku provide syntax like pacman.
 This program exists long before before `godep` or Go module exist and stable.
 
+link:/project/beku/[Project page^] -
 https://github.com/shuLhan/beku[Repository^]
 
 === ciigo
