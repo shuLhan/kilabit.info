@@ -1,0 +1,75 @@
+= The power of gofmt
+Shulhan <ms@kilabit.info>
+16 Sep 2022
+
+Late night.
+I just clone the pacman repository to see how pacman read the database file.
+
+	$ git clone https://gitlab.archlinux.org/pacman/pacman.git
+
+The idea is I want to try replicate the library in Go.
+
+When I opened one of the file `lib/libalpm/be_package.c` in vim, I
+accidentally hit CTRL+s (this is my shortcut for `:w` in vim) due to habit,
+and suddenly the file got auto-formatted due to vim-codefmt configuration that
+I have in .vimrc,
+
+----
+augroup autoformat_settings
+	autocmd FileType bzl AutoFormatBuffer buildifier
+	autocmd FileType c,cpp,proto,arduino AutoFormatBuffer clang-format
+	autocmd FileType dart AutoFormatBuffer dartfmt
+	autocmd FileType go AutoFormatBuffer gofmt
+	...
+----
+
+The only way to undo this to git checkout the file.
+
+Since I am curious, I see if I can format this at least in Linux
+kernel coding style, because the pacman coding style seems follow it too.
+
+I see the man page, but there is no manual page for clang-format,
+
+	(ins) 1 $ man clang-format
+	No manual entry for clang-format
+
+I try `clang-format -h`, I see
+
+----
+ --style=<string>               - Coding style, currently supports:
+                                      LLVM, GNU, Google, Chromium, Microsoft,
+									  Mozilla, WebKit.
+----
+
+No style for K&R or Linux kernel.
+How come?
+I try to search and found it in
+https://www.kernel.org/doc/html/latest/process/clang-format.html[kernel
+documentation^]
+that mention about
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/.clang-format[the .clang-format^]
+file.
+You should see the file, its around ~600 lines.
+
+Now, I need to download the file and figure it out how to incorporate it with
+vim-codefmt.
+
+* * *
+
+Do you know how much times I spend to figure this out?
+
+This is where gofmt wins above all.
+
+For the reader that does not know about it,
+https://pkg.go.dev/cmd/gofmt[gofmt^]
+is CLI that format Go source code.
+Similar to clang-format for C (and others languages/formats),
+google-java-format for Java, prettier for JavaScript.
+
+Imagine that if Go does not have it.
+One repository use their own style, another repository use their own style,
+and so on.
+Just like what we have in clang-format for C, there is style for LLVM, GNU
+(euw), Google, Chromium, and so on.
+
+Thanks the Go authors that foreseen this issue long time ago.
