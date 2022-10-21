@@ -92,6 +92,30 @@ col_int|
 ----
 
 
+==  You cannot use function as default value, but...
+
+Affected on MySQL version 5.7 or lower.
+
+Let say we want to create column `created_at` as INT that store the UNIX Epoch
+by default using UNIX_TIMESTAMP.
+The idea for using UNIX_TIMESTAMP is that the value is always in UTC.
+
+----
+CREATE TABLE xyz (
+	...
+	created_at INT DEFAULT UNIX_TIMESTAMP()
+);
+----
+
+https://stackoverflow.com/questions/13124632/how-to-set-default-value-of-a-mysql-column-as-unix-timestamp[This
+is not possible].
+
+Somehow, there is an
+https://dev.mysql.com/doc/refman/5.7/en/data-type-defaults.html[exception to the rule].
+You can store CURRENT_TIMESTAMP() to TIMESTAMP type.
+Note that, CURRENT_TIMESTAMP is depends on the server time zone.
+
+
 [#addendum]
 == Addendum
 
