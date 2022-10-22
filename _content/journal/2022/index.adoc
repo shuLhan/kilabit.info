@@ -1,7 +1,9 @@
 
-2022::
+link:/journal/2022/[2022]::
 +
 --
+link:/journal/2022/lesson_from_learning_swimming/[Lesson from learning swimming^]
+
 link:/journal/2022/the_power_of_gofmt/[The power of gofmt^].
 
 link:/journal/2022/story_points_what_is_the_point/[Story Points? What is the
