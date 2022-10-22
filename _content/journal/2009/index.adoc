@@ -1,0 +1,31 @@
+
+2009::
++
+--
+*  link:/journal/2009/12/04__rescached_is_here[Rescached is here!^]
+
+*  link:/journal/2009/10/14__destiny[Destiny^]
+
+*  link:/journal/2009/07/02__the_stupid_ide[The stupid IDE^]
+
+*  link:/journal/2009/06/03__slashdot_news_for_jerks_stuff_that_latter[Slashdot:
+   news for jerks stuff that latter^]
+
+*  link:/journal/2009/05/21__rebuild_the_system[Rebuild the system^]
+
+*  link:/journal/2009/05/18__everybody_knows_that_nobody_really_knows[Everybody
+   knows that nobody really knows^]
+
+*  link:/journal/2009/04/27__is_ext3_slow[Is ext3 slow?^]
+
+*  link:/journal/2009/03/06__lazy_month[Lazy month^]
+
+*  link:/journal/2009/02/13__02__elife.log[elife.log^]
+
+*  link:/journal/2009/02/13__01__too_much_movies_must[Too much movies must
+   ...^]
+
+*  link:/journal/2009/01/01__00_01__salt_and_pepper[Salt and pepper^]
+
+*  link:/journal/2009/01/01__00_00__mergesort_rulez[Mergesort rulez!^]
+--

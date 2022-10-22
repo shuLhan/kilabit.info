@@ -1,0 +1,42 @@
+
+2014::
++
+--
+*  link:/journal/2014/12/Manajemen_Informasi[Manajemen informasi^]
+
+*  link:/journal/2014/12/Kulminasi_dari_Ilmu_Seni[Kulminasi dari ilmu seni^]
+
+*  link:/journal/2014/12/Jejepangan[Jejepangan^]
+
+*  link:/journal/2014/11/Daftar_angka_dan_bulatan[Daftar angka dan bulatan^]
+
+*  link:/journal/2014/10/Visualisasi_Data[Visualisasi data^]
+
+*  link:/journal/2014/10/Inteligensi_Bisnis_Ikhtisar[Inteligensi bisnis:
+   ikhtisar^]
+
+*  link:/journal/2014/10/Gudang_Data__Ikhtisar[Gudang data: ikhtisar^]
+
+*  link:/journal/2014/09/Ulasan_Buku__Bad_Pharma_oleh_Ben_Goldacre[Ulasan
+   buku: Bad Pharma, oleh Ben Goldacre^]
+
+*  link:/journal/2014/09/Simbol_dan[Simbol dan^]
+
+*  link:/journal/2014/08/Fixing_brightness_keys_on_Linux[Fixing brightness
+   keys on Linux^]
+
+*  link:/journal/2014/08/Android_reverse_tether_di_Linux[Android reverse
+   tether di Linux^]
+
+*  link:/journal/2014/05/Dosa_Bersama[Dosa bersama^]
+
+*  link:/journal/2014/05/Arch_Linux_di_IBM_X3650_M4[Arch Linux di IBM X3650
+   M4^]
+
+*  link:/journal/2014/04/Pesta_Demokrasi_dan_Pesta_Coding[Pesta demokrasi dan
+   pesta coding^]
+
+*  link:/journal/2014/04/Holy_github[Holy Github!^]
+
+*  link:/journal/2014/04/Aplikasi_Terbaik_di_Linux[Aplikasi terbaik di Linux^]
+--

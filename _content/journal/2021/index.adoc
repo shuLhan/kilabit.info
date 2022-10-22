@@ -1,0 +1,13 @@
+
+2021::
++
+--
+*  link:/journal/2021/software_is_a_means_to_an_end_but/[Software is a means
+   to an end but ...^]
+
+*  link:/journal/2021/this_is_why_i_use_git_rebase/[This is why I use git
+   rebase^]
+
+*  link:/journal/2021/benchmarking_kubernetes/[Benchmarking Kubernetes (part
+   2)^]
+--

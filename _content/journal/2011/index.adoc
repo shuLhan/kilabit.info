@@ -1,0 +1,24 @@
+
+2011::
++
+--
+*  link:/journal/2011/11/Pengetahuan[Pengetahuan^]
+
+*  link:/journal/2011/10/Ide_untuk_Film__Suku_Primitif[Ide untuk film: Suku
+   primitif^]
+
+*  link:/journal/2011/08/OLD_NEWS__All_people_on_earth_will_die[Old news: all
+   people on earth will dies^]
+
+*  link:/journal/2011/01/oracle_10g_installation_on_linux[Oracle 10g
+   installation on Linux^]
+
+*  link:/journal/2011/01/oracle_10g_clusterware_and_RAC_installation_on_solaris[Oracle
+   10g clusterware and RAC installation on Solaris^]
+
+*  link:/journal/2011/01/oracle_10g_RAC_installation_on_solaris[Oracle 10g RAC
+   installation on Solaris^]
+
+*  link:/journal/2011/01/08_a_poor_mans_feed_parser_and_viewer[A Poor man's
+   feed parser and viewer^]
+--

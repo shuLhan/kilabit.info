@@ -1,0 +1,20 @@
+
+2017::
++
+--
+*  link:/journal/2017/09/i3__tmux__and_vim[i3 with tmux and vim^]
+
+*  link:/journal/2017/07/Integrating_Buildbot_and_Mattermost[Integrating
+   Buildbot and Mattermost^]
+
+*  link:/journal/2017/05/Go_Informal_Coding_Style[Go (informal) coding style^]
+
+*  link:/journal/2017/02/Protractor_tips_and_trick[Protractor: tips and
+   tricks^]
+
+*  link:/journal/2017/01/Understanding_Red_Black_Tree[Understanding Red-Black
+   Tree^]
+
+*  link:/journal/2017/01/List_and_open_tmux_session_with_rofi[List and open
+   tmux session with rofi^]
+--

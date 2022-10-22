@@ -2,38 +2,38 @@
 2022::
 +
 --
-*  link:/journal/2022/karajo-example-aur/["Creating personal AUR builder and
-   repository with karajo"^].
-+
---
+link:/journal/2022/the_power_of_gofmt/[The power of gofmt^].
+
+link:/journal/2022/story_points_what_is_the_point/[Story Points? What is the
+point?^]
+
+link:/journal/2022/karajo-example-aur/["Creating personal AUR builder and
+repository with karajo"^].
 This article describes step by step process to create personal AUR builder
 and repository using
 https://sr.ht/~shulhan/karajo[karajo^].
-
 At the end of this article we will learn how to build AUR package with clean
-chroot, learn how to sign package using GnuPG, and learn how to operato karajo
+chroot, learn how to sign package using GnuPG, and learn how to operate karajo
 service.
---
 
-*  link:/journal/2022/chrooting_ssh_user_into_systemd-nspawn/["Chrooting SSH
-   user into systemd-nspawn"^]
+link:/journal/2022/chrooting_ssh_user_into_systemd-nspawn/["Chrooting SSH
+user into systemd-nspawn"^]
 
-*  link:/journal/2022/things_i_dislike_from_github/["Things I dislike from
-   Github"^]
+link:/journal/2022/things_i_dislike_from_github/["Things I dislike from
+Github"^].
 
-*  link:/journal/2022/mysql_surprise["MySQL, surprise!"^]
-   Things that will surprise you when using MySQL.
+link:/journal/2022/mysql_surprise["MySQL, surprise!"^]
+Things that will surprise you when using MySQL.
 
-*  link:/journal/2022/gpl/["Finally, I use GPL"^].
-   My inner thoughts on why I finally choose GPL.
+link:/journal/2022/gpl/["Finally, I use GPL"^].
+My inner thoughts on why I finally choose GPL.
 
-*  link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous
-   deployment^].
-+
+link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous
+deployment^].
 This article looks on how to manage multiple features developed,
 activated, and deployed in multiple environments while still maintaining
 linear history.
 
-*  link:/journal/2022/measurements_in_the_wrong_ways/[Measurements in the
-   wrong ways^].
+link:/journal/2022/measurements_in_the_wrong_ways/[Measurements in the
+wrong ways^].
 --

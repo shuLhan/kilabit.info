@@ -1,0 +1,19 @@
+
+2020::
++
+--
+*  link:/journal/2020/service_management_with_systemd/[Service management with
+   systemd^]
+
+*  link:/journal/2020/unix_linux_system_administration_101/[UNIX/Linux System
+   Administration 101^]
+
+*  link:/journal/2020/things_that_i_dislike_from_gcp/[Things that I dislike
+   from Google Cloud Platform^]
+
+*  link:/journal/2020/the_art_of_timeout/[The art of timeout^]
+
+*  link:/journal/2020/the_mountain_of_kubernetes/[The mountain of Kubernetes^]
+
+*  link:/journal/2020/re-learning_slice/[Go: Re-learning slice^]
+--
