@@ -99,9 +99,9 @@ include::./journal/2007/index.adoc[]
 
 Sister sites,
 
-* https://komputeror.com[Komputeror.com^] hadir didunia internet, khususnya di
+* https://updatekno.com[updatekno.com^] hadir didunia internet, khususnya di
   Indonesia pada tahun 2022 Bulan Juni.
-  Komputeror.com Merupakan situs teknologi yang mengupas informasi seputar
+  updatekno.com Merupakan situs teknologi yang mengupas informasi seputar
   komputer, internet, Aplikasi, Linux, android dan Dunia Open Source.
   Situs ini juga membahas informasi lain, yang berkaitan dengan dunia
   teknologi.
