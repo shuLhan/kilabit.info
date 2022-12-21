@@ -229,4 +229,70 @@ Instead, pass the error context inside the returned error to be logged by
 Centralizing the error on service level help us to forward the error to other
 output/services without modify or import third party module on library level.
 
+
+== Avoid ":=" if possible
+
+_Why?_
+
+First, when I read an unknown code, a code that I am unfamiliar with; inside
+the function/method body it call a function and return variable assigned with
+":=", it is quite hard to derive what the return type is without checking the
+function/method signature.
+
+Case in example,
+
+----
+x := f()
+----
+
+To know what type of `x`, I need to search and check the signature of `f`.
+If we declare they variable type, it will save time for reader.
+
+----
+var x T = f()
+----
+
+Second, there are another case where declaring variables before may minimize
+number of temporary variables.
+
+Case in example,
+
+----
+paramX := form.Get("X")
+request.X = convert(paramX)
+...
+paramY := form.Get("Y")
+request.Y = convert(paramY)
+...
+----
+
+The paramX and paramY are string.
+If we declare temporary variable before, we can save unneeded variable,
+
+----
+var param string
+param = form.Get("X")
+request.X = convert(param)
+...
+param = form.Get("Y")
+request.Y = convert(param)
+...
+----
+
+Third, the ":=" cause variable shadowing, and this sometimes cause subtle bugs
+and not-easy to read code [1][2].
+
+[1] https://github.com/golang/go/issues/21291
+[2] https://github.com/golang/go/issues/377
+
+
+==  Use raw literal string when possible
+
+https://go.dev/ref/spec#String_literals[Raw literal string] use backtick (\``)
+and its read the string as is, which means in the compiler perspective no
+additional post-processing need to store the string in the stack.
+
+It may improve the build time, but I don't have the data or code to support
+this, so take this with grain of salt.
+
 * * *
