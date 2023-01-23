@@ -52,6 +52,10 @@ h5 {
   color: black;
 }
 
+img {
+  margin: 0 10px;
+}
+
 pre {
   background-color: #eee;
   border-radius: 4px;
@@ -156,6 +160,11 @@ img.background {
   margin: 4px;
 }
 
+#footer {
+  clear: both;
+  margin-top: 1em;
+}
+
 .admonitionblock {
   border: 1px solid #ddd;
 }
@@ -170,6 +179,17 @@ img.background {
 .admonitionblock .content {
   margin: 0px;
   padding: 8px;
+}
+
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}
+.sect1,
+.sect2 {
+  clear: both;
 }
 
 @media only screen and (max-width: 992px) {

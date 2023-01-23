@@ -1,4 +1,6 @@
 
+include::./2023/index.adoc[]
+
 include::./2022/index.adoc[]
 
 include::./2021/index.adoc[]
