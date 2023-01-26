@@ -168,6 +168,12 @@ The URL is "/pulls" but the query still need `is:pr`.
 If you remove the `is:pr` field, you will get list of PR and open issues.
 Talks about inconsistency.
 
+Update: per 26 January 2023 this issue has been fixed.
+The query string in the right add filter for current user as
+author/review-requested,
+
+	is:open is:pr author:shuLhan archived:false
+
 * * *
 
 _Thats it for now, will update later when I have more screenshots._
