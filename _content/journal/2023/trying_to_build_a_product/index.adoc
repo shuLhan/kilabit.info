@@ -1,0 +1,98 @@
+= (Trying to) build a product
+Muhammad Shulhan <ms@kilabit.info>
+2 Feb 2023
+:toc:
+:sectanchors:
+:sectlinks:
+
+The year 2022 has passed, and now we enter the second month of 2023.
+Seems like time goes by in the blink of an eye.
+I feel like I have not accomplish much last year and I want to change that.
+
+
+==  Thoughts
+
+I have theory that to build a (software) product you need four ingredients: a
+niche,
+https://en.wikipedia.org/wiki/Eating_your_own_dog_food[_dogfooding_],
+user engagement, and finally, monetization; in that order.
+
+
+===  Niche
+
+A product should have a function that has not been implemented or produced by
+other before.
+For example, there are many streaming services right now, from Netflix to
+`$name_of_your_local_streaming_service`.
+One of the niche in this industry is a streaming service that focus only on
+anime or cartoon.
+The streaming service provides anime/cartoon from 90s until now from all
+countries, from He-Man to Attack on Titan.
+Who's the market?
+All ages, from kids to adult.
+
+Raise your hand if you want your kids watch Doraemon too?
+
+What if the product already exist?
+Make it more local and/or add more depth.
+Amazon and Google may bigs in U.S. and Europe, but not in China.
+Uber may be the first online ride hailing, but they failed to conquer the
+South East Asian market; now we have Grab, Gojek and probably many more in
+each country.
+
+
+===  Dogfooding
+
+Another term for dogfooding is "scratch your own itch".
+
+The first user of your product must be you.
+No one else.
+Because you know that there is no product out there that satisfy you, if there
+is one, you probably already using them.
+
+If you build a product that you don't even use, then the chance to market it
+probably hard.
+
+
+===  User engagement
+
+Once you satisfied with your own product --you use it daily and feels that all
+you want is already fulfilled-- its time to listen to other users.
+Because you build it by yourself, you know ins and out of your product, other
+users may not.
+Listen from your users, gather the feedbacks, how to make it better for
+them.
+Sometimes, you will be surprise on how non-tech people use your software (in a
+good way) which make you rethink again about the flow, or to make it more
+simple and usable.
+
+
+===  Monetization
+
+The last part and the hardest one is making income from it.
+Each product is unique.
+One path of monetization may not works when applied to others.
+Some sell subscriptions, some sell setup and maintenance (cloud installation),
+and some sell ads.
+
+Once you choose this path, there is only one suggestion from me: do not make
+your user angry or feel left out without paying first, unless you already
+inform them from beginning.
+
+
+==  Target
+
+Since 2019, I have build and publish a product.
+It is not an application, more like static website that provide information
+in Bahasa Indonesia.
+I use it occasionally which means I am at stage 2, _dogfooding_.
+
+In 2023 I want to make user more engage.
+The only way to do this is to provide a forum, where user can ask or provide
+an answer related to the content, or lack of content, in the website so I can
+fix or provide better version of it.
+
+The path to monetization is a long way journey, probably one or two more
+years.
+Lets see if I can make it this year.
+See you in 2024!

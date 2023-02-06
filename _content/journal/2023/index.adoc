@@ -2,5 +2,7 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/trying_to_build_a_product/[Trying to build a product^].
+
 link:/journal/2023/a_trip_to_labuan_bajo/[A trip to Labuan Bajo^].
 --
