@@ -1,0 +1,313 @@
+= 2022 Accomplishment
+Shulhan <ms@kilabit.info>
+11 Feb 2023
+:toc:
+:sectanchors:
+:sectlinks:
+
+The year 2022 has passed, and now we enter the second month of 2023.
+Seems like time goes by in the blink of an eye.
+I feel like I has not accomplished much last year, so I need to _re-count_ it
+to boost my self confident.
+
+== Personal
+
+My personal accomplishment this year is I am finally able to swim.
+I started to learn swimming probably around Feb 2022.
+The breaststroke style takes me around three or four months.
+The rest of the year is learning the freestyle, and I have not made it until
+today.
+
+In the December, I finally got chances to
+link:/journal/2023/a_trip_to_labuan_bajo/[experience free diving]
+for the first time.
+
+
+== Patches to public projects
+
+In the free and open source worlds,
+
+* Go: https://go-review.googlesource.com/c/go/+/364434[math/big: call norm
+  when returning success from Rat SetString^]
+
+* Smallstep: https://github.com/smallstep/certificates/pull/954[all: reformat
+  all go files with the next gofmt (Go 1.19)^]
+
+* Smallstep: https://github.com/smallstep/certificates/pull/955[cas/cloudcas:
+  update test on createPublicKey for the next Go release^]
+
+* Smallstep: https://github.com/smallstep/certificates/pull/956[kms/uri: fix
+  test on Parse for the next Go release^]
+
+* LibreOffice: https://gerrit.libreoffice.org/c/dictionaries/+/140263[id: sync
+  dictionaries to version v2.3.0 (2022.09.21)^]
+
+
+== Side projects
+
+https://github.com/shuLhan/compute-archlinux-image-builder.git[ArchLinux GCP image (fork)^]::
++
+--
+The fork started because I need default configuration and applications on
+image without need to install them on the first boot.
+Later, the fork grows,
+
+* Replacing grub with systemd-boot.
+* Using en_GB.UTF-8 as default local instead of en_US.UTF-8.
+* Additional pre-installed packages: vim-minimal, tmux, mosh, rsync, unzip.
+* Pre-installed ops-agent binary from
+  https://build.kilabit.info/karajo#job_aur_google-cloud-ops-agent-git[AUR^]
+* Using worldwide pacman mirrorlist instead of dynamic.
+--
+
+
+https://sr.ht/~shulhan/asciidoctor-go[asciidoctor-go^]::
++
+--
+The asciidoctor-go project has 53 commits, 4 minor releases, and 1 major
+release.
+Some notable changes,
+
+* all: add support for document attribute "last-update-label"
+* all: implement inline macro for passthrough ("pass:")
+* all: implement macro "footnote:"
+* all: support multi line attribute values
+* all: fix parsing list description inside include directive
+* all: refactoring handling generate ref ID
+
+See the full
+https://git.sr.ht/~shulhan/asciidoctor-go/tree/main/item/_doc/CHANGELOG.adoc[ChangeLog^]
+for more information.
+--
+
+
+https://sr.ht/~shulhan/awwan[awwan^]::
++
+--
+The awwan project has 40 commits and 4 releases.
+Some notable changes,
+
+* all: change the awwan software license to GPL 3.0 or later
+* cmd/awwan: make the "help" and "version" as command
+* all: changes the way to build JavaScript using esbuild
+* all: fix the #get! statement when executing on local
+* _AUR: add package script for Arch Linux user
+--
+
+
+https://git.sr.ht:~shulhan/bin.sh[bin.sh^]::
++
+--
+The bin.sh is new project, its contain a collection of shell scripts,
+
+* chmod-x.sh: script to recursively scan directory and remove executable-bit
+  from file that may not an executable.
+
+* git-update-all.sh: script fetch the latest commits from all git repositories
+  under a directory.
+
+* jwt-decode.sh: script to decode JWT with optional secret to check for
+  signature.
+
+* tmux-session.sh: script to open new tmux session with start directory based
+  on configuration in `~/.tmux.session`.
+
+* wg-activate.sh: script that activate only one wireguard connection from list
+  of configuration in /etc/wireguard/*.conf or turning off all of them if no
+  parameter is given.
+--
+
+
+https://sr.ht/~shulhan/ciigo[ciigo^]::
++
+--
+The ciigo project has 55 commits and 7 releases.
+Some notables changes,
+
+* all: fix adoc files not re-converted when template file changes
+* all: re-licensing ciigo under GPL-3.0 or later
+* all: check for excluded file before processing sub directory
+* all: add CSS for admonition block
+* all: generate HTML meta data and replace the top header title
+* all: export internal htmlGenerator as Converter
+* all: add package build for Arch Linux
+--
+
+
+https://sr.ht/~shulhan/duitku[duitku^]::
++
+--
+The duitku is Go library for duitku.com.
+This is new project started on October 2022.
+Currently its provided Client APIs for listing banks, disbursement, and
+merchants.
+--
+
+
+https://sr.ht/~shulhan/golang-id.org[golang-id.org^]::
++
+--
+Since 2022, there are not much changes to public website nor to the tour, only
+6 commits with no release.
+Some notable changes,
+
+* _content: hapus bagian Wicara
+* cmd/www-golangid: ganti opsi "port" dengan "http"
+* doc/tutorial: terjemahkan "Tutorial: Getting started with multi-module
+  workspaces"
+--
+
+
+https://sr.ht/~shulhan/gotp[gotp^]::
++
+--
+The gotp project started on October 2022 only with one commit.
+After that there 23 commits with 4 releases, from version 0.1.0 to 0.2.3.
+Some notable changes,
+
+* all: re-licensing gotp under GPL-3.0 or later
+* all: fix base32 decoding on secret
+* _AUR: add package build for Arch Linux
+* all: add bash completion script
+--
+
+
+https://sr.ht/~shulhan/haminer[haminer^]::
++
+--
+The haminer project provide a Go library and program to parse and forward
+HAProxy logs to Influxdb and questdb.
+The project stop at version 0.1.0 on 2019 and started again on August 2022.
+Since then there are 25 commits and one release, with some notable changes,
+
+* all: add support for influxd API v2
+* all: move repository to git.sr.ht/~shulhan/haminer
+* all: implement forwarder for questdb
+* all: relicensing the haminer to GPL v3
+* _AUR: add package build for Arch Linux
+--
+
+
+https://github.com/shuLhan/hunspell-id[hunspell-id^]::
++
+--
+The Indonesian dictionary for hunspell receive 10 commits with two new words
+with the latest release is v2.3.0 merged to LibreOffice dictionaries.
+--
+
+
+https://sr.ht/~shulhan/karajo[karajo^]::
++
+--
+The karajo project receive 77 commits with 4 releases.
+Some notable changes,
+
+* all: re-licensing karajo under GPL-3.0 or later
+* all: add documentation inside the website under /karajo/doc
+* Set minimum Go version to 1.17.
+* Introduce Hook, a HTTP endpoint that execute commands; reverse of Job.
+* Refactoring Environment.
+  Karajo now run under DirBase where all Hook and Job logs, state stored.
+* Refactoring Job configuration.
+* Improve web user interface (WUI) refresh mechanism.
+* Add authorization to Job APIs using secret and signature mechanism.
+
+* On release v0.5.0 we add auto-refresh when viewing hook's log, add options
+  to customized hook header signature, and option to set maximum hook running
+  at the same time.
+--
+
+
+https://github.com/shuLhan/rescached-go[rescached^]::
++
+--
+There are 94 commits with 3 releases, from version 4.2.0 to 4.4.0.
+Some major changes,
+
+* Re-licensing the software under GPL 3.0
+
+* Refactoring the resolver command as CLI to rescached server.
+  The resolver command now can manage environment, caches, hosts.d, and
+  zone.d in the server; not just query.
+
+See the full
+https://github.com/shuLhan/rescached-go/blob/master/CHANGELOG.adoc[ChangeLog^]
+for more information.
+--
+
+
+https://github.com/shuLhan/share[share^] module::
++
+--
+The share module contains various Go packages for Go developer.
+There are 217 commits with 13 releases, from version 0.33.0 to 0.42.0.
+Some notable changes,
+
+* lib/os: implement function to Extract compressed and/or archived file
+* lib/http: implement method Download() on Client
+* lib/dns: increase the default UDP packet size to 1232
+* lib/http: implement handler to check each request to Server Memfs
+* lib/memfs: add method Watch to MemFS
+* lib/dns: add method to get the record in HostsFile by name and/or value
+* lib/dns: add method CachesClear to remove all caches
+* lib/net: add method to populate query on ResolvConf
+* lib/dns: add function to create new client using name server URL
+* lib/mlog: add method Close to MultiLogger
+* lib/clise: implement json.Marshaler on Clise
+* net/html: add function NormalizeForID
+* lib/http: add function to unmarshal url.Values using tag `form:`
+* lib/reflect: implement Set function to set reflect.Value by string
+* lib/reflect: add function Unmarshal
+* lib/reflect: add function Tag to simplify lookup on struct's field tag
+* lib/test: implement Data, a type to load formatted file for helping test
+* lib/text: add custom MarshalJSON to type Chunk and Line
+* lib/http: add methods PutForm and PutFormData on Client
+* lib/http: add function MarshalForm
+* clise: implement io Closer, Writer, StringWriter, and ByteWriter
+* clise: add method UnmarshalJSON
+
+See the full
+https://github.com/shuLhan/share/blob/master/CHANGELOG.adoc[ChangeLog^]
+for more information.
+--
+
+
+https://sr.ht/~shulhan/trunks[trunks^]::
++
+--
+There is not much changes for trunks, with 16 commits and 3 releases, some
+notable changes are,
+
+* all: changes the license of trunks software to GPL 3.0 or later
+* _www: set the WebSocket address schema based on URL protocol
+* set the minimum Go version to 1.18
+* all: group all documentations under directory _doc
+* example: fix the HTTP POST handler
+* all: fix all linter warnings
+--
+
+In summary, there are about ~660 commits to side projects with ~45 releases.
+
+
+==  What next?
+
+This year I will focus making my freestyle swimming until I can take 50m with
+less effort, not out of breath.
+I am also have thinking about taking Mandarin class, but it will take
+some expenses that I have not have the budget yet.
+
+On the side projects, I need to focus on two or three only, make it polished
+and provide better user interface and experience.
+
+
+==  References
+
+Counting number of commits by date range,
+
+	$ git shortlog --summary --numbered --count \
+		--since="Jan 1 2022" --before="Jan 1 2023"
+
+List tags by date range,
+
+	$ git shortlog --since="Jan 1 2022" --before="Jan 1 2023" \
+		--simplify-by-decoration
