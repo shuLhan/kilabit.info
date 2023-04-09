@@ -283,6 +283,7 @@ Third, the ":=" cause variable shadowing, and this sometimes cause subtle bugs
 and not-easy to read code [1][2].
 
 [1] https://github.com/golang/go/issues/21291
+
 [2] https://github.com/golang/go/issues/377
 
 
@@ -295,4 +296,26 @@ additional post-processing need to store the string in the stack.
 It may improve the build time, but I don't have the data or code to support
 this, so take this with grain of salt.
 
-* * *
+
+==  Create test Example over unit test if possible
+
+A test Example, the function in `_test.go` file that have Example prefix, is
+also unit test.
+By creating Example on exported APIs, we also create an example in
+documentation.
+So, pretty much killing two birds with one stone.
+
+
+==  Test example should be on separate file
+
+If package x has test file `x_test.go`, any test Example for that package
+should be created under file `x_example_test.go`.
+
+This is to allow the file to use different package name `x_test` instead of
+`x` (see below) and searchable by human eyes.
+
+
+==  Use _test suffix in package name for Example
+
+Package name in test Example should be different with the actual package.
+This is to minimize leaking the exported APIs in Example.
