@@ -29,4 +29,4 @@ local-deploy: find-broken-symlinks embed
 deploy: find-broken-symlinks embed
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 		go build -o www-kilabit-linux-amd64 ./cmd/www-kilabit/
-	rsync --progress www-kilabit-linux-amd64 www-kilabit:/data/app/bin/www-kilabit
+	rsync --progress www-kilabit-linux-amd64 kilabit.info:/data/app/bin/www-kilabit
