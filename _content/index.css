@@ -93,7 +93,6 @@ img.background {
 .topbar-left {
   font-size: 24px;
   font-weight: bold;
-  width: 48%;
   display: inline-block;
 }
 
@@ -112,7 +111,6 @@ img.background {
 }
 
 .topbar-right {
-  width: 50%;
   display: inline-block;
   text-align: right;
 }
