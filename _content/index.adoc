@@ -1,6 +1,5 @@
 = Index
 :toc:
-:sectanchors:
 :sectlinks:
 
 ==  Services

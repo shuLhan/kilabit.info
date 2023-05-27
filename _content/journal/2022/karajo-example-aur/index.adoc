@@ -2,7 +2,6 @@
 Shulhan <ms@kilabit.info>
 10 July 2022
 :toc:
-:sectanchors:
 :sectlinks:
 :url-repo-example: https://git.sr.ht/~shulhan/karajo-example-aur
 

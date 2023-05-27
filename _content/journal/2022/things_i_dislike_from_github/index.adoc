@@ -2,7 +2,6 @@
 Shulhan <ms@kilabit.info>
 16 June 2022
 :toc:
-:sectanchors:
 :sectlinks:
 
 image:github_pr_bad.jpg[Github PR is bad,720]

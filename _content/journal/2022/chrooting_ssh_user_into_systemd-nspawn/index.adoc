@@ -2,7 +2,6 @@
 Shulhan <ms@kilabit.info>
 18 June 2022
 :toc:
-:sectanchors:
 :sectlinks:
 
 [#introduction]

@@ -2,7 +2,6 @@
 Shulhan <ms@kilabit.info>
 25 July 2021
 :toc:
-:sectanchors:
 :sectlinks:
 
 In this journal, I want to try developing a typescript library that will be

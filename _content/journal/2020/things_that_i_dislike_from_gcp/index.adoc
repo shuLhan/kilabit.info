@@ -2,7 +2,6 @@
 Shulhan <ms@kilabit.info>
 25 September 2020
 :toc:
-:sectanchors:
 :sectlinks:
 
 GCP is one of the prominent cloud provider out there.

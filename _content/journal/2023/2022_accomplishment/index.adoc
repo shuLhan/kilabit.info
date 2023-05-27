@@ -2,7 +2,6 @@
 Shulhan <ms@kilabit.info>
 11 Feb 2023
 :toc:
-:sectanchors:
 :sectlinks:
 
 The year 2022 has passed, and now we enter the second month of 2023.
