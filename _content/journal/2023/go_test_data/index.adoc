@@ -1,0 +1,617 @@
+= Go test.Data: helper for testing with large output
+M. Shulhan <ms@kilabit.info>
+May 2023
+:toc:
+:sectlinks:
+
+== Abstract
+
+One of common Go test pattern is using list of struct with field contains the
+input and expected output.
+When the expected output is list of records (a slice of struct) with many
+fields or text with many lines, filling those fields or writing the multi
+lines text become cumbersome and we waste our time by writing the test data
+rather than the focus on actual test cases.
+
+The `test.Data` help this by reading the input and expected outputs from file.
+The test function then encode the result to text, for example to JSON, compare
+the result by fetching one of expecting output from `test.Data`.
+
+
+== Background
+
+The following cases describe the problem that we encounter when writing tests.
+
+=== Case 1: testing with many records output
+
+Assume that we have a function `MyProcess` that write to two tables: `table_a`
+and `table_b` in database, where each tables contains many columns.
+
+----
+func MyProcess(order Order) (err error) {
+	// Insert to table_a.
+	// Insert to table_b.
+	return nil
+}
+----
+
+The two tables represented by the following struct,
+
+----
+// TableA represent record in table_a.
+type TableA struct {
+	ID int64
+	Column1 string
+	Column2 string
+	...
+	ColumnN string
+}
+
+// ListTableA select all records from table_a ordered by ID.
+func ListTableA() (list []TableA, err error) {
+	...
+	return list, nil
+}
+
+// Insert record to table_a based on values in tableA.
+func (tableA *TableA) Insert() (err error) {
+	...
+	return nil
+}
+
+// TableA represent record in table_b.
+type TableB struct {
+	ID int64
+	Column1 string
+	Column2 string
+	...
+	ColumnN string
+}
+
+// ListTableB select all records from table_b ordered by ID.
+func ListTableB() (list []TableA, err error) {
+	...
+	return list, nil
+}
+
+// Insert record to table_b based on values in tableB.
+func (tableB *TableB) Insert() (err error) {
+	...
+	return nil
+}
+----
+
+In the integration test we write function to test MyProcess like these,
+
+----
+func TestMyOrder(t *testing.T) {
+	// Truncate table_a and table_b.
+
+	order := Order{
+		Param1: ...
+	}
+
+	// The MyOrder is the function that we want to test.
+	// It will insert records to table_a and table_b.
+	MyOrder(order)
+
+	wantTableA := []TableA{{
+		ID: 1,
+		Column1: "value 1",
+		Column2: "value 2",
+		...
+		ColumnN: "value n",
+	}}
+
+	gotListTableA, _ := ListTableA()
+
+	// Compare wantTableA with gotListTableA.
+
+	wantTableB := []TableB{{
+		ID: 1,
+		Column1: "value 1",
+		Column2: "value 2",
+		...
+		ColumnN: "value n",
+	}}
+
+	gotListTableB, _ := ListTableB()
+
+	// Compare wantTableB with gotListTableB.
+}
+----
+
+In the `TestMyOrder`, we needs to create expected values for each record
+inserted into `table_a` and `table_b`, probably additional function or method
+to compare each item in `wantTableA` with `gotListTableA`.
+That is just two tables.
+If the output of MyProcess wrote multiple records to multiple tables, the
+tasks to create expected records become longer and cumbersome, littering the
+test code with test data.
+
+
+===  Case 2: testing with multi line text output
+
+Let say we have a `Parser` function that parse a markup text and output an
+HTML.
+
+----
+text := `= Title`
+gotHtml, err := Parse(text)
+----
+
+To check the HTML output, we write the expected HTML as literal string, and
+compare the result from Parse with it,
+
+----
+	expHtml = `<div id="header">
+<h1>Title</h1>
+<div class="details">
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+</div>
+</div>`
+
+	// Compare gotHtml with expHtml.
+----
+
+The longer the input text to be parsed and tested, the longer expected HTML
+output to be written.
+Another disadvantages of using literal string, it break the indentation in the
+source code which make them impossible to fold function on some editor.
+
+
+== Solution
+
+In the Go module
+https://pkg.go.dev/github.com/shuLhan/share[share^]
+for package test, we implement
+https://pkg.go.dev/github.com/shuLhan/share@v0.46.0/lib/test#Data[`test.Data`^].
+
+----
+type Data struct {
+	Flag   map[string]string
+	Input  map[string][]byte
+	Output map[string][]byte
+
+	// The file name of the data.
+	Name string
+
+	Desc []byte
+}
+----
+
+The `test.Data` is loaded from file during test.
+Once loaded it will contains zero or more `Flag`, an optional description
+`Desc`, zero or more `Input`, and zero or more `Output`.
+
+The content of data file use the following format,
+
+----
+[FLAG_KEY ":" FLAG_VALUE LF]
+[LF DESCRIPTION]
+LF
+">>>" [INPUT_NAME] LF
+INPUT_CONTENT
+LF
+"<<<" [OUTPUT_NAME] LF
+OUTPUT_CONTENT
+----
+
+A `Flag` is map of key and value separated by ":".
+The Flag`'s key must not contain spaces.
+
+The `test.Data` may contain description, to describe the content of test file.
+
+The line that start with "\\n>>>" (new line followed by three '>') define the
+beginning of `Input`.
+An `Input` can have a name, if its empty it will be set to "default".
+An `Input` can be defined multiple times, with different names.
+
+The line that start with "\\n<<<" (new line followed by three '<') defined the
+beginning of `Output`.
+An `Output` can have a name, if its empty it will be set to "default".
+An `Output` also can be defined multiple times, with different names.
+
+All of both `Input` and `Output` content must have one empty line at the end,
+to separated them with each others.
+If the content of `Input` or `Output` itself expecting empty line at the end,
+add two empty lines at the end of it.
+
+The `test.Data` only have two APIs: `LoadData` and `LoadDataDir`.
+
+----
+func LoadData(file string) (data *Data, err error)
+func LoadDataDir(path string) (listData []*Data, err error)
+----
+
+=== Function LoadData
+
+The function `LoadData` load data from file.
+
+For example, given the following content of test data file
+`testdata/data1_test.txt`:
+
+----
+key: value
+Description of test1.
+>>>
+input.
+
+<<<
+output.
+----
+
+Calling `LoadData` on that file and printing each fields in `test.Data`
+
+----
+data, err := test.LoadData("testdata/data1_test.txt")
+if err != nil {
+    log.Fatal(err)
+}
+
+fmt.Printf("%s\n", data.Name)
+fmt.Printf("  Flags=%v\n", data.Flag)
+fmt.Printf("  Desc=%s\n", data.Desc)
+fmt.Println("  Input")
+for name, content := range data.Input {
+    fmt.Printf("    %s=%s\n", name, content)
+}
+fmt.Println("  Output")
+for name, content := range data.Output {
+    fmt.Printf("    %s=%s\n", name, content)
+}
+----
+
+will display the following output,
+
+----
+data1_test.txt
+  Flags=map[key:value]
+  Desc=Description of test1.
+  Input
+    default=input.
+  Output
+    default=output.
+----
+
+=== Function LoadDataDir
+
+The function `LoadDataDir` load all test data files inside a directory.
+Only file that have file name suffix "_text.txt" will be loaded.
+
+For example, assume that we have the following list of file under directory
+`testdata`,
+
+----
+testdata/
+├── data1_test.txt
+├── data2_test.txt
+├── data3.txt
+└── not_loaded
+----
+
+The content of file `data1_test.txt` similar like above, while
+`data2_test.txt` have the following content,
+
+----
+>>>
+another test input.
+
+<<<
+another test output.
+----
+
+Calling `LoadDataDir` on directory `testdata` and printing each instance
+`test.Data`,
+
+----
+listData, err := test.LoadDataDir("testdata/")
+if err != nil {
+    log.Fatal(err)
+}
+
+for _, data := range listData {
+    fmt.Printf("%s\n", data.Name)
+    fmt.Printf("  Flags=%v\n", data.Flag)
+    fmt.Printf("  Desc=%s\n", data.Desc)
+    fmt.Println("  Input")
+    for name, content = range data.Input {
+        fmt.Printf("    %s=%s\n", name, content)
+    }
+    fmt.Println("  Output")
+    for name, content = range data.Output {
+        fmt.Printf("    %s=%s\n", name, content)
+    }
+}
+----
+
+will return the following output,
+
+----
+data1_test.txt
+  Flags=map[key:value]
+  Desc=Description of test1.
+  Input
+    default=input.
+  Output
+    default=output.
+data2_test.txt
+  Flags=map[]
+  Desc=
+  Input
+    default=another test input.
+  Output
+    default=another test output.
+----
+
+Notice that only file `data1_test.txt` and `data2_test.txt` are loaded, the
+`data3.txt` and `not_loaded` are not loaded.
+
+
+=== Using `test.Data` with case 1
+
+We can refactoring the test on case 1 using `test.Data` by creating a file
+`testdata/my_order_test.txt` that contains one input and multiple outputs
+for each table.
+In this example, we will use JSON format for input and output.
+
+----
+Test data for function MyOrder.
+
+>>> order
+{
+  "Param1": "...",
+  "Param2": "...",
+  "ParamN": "..."
+}
+
+<<< table_a.json
+[
+  {
+    "ID": 1,
+    "Column1": "value 1",
+    "Column2": "value 2",
+    ...
+    "ColumnN": "value n"
+  }
+]
+
+<<< table_b.json
+[
+  {
+    "ID": 1,
+    "Column1": "value 1",
+    "Column2": "value 2",
+    ...
+    "ColumnN": "value n"
+  }
+]
+----
+
+The test function for `MyOrder` would be looks like below (we skip the error
+handling for brevity),
+
+----
+func TestMyOrder(t *testing.T) {
+	// Truncate table_a and table_b.
+
+	tdata, _ := test.LoadData(`testdata/my_order_test.txt`)
+
+	order = &Order{}
+	_ = json.Unmarshal(tdata.Input[`order`], order)
+
+	MyOrder(order)
+
+	gotListTableA, _ := ListTableA()
+
+	// Convert the actual records we got from table to JSON.
+	jsonListTableA, _ := json.Marshal(gotListTableA)
+
+	// Get the expected records from test.Data, already in JSON.
+	expListTableA := tdata.Output[`table_a.json`]
+
+	// Compare the result.
+	test.Assert(t, `ListTableA`, string(expListTableA),
+		string(jsonListTableA))
+
+	gotListTableB, _ := ListTableB()
+
+	// Convert the actual records we got from table to JSON.
+	jsonListTableB, _ := json.Marshal(gotListTableB)
+
+	// Get the expected records from test.Data, already in JSON.
+	expListTableB := tdata.Output[`table_b.json`]
+
+	// Compare the result.
+	test.Assert(t, `ListTableA`, string(expListTableB),
+		string(jsonListTableB))
+}
+----
+
+The
+https://pkg.go.dev/github.com/shuLhan/share@v0.46.0/lib/test#Assert[`test.Assert`^]
+function is an helper from the same package `test`.
+
+The result of our test code is much clearer, we have separate file for test
+data and the code have better focus on actual test logic.
+
+=== Using `test.Data` with case 2
+
+Using `test.Data` on case 2 is much easier.
+We create test data file `testdata/parser_test.txt` that contains both the
+input to be parsed and the expected HTML output,
+
+----
+>>>
+= Title
+
+<<<
+<div id="header">
+<h1>Title</h1>
+<div class="details">
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+</div>
+</div>
+----
+
+The test code would be looks like below (also we skip checking error handling
+for brevity),
+
+----
+func TestParse(t *testing.T) {
+	tdata, _ := test.LoadData(`testdata/parser_test.txt`)
+
+	gotHtml, _ := Parse(tdata.Input[`default`])
+
+	test.Assert(t, `Parse`, string(tdata.Output[`default`]), string(gotHtml))
+}
+----
+
+No more literal string on test code, the test code have better focus on actual
+test logic and cases.
+
+
+=== Real world cases using `test.Data`
+
+asciidoctor-go::
++
+--
+asciidoctor-go is native Go module to parse Asciidoc markup.
+The following changes show test tests code before and after refactoring using
+`test.Data`,
+
+* https://git.sr.ht/~shulhan/asciidoctor-go/commit/9fe1ecf6[Changes 9fe1ecf6^]
+* https://git.sr.ht/~shulhan/asciidoctor-go/commit/19e2b864[Changes 19e2b864^]
+--
+
+share::
++
+--
+Share is collection of Go packages that extend and complement the standard
+library.
+The following changes show test tests code before and after refactoring using
+`test.Data`,
+
+* https://github.com/shuLhan/share/commit/53c9e116?diff=split[text/diff: rewrite the test using test.Data^]
+* https://github.com/shuLhan/share/commit/e5171b60?diff=split[lib/xmlrpc: rewrite the test using test.Data^]
+* https://github.com/shuLhan/share/commit/c80513b6?diff=split[lib/ini: convert the Get test using test.Data^]
+--
+
+== Rationale
+
+An alternative approach beside `test.Data` is by creating/reading each test
+input and output to/from separate files.
+For example, based on case 1, we need three files to be read when test
+running:
+
+* testdata/my_order_input.json
+* testdata/my_order_output_table_a.json
+* testdata/my_order_output_table_b.json
+
+Several disadvantages using this approach are,
+
+* the test data spread into multiple files instead of on one single file,
+* loading each file require its own error handling, and
+* the cost of I/O increase if we have more test files to be loaded.
+
+
+== Open issues
+
+In order for `test.Data` to work, one need a diff function that can compare
+string and display the unmatched lines.
+Currently, those function does not exist in Go standard library.
+
+In this document and its examples, we use 
+https://pkg.go.dev/github.com/shuLhan/share/lib/test#Assert[test.Assert^]
+function that use
+https://pkg.go.dev/github.com/shuLhan/share/lib/text/diff#Text[diff.Text^]
+as the backend.
+
+The following example give an overview of `test.Assert`.
+
+Given the following lines of expected output and result that we got from test,
+
+----
+func TestXxx(t *testing.T) {
+	// Test result that we want.
+	exp := `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Fusce cursus libero in velit dapibus tincidunt.
+Vestibulum vulputate ipsum ac nisl viverra pharetra.
+Sed at mi in urna lobortis bibendum.
+Vivamus tempus enim in urna fermentum, non volutpat nisi lacinia.`
+
+	// Test result that we got.
+	got := `Fusce cursus libero in velit dapibus tincidunt.
+Vestibulum vulputate ipsum ac nisl viverra pharetra.
+Sed at mi in urna lobortis bibendum.
+Sed pretium nisl ut dolor ullamcorper blandit.
+Sed faucibus felis iaculis, sagittis erat quis, tempor nisi.`
+
+	test.Assert(t, `Assert string`, exp, got)
+}
+----
+
+The `test.Assert` will print the following test error,
+
+----
+!!! Assert string:
+---- EXPECTED
+0 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+++++ GOT
+4 + Sed faucibus felis iaculis, sagittis erat quis, tempor nisi.
+--++
+4 - Vivamus tempus enim in urna fermentum, non volutpat nisi lacinia.
+3 + Sed pretium nisl ut dolor ullamcorper blandit.
+----
+
+The lines,
+
+----
+---- EXPECTED
+0 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+----
+
+inform the tester that we expect line number 0 to be "Lorem ipsum dolor sit
+amet, consectetur adipiscing elit" in test result, but it is missing.
+
+The lines,
+
+----
+++++ GOT
+4 + Sed faucibus felis iaculis, sagittis erat quis, tempor nisi.
+----
+
+inform the tester that line number 4 is not expected but returned in our test
+result.
+
+The lines,
+
+----
+--++
+4 - Vivamus tempus enim in urna fermentum, non volutpat nisi lacinia.
+3 + Sed pretium nisl ut dolor ullamcorper blandit.
+----
+
+inform the tester that expected line for line number 4
+"Vivamus tempus enim in urna fermentum, non volutpat nisi lacinia."
+changes to
+"Sed pretium nisl ut dolor ullamcorper blandit."
+in the test result.
