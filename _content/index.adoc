@@ -1,4 +1,4 @@
-= Index
+= kilabit.info
 :toc:
 :sectlinks:
 
