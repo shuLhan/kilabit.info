@@ -19,6 +19,24 @@ I am collecting those things in these journal.
 
 NOTE: I use the term PR and patches in the same way.
 
+First thing first, remember
+link:/journal/2014/04/Holy_github/[this^]?
+
+
+== You can send patches only by creating fork
+
+Let say you found a bug on repository X.
+The only way you send patches to those repo maintainer is by following these
+steps,
+
+. create GitHub account,
+. fork the origin repository,
+. create new branch or push to master,
+. push to your fork, and
+. open the web and create pull request from the upstream repository.
+
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=cli[GitHub Docs: Creating a pull request^]
+
 
 == Github pull request flow is really bad
 
