@@ -1,0 +1,371 @@
+= Proposal for Go error handling
+Shulhan <ms@kilabit.info>
+:toc:
+:sectlinks:
+
+== Abstract
+
+In the last couple of years, the number of articles and proposals related to
+error handling
+https://github.com/golang/go/wiki/Go2ErrorHandlingFeedback[increased] [1][2].
+The official draft of proposed error handling, named
+https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md["go2draft
+Error Handling"] [3]
+from author perspective has a flaw, especially on correlation and readability
+that their introduce on the new keywords "check" and "handle".
+
+This document propose two new keywords: "`when`" and "`handle`", and one new
+statement ":label:" to close the gap between each of them, that not only can
+be use for handling error but also for handling other control flow.
+The goals is not to reduce number of lines but to minimize repetitive error
+handling.
+
+
+== Background
+
+This proposal is based on "go2draft Error Handling".
+
+My critics to "go2draft Error Handling" is the missing correlation
+between `handle` and `check`.
+If we see one of the first code in the design,
+
+----
+	...
+	handle err {
+		return fmt.Errorf("copy %s %s: %v", src, dst, err)
+	}
+
+	r := check os.Open(src)
+	...
+----
+
+There is no explicit link between `check` keyword and how it will trigger
+`handle err` later.
+It is also break the contract between the signature of `os.Open`, that return
+an error in the second parameter, and the code that call it.
+
+This proposal try to make the link between them clear and keep the code flow
+explicit and readable.
+
+
+== Proposal
+
+This proposal introduces two new keywords and one new syntax for statement.
+
+The two new keywords are "`WHEN`" and "`HANDLE`".
+
+----
+When             = "when" NonZeroValueStmt HandleCallStmt .
+NonZeroValueStmt = ExpressionStmt
+                 ; I am not quite sure how to express non-zero value
+                 ; expression here, so I will describe it below.
+                 ;
+                 ; For ExpressionStmt see
+                 ; https://go.dev/ref/spec#ExpressionStmt
+
+HandleCallStmt   = "handle" ( HandleName | "{" SimpleStmt "}" ) .
+                 ; SimpleStmt refer to https://go.dev/ref/spec#SimpleStmt
+
+HandleName       = identifier .
+                 ; identifier refer to https://go.dev/ref/spec#identifier
+----
+
+
+The `HandleCallStmt` will be executed if only if the statement in
+`NonZeroValueStmt` returned non-zero value of its type.
+For example, given the following variable declarations,
+
+----
+var (
+	err   = errors.New(`error`)
+	slice = make([]byte, 1)
+	no1   = 1
+
+	no2 int
+	ok  bool
+)
+----
+
+The result of `when` evaluation are below,
+
+----
+when err             // true, non-zero value of type error.
+when len(slice) == 0 // true, non-zero value of type bool.
+when no1             // true, non-zero value of type int.
+when no2             // false, zero value of int.
+when ok              // false, zero value of bool.
+----
+
+The `HandleCallStmt` can jump to handle by passing handle name or provide
+simple statement directly.
+If its simple statement, there should be no variable shadowing happen inside
+them.
+
+Example of calling handle by name,
+----
+...
+when err handle myErrorHandle
+
+:myErrorHandle:
+	return err
+----
+
+Example of calling handle using simple statement,
+----
+...
+when err handle { return err }
+----
+
+The new syntax for statement is to declare label for handle and its body,
+
+----
+HandleStmt  = ":" HandleName ":" [SimpleStmt] [ReturnStmt | HandleCallStmt] .
+            ; SimpleStmt refer to https://go.dev/ref/spec#Statement
+            ; ReturnStmt refer to https://go.dev/ref/spec#ReturnStmt
+----
+
+Each of `HandleStmt` MUST be declared at the bottom of function block.
+An `HandleStmt` can call other `HandleStmt` as long as the handle is above the
+current handle and it is not itself.
+Any statements below `HandleCallStmt` MUST not be executed.
+
+Unlike goto, each `HandleStmt` is independent on each other, one `HandleStmt`
+end on itself, either by calling `return` or `handle`, or by other
+`HandleStmt` and does not fallthrough below it.
+
+Given the list of handle below,
+
+----
+:handle1:
+	S0
+	S1
+:handle2:
+	handle handle1
+	S3
+----
+
+A `handle1` cannot call `handle2` because its below it.
+A `handle2` cannot call `handle2`, because its the same handle.
+A `handle2` can call `handle1`.
+The `handle1` execution stop at statement `S1`, not fallthrough below it.
+The `handle2` execution stop at statement "`handle handle1`", any statements
+below it will not be executed.
+
+
+The following function show an example of using this proposed error handling.
+Note that the handlers are defined several times here for showing the
+possible cases on how it can be used, the actual handlers probably only two or
+three.
+
+----
+func ImportToDatabase(db *sql.DB, file string) (error) {
+	when len(file) == 0 handle invalidInput
+
+	f, err := os.Open(file)
+	when err handle fileOpen
+	// Adding `== nil` is OPTIONAL, the WHEN operation check for NON zero
+	// value of returned function or instance.
+
+	data, err := parse(f)
+	when err handle parseError
+
+	err = f.Close()
+	// Inline error handle.
+	when err handle { return fmt.Errorf(`%s: %w`, file, err) }
+
+	tx, err := db.Begin()
+	when err handle databaseError
+
+	// One can join the statement with when using ';'.
+	err = doSomething(tx, data); when err handle databaseError
+
+	err = tx.Commit()
+	when err handle databaseCommitError
+
+	var outofscope string
+	_ = outofscope
+
+	// The function body stop here if its not expecting RETURN, otherwise
+	// explicit RETURN must be declared.
+
+	return nil
+
+:invalidInput:
+	// If the function expect RETURN, the compiler will reject and return
+	// an error indicating missing return.
+
+:fileOpen:
+	// All the instances of variables declared in function body until this
+	// handler called is visible, similar to goto.
+	return fmt.Errorf(`failed to open %s: %w`, file, err)
+
+:parseError:
+	errClose := f.Close()
+	when errClose handle { err = wrapError(err, errClose) }
+
+	// The value of err instance in this scope become value returned by
+	// wrapError, no shadowing on statement inside inline handle.
+	return fmt.Errorf(`invalid file data: %s: %w`, file, err)
+
+:databaseError:
+	_ = db.Rollback()
+	// Accessing variable below the scope of handler will not compilable,
+	// similar to goto.
+	fmt.Println(outofscope)
+	return fmt.Errorf(`database operation failed: %w`, err)
+
+:databaseCommitError:
+	// A handle can call another handle as long as its above the current
+	// handle.
+	// Any statements below it will not be executed.
+	handle databaseError
+
+	RETURN nil // This statement will never be reached.
+}
+----
+
+== Rationale
+
+**Why not goto?**
+
+goto imply that the statements before it fallthrough after it.
+For example,
+
+----
+	S0
+goto1:
+	S1
+goto2:
+	S2
+----
+
+Statement S1 will be executed after S0, statement S2 will be executed after
+S1.
+
+While handle ":name:" scope only on that handle body.
+The code execution above handlers does not fallthrough it nor below another
+handlers.
+For example,
+
+----
+	S0
+:handle1:
+	S1
+:handle2:
+	S2
+----
+
+Statement S0 stop and never fallthrough `:handle1:`.
+Statement S1 stop and never fallthrough `:handle2:`.
+
+
+**Advantages of this approach then using function**
+
+Some disadvantages of using function to handle error are, first, its expect
+the call to the function pass the required parameters and handle the returned
+value back by the caller.
+Second, the context between the error to be handled and function to be called
+can be far away (the error function may be defined in different file or
+outside of current package).
+
+When using `HandleStmt` all required variables that cause the errors and the
+error itself is in the same scope, there is no flow break between the cause
+and handler.
+
+
+== Case examples
+
+The following case examples is taken from "go2draft Error handling".
+
+Case 1 from "go2draft Error Handling",
+
+----
+func CopyFile(src, dst string) error {
+	handle err {
+		return fmt.Errorf("copy %s %s: %v", src, dst, err)
+	}
+
+	r := check os.Open(src)
+	defer r.Close()
+
+	w := check os.Create(dst)
+	handle err {
+		w.Close()
+		os.Remove(dst) // (only if a check fails)
+	}
+
+	check io.Copy(w, r)
+	check w.Close()
+	return nil
+}
+----
+
+Case 1 using this proposal,
+
+----
+func CopyFile(src, dst string) error {
+	r, err := check os.Open(src)
+	when err handle openError
+
+	w, err := os.Create(dst)
+	when err handle copyError
+
+	err = io.Copy(w, r); when err handle copyError
+
+	err = w.Close()
+	when err handle copyError
+
+	return nil
+
+:openError:
+	return fmt.Errorf("copy %s %s: %v", src, dst, err)
+
+:copyError:
+	r.Close()
+	if w != nil {
+		w.Close()
+		os.Remove(dst)
+	}
+	handle openError
+}
+----
+
+Case 2 from "go2draft Error Handling",
+
+----
+func main() {
+	handle err {
+		log.Fatal(err)
+	}
+
+	hex := check ioutil.ReadAll(os.Stdin)
+	data := check parseHexdump(string(hex))
+	os.Stdout.Write(data)
+}
+----
+
+Case 2 using this proposal,
+
+----
+func main() {
+	hex, err := ioutil.ReadAll(os.Stdin)
+	when err handle fatal
+
+	data, err := parseHexdump(string(hex))
+	when err handle fatal
+
+	os.Stdout.Write(data)
+	// The function body stop here, the log.Fatal below will not be
+	// executed.
+:fatal:
+	log.Fatal(err)
+}
+----
+
+== References
+
+[1] https://github.com/golang/go/wiki/Go2ErrorHandlingFeedback.
+
+[2] https://seankhliao.com/blog/12020-11-23-go-error-handling-proposals/
+
+[3] https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md

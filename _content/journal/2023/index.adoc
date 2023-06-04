@@ -2,6 +2,8 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/go2_error_handling/[Proposal for Go error handling^].
+
 link:/journal/2023/go_test_data/[Go test.Data: helper for testing with large output^].
 
 link:/journal/2023/2022_accomplishment/[2022 accomplishment^].
