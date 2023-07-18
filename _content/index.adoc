@@ -25,7 +25,7 @@ We use Google DNS as parent name servers.
 See https://build.kilabit.info for more information.
 
 
-==  link:/project[Projects]
+==  Projects
 
 include::./project/index.adoc[]
 
@@ -59,7 +59,7 @@ include::./project/index.adoc[]
 *   link:/websocket/example/[Part 2: Example of WebSocket: Group Chat^]
 
 
-==  link:/journal/[Journal]
+==  Journal
 
 include::./journal/2023/index.adoc[]
 

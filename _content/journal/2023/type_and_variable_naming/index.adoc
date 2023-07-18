@@ -1,0 +1,137 @@
+= Better approach for type and variable naming
+Shulhan <ms@kilabit.info>
+June 2023
+:toc:
+:sectlinks:
+
+Naming variable is still hard, at some point.
+In order to make it less hard, we can create barriers, to round naming
+scopes, by applying several rules.
+
+== 1st rule: limit the name to three word maximum
+
+Whether the name for type or variable, one word naming is the better, two
+words are the recommended, three words should be exception.
+
+When the name can only represented by three words or more, there is
+possibility that we need to group it in another package or separate domain.
+
+A type named "User" is better rather than "ApplicationAccount".
+A variable named "admin" is good choice over "userAdmin".
+If the context is not clear, where non-administrator user and user for
+administrator exist in the same context (function or method), "userAdmin"
+may be better.
+
+
+== 2nd rule: limit the instance name to three characters minimum
+
+Single character naming is acceptable only in local context, where the
+instance of variable does not passed to other function or procedure or
+returned.
+
+When instance of type or variable only user in one function or method it is
+acceptable to use single character naming, for example, when indexing array.
+In this code, the scope of instance of INT `x` only used in this function
+only,
+
+----
+FUNCTION findUser(listUser ARRAY, id INT): User
+BEGIN
+	FOR x := 0; x < LEN(listUser); x++ {
+		...
+	}
+	RETURN NIL
+END
+----
+
+When the instance used across different functions, either as return values
+or parameter, better to use two or three words naming.
+Based on example above, let say `listUser` came from function `fetchUser`,
+and then we pass it to `findUser`, using two words instead of one like
+`list` make it lose the context.
+
+Here is the not good example,
+
+----
+l := fetchUser()
+u := findUser(l)
+
+// OR
+
+list := fetchUser()
+user := findUser(list, id)
+----
+
+If we read the code, the following questions come to our mind `list` of
+what?  `user` of what?
+
+Compare with this one,
+
+----
+listUser := fetchUser()
+userAdmin := findUser(list, id)
+// OR
+// deletingUser := findUser(list, id)
+// OR
+// currentUser := findUser(list, id)
+----
+
+The name for returned value from `findUser` depends on the context.
+
+The rationale for this are, first, it is easy to read, second easy to
+find-and-replace, in case the domain changes or the problem changes.
+
+
+== 3rd rule: use parent-child for naming type or constants, child-parent for instance
+
+In the parent-child pattern, parent is the generic one, while child is
+specific one.
+For example, if we have many type of client that can send notification,
+"NotifClient" would be a best choice for prefix or generic type.
+We can have "NotifClientSmtp" for a type of client that send notification
+using email, "NotifClientPubsub" for client that send notification through
+Pub/Sub, and so on.
+
+The instance of each client can be named in reverse order, without losing
+the meaning of its type, hence the pattern is called client-parent.
+For example, "clientSmtp" for instance of type "NotifClientSmtp",
+"clientPubsub" for instance of type "NotifClientPubsub".
+
+Furthermore, since the "NotifClientSmtp" break the first rules, we can group
+all of the notification clients into single package or directory named
+"notif" and remove the "Notif" prefix for each type.
+Now we have the type named "ClientSmtp" or "ClientPubsub" respectively,
+that are imported from package called "notif".
+
+
+== 4th rule: Be direct
+
+Use nouns with help of prepositions, do not use adjectives, adverbs.
+
+
+== Afterthought
+
+Most of programming languages are written using English as the base syntax.
+This makes the user of programming languages, indirectly also English in
+their code, for naming the functions, types, and variables;
+even thought English is not their native or first language.
+
+I am Indonesian.
+English is my third language.
+One of the property of English that we usually use when coding is
+pluralizing variable name, for example "users" that hold values for one
+or more "User" instance.
+
+Adding "s" as suffix to variable that contains more than two values
+seems concise.
+At some point, using suffix "s" can cause ambiguity and confusion due to our
+minimum knowledge of English.
+I cannot remember the more precise example to describe this, one of the case
+that I can remember right now and still confuse me is do we use "log"
+or "logs" for naming a directory that contains multiple log file?
+Logs seems natural but most of Unix system named them "/var/log" not
+"/var/logs".
+
+My thought is that, maybe we should add "list" as prefix for variable names
+and drop the suffix "s" altogether, for example "listUser" for variable name
+and just "user" for table name.

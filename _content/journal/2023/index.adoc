@@ -4,6 +4,12 @@ link:/journal/2023/[2023]::
 --
 link:/journal/2023/go2_error_handling/[Proposal for Go error handling^].
 
+link:/journal/2023/type_and_variable_naming/[Better approach for type and
+variable naming ^].
+Naming variable is still hard, at some point.
+In order to make it less hard, we can create barriers, to round naming
+scopes, by applying several rules.
+
 link:/journal/2023/go_test_data/[Go test.Data: helper for testing with large output^].
 
 link:/journal/2023/2022_accomplishment/[2022 accomplishment^].
