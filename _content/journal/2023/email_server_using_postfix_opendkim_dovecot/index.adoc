@@ -1,0 +1,807 @@
+= Email server using Postfix, OpenDKIM, and Dovecot
+Shulhan <ms@kilabit.info>
+July, 2023
+:toc:
+:sectanchors:
+
+This article describe my current email server configuration using Postfix,
+OpenDKIM, and Dovecot.
+
+For email server using OpenSMTPD, see the
+link:/journal/2023/replacing_postfix_with_opensmtpd/[next article].
+
+We will use domain name "kilabit.info" as an example in the script or
+configuration later.
+Make sure to replace them accordingly, if you copy-paste part of the script
+or commands from this article.
+
+In this article, we use
+https://sr.ht/~shulhan/awwan[awwan^]
+script for configuration management, so if you see string like these
+`{{.Val "section:sub:key"}}` that means its an awwan variable and needs to
+be replaced according to your environment.
+
+
+== Email architecture
+
+In email server, there are two incoming message flows.
+One from client, where they want to send message to other domain;
+and one from other domain (Mail Delivery Agent--MDA) where others want to
+send message to our domain.
+
+----
+    IMAP
+    :993      +---------+
+   +----------| Dovecot |
+   |          +---------+
+   |   SMTPS       ^
+   |   :465        |
+   v   :587   +---------+ :25
+Client ------>| Postfix |-----> MDA
+              +---------+
+                   ^
+                   |
+                   v
+              +----------+
+              | OpenDKIM |
+              +----------+
+----
+
+Client send message (submission) using SMTP to Postfix over secure
+line with TLS or STARTTLS, on port 465 or 587 with authentication.
+When Postfix receive the message it will forward it to OpenDKIM to sign
+the message.
+Once the message is signed, Postfix then forward a copy of it to Dovecot (so
+the message appear in Client "Sent" box) and transfer it to recipient in
+other server on port 25.
+
+----
+      SMTP
+      :25  +---------+     +---------+
+MDA <----->| Postfix |---->| Dovecot |
+           +---------+     +---------+
+               ^
+               | :8891
+               v
+           +----------+
+           | OpenDKIM |
+           +----------+
+----
+
+The MDA send their message to our email server Postfix on port 25.
+Postfix validate the signature of message by forwarding it to OpenDKIM and
+the result is forwarded to Dovecot to be stored and later consumed by
+client from INBOX.
+This is the endpoint where spam can abuse our server.
+If we did not setup and secure it properly, email that is not from real
+domain may got into Client inbox or relay-ed to other server.
+
+== Setting up OpenDKIM
+
+Is simple term, DomainKeys Identified Mail (DKIM) is a mechanism where email
+is signed using private key to prevent tampering during transit.
+The public key part is published inside DNS TXT record so others can
+verified the signature of message.
+
+The following
+https://sr.ht/~shulhan/awwan[awwan^]
+script show how to setup OpenDKIM in Arch Linux (the line number is added
+for commentary),
+
+----
+ 0: sudo pacman -Syu --noconfirm
+ 0: sudo pacman -S --noconfirm opendkim
+
+ 0: sudo systemctl enable opendkim.service
+
+ 1: sudo mkdir -p /etc/opendkim/keys/kilabit.info
+ 2: opendkim-genkey -r -s 20210411-1 -d kilabit.info
+ 3: sudo mv 20210411-1.* /etc/opendkim/keys/kilabit.info/
+ 4: sudo chmod 0600 /etc/opendkim/keys/kilabit.info/20210411-1.private
+
+ 5: sudo mkdir /var/lib/opendkim
+ 6: sudo chown opendkim:opendkim /var/lib/opendkim
+
+ 7: #put! {{.ScriptDir}}/etc/opendkim/KeyTable      /etc/opendkim/
+ 8: #put! {{.ScriptDir}}/etc/opendkim/SigningTable  /etc/opendkim/
+ 9: #put! {{.ScriptDir}}/etc/opendkim/TrustedHosts  /etc/opendkim/
+10: #put! {{.ScriptDir}}/etc/opendkim/opendkim.conf /etc/opendkim/
+
+11: sudo chown -R opendkim:mail /etc/opendkim
+
+12: sudo systemctl restart opendkim
+13: sudo systemctl status opendkim
+----
+
+In line number 2, we generate private key for selector "20210411-1".
+This selector must be unique, you should changes it according to your need.
+My recommendation is using current date as label.
+
+The opendkim-genkey command will generated two files: 20210411-1.private and
+20210411-1.txt.
+The 20210411-1.private file contains PEM encoded private key and the
+20210411-1.txt file contains DNS record.
+Example of 20210411-1.txt,
+
+----
+20210411-1._domainkey  IN  TXT  ( "v=DKIM1; k=rsa; s=email; "
+  "p=MIGfM...AQAB" ; ----- DKIM key 20210411-1 for kilabit.info
+  )
+----
+
+In your DNS zone, create new subdomain "20210411-1.\_domainkey" with record
+type is TXT and its value is the content from "v=DKIM ... p=MIGfM...AQAB" --
+_including_ the double quote.
+
+In line 7-10, we create and populate four file configurations, which is
+describe below.
+
+`/etc/opendkim/KeyTable`:
+----
+20210411-1._domainkey.kilabit.info kilabit.info:20210411-1:/etc/opendkim/keys/kilabit.info/20210411-1.private
+----
+
+`/etc/opendkim/SigningTable`:
+----
+*@kilabit.info 20210411-1._domainkey.kilabit.info
+----
+
+`/etc/opendkim/TrustedHosts`:
+----
+127.0.0.1
+::1
+localhost
+{{.Val "host::ip_external"}}
+{{.Val "host::name"}}
+kilabit.info
+----
+
+The "host\::ip_external" and "host\::name" is your server external IP address
+and local hostname, if set other than localhost.
+
+`/etc/opendkim/opendkim.conf`:
+----
+BaseDirectory  /var/lib/opendkim
+
+##  Select canonicalizations to use when signing.  If the "bodycanon" is
+##  omitted, "simple" is used.  Valid values for each are "simple" and
+##  "relaxed".
+
+Canonicalization  relaxed/simple
+
+##  Specify for which domain(s) signing should be done.  No default; must
+##  be specified for signing.
+
+Domain  kilabit.info
+
+##  Names a file from which a list of externally-trusted hosts is read.
+##  These are hosts which are allowed to send mail through you for signing.
+##  Automatically contains 127.0.0.1.  See man page for file format.
+
+ExternalIgnoreList  refile:/etc/opendkim/TrustedHosts
+
+##  Names a file from which a list of internal hosts is read.  These are
+##  hosts from which mail should be signed rather than verified.
+##  Automatically contains 127.0.0.1.
+
+InternalHosts  refile:/etc/opendkim/TrustedHosts
+
+##  Defines a table that will be queried to convert key names to
+##  sets of data of the form (signing domain, signing selector, private key).
+##  The private key can either contain a PEM-formatted private key,
+##  a base64-encoded DER format private key, or a path to a file containing
+##  one of those.
+
+KeyTable        refile:/etc/opendkim/KeyTable
+
+SigningTable  refile:/etc/opendkim/SigningTable
+
+##  Names the socket where this filter should listen for milter connections
+##  from the MTA.  Required.  Should be in one of these forms:
+
+Socket  inet:8891@127.0.0.1
+
+##  Log informational and error activity to syslog?
+
+Syslog			Yes
+
+##  Specifies which directory will be used for creating temporary files
+##  during message processing.
+
+TemporaryDirectory	/run/opendkim
+
+##  Change to user "userid" before starting normal operation?  May include
+##  a group ID as well, separated from the userid by a colon.
+
+UserID		opendkim
+----
+
+After the configurations has been populated, we can start the
+opendkim.service.
+Check the log if its fail and continue to next section if its started
+successfully.
+
+
+== Setting up Dovecot
+
+Dovecot is the application that manage email in storage, usually in the
+format of mbox or Maildir (recommended).
+Client access the message from external using IMAP with authentication.
+
+The following
+https://sr.ht/~shulhan/awwan[awwan^]
+script show how to setup Dovecot in Arch Linux
+(the line number added for commentary),
+
+----
+ 0: sudo pacman -Syu --noconfirm
+ 0: sudo pacman -S --noconfirm dovecot
+
+ 0: sudo systemctl enable dovecot
+
+ 1: sudo groupadd {{.Val "email::group"}} -g {{.Val "email::gid"}}
+
+ 2: sudo useradd  {{.Val "email::user"}} \
+	-r \
+	-g {{.Val "email::gid"}} \
+	-u {{.Val "email::uid"}} \
+	-d {{.Val "email::dir"}} \
+	-m -c "mail user"
+
+ 3: sudo mkdir -p /etc/dovecot
+
+## Generate password for IMAP.
+
+ 4: #put: {{.ScriptDir}}/etc/dovecot/passwd.txt passwd.txt
+
+ 5: rm -f passwd
+
+ 6: while read -r email plain; do \
+	hash=$(doveadm pw -s SHA1 -p "$plain"); \
+	echo "$email:$hash:::" >> passwd; \
+done < passwd.txt
+
+ 7: cat passwd
+
+ 8: #get: passwd {{.ScriptDir}}/etc/dovecot/passwd
+
+ 9: sudo mv passwd /etc/dovecot/passwd
+10: rm -f passwd.txt
+
+11: #put! {{.ScriptDir}}/etc/dovecot/dovecot.conf /etc/dovecot/
+
+12: sudo chmod 0600 /etc/dovecot/{dovecot.conf,passwd}
+13: sudo chown -R dovecot:dovecot /etc/dovecot
+
+14: sudo systemctl restart dovecot
+15: sudo systemctl status  dovecot
+----
+
+In line 1 and 2, we create separate user and group, even thought installing
+dovecot in Arch Linux create "dovecot" user in the system.
+This is the user that bridge between the Dovecot and Postfix.
+In case we want to replace Dovecot with other IMAP service in the future, we
+did not need to re-create or `chown` the emails that already stored by
+Dovecot.
+
+In line 4-10, we generate the password hash for authentication with IMAP by
+reading the plain text password from "passwd.txt" and write the output back
+to "passwd" file.
+
+Example content and format of "passwd.txt" file (not the actual password),
+----
+ms@kilabit.info          s333cr333t
+----
+
+Example of "passwd" output (not the actual hash),
+----
+ms@kilabit.info:9QJcSsuTQW1kz3AAl7N2OGWd7QE=:::
+----
+
+`/etc/dovecot/dovecot.conf`:
+----
+listen = 0.0.0.0
+protocols = imap
+disable_plaintext_auth = yes
+auth_mechanisms = plain login
+mail_access_groups = {{.Val "email::group"}}
+default_login_user = {{.Val "email::user"}}
+first_valid_uid = {{.Val "email::uid"}}
+first_valid_gid = {{.Val "email::gid"}}
+mail_location = maildir:{{.Val "email::dir"}}/%d/%n
+
+passdb {
+	driver = passwd-file
+	args = scheme=SHA1 /etc/dovecot/passwd
+}
+userdb {
+	driver = static
+	args = uid={{.Val "email::uid"}} gid={{.Val "email::gid"}} home={{.Val "email::dir"}}/%d/%n allow_all_users=yes
+}
+service auth {
+	unix_listener auth-client {
+		group = postfix
+		mode = 0660
+		user = postfix
+	}
+	user = root
+}
+service imap-login {
+	process_min_avail = 3
+	user = {{.Val "email::user"}}
+
+	inet_listener imap {
+		port=0
+	}
+	inet_listener imaps {
+		port = 993
+		ssl = yes
+	}
+}
+namespace inbox {
+	inbox = yes
+
+	mailbox Trash {
+		auto = no
+		special_use = \Trash
+	}
+	mailbox Drafts {
+		auto = no
+		special_use = \Drafts
+	}
+	mailbox Sent {
+		auto = subscribe # autocreate and autosubscribe the Sent mailbox
+		special_use = \Sent
+	}
+	mailbox Spam {
+		auto = create # autocreate Spam, but don't autosubscribe
+		special_use = \Junk
+	}
+}
+
+##--- SSL/TLS
+
+ssl = required
+ssl_cipher_list = HIGH:!SSLv2:!aNULL@STRENGTH
+ssl_prefer_server_ciphers = yes
+
+ssl_cert = </etc/letsencrypt/live/kilabit.info/cert.pem
+ssl_key = </etc/letsencrypt/live/kilabit.info/privkey.pem
+ssl_dh = </etc/haproxy/dhparam
+
+local_name kilabit.info {
+  ssl_cert = </etc/letsencrypt/live/kilabit.info/fullchain.pem
+  ssl_key  = </etc/letsencrypt/live/kilabit.info/privkey.pem
+}
+----
+
+
+== Setting up Postfix
+
+The following
+https://sr.ht/~shulhan/awwan[awwan^]
+script show how to setup Postfix in Arch Linux,
+
+----
+sudo pacman -Syu --noconfirm
+sudo pacman -S --noconfirm postfix
+
+sudo systemctl enable  postfix
+
+#put! {{.ScriptDir}}/etc/postfix/aliases /etc/postfix/aliases
+sudo chown root:root /etc/postfix/aliases
+sudo postalias /etc/postfix/aliases
+
+#put! {{.ScriptDir}}/etc/postfix/vmail_aliases /etc/postfix/vmail_aliases
+sudo postmap -o -p /etc/postfix/vmail_aliases
+
+#put! {{.ScriptDir}}/etc/postfix/vmail_domains /etc/postfix/vmail_domains
+sudo postmap -o -p /etc/postfix/vmail_domains
+
+#put! {{.ScriptDir}}/etc/postfix/vmail_mailbox /etc/postfix/vmail_mailbox
+sudo postmap -o -p /etc/postfix/vmail_mailbox
+
+#put! {{.ScriptDir}}/etc/postfix/vmail_sni /etc/postfix/vmail_sni
+sudo postmap -o -p -F hash:/etc/postfix/vmail_sni
+
+#put! {{.ScriptDir}}/etc/postfix/master.cf /etc/postfix/
+#put! {{.ScriptDir}}/etc/postfix/main.cf /etc/postfix/
+
+sudo chown root:root /etc/postfix/*
+sudo chmod 0644 /etc/postfix/*
+
+sudo postfix check
+
+sudo systemctl restart postfix
+sudo systemctl status  postfix
+----
+
+`/etc/postfix/aliases`:
+----
+# Person who should get root's mail. Don't receive mail as root!
+root:       {{.Val "email::user"}}
+
+# Basic system aliases -- these MUST be present
+MAILER-DAEMON:	postmaster
+postmaster: root
+
+# General redirections for pseudo accounts
+bin:        root
+daemon:     root
+ftp:        root
+ftp-bugs:   root
+hostmaster: root
+named:      root
+news:       root
+nobody:     root
+postfix:    root
+usenet:     root
+uucp:       root
+webmaster:  root
+www:        root
+
+# Put your local aliases here.
+
+# Well-known aliases
+manager:    root
+dumper:     root
+operator:   root
+abuse:      postmaster
+
+# trap decode to catch security attacks
+decode:     root
+----
+
+The above aliases map where the local user delivery should go, in short we
+forward all local user email to `vmail`.
+
+
+`/etc/postfix/vmail_aliases`:
+----
+ms@kilabit.info         ms@kilabit.info
+----
+
+The vmail_aliases contains mapping for virtual addresses.
+
+`/etc/postfix/vmail_domains`:
+----
+kilabit.info  OK
+----
+
+The vmail_domains contains list of virtual domains that the Postfix will
+receives, can be define more than once domain, one per line.
+
+`/etc/postfix/vmail_mailbox`:
+----
+ms@kilabit.info         kilabit.info/ms/
+----
+
+The vmail_mailbox define where the email message for virtual addresses will
+be located.
+
+`/etc/postfix/vmail_sni`:
+----
+mail.kilabit.info
+ /etc/letsencrypt/live/kilabit.info/privkey.pem
+ /etc/letsencrypt/live/kilabit.info/fullchain.pem
+----
+
+The vmail_sni define the certificate for each virtual domain that we define
+in vmail_domains.
+
+`/etc/postfix/main.cf`.
+----
+##
+## COMPATIBILITY
+##
+
+compatibility_level = 3.6
+
+##
+## LOCAL PATHNAME INFORMATION
+##
+
+queue_directory   = /var/spool/postfix
+command_directory = /usr/bin
+daemon_directory  = /usr/lib/postfix/bin
+data_directory    = /var/lib/postfix
+
+##
+## QUEUE AND PROCESS OWNERSHIP
+##
+
+mail_owner = postfix
+
+##
+## INTERNET HOST AND DOMAIN NAMES
+##
+
+##
+## SENDING MAIL
+##
+
+#myorigin = $myhostname
+
+##
+## RECEIVING MAIL
+##
+
+inet_interfaces = all
+inet_protocols  = ipv4
+mydestination   = localhost.$mydomain, localhost
+
+##
+## REJECTING MAIL FOR UNKNOWN LOCAL USERS
+##
+
+unknown_local_recipient_reject_code = 550
+
+##
+## TRUST AND RELAY CONTROL
+##
+
+relay_domains           = $mydestination
+virtual_alias_maps      = hash:/etc/postfix/vmail_aliases
+virtual_mailbox_domains = hash:/etc/postfix/vmail_domains
+virtual_mailbox_maps    = hash:/etc/postfix/vmail_mailbox
+
+virtual_mailbox_base = {{.Val "email::dir"}}
+virtual_minimum_uid  = {{.Val "email::uid"}}
+virtual_transport    = virtual
+virtual_uid_maps     = static:{{.Val "email::uid"}}
+virtual_gid_maps     = static:{{.Val "email::uid"}}
+
+##
+## ALIAS DATABASE
+##
+
+alias_maps     = hash:/etc/postfix/aliases
+alias_database = $alias_maps
+
+##
+## ADDRESS EXTENSIONS (e.g., user+foo)
+##
+
+recipient_delimiter = +
+
+##
+## DELIVERY TO MAILBOX
+##
+
+home_mailbox = Maildir/
+
+##
+## SHOW SOFTWARE VERSION OR NOT
+##
+
+#smtpd_banner = $myhostname ESMTP $mail_name
+#smtpd_banner = $myhostname ESMTP $mail_name ($mail_version)
+
+##
+## DEBUGGING CONTROL
+##
+
+debug_peer_level = 2
+debugger_command =
+	PATH=/bin:/usr/bin:/usr/local/bin; export PATH; (echo cont;
+	echo where) | gdb $daemon_directory/$process_name $process_id 2>&1
+	>$config_directory/$process_name.$process_id.log & sleep 5
+
+##
+## INSTALL-TIME CONFIGURATION INFORMATION
+##
+
+sendmail_path     = /usr/bin/sendmail
+newaliases_path   = /usr/bin/newaliases
+mailq_path        = /usr/bin/mailq
+setgid_group      = postdrop
+html_directory    = no
+manpage_directory = /usr/share/man
+readme_directory  = /usr/share/doc/postfix
+inet_protocols    = ipv4
+meta_directory    = /etc/postfix
+shlib_directory   = /usr/lib/postfix
+
+smtp_tls_security_level = encrypt
+
+smtpd_sasl_auth_enable          = yes
+smtpd_sasl_type                 = dovecot
+smtpd_sasl_path                 = /var/run/dovecot/auth-client
+smtpd_sasl_security_options     = noanonymous
+smtpd_sasl_tls_security_options = $smtpd_sasl_security_options
+smtpd_sasl_local_domain         = $mydomain
+broken_sasl_auth_clients        = no
+
+smtpd_tls_security_level = may
+smtpd_use_tls = yes
+smtpd_tls_cert_file = /etc/letsencrypt/live/kilabit.info/fullchain.pem
+smtpd_tls_key_file  = /etc/letsencrypt/live/kilabit.info/privkey.pem
+smtpd_tls_loglevel              = 0
+smtpd_tls_received_header       = yes
+smtpd_tls_session_cache_timeout = 3600s
+
+smtpd_recipient_restrictions =
+	permit_mynetworks
+	permit_sasl_authenticated
+
+smtpd_milters = inet:127.0.0.1:8891
+non_smtpd_milters = $smtpd_milters
+milter_default_action = accept
+
+tls_server_sni_maps = hash:/etc/postfix/vmail_sni
+----
+
+`/etc/postfix/master.cf`.
+----
+#
+# Postfix master process configuration file.  For details on the format
+# of the file, see the master(5) manual page (command: "man 5 master" or
+# on-line: http://www.postfix.org/master.5.html).
+#
+# Do not forget to execute "postfix reload" after editing this file.
+#
+# ==========================================================================
+# service type  private unpriv  chroot  wakeup  maxproc command + args
+#               (yes)   (yes)   (no)    (never) (100)
+# ==========================================================================
+smtp      inet  n       -       n       -       -       smtpd
+  -o smtpd_milters=inet:127.0.0.1:8891
+smtps     inet  n       -       n       -       -       smtpd
+  -o syslog_name=postfix/smtps
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_reject_unlisted_recipient=no
+  -o smtpd_recipient_restrictions=
+  -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+submission inet  n       -       n       -       -       smtpd
+  -o syslog_name=postfix/submission
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_reject_unlisted_recipient=no
+  -o smtpd_recipient_restrictions=
+  -o smtpd_relay_restrictions=permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+  -o milter_macro_daemon_name=ORIGINATING
+  -o smtpd_milters=inet:127.0.0.1:8891
+pickup    unix  n       -       n       60      1       pickup
+cleanup   unix  n       -       n       -       0       cleanup
+qmgr      unix  n       -       n       300     1       qmgr
+#qmgr     unix  n       -       n       300     1       oqmgr
+tlsmgr    unix  -       -       n       1000?   1       tlsmgr
+rewrite   unix  -       -       n       -       -       trivial-rewrite
+bounce    unix  -       -       n       -       0       bounce
+defer     unix  -       -       n       -       0       bounce
+trace     unix  -       -       n       -       0       bounce
+verify    unix  -       -       n       -       1       verify
+flush     unix  n       -       n       1000?   0       flush
+proxymap  unix  -       -       n       -       -       proxymap
+proxywrite unix -       -       n       -       1       proxymap
+smtp      unix  -       -       n       -       -       smtp
+relay     unix  -       -       n       -       -       smtp
+        -o syslog_name=postfix/$service_name
+showq     unix  n       -       n       -       -       showq
+error     unix  -       -       n       -       -       error
+retry     unix  -       -       n       -       -       error
+discard   unix  -       -       n       -       -       discard
+local     unix  -       n       n       -       -       local
+virtual   unix  -       n       n       -       -       virtual
+lmtp      unix  -       -       n       -       -       lmtp
+anvil     unix  -       -       n       -       1       anvil
+scache    unix  -       -       n       -       1       scache
+postlog   unix-dgram n  -       n       -       1       postlogd
+----
+
+One of the reason that the configurations are long like above is we did not
+have enough knowledges and times to check it one by one, we use the default
+and merge information here and there, some are by trial and errors.
+
+
+== Setting up fail2ban
+
+Once your email server is up and working, you will see in the system log
+many unknown connections try to submit, relay, or login to your SMTP and
+IMAP services.
+Even if they fail, they will attempt several times probably with different
+authentication or IP addresses.
+
+fail2ban is a service that read the failed login attempt from system log and
+block the origin IP addresses after N retry, for example three times.
+
+The following
+https://sr.ht/~shulhan/awwan[awwan]
+script show how to setup fail2ban in Arch Linux (the
+line number is added for brevity),
+
+----
+ 1: sudo pacman -Sy --noconfirm fail2ban
+
+ 2: sudo mkdir -p /var/log/fail2ban/
+ 3: sudo mkdir -p /etc/systemd/system/fail2ban.service.d
+
+ 4: #put! {{.ScriptDir}}/etc/systemd/system/fail2ban.service.d/fail2ban.conf \
+	/etc/systemd/system/fail2ban.service.d/
+
+ 5: sudo systemctl enable fail2ban
+
+ 8: #put! {{.ScriptDir}}/etc/fail2ban/fail2ban.local \
+	/etc/fail2ban/fail2ban.local
+ 9: #put! {{.ScriptDir}}/etc/fail2ban/jail.local \
+ 	/etc/fail2ban/jail.local
+
+10: sudo systemctl restart fail2ban
+11: sudo systemctl status  fail2ban
+
+12: sudo fail2ban-client status
+13: sudo fail2ban-client banned
+
+## unban my IP address
+
+14: sudo fail2ban-client set postfix-sasl unbanip 182.253.127.130
+----
+
+In the line 8 and 9, we did not override default installation files, but
+provide our own, by prefixing it with ".local".
+
+Line 12 is the command to show the status of fail2ban service.
+Line 13 is the command to show list of IP address banned by fail2ban
+service.
+
+Line 14 is the command to unban your IP in case you get locked in the
+future.
+
+`/etc/systemd/system/fail2ban.service.d`:
+----
+[Service]
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectHome=read-only
+ProtectSystem=strict
+ReadWritePaths=-/var/run/fail2ban
+ReadWritePaths=-/var/lib/fail2ban
+ReadWritePaths=-/var/log/fail2ban
+ReadWritePaths=-/var/spool/postfix/maildrop
+ReadWritePaths=-/run/xtables.lock
+CapabilityBoundingSet=CAP_AUDIT_READ CAP_DAC_READ_SEARCH CAP_NET_ADMIN CAP_NET_RAW
+----
+
+In this file we hardening the default fail2ban systemd service by make it
+not running as root.
+See https://wiki.archlinux.org/title/Fail2ban[Arch Linux Wiki on Fail2ban]
+for more information.
+
+`/etc/fail2ban/fail2ban.local`:
+----
+[Definition]
+logtarget = /var/log/fail2ban/fail2ban.log
+----
+
+`/etc/fail2ban/jail.local`:
+----
+[DEFAULT]
+ignoreip = 127.0.0.1/8 ::1
+bantime  = 1w
+banaction = nftables
+banaction_allports = nftables[type=allports]
+
+[dovecot]
+enabled = true
+port    = imaps
+
+[postfix-sasl]
+enabled  = true
+bantime  = -1
+maxretry = 1
+----
+
+In the jail.local we enable rules for dovecot and postfix-sasl.
+If the rules catch any failed login, the IP address will be banned for
+"bantime" (one week).
+Also, we use nftables for firewall backend, the "banaction" and
+"banaction_allports".
+
+
+== References
+
+* https://dovecot.org/[Dovecot website]
+* http://www.opendkim.org/[OpenDKIM website]
+* https://www.postfix.org/[Postfix website]

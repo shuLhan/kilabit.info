@@ -2,6 +2,11 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/email_server_using_postfix_opendkim_dovecot/["Email
+server using Postfix, OpenDKIM, and Dovecot"^].
+This article describe my current email server configuration using Postfix,
+OpenDKIM, and Dovecot.
+
 link:/journal/2023/go2_error_handling/[Proposal for Go error handling^].
 
 link:/journal/2023/type_and_variable_naming/[Better approach for type and
