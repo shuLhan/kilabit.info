@@ -2,6 +2,11 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/replacing_postfix_with_opensmtpd/[Replacing Postfix with
+OpenSmtpd^].
+I have read several articles on OpenSMTPD and interested to use it.
+In this article we describe the process to replace Postfix with OpenSMPTD.
+
 link:/journal/2023/email_server_using_postfix_opendkim_dovecot/["Email
 server using Postfix, OpenDKIM, and Dovecot"^].
 This article describe my current email server configuration using Postfix,

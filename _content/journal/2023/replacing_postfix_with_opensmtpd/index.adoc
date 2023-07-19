@@ -1,0 +1,655 @@
+= Replacing Postfix with OpenSMTPD
+Shulhan <ms@kilabit.info>
+:toc:
+
+Postfix is great software, no one can deny it.
+The only drawback of Postfix is its configuration.
+In the
+link:/journal/2023/email_server_using_postfix_opendkim_dovecot/[previous
+article]
+we have setup Postfix with OpenDKIM and Dovecot.
+
+I have read several articles on OpenSMTPD and interested to use it.
+In this article we describe the process to replace Postfix with OpenSMPTD.
+
+We will use domain name "kilabit.info" as an example in the script or
+configuration later.
+Make sure to replace them accordingly, if you copy-paste part of the script
+or commands from this article.
+
+In this article, we use
+https://sr.ht/~shulhan/awwan[awwan^]
+script for configuration management, so if you see string like these
+`{{.Val "section:sub:key"}}` that means its an awwan variable and needs to
+be replaced according to your environment.
+
+
+== Email architecture with OpenSMTPD
+
+The following diagram show the email architecture using OpenSMTPD, Rspamd,
+and Dovecot.
+
+----
+             Client <------------------------------+
+               |                                   |
+               | SMTPS                             | IMAP
+               | :465/:587                         | :993
+      SMTP     v                                   |
+      :25  +-----------+                         +---------+
+MDA <----->| OpenSMTPD |------------------------>| Dovecot |
+           +-----------+  /var/run/dovecot/lmtp  +---------+
+               ^
+               |
+               v
+           +--------+
+           | Rspamd |
+           +--------+
+
+----
+
+We use Rspamd to sign outgoing messages using DKIM and to check spam for
+incoming messages, replacing OpenDKIM.
+
+== Setting up Dovecot
+
+The following
+https://sr.ht/~shulhan/awwan[awwan]
+script show how to setup Dovecot in Arch Linux,
+
+----
+sudo pacman -Syu --noconfirm
+sudo pacman -S --noconfirm dovecot
+
+sudo systemctl enable dovecot
+
+sudo groupadd {{.Val "email::group"}} -g {{.Val "email::gid"}}
+
+sudo useradd  {{.Val "email::user"}} \
+	-r \
+	-g {{.Val "email::gid"}} \
+	-u {{.Val "email::uid"}} \
+	-d {{.Val "email::dir"}} \
+	-m -c "mail user"
+
+sudo mkdir -p /etc/dovecot
+
+## Generate password for IMAP.
+
+#put: {{.ScriptDir}}/etc/dovecot/passwd.txt passwd.txt
+
+rm -f passwd
+
+while read -r email plain; do \
+	hash=$(doveadm pw -s SHA1 -p "$plain"); \
+	echo "$email:$hash:::" >> passwd; \
+done < passwd.txt
+
+cat passwd
+
+#get: passwd {{.ScriptDir}}/etc/dovecot/passwd
+
+sudo mv passwd /etc/dovecot/passwd
+rm -f passwd.txt
+
+#put! {{.ScriptDir}}/etc/dovecot/dovecot.conf /etc/dovecot/
+
+sudo chmod 0600 /etc/dovecot/{dovecot.conf,passwd}
+sudo chown -R dovecot:dovecot /etc/dovecot
+
+sudo systemctl restart dovecot
+sudo systemctl status  dovecot
+----
+
+There is not much changes with previous setup, only inside the dovecot.conf.
+
+Example of passwd.txt content and format (not the actual password),
+----
+ms@kilabit.info          s333cr333t
+----
+
+Example of passwd output (not the actual hash),
+----
+ms@kilabit.info:9QJcSsuTQW1kz3AAl7N2OGWd7QE=:::
+----
+
+`/etc/dovecot/dovecot.conf`:
+----
+listen = 0.0.0.0
+protocols = lmtp imap
+disable_plaintext_auth = yes
+auth_mechanisms = plain login
+mail_access_groups = {{.Val "email::group"}}
+default_login_user = {{.Val "email::user"}}
+first_valid_uid = {{.Val "email::uid"}}
+first_valid_gid = {{.Val "email::gid"}}
+mail_location = maildir:~/
+
+passdb {
+	driver = passwd-file
+	args = scheme=SHA1 /etc/dovecot/passwd
+}
+
+userdb {
+	driver = passwd-file
+	args = /etc/dovecot/passwd
+	default_fields = uid=vmail gid=vmail home=/data/vmail/%d/%n
+}
+
+service lmtp {
+	unix_listener lmtp {
+		user  = {{.Val "email::user"}}
+		group = {{.Val "email::group"}}
+	}
+}
+
+service imap-login {
+	process_min_avail = 3
+	user = {{.Val "email::user"}}
+
+	inet_listener imap {
+		port=0
+	}
+	inet_listener imaps {
+		port = 993
+		ssl = yes
+	}
+}
+
+namespace inbox {
+	inbox = yes
+
+	mailbox Trash {
+		auto = no
+		special_use = \Trash
+	}
+	mailbox Drafts {
+		auto = no
+		special_use = \Drafts
+	}
+	mailbox Sent {
+		auto = subscribe # autocreate and autosubscribe the Sent mailbox
+		special_use = \Sent
+	}
+	mailbox Spam {
+		auto = create # autocreate Spam, but don't autosubscribe
+		special_use = \Junk
+	}
+}
+
+##--- SSL/TLS
+
+ssl = required
+ssl_cipher_list = HIGH:!SSLv2:!aNULL@STRENGTH
+ssl_min_protocol = TLSv1.2
+ssl_prefer_server_ciphers = yes
+
+ssl_cert = </etc/letsencrypt/live/kilabit.info/cert.pem
+ssl_key = </etc/letsencrypt/live/kilabit.info/privkey.pem
+ssl_dh = </etc/haproxy/dhparam
+
+local_name kilabit.info {
+  ssl_cert = </etc/letsencrypt/live/kilabit.info/fullchain.pem
+  ssl_key  = </etc/letsencrypt/live/kilabit.info/privkey.pem
+}
+----
+
+One of the changes is in the "userdb".
+Previously we use "static" now we make it to read the list of user from the
+same file as "passdb".
+
+We add service "lmtp" and remove "imap-login".
+Service "lmtp" will create UNIX socket under "/var/run/dovecot/lmtp" under
+user and group "vmail".
+This socket will be used by OpenSMTPD for email delivery.
+
+
+== Setting up Rspamd
+
+Rspamd is a fast, free and open-source spam filtering system.
+It can be also used for DKIM signing and validation.
+
+Since we already have public and private key from
+link:/journal/2023/email_server_using_postfix_opendkim_dovecot/[previous
+article],
+we can just use it and move it to rspamd location.
+
+If you have not have the keys, we can create it using the following commands
+as reference in the local host,
+
+----
+openssl genrsa -out 20210411-1._domainkey.kilabit.info 1024
+openssl rsa -in 20210411-1._domainkey.kilabit.info \
+	-out 20210411-1._domainkey.kilabit.info.pub
+
+mkdir {{.ScriptDir}}/var/lib/rpamd/dkim/kilabit.info/
+
+mv 20210411-1._domainkey.kilabit.info \
+	{{.ScriptDir}}/var/lib/rpamd/dkim/kilabit.info/20210411-1.private
+mv 20210411-1._domainkey.kilabit.info.pub \
+	{{.ScriptDir}}/var/lib/rpamd/dkim/kilabit.info/20210411-1.pub
+----
+
+The content of "20210411-1.pub" is public key that can be used to set DNS
+TXT record for DKIM.
+
+The following
+https://sr.ht/~shulhan/awwan[awwan]
+script setup rspamd,
+
+----
+ 1: sudo pacman -Sy --noconfirm opensmtpd-filter-rspamd
+
+ 2: sudo systemctl enable rspamd.service
+
+ 3: sudo mkdir -p /var/lib/rspamd/dkim/kilabit.info
+
+ 4: #put! {{.ScriptDir}}/var/lib/rspamd/dkim/kilabit.info/20210411-1.private \
+	/var/lib/rspamd/dkim/kilabit.info/20210411-1.private
+
+ 5: sudo chown -R rspamd:rspamd /var/lib/rspamd/dkim
+ 6: sudo chmod 0600 /var/lib/rspamd/dkim/kilabit.info/*
+
+ 7: sudo mkdir -p /etc/rspamd/local.d/
+
+ 8: #put! {{.ScriptDir}}/etc/rspamd/local.d/dkim_signing.conf \
+	/etc/rspamd/local.d/dkim_signing.conf
+
+ 9: sudo chown -R rspamd:rspamd /etc/rspamd/local.d/
+
+10: sudo systemctl restart rspamd.service
+
+11: sudo journalctl -u rspamd.service -f
+----
+
+In line 1, we install opensmtpd-filter-rspamd (which implicitly install
+rspamd) for integrating with opensmtpd.
+opensmtpd-filter-rspamd provide a binary that will be executed by OpenSMTPD
+for each incoming messages.
+
+The only configuration we need to add is `dkim_signing.conf`:
+----
+allow_username_mismatch = true;
+
+domain {
+	mail.kilabit.info {
+		path = "/var/lib/rspamd/dkim/kilabit.info/20210411-1.private";
+		selector = "20210411-1";
+	}
+}
+----
+
+The rest of rspamd can be leave it as is.
+
+
+== Setting up OpenSMTPD
+
+The installation process for OpenSMTPD is straight forward, except that we
+need to uninstall postfix first since both of them are in conflict in Arch
+Linux.
+
+The following awwan script show how to do it,
+
+----
+## Uninstall postfix first, since its conflict with opensmtpd.
+
+sudo systemctl stop postfix.service
+sudo systemctl disable postfix.service
+sudo pacman -Rs --noconfirm postfix
+
+## Uninstall opendkim.
+
+sudo systemctl stop opendkim.service
+sudo systemctl disable opendkim.service
+
+sudo pacman -Rs --noconfirm opendkim
+
+
+## Install smtpd.
+
+sudo pacman -Sy --noconfirm opensmtpd
+
+sudo systemctl enable smtpd.service
+
+## Generate passwords.
+
+#put: {{.ScriptDir}}/etc/smtpd/passwds.txt passwds.txt
+
+rm -f passwds
+
+while read -r email plain; do \
+	hash=$(smtpctl encrypt "$plain"); \
+	echo "$email $hash" >> passwds; \
+done < passwds.txt
+
+cat passwds
+
+sudo mv passwds /etc/smtpd/passwds
+
+## Setup...
+
+#put! {{.ScriptDir}}/etc/smtpd/aliases         /etc/smtpd/aliases
+#put! {{.ScriptDir}}/etc/smtpd/virtual_aliases /etc/smtpd/virtual_aliases
+#put! {{.ScriptDir}}/etc/smtpd/virtual_domains /etc/smtpd/virtual_domains
+#put! {{.ScriptDir}}/etc/smtpd/virtual_users   /etc/smtpd/virtual_users
+#put! {{.ScriptDir}}/etc/smtpd/smtpd.conf      /etc/smtpd/smtpd.conf
+
+sudo chown -R smtpd:smtpd /etc/smtpd/
+sudo chmod 0600 /etc/smtpd/*
+
+sudo smtpd -n -v
+
+sudo systemctl restart smtpd.service
+----
+
+The passwds.txt is plain text file that contains user and password for
+submission using SMTP (through port 465).
+My recommendation is to use the same password between Dovecot (IMAP) and
+SMTP.
+
+Example of passwds.txt (not the actual password),
+----
+ms@kilabit.info s3333cr3333t
+----
+
+Example of generated passwds (not the actual hash),
+----
+ms@kilabit.info $y$jCT$X0QZ...
+----
+
+`/etc/smtpd/aliases`:
+----
+#
+#	$OpenBSD: aliases,v 1.67 2019/01/26 10:58:05 florian Exp $
+#
+#  Aliases in this file will NOT be expanded in the header from
+#  Mail, but WILL be visible over networks or from /usr/libexec/mail.local.
+#
+#	>>>>>>>>>>	The program "newaliases" must be run after
+#	>> NOTE >>	this file is updated for any changes to
+#	>>>>>>>>>>	show through to smtpd.
+#
+
+# Basic system aliases -- these MUST be present
+MAILER-DAEMON: postmaster
+postmaster: root
+
+# General redirections for important pseudo accounts
+daemon:	root
+ftp-bugs: root
+operator: root
+www:	root
+
+# Redirections for pseudo accounts that should not receive mail
+_bgpd: /dev/null
+_dhcp: /dev/null
+_dpb: /dev/null
+_dvmrpd: /dev/null
+_eigrpd: /dev/null
+_file: /dev/null
+_fingerd: /dev/null
+_ftp: /dev/null
+_hostapd: /dev/null
+_identd: /dev/null
+_iked: /dev/null
+_isakmpd: /dev/null
+_iscsid: /dev/null
+_ldapd: /dev/null
+_ldpd: /dev/null
+_mopd: /dev/null
+_nsd: /dev/null
+_ntp: /dev/null
+_ospfd: /dev/null
+_ospf6d: /dev/null
+_pbuild: /dev/null
+_pfetch: /dev/null
+_pflogd: /dev/null
+_ping: /dev/null
+_pkgfetch: /dev/null
+_pkguntar: /dev/null
+_portmap: /dev/null
+_ppp: /dev/null
+_rad: /dev/null
+_radiusd: /dev/null
+_rbootd: /dev/null
+_relayd: /dev/null
+_rebound: /dev/null
+_ripd: /dev/null
+_rstatd: /dev/null
+_rusersd: /dev/null
+_rwalld: /dev/null
+_smtpd: /dev/null
+_smtpq: /dev/null
+_sndio: /dev/null
+_snmpd: /dev/null
+_spamd: /dev/null
+_switchd: /dev/null
+_syslogd: /dev/null
+_tcpdump: /dev/null
+_traceroute: /dev/null
+_tftpd: /dev/null
+_unbound: /dev/null
+_unwind: /dev/null
+_vmd: /dev/null
+_x11:   /dev/null
+_ypldap: /dev/null
+bin:	/dev/null
+build:	/dev/null
+nobody:	/dev/null
+_tftp_proxy: /dev/null
+_ftp_proxy: /dev/null
+_sndiop: /dev/null
+_syspatch: /dev/null
+_slaacd: /dev/null
+sshd:   /dev/null
+
+# Well-known aliases -- these should be filled in!
+root: ms
+ms: ms@kilabit.info
+# manager:
+# dumper:
+
+# RFC 2142: NETWORK OPERATIONS MAILBOX NAMES
+abuse:		root
+# noc:		root
+security:	root
+
+# RFC 2142: SUPPORT MAILBOX NAMES FOR SPECIFIC INTERNET SERVICES
+# hostmaster:	root
+# usenet:	root
+# news:		usenet
+# webmaster:	root
+# ftp:		root
+----
+
+This is an alias that forward email for system user account.
+In general, all email will be handled by user "ms" and then forwarded to
+"ms@kilabit.info".
+
+`/etc/smtpd/virtual_aliases`:
+----
+ms@kilabit.info:         vmail
+----
+
+In the virtual_aliases we forward all incoming email for "ms@kilabit.info"
+to user "vmail" (which connect opensmtpd with dovecot later).
+
+`/etc/smtpd/virtual_domains`:
+----
+kilabit.info
+----
+
+In the virtual_domains we list all domains that we want to handle by this
+email server.
+
+`/etc/smtpd/virtual_users`:
+----
+ms@kilabit.info
+----
+
+In the virtual_users we list all virtual email addresses for better spam
+protection later.
+
+`/etc/smtpd/smtpd.conf`:
+----
+##
+## References,
+## 1) https://prefetch.eu/blog/2020/email-server/
+## 2) https://wiki.archlinux.org/title/OpenSMTPD
+##
+
+pki "kilabit.info" cert "/etc/letsencrypt/live/kilabit.info/fullchain.pem"
+pki "kilabit.info" key  "/etc/letsencrypt/live/kilabit.info/privkey.pem"
+
+table aliases           "/etc/smtpd/aliases"
+table passwds           "/etc/smtpd/passwds"
+table virtual_aliases   "/etc/smtpd/virtual_aliases"
+table virtual_domains   "/etc/smtpd/virtual_domains"
+table virtual_users     "/etc/smtpd/virtual_users"
+
+##
+## Generated by "head -c 30 /dev/urandom | base64"
+## Replace once a year, move key to backup, and then generate new key.
+##
+srs key "MduE9i1NoI1zvtitetjcnktlcuPY4xjjjllSNKmY"
+srs key backup "JCra7rL7z+69yzgLJ0MTOeOiOxFcelrTpqxJhQVV"
+
+filter   "rdns" phase connect match   !rdns disconnect "550 DNS error"
+filter "fcrdns" phase connect match !fcrdns disconnect "550 DNS error"
+## From package: opensmtpd-filter-rspamd
+filter "rspamd" proc-exec "/usr/lib/smtpd/opensmtpd/filter-rspamd"
+
+## Inbound.
+
+listen on eth0 port 25 tls pki "kilabit.info" filter { "rdns", "fcrdns", "rspamd" }
+
+action "remote" lmtp "/var/run/dovecot/lmtp" rcpt-to virtual <virtual_aliases>
+action "local" lmtp "/var/run/dovecot/lmtp" rcpt-to alias <aliases>
+#match from any for domain <virtual_domains> action "remote"
+match from any for rcpt-to <virtual_users> action "remote"
+match from local for local action "local"
+
+## Outbound.
+
+listen on eth0 port 465 smtps       pki "kilabit.info" auth <passwds> filter "rspamd"
+listen on eth0 port 587 tls-require pki "kilabit.info" auth <passwds> filter "rspamd"
+action "SEND" relay srs
+match from any auth for any action "SEND"
+----
+
+For incoming email from other MDA, we open port 25 and filter it using
+rdns, fcrdns, and rspamd.
+We define two actions, one for "remote" (external) and one for "local"
+(between users in system).
+For the "remote" if the "RCPT TO" command match with one of item in
+"virtual_users" forward to lmtp at "/var/run/dovecot/lmtp", which is handled
+by Dovecot.
+Dovecot will take over from this point.
+
+For outgoing email from port 465 or 587, client need to be authenticated
+using username and password that we define in file "passwds".
+If the authentication is valid, we relay it.
+The srs (Sender Rewriting Scheme) is optional, it could be useful if you
+define an alias that forward an email from different domain in your
+`/etc/smptd/aliases`, for example "from@kilabit.info: my@other.com"
+
+== Setting up fail2ban
+
+The current fail2ban does not have opensmtpd rules, so we need to create it
+manually.
+
+The following
+script show how to setup fail2ban (assuming its already installed),
+
+----
+ 1: #put! {{.ScriptDir}}/etc/fail2ban/filter.d/opensmtpd.local \
+	/etc/fail2ban/filter.d/opensmtpd.local
+
+## Test
+
+ 2: fail2ban-regex systemd-journal /etc/fail2ban/filter.d/opensmtpd.local
+
+ 3: #put! {{.ScriptDir}}/etc/fail2ban/jail.local     /etc/fail2ban/jail.local
+
+ 4: sudo systemctl restart fail2ban
+ 5: sudo systemctl status  fail2ban
+----
+
+In line 1, we create new local filter, see the content below.
+
+In line 2, we test the filter by running fail2ban-regex command against
+systemd-journal.
+
+In line 3, we modified the list of filter to be enabled, remove the
+postfix-sasl and enable our opensmptd filter.
+
+`/etc/fail2ban/filter.d/opensmtpd.local`:
+----
+## Fail2Ban filter for opensmtpd
+## Author: Shulhan <ms at kilabit dot info>
+
+[Definition]
+prefregex = <F-MLFID>: \w{16} </F-MLFID><F-CONTENT>.+</F-CONTENT>$
+
+failregex = <F-NOFAIL>smtp connected address=(?:<IP6>|<IP4>)</F-NOFAIL>
+            smtp failed-command command="" result="550 DNS error"
+            smtp failed-command command="AUTH LOGIN" result="503 5.5.1 Invalid command: Command not supported"
+            <F-NOFAIL><F-MLFFORGET>smtp disconnected</F-MLFFORGET></F-NOFAIL>
+
+mode = normal
+ignoreregex =
+journalmatch = _SYSTEMD_UNIT=smtpd.service
+----
+
+The rule said like these: read journal log where _SYSTEMD_UNIT is
+"smtpd.service".
+If the first line start with "smtp connected address=" capture its IP6 or
+IP4 address.
+If the next line match with
+
+	smtp failed-command command="" result="550 DNS error"
+
+(This is the error throw by opensmtpd filter that we setup earlier)
+
+	filter   "rdns" phase connect match   !rdns disconnect "550 DNS error"
+
+its means someone trying to submit through port 25 but the PTR record does
+not match, then jail it!
+Or, if the next line match with
+
+	smtp failed-command command="AUTH LOGIN" result="503 5.5.1 Invalid
+	command: Command not supported"
+
+which means someone try submit through SMTPS with invalid authentication,
+then jail it too!
+
+`/etc/fail2ban/jail.local`:
+----
+[DEFAULT]
+ignoreip = 127.0.0.1/8 ::1
+bantime  = 1w
+banaction = nftables
+banaction_allports = nftables[type=allports]
+
+[dovecot]
+enabled = true
+backend = systemd
+
+[opensmtpd]
+enabled  = true
+bantime  = -1
+maxretry = 1
+backend  = systemd
+----
+
+In the "jail.local" we remove the "postfix-sasl" rule and add our new
+"opensmtpd".
+
+That's it, happy emailing!
+
+== References
+
+* https://prefetch.eu/blog/2020/email-server/[Setting up an email server in
+  2020 with OpenSMTPD and Dovecot^]
+* https://wiki.archlinux.org/title/OpenSMTPD[OpenSMTPD in Arch Linux wiki^]
+* https://www.opensmtpd.org/[OpenSMTPD website^]
+* https://www.rspamd.com/[Rspamd website^]
