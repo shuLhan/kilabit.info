@@ -143,6 +143,7 @@ Perangkat lunak IB menyediakan informasi dalam bentuk,
    Laporan biasanya dalam bentuk tabel atau grafik yang memperlihatkan
    agregasi data.
 
+
 image::https://lh3.googleusercontent.com/8V3WMpk8Qdg_n1sx8cCaGhwXXjDZ9mi4pBV7XqP4fCYMdOmjdPwsre5_VN8I9li7sYVDBXj4ADUBtUyTZ_Pce1-8muOWKlwoow9F_UHvva_z3s-LSjep-x7A0YNBJhSHyTVjdysVCH1NXisc8tKOzMGtocyEpyCJKilpCx6MZfzQ0Kh3Mnj8tldTTN0Tgak2qOH8flTWXLOm81V8Ayr3NwXKKRWTTSnCluHD3DTMq1RGGY3T0LX_yrWHOG6n-RhV_lv6YaOmTq1CObEjieVQELfXSsAPX41O5DIRj2SM_iMZK9j5wgfqYujkrERuV-cn8EgHRhx3nM1tlqNtE2y-Q5XbTwPt4UsQ3LdVu9jzdFweFMdCksld3EQUVTkwZfWpsi-jQrtwOjgv6gbTRDkC5GK2Bbq1J_Cly1O-Fo6uQOyfxu7G9A21VEzfpSRI4qc5d9RyCnhXzrB2CcQxnbz71OvmAIZD1uALuEAjFLFwhVH80WAgymUlkS_V3X_GuPR9itM098Ka-NJGjksqKcTjZlUkF2HVoiMpIA3Wl4q8JfgbRw1z7QWleM2vFfCSzSrPXiDpjQWlE5HoUtPnUBCpArm_Bt4yLRxQ9rm-t1Dg29juoYPOGUBMnXNSnr0RD-QZfIdvuLLagg19oj--0kqazHPALn8JBGlg6YWyFnV7aVdEsK9Ao-YU5LGcU-PaUgEAof0-bVv7BXq_d1V-zlSoimCYtHr0yZ-HFMhwT8pDCkktkXM4=w704-h274-no[Arsitektur Intelijensi Bisnis]
 
 Kedua bentuk penyedia informasi tersebut didapat dari penggalian data (data
@@ -168,12 +169,17 @@ Informatika, Institut Teknologi Bandung. Semester 1, 2013.
 Istilah Inteligensi Bisnis merupakan saduran dari istilah bahasa Inggris
 "Business Intelligence".
 Beberapa tulisan menggunakan istilah "Intelijen Bisnis" yang menurut saya
-kurang tepat karena kata intelijen--menurut KBBI--artinya &"orang yg bertugas
-mencari (meng-amat-amati) seseorang;
-dinas rahasia", sementara kata inteligensi yang bermakna "daya reaksi atau
-penyesuaian yang cepat dan tepat, baik secara fisik maupun mental, terhadap
-pengalaman baru, membuat pengalaman dan pengetahuan yang telah dimiliki siap
-untuk dipakai apabila dihadapkan pada fakta atau kondisi baru; kecerdasan",
+kurang tepat karena kata intelijen--menurut KBBI--artinya
+
+	"orang yg bertugas mencari (meng-amat-amati) seseorang; dinas rahasia"
+
+sementara kata inteligensi yang bermakna
+
+	"daya reaksi atau penyesuaian yang cepat dan tepat, baik secara fisik
+	maupun mental, terhadap pengalaman baru, membuat pengalaman dan
+	pengetahuan yang telah dimiliki siap untuk dipakai apabila dihadapkan
+	pada fakta atau kondisi baru; kecerdasan"
+
 lebih tepat mencerminkan sistem IB karena data IB berasal dari data
 operasional yang selalu berubah.
 Alasan lain, bidang ilmu bernama "Artificial Intelligence" disadur menjadi
