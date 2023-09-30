@@ -94,15 +94,3 @@ include::./journal/2009/index.adoc[]
 include::./journal/2008/index.adoc[]
 
 include::./journal/2007/index.adoc[]
-
-
-== Links
-
-Sister sites,
-
-* https://updatekno.com[updatekno.com^] hadir didunia internet, khususnya di
-  Indonesia pada tahun 2022 Bulan Juni.
-  updatekno.com Merupakan situs teknologi yang mengupas informasi seputar
-  komputer, internet, Aplikasi, Linux, android dan Dunia Open Source.
-  Situs ini juga membahas informasi lain, yang berkaitan dengan dunia
-  teknologi.
