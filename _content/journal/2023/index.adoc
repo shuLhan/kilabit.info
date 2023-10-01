@@ -2,6 +2,10 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/status_page_review/[Reviewing status page websites].
+This journal review and dissecting several famous status page (or also known
+as service health).
+
 link:/journal/2023/replacing_postfix_with_opensmtpd/[Replacing Postfix with
 OpenSmtpd^].
 I have read several articles on OpenSMTPD and interested to use it.
