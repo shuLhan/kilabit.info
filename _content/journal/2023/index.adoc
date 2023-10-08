@@ -2,6 +2,15 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/using_systemd_mkosi/[Using systemd mkosi for
+development].
+In this journal, I will take a notes on my journey learning and using
+mkosi as part of integration tests for developing
+https://sr.ht/~shulhan/awwan[awwan^].
+The goal is that when I run `make` on awwan repository, it will create
+and run a container using systemd-nspawn(1) with SSH server running, and
+run all tests inside the container.
+
 link:/journal/2023/status_page_review/[Reviewing status page websites].
 This journal review and dissecting several famous status page (or also known
 as service health).

@@ -1,0 +1,1272 @@
+= Using systemd mkosi for development
+Shulhan <ms@kilabit.info>
+October, 2023
+:sectanchors:
+:toc:
+:awwan: https://sr.ht/~shulhan/awwan/
+:mkosi_blog: https://0pointer.net/blog/mkosi-a-tool-for-generating-os-images.html
+:mkosi_man: https://man.archlinux.org/man/mkosi.1
+:mkosi_repo: https://github.com/systemd/mkosi
+:systemd_nspawn_man_1: https://man.archlinux.org/man/systemd-nspawn.1
+:systemd_nspawn_man_5: https://man.archlinux.org/man/systemd-nspawn.5
+
+
+In June 2017, systemd lead maintainer
+blogged{empty}footnote:mkosi_blog[{mkosi_blog}]
+a tool called
+mkosi{empty}footnote:mkosi_repo[{mkosi_repo}].
+Quoting from the blog itself, mkosi is
+
+[quote, Lennart Poettering, mkosi — A Tool for Generating OS Images]
+a tool with a focus on developer's needs for building OS images, for
+testing and debugging, but also for generating production
+images with cryptographic protection
+
+In this journal, I will take a notes on my journey learning and using
+mkosi as part of integration tests for developing
+awwan{empty}footnote:awwan[{awwan}].
+The goal is that when I run `make` on awwan repository, it will create
+and run a container using
+systemd-nspawn(1)footnote:systemd_nspawn_man_1[{systemd_nspawn_man_1}]
+with SSH server running, and run all tests inside the container.
+
+
+== Problem statements
+
+One of my project,
+awwan{empty}footnote:awwan[],
+have a function that run `sudo` and `ssh`-ing to remote server.
+If we create an integration test that run `sudo` on my local environment
+it will prompt for _my_ password.
+We can create a new user specific for testing in my local environment
+but any other developer that clone and test on their local machines will
+also need to setup this new user itself.
+The same problem also happened if we setup specific user for testing SSH
+functionalities.
+
+It would nice if we provide some kind of mechanism where less-setup
+is required, for other developer that clone the awwan repository and
+want to run the tests.
+
+One of the solution that I can think of is using docker/podman
+container.
+If we go with podman-like container,
+
+* we need to install podman on host machine, including all its
+  dependencies;
+* setup and maintain new image for testing, including pushing this image
+  to registry;
+
+If we go with mkosi and
+systemd-nspawn(1)footnote:systemd_nspawn_man_1[{systemd_nspawn_man_1}],
+
+* we only need to install mkosi package and development tools (like
+ `arch-install-scripts` in Arch Linux for `pacstrap`);
+* but the test image can be build and run only in Linux system.
+
+Seems like using podman-like container have more advantages, especially
+on compatibility with non-Linux OS.
+The test image can be run in other OS beside Linux.
+The baggage is maintaining the image and the resources (network and
+storage) that podman-like will use.
+Pulling and storing the image probably consume at least minimum ~500MB
+(since we needs Go, git, make, and gcc for CGO).
+While mkosi will use everything that is already available on the host
+OS, including the packages to be installed and the tools
+-- systemd-nspawn(1) usually bundled with systemd package.
+
+Lets go try mkiso and see if its can solve our problems and better and
+podman-like container.
+
+
+== Requirements
+
+In Arch Linux system, to develop using mkosi, you need to install
+only two packages: `mkosi` and `arch-install-scripts`.
+
+In current setup we use mkosi version 18-1 and arch-install-scripts
+version 28-1.
+
+== Initial setup
+
+The goal of this tasks is to create the image and run it using
+systemd-nspawn.
+I am going to run and setup the mkosi image directly on top of the awwan
+repository itself.
+
+First, we need to read the
+blog{empty}footnote:mkosi_blog[]
+and latest manual page for
+mkosi{empty}footnote:mkosi_man[{mkosi_man}].
+
+The blog may have been outdated, because some instruction does not
+reflect the latest manual page, but it give the general concept on how
+mkosi works.
+
+The blog suggest that you need to run `mkosi` as root, but since version
+https://github.com/systemd/mkosi/releases/tag/v15.1[v15.1^],
+it support _building_ image
+https://wiki.archlinux.org/title/Linux_Containers#Enable_support_to_run_unprivileged_containers_(optional)[without
+root privileges^]
+by setting up user sub-namespaces in `/etc/subuid` and `/etc/subgid`.
+
+Here is my /etc/subuid,
+----
+ms:100000:65536
+----
+And here is my /etc/subgid,
+----
+ms:100000:65536
+----
+The `ms` is my user name in host system.
+
+So lets run it,
+
+----
+$ mkosi
+‣ No configuration found
+‣ (Make sure you're running mkosi from a directory with configuration
+    files)
+----
+
+Seems like we need a configuration file.
+The latest mkosi read configuration from file named `mkosi.conf` (not
+`mkosi.default` as per blog).
+Lets create a configuration under sub directory "_mkosi" inside the
+awwan repository,
+
+----
+$ mkdir -p _mkosi
+$ cat >_mkosi/mkosi.conf <<EOF
+[Output]
+Format=directory
+EOF
+----
+
+The configuration for "Format=directory" will output the image as a
+directory named "image/", instead of "image.raw" file, so we can inspect
+the build output later.
+
+Lets test it,
+
+----
+$ mkosi --directory=_mkosi/
+‣ Removing output files…
+‣ Building default image
+‣ 'ukify' not found.
+‣ (Bootable=no can be used to create a non-bootable image.)
+----
+
+OK, lets add "Bootable=no" to mkosi.conf since we are not creating disk
+based image and run it again,
+
+----
+$ cat >_mkosi/mkosi.conf <<EOF
+[Output]
+Format=directory
+
+[Content]
+Bootable=no
+EOF
+
+$ mkosi --directory=_mkosi/
+‣ Removing output files…
+‣ Building default image
+‣  Installing Arch
+:: Synchronizing package databases...
+ core    127.3 KiB   240 KiB/s 00:01 [###########################] 100%
+ extra     8.2 MiB  6.90 MiB/s 00:01 [###########################] 100%
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (2) iana-etc-20230907-1  filesystem-2023.09.18-1
+
+Total Download Size:   0.40 MiB
+Total Installed Size:  3.99 MiB
+
+:: Proceed with installation? [Y/n]
+:: Retrieving packages...
+ iana-etc-20230907-1-any     398.5 KiB  4.32 MiB/s 00:00 [#######] 100%
+ filesystem-2023.09.18-1-any  14.4 KiB   160 KiB/s 00:00 [#######] 100%
+ Total (2/2)                 412.9 KiB  2.52 MiB/s 00:00 [#######] 100%
+(2/2) checking keys in keyring    [##############################] 100%
+(2/2) checking package integrity  [##############################] 100%
+(2/2) loading package files       [##############################] 100%
+(2/2) checking for file conflicts [##############################] 100%
+:: Processing package changes...
+(1/2) installing iana-etc     [##################################] 100%
+(2/2) installing filesystem   [##################################] 100%
+‣  Generating system users
+<TRUNCATED>
+‣  Applying presets…
+‣  Generating hardware database
+No hwdb files found, skipping.
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 4.2M.
+----
+
+Two packages installed, `iana-etc` and `filesystem`.
+If we look inside _mkosi directory we have an "image" directory, let
+peeks the content of it,
+
+----
+$ tree -L 1 image/
+image/
+├── bin -> usr/bin
+├── boot
+├── dev
+├── efi
+├── etc
+├── home
+├── lib -> usr/lib
+├── lib64 -> usr/lib
+├── mnt
+├── opt
+├── proc
+├── root
+├── run
+├── sbin -> usr/bin
+├── srv
+├── sys
+├── tmp
+├── usr
+└── var
+
+20 directories, 0 files
+----
+
+Next, lets found out how to chroot into this image.
+
+The manual page of mkosi on
+https://man.archlinux.org/man/mkosi.1#Command_Line_Verbs["Command Line
+Verbs"^],
+provides two options, one is "shell" that invokes systemd-nspawn to
+acquire an interactive shell prompt in it, but must be executed as root;
+and "boot" to boots the image using systemd-nspawn. 
+
+Lets try the "shell" verb first.
+
+----
+$ sudo mkosi --directory=_mkosi/ shell
+[sudo] password for ms:
+execv(/bin/bash, /bin/bash, /bin/sh) failed: No such file or directory
+----
+
+That is expected because we have not installing bash yet.
+
+Lets try the "boot" verb,
+
+----
+$ mkosi --directory=_mkosi/ boot
+‣ Must be root to run the boot command
+$ sudo mkosi boot
+execv(/usr/lib/systemd/systemd, /lib/systemd/systemd, /sbin/init)
+    failed: No such file or directory
+----
+
+That is also expected since there is no init installed on the image.
+
+Lets install "bash" for default shell, "shadow" for creating new user
+later, "sudo" for testing the sudo, and "openssh" for testing SSH;
+into the image by modifying
+the "mkosi.conf", re-build the image again, and run the "shell" again.
+
+----
+$ cat >_mkosi/mkosi.conf <<EOF
+[Output]
+Format=directory
+
+[Content]
+Bootable=no
+Packages=bash,shadow,sudo,openssh
+EOF
+
+$ mkosi --directory=_mkosi/ boot
+‣ Output path image exists already. (Consider invocation with --force.)
+
+$ mkosi --directory=_mkosi/ --force boot
+‣ Removing output files…
+‣ Building default image
+‣  Installing Arch
+:: Synchronizing package databases...
+ core      127.3 KiB   111 KiB/s 00:01 [######################] 100%
+ extra     8.2 Mi  B   144 KiB/s 00:59 [######################] 100%
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (2) iana-etc-20230907-1  filesystem-2023.09.18-1
+
+Total Download Size:   0.40 MiB
+Total Installed Size:  3.99 MiB
+
+:: Proceed with installation? [Y/n]
+:: Retrieving packages...
+ filesystem-2023.09.18-1-any     14.4 KiB  9.00 KiB/s 00:02 [####] 100%
+ iana-etc-20230907-1-any        398.5 KiB   170 KiB/s 00:02 [####] 100%
+ Total (2/2)                    412.9 KiB   170 KiB/s 00:02 [####] 100%
+<TRUNCATED>
+looking for conflicting packages...
+
+Packages (32) acl-2.3.1-3  attr-2.5.1-3  audit-3.1.2-1
+<TRUNCATED>
+
+Total Download Size:     3.48 MiB
+Total Installed Size:  260.33 MiB
+
+:: Proceed with installation? [Y/n]
+^C
+----
+
+I canceled the above command because the mkosi re-sync the databases
+again and try to re-download all packages instead of using the cached
+packages in my host system.
+We already download and installed iana-etc and filesystem packages
+previously, so it should not re-download again.
+
+To fix this, lets create "mkosi.cache/" directory to cache the
+downloaded packages,
+
+----
+$ mkdir -p mkosi.cache/
+
+$ cat >_mkosi/mkosi.conf <<EOF
+[Output]
+Format=directory
+
+[Content]
+Bootable=no
+Packages=bash,shadow,sudo,openssh
+EOF
+
+$ mkosi --directory=_mkosi/ --force
+‣ Removing output files…
+‣ Building default image
+‣  Installing Arch
+<TRUNCATED>
+Packages (2) iana-etc-20230907-1  filesystem-2023.09.18-1
+
+Total Installed Size:  3.99 MiB
+<TRUNCATED>
+Packages (32) acl-2.3.1-3  attr-2.5.1-3  audit-3.1.2-1
+<TRUNCATED>
+
+Total Download Size:     3.48 MiB
+Total Installed Size:  260.33 MiB
+<TRUNCATED>
+‣  Applying presets…
+<TRUNCATED>
+‣  Generating hardware database
+No hwdb files found, skipping.
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 296.9M.
+----
+
+Lets run the shell again,
+
+----
+$ sudo mkosi --directory=_mkosi/ shell
+[sudo] password for ms:
+[root@image ~]#
+----
+
+We are in!
+
+== Creating new user inside image
+
+From the
+https://man.archlinux.org/man/mkosi.1#Execution_Flow["Execution Flow"^]
+section in the mkosi
+manual{empty}footnote:mkosi_man[]
+at step 10,
+
+[quote]
+Run prepare scripts on image with the final argument (mkosi.prepare)
+
+From the
+https://man.archlinux.org/man/mkosi.1#Scripts["Scripts"^]
+section in the manual page, the "mkosi.prepare" script is run "after all
+software packages are installed but before the image is cached (if
+incremental mode is enabled)."
+
+We need scroll down again and read more.
+At the end of section, before "Files" section, there is this
+instruction,
+
+[quote]
+____
+To execute the entire script inside the image, put the following snippet
+at the start of the script:
+
+----
+if [ "$container" != "mkosi" ]; then
+    exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+----
+____
+
+Lets try this.
+Create "mkosi.prepare" script that contains commands to create new user
+using "useradd" command, and set the execute permission,
+
+----
+$ cat >_mkosi/mkosi.prepare <<EOF
+#!/bin/sh
+
+echo "--- mkosi.prepare: args=$@"
+echo "--- mkosi.prepare: container=$container"
+
+if [ "$container" != "mkosi" ]; then
+    exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+## User testing sudo with password prompt.
+## password: awwan
+useradd \
+	--create-home \
+	--user-group \
+	--password '$2a$10$XVhjfOB4Un5DJE4TQEBPrOHfBVGVWP4iA3ElUMzcbJ7jdc2zZPgZ2' \
+	awwan
+
+## User testing with SSH.
+useradd \
+	--create-home \
+	--user-group \
+	--password '$2a$10$XVhjfOB4Un5DJE4TQEBPrOHfBVGVWP4iA3ElUMzcbJ7jdc2zZPgZ2' \
+	awwanssh
+EOF
+
+$ chmod +x _mkosi/mkosi.prepare
+----
+
+Modify the "mkosi.conf" to install `systemd` package and re-build the
+image again,
+
+----
+$ cat >_mkosi/mkosi.conf <<<EOF
+[Output]
+Format=directory
+
+[Content]
+Bootable=no
+Packages=bash,shadow,sudo,openssh,systemd
+EOF
+
+$ mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Running prepare script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.prepare…
+--- mkosi.prepare: args=final
+--- mkosi.prepare: container=
+--- mkosi.prepare: args=final
+--- mkosi.prepare: container=mkosi
+‣  Generating system users
+‣  Applying presets…
+<TRUNCATED>
+‣  Generating hardware database
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 451.9M.
+----
+
+Seems working.
+Lets try login as user `awwan`.
+
+----
+$ sudo mkosi --directory=_mkosi/ shell login awwan
+[sudo] password for ms:
+Password:
+[awwan@image ~]$ pwd
+/home/awwan
+[awwan@image ~]$ sudo ls -l
+[sudo] password for awwan:
+awwan is not in the sudoers file.
+----
+
+Good works!
+Now, lets make the sudo works.
+
+
+== Adding sudoers file
+
+Back to the mkosi manual page, in the
+https://man.archlinux.org/man/mkosi.1#Files["Files" section^],
+
+[quote]
+____
+The mkosi.extra/ directory or mkosi.extra.tar archive may be used to
+insert additional files into the image, on top of what the distribution
+includes in its packages. They are similar to mkosi.skeleton/ and
+mkosi.skeleton.tar, but the files are copied into the directory tree of
+the image after the OS was installed.
+
+When using the directory, file ownership is not preserved: all files
+copied will be owned by root. To preserve ownership, use a tar archive.
+____
+
+From what I gather, this "mkosi.extra/" is like skeleton directory where
+all files inside it will be copied as is to the image root.
+We can test it by creating new sudoers configuration,
+
+----
+$ mkdir -p _mkosi/mkosi.extra/etc/sudoers.d
+$ cat >_mkosi/mkosi.extra/etc/sudoers.d/awwan <<EOF 
+awwan ALL=(ALL:ALL) ALL
+awwanssh ALL=(ALL:ALL) NOPASSWD: ALL
+EOF
+$ chmod 0700 _mkosi/mkosi.extra/etc/sudoers.d
+----
+
+and then re-build the image again.
+
+----
+$ mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Running prepare script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.prepare…
+‣  Copying in extra file trees…
+‣  Generating system users
+‣  Applying presets…
+<TRUNCATED>
+‣  Generating hardware database
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 451.9M.
+----
+
+The "Copying in extra file trees…" indicated that "mkosi.extra/" being
+processed, we can inspect the image directory,
+
+----
+$ sudo cat _mkosi/image/etc/sudoers.d/awwan
+awwan ALL=(ALL:ALL) ALL
+awwanssh ALL=(ALL:ALL) NOPASSWD: ALL
+----
+
+Test login and sudo inside the image,
+
+----
+$ sudo mkosi --directory=_mkosi/ shell login awwan
+Password:
+Last login: Sun Oct  8 02:17:19 on pts/0
+[awwan@image ~]$ sudo pwd
+[sudo] password for awwan:
+/home/awwan
+[awwan@image ~]$
+----
+
+Nice!
+Next we will try to run the sshd service inside the image.
+
+
+== Running sshd service
+
+The goal in this section is to run sshd service inside the image,
+generate private key for user `awwan` to ssh to user `awwanssh`.
+
+We setup all of this inside the "mkosi.prepare" script.
+
+----
+$ cat >_mkosi/mkosi.prepare <<EOF
+#!/bin/sh
+
+echo "--- mkosi.prepare: args=$@"
+echo "--- mkosi.prepare: container=$container"
+
+if [ "$container" != "mkosi" ]; then
+    exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+## User testing sudo with password prompt.
+## password: awwan
+useradd --create-home --user-group \
+	--password '$2a$10$XVhjfOB4Un5DJE4TQEBPrOHfBVGVWP4iA3ElUMzcbJ7jdc2zZPgZ2' \
+	awwan
+
+## User testing with SSH.
+useradd --create-home --user-group --groups wheel \
+	--password '$2a$10$XVhjfOB4Un5DJE4TQEBPrOHfBVGVWP4iA3ElUMzcbJ7jdc2zZPgZ2' \
+	awwanssh
+
+systemctl enable sshd.service
+su - awwan "mkdir -p .ssh; ssh-keygen -t ed25519 -f .ssh/id_ed25519 -N '' -C awwan@image"
+su - awwanssh "mkdir -p .ssh"
+cat /home/awwan/.ssh/id_ed25519.pub > /home/awwanssh/.ssh/authorized_keys
+chown awwanssh:awwanssh /home/awwanssh/.ssh/authorized_keys
+EOF
+----
+
+Re-build the image,
+
+----
+$ mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Running prepare script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.prepare…
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
+    → /usr/lib/systemd/system/sshd.service.
+Generating public/private ed25519 key pair.
+Your identification has been saved in /home/awwan/.ssh/id_ed25519
+Your public key has been saved in /home/awwan/.ssh/id_ed25519.pub
+<TRUNCATED>
+‣  Copying in extra file trees…
+‣  Generating system users
+‣  Applying presets…
+Removed "/home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/.mkosi-tmpce6lxs2d/root/etc/systemd/system/multi-user.target.wants/sshd.service".
+<TRUNCATED>
+‣  Generating hardware database
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 451.9M
+----
+
+The sshd service enabled when "Running prepare script ..." but then
+removed in "Applying presets...".
+Not sure why.
+So, we need to run the script after presets ... which, according to
+https://man.archlinux.org/man/mkosi.1#Execution_Flow["Execution Flow"^]
+it should be inside "mkosi.finalize".
+
+----
+$ cat >_mkosi/mkosi.finalize <<EOF
+#!/bin/sh
+
+if [ "$container" != "mkosi" ]; then
+	exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+systemctl enable sshd.service
+EOF
+----
+
+Re-build the image and boot immediately,
+
+----
+$ mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Generating hardware database
+‣  Running finalize script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.finalize…
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
+    → /usr/lib/systemd/system/sshd.service.
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/image size is 451.9M.
+
+$ sudo ls -l _mkosi/image/etc/systemd/system/multi-user.target.wants/
+[sudo] password for ms:
+total 0
+lrwxrwxrwx 1 100000 100000 39 Oct  8 11:45 machines.target ->
+    /usr/lib/systemd/system/machines.target
+lrwxrwxrwx 1 100000 100000 48 Oct  8 11:45 remote-cryptsetup.target ->
+    /usr/lib/systemd/system/remote-cryptsetup.target
+lrwxrwxrwx 1 100000 100000 40 Oct  8 11:45 remote-fs.target ->
+    /usr/lib/systemd/system/remote-fs.target
+lrwxrwxrwx 1 100000 100000 36 Oct  8 11:45 sshd.service ->
+    /usr/lib/systemd/system/sshd.service
+lrwxrwxrwx 1 100000 100000 45 Oct  8 11:45 systemd-homed.service ->
+    /usr/lib/systemd/system/systemd-homed.service
+lrwxrwxrwx 1 100000 100000 48 Oct  8 11:45 systemd-networkd.service ->
+    /usr/lib/systemd/system/systemd-networkd.service
+----
+
+Seems working.
+Lets boot the image and see if the sshd service is running.
+
+----
+$ sudo mkosi --directory=_mkosi/ boot
+<TRUNCATED>
+Initializing machine ID from container UUID.
+Failed to mount n/a (type n/a) on /etc/machine-id
+(MS_RDONLY|MS_REMOUNT|MS_BIND ""): Operation not permitted
+Failed to open libbpf, cgroup BPF features disabled: Operation not
+supported
+<TRUNCATED>
+[  OK  ] Reached target Graphical Interface.
+
+Arch Linux 6.5.5-arch1-1 (pts/0)
+
+image login: awwan
+Password:
+[awwan@image ~]$ sudo journalctl -u sshd
+Oct 08 11:48:32 image systemd[1]: Started OpenSSH Daemon.
+Oct 08 11:48:32 image sshd[67]: error: Bind to port 22 on 0.0.0.0
+    failed: Permission denied.
+Oct 08 11:48:32 image sshd[67]: fatal: Cannot bind any address.
+<TRUNCATED>
+
+$ sudo systemctl status systemd-networkd
+<TRUNCATED>
+Oct 08 11:48:32 image systemd[1]: Network Configuration was skipped
+    because of an unmet condition check
+    (ConditionCapability=CAP_NET_ADMIN).
+----
+
+We need to boot again with "--debug" option to see the arguments for
+"systemd-nspawn",
+
+----
+$ sudo mkosi --directory=_mkosi/ --debug boot
+<TRUNCATED>
+‣ + systemd-nspawn --quiet --boot --machine image
+    --set-credential=agetty.autologin:root
+    --set-credential=login.noauth:yes
+    --set-credential=firstboot.timezone:Asia/Jakarta
+    --set-credential=firstboot.locale:C.UTF-8
+    --directory '/home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image'
+    --private-users=100000
+    console=ttyS0
+    systemd.wants=network.target
+    module_blacklist=vmw_vmci
+    systemd.tty.term.ttyS0=screen-256color
+    systemd.tty.columns.ttyS0=239
+    systemd.tty.rows.ttyS0=63
+    ip=enp0s1:any ip=enp0s2:any ip=host0:any ip=none loglevel=4
+    SYSTEMD_SULOGIN_FORCE=1
+    systemd.tty.term.console=screen-256color
+    systemd.tty.columns.console=239
+    systemd.tty.rows.console=63
+    console=ttyS0
+<TRUNCATED>
+----
+
+Lets search for "CAP_NET_ADMIN" in systemd-nspawn manual page.
+
+[quote]
+____
+--private-network
+
+Disconnect networking of the container from the host.
+This makes all network interfaces unavailable in the container, with the
+exception of the loopback device and those specified with
+--network-interface= and configured with --network-veth.
+If this option is specified, the CAP_NET_ADMIN capability will be added
+to the set of capabilities the container retains.
+The latter may be disabled by using --drop-capability=.
+If this option is not specified (or implied by one of the options listed
+below), the container will have full access to the host network.
+____
+
+So, to run container with CAP_NET_ADMIN we need to add option
+"--private-network" to "systemd-nspawn" when executing the "boot"
+command.
+The way to do this is by creating "mkosi.nspawn", as suggested by mkosi
+in "Files" section,
+
+[quote]
+____
+The mkosi.nspawn nspawn settings file will be copied into the same place
+as the output image file, if it exists.
+This is useful since nspawn looks for settings files next to image files
+it boots, for additional container runtime settings.
+____
+
+The format of "mkosi.spawn" is described in
+"systemd.nspawn"(5)footnote:systemd_nspawn_man_5[{systemd_nspawn_man_5}]
+manual page,
+
+[quote]
+____
+Private=
+
+Takes a boolean argument, which defaults to off.
+If enabled, the container will run in its own network namespace and not
+share network interfaces and configuration with the host.
+This setting corresponds to the --private-network command line switch.
+____
+
+Lets create it and re-build the image again,
+
+----
+$ cat >_mkosi/mkosi.nspawn <<EOF
+[Network]
+Private=yes
+EOF
+
+$ mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Generating hardware database
+‣  Running finalize script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.finalize…
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
+    → /usr/lib/systemd/system/sshd.service.
+‣  Copying nspawn settings file…
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 451.9M.
+----
+
+And boot it ...
+
+----
+$ sudo mkosi --directory=_mkosi/ boot
+[sudo] password for ms:
+Failed to set RLIMIT_CORE: Operation not permitted
+<TRUNCATED>
+Initializing machine ID from container UUID.
+Failed to mount n/a (type n/a) on /etc/machine-id (MS_RDONLY|MS_REMOUNT|MS_BIND ""): Operation not permitted
+Failed to open libbpf, cgroup BPF features disabled: Operation not supported
+<TRUNCATED>
+Arch Linux 6.5.5-arch1-1 (pts/0)
+
+image login: awwan
+Password:
+[awwan@image ~]$ sudo su
+[awwan@image ~]$ sudo journalctl -u sshd.service
+Oct 08 12:57:00 image systemd[1]: Started OpenSSH Daemon.
+Oct 08 12:57:00 image sshd[72]: error: Bind to port 22 on 0.0.0.0
+    failed: Permission denied.
+Oct 08 12:57:00 image sshd[72]: fatal: Cannot bind any address.
+----
+
+Still not working.
+
+If this on the host, the error "failed: Permission denied." means we are
+not running sshd as root, but we are on the container login as root.
+The container created using user namespace ID 100000 and boot-ed using
+sudo.
+So when in container, the root ID is 0 but on the host its user ID is
+100000.
+
+The only possible explanation is either
+https://github.com/systemd/systemd/issues/14383[a bug^]
+or
+https://github.com/systemd/systemd/issues/11889[un-implemented user
+namespaces^]
+related in systemd-nspawn container or it is
+https://lwn.net/Articles/528078/[by design^].
+
+Lets try without using user namespaces.
+We create the image using root and boot it immediately,
+
+----
+$ sudo mkosi --directory=_mkosi --force boot
+<TRUNCATED>
+‣  Generating hardware database
+‣  Running finalize script
+/home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.finalize…
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
+    → /usr/lib/systemd/system/sshd.service.
+‣  Copying nspawn settings file…
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 451.9M.
+<TRUNCATED>
+Initializing machine ID from container UUID.
+Failed to open libbpf, cgroup BPF features disabled: Operation not
+    supported
+<TRUNCATED>
+Arch Linux 6.5.5-arch1-1 (pts/0)
+
+image login: awwan
+Password:
+[awwan@image ~]$ sudo su
+[sudo] password for awwan:
+[root@image awwan]# systemctl status sshd
+● sshd.service - OpenSSH Daemon
+     Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled;
+preset: disabled)
+     Active: active (running) since Sun 2023-10-08 13:06:48 WIB; 36s ago
+   Main PID: 73 (sshd)
+      Tasks: 1 (limit: 18723)
+     Memory: 1.1M
+        CPU: 14ms
+     CGroup: /system.slice/sshd.service
+             └─73 "sshd: /usr/bin/sshd -D [listener] 0 of 10-100
+startups"
+
+Oct 08 13:06:48 image systemd[1]: Started OpenSSH Daemon.
+Oct 08 13:06:48 image sshd[73]: Server listening on 0.0.0.0 port 22.
+----
+
+Now, its worked!
+
+
+== Running test and building Go application inside container
+
+The goal in this section is to test and build the awwan, using Go,
+inside the container.
+
+In this task we need to install
+
+* "ca-certificates" for local CA used to verify all connections that use
+  HTTPS,
+* "git" for fetching and cloning Go modules without proxy,
+* "gcc" for running Go with CGO_ENABLED=1 -- used with test,
+* "make" package for running Makefile, and
+* the Go tools for building and testing .go source codes,
+
+----
+$ cat >_mkosi/mkosi.conf <<EOF
+[Output]
+Format=directory
+
+[Content]
+Bootable=no
+Packages=systemd,bash,shadow,sudo,openssh,ca-certificates,git,make,gcc,go
+EOF
+----
+
+Re-build the image,
+
+----
+$ sudo mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Copying in extra file trees…
+‣  Generating system users
+‣  Applying presets…
+<TRUNCATED>
+‣  Generating hardware database
+‣  Running finalize script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.finalize…
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
+    → /usr/lib/systemd/system/sshd.service.
+‣  Copying nspawn settings file…
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 745.2M.
+----
+
+Since building a Go application most likely download other Go modules,
+we need to find out how to mount the current user Go module caches into
+the container.
+The Go module caches can be found using `go env GOMODCACHE`.
+In my host, it is located at "/home/ms/go/pkg/mod".
+We will figure it out later.
+
+In order to run the tests in our application we need to create
+"mkosi.build" image first that contains the command to test and build
+(in awwan case, it just plain make),
+
+----
+$ cat >_mkosi/mkosi.build <<EOF
+#!/bin/sh
+
+echo "--- mkosi.build: args=$@"
+echo "--- mkosi.build: container=$container"
+
+if [ "$container" != "mkosi" ]; then
+	exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+echo "--- mkosi.build: user=$USER"
+echo "--- mkosi.build: home=$HOME"
+echo "--- mkosi.build: pwd=$PWD"
+echo "--- mkosi.build: srcdir=$SRCDIR"
+echo "--- mkosi.build: builddir=$BUILDDIR"
+
+cd $SRCDIR
+echo "--- mkosi.build: go env"
+go env
+make
+EOF
+
+$ chmod +x mkosi.build
+----
+
+Now, lets run test and build awwan,
+
+----
+$ sudo mkosi --directory=_mkosi/ --force
+<TRUNCATED>
+‣  Running prepare script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.prepare…
+--- mkosi.prepare: args=final
+--- mkosi.prepare: container=
+--- mkosi.prepare: args=final
+--- mkosi.prepare: container=mkosi
+<TRUNCATED>
+‣  Running prepare script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.prepare in build overlay…
+--- mkosi.prepare: args=build
+--- mkosi.prepare: container=
+--- mkosi.prepare: args=build
+--- mkosi.prepare: container=mkosi
+<TRUNCATED>
+‣  Cleaning up overlayfs
+‣   Removing overlay whiteout files…
+‣  Running build script /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.build…
+--- mkosi.build: args=
+--- mkosi.build: container=
+--- mkosi.build: args=
+--- mkosi.build: container=mkosi
+--- mkosi.build: user=
+--- mkosi.build: home=/
+--- mkosi.build: pwd=/work/src
+--- mkosi.build: srcdir=/work/src
+--- mkosi.build: builddir=/work/build
+--- mkosi.build: go env
+failed to initialize build cache at /.cache/go-build: mkdir /.cache:
+    read-only file system
+make: *** No targets specified and no makefile found.  Stop.
+‣ "'/home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.build'"
+    returned non-zero exit code 2.
+‣  (Cleaning up overlayfs)
+‣   (Removing overlay whiteout files…)
+----
+
+Its failed, and the "mkosi.prepare" script is running twice, one
+with "$@" as "final" and then the later with "@" as "build".
+Lets fix this first by running it only in "final" state,
+
+----
+$ cat >_mkosi/mkosi.prepare <<EOF
+#!/bin/sh
+
+echo "--- mkosi.prepare: args=$@"
+echo "--- mkosi.prepare: container=$container"
+
+if [ "$container" != "mkosi" ]; then
+    exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+if [ "$1" == "final" ]; then
+    ## We are running inside chroot before build overlay...
+
+    ## User testing sudo with password prompt.
+    ## password: awwan
+    useradd --create-home --user-group \
+        --password '$2a$10$XVhjfOB4Un5DJE4TQEBPrOHfBVGVWP4iA3ElUMzcbJ7jdc2zZPgZ2' \
+        awwan
+
+    ## User testing with ssh.
+    useradd --create-home --user-group --groups wheel \
+        --password '$2a$10$XVhjfOB4Un5DJE4TQEBPrOHfBVGVWP4iA3ElUMzcbJ7jdc2zZPgZ2' \
+        awwanssh
+
+    su - awwan sh -c "mkdir -p .ssh; ssh-keygen -t ed25519 \
+        -f .ssh/id_ed25519 -N '' -C awwan@image"
+    su - awwanssh sh -c "mkdir -p .ssh"
+    cat /home/awwan/.ssh/id_ed25519.pub > /home/awwanssh/.ssh/authorized_keys
+    chown awwanssh:awwanssh /home/awwanssh/.ssh/authorized_keys
+fi
+EOF
+----
+
+If we look at the error message "mkdir /.cache: read-only file system"
+the Go tools try to create "/.cache" directory but failed because the
+root is mounted read-only in build step.
+
+The question is why "/" not "/root"?
+If we look at the $HOME value above, turns out the $HOME set to "/".
+Lets set the $HOME to $BUILDDIR, so we can set go env for GOCACHE and
+GOMODCACHE respectively.
+
+----
+$ cat >_mkosi/mkosi.build <<EOF
+#!/bin/sh
+
+echo "--- mkosi.build: args=$@"
+echo "--- mkosi.build: container=$container"
+
+if [ "$container" != "mkosi" ]; then
+	exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+echo "--- mkosi.build: user=$USER"
+echo "--- mkosi.build: home=$HOME"
+export HOME=$BUILDDIR
+echo "--- mkosi.build: home after=$HOME"
+echo "--- mkosi.build: pwd=$PWD"
+echo "--- mkosi.build: srcdir=$SRCDIR"
+echo "--- mkosi.build: builddir=$BUILDDIR"
+
+cd $SRCDIR
+go env -w GOCACHE="$BUILDDIR/cache/go-build"
+go env -w GOMODCACHE="$BUILDDIR/go/pkg/mod"
+go env -w GOPRIVATE='git.sr.ht'
+echo "--- mkosi.build: go env"
+go env
+#date
+#git config --global --add safe.directory $PWD
+make
+EOF
+----
+
+This time we run mkosi with "--incremental" to minimize re-building the
+images, and "--with-network=yes" to allow "go" tools downloading
+external Go modules,
+
+----
+$ sudo mkosi --with-network=yes --incremental --force --directory=_mkosi/
+<TRUNCATED>
+--- mkosi.build: home=/
+--- mkosi.build: home after=/work/build
+--- mkosi.build: pwd=/work/src
+--- mkosi.build: srcdir=/work/src
+--- mkosi.build: builddir=/work/build
+--- mkosi.build: go env
+<TRUNCATED>
+GOCACHE='/work/build/cache/go-build'
+GOENV='/work/build/.config/go/env'
+GOMODCACHE='/work/build/go/pkg/mod'
+GOPRIVATE='git.sr.ht'
+GOPROXY='https://proxy.golang.org,direct'
+GOROOT='/usr/lib/go'
+<TRUNCATED>
+make: *** No targets specified and no makefile found.  Stop.
+‣ "'/home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.build'"
+    returned non-zero exit code 2.
+----
+
+When the "mkosi.build" running, its mount the _mkosi into $SRCDIR,
+because we use "--directory" parameter.
+This cause the "make" run in _mkosi directory instead of its our awwan
+root repository.
+
+Lets fix this by setting "BuildSources=" in "mkosi.conf" file,
+
+----
+$ cat >_mkosi/mkosi.conf <<EOF
+[Output]
+Format=directory
+
+[Content]
+Bootable=no
+Packages=systemd,bash,shadow,sudo,openssh,ca-certificates,git,make,gcc,go
+WithNetwork=yes
+BuildSources=../:awwan
+EOF
+----
+
+The above "BuildSources=" mount host "$PWD/../" into "/work/src/awwan".
+So we need to changes the build script again to change directory to
+"$SRCDIR/awwan".
+
+We also set git config "safe.directory" to fix the error
+https://github.com/golang/go/issues/53532["error obtaining VCS status:
+exit status 128"^]
+later, which cause by the ".git" directory owner (my host user "ms")
+inside the container is different with the one that running git inside
+it (the "root").
+
+----
+$ cat _mkosi/mkosi.build
+<TRUNCATED>
+cd $SRCDIR/awwan
+git config --global --add safe.directory $PWD
+make
+
+$ sudo mkosi --incremental --force --directory=_mkosi/
+<TRUNCATED>
+CGO_ENABLED=1 go test -race -coverprofile=cover.out ./...
+?       git.sr.ht/~shulhan/awwan/cmd/awwan      [no test files]
+?       git.sr.ht/~shulhan/awwan/internal       [no test files]
+?       git.sr.ht/~shulhan/awwan/internal/cmd/awwan-internal    [no test files]
+ok      git.sr.ht/~shulhan/awwan        26.083s coverage: 49.5% of statements
+go tool cover -html=cover.out -o cover.html
+go vet ./...
+fieldalignment ./...
+make: fieldalignment: No such file or directory
+make: [Makefile:17: lint] Error 127 (ignored)
+shadow ./...
+make: shadow: No such file or directory
+make: [Makefile:18: lint] Error 127 (ignored)
+revive ./...
+make: revive: No such file or directory
+make: [Makefile:19: lint] Error 127 (ignored)
+mkdir -p _bin
+go run ./internal/cmd/awwan-internal build
+go build -o _bin/ ./cmd/awwan
+‣  Cleaning up overlayfs
+‣   Removing overlay whiteout files…
+‣  Copying in extra file trees…
+‣  Generating system users
+‣  Applying presets…
+<TRUNCATED>
+‣  Generating hardware database
+‣  Running finalize script /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.finalize…
+Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
+    → /usr/lib/systemd/system/sshd.service.
+‣  Copying nspawn settings file…
+‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 1.1G.
+----
+
+Its works!
+
+
+== Summary
+
+It takes me two days to make this works and we are barely completed.
+Once the image is finished, running the mkosi build with "--incremental"
+option is quite fast.
+
+Running `time mkosi --incremental` takes
+
+----
+real    1m4.291s
+user    0m0.013s
+sys     0m0.004s
+----
+
+While on host machine, `time make` takes,
+
+----
+real    0m28.427s
+user    0m28.508s
+sys     0m1.091s
+----
+
+The disk resources occupied by building image for all _mkosi is around
+2.8G in total.
+If we compute only the image its around 1.1G.
+
+Several disadvantages that I can thinks, if we are going to use mkosi
+are,
+
+* Running test now run with sudo, since the issue with user namespaces
+  does not allow us to run SSH server on port <1024.
+  We may able to changes the SSH port to other number, above 1024, to
+  fix this issue, but I have not tried it.
+
+* The above mkosi script only works if we use and run inside the Arch
+  Linux OS.
+  If we need to run it inside Fedora or Debian or other distribution
+  that supported by mkosi, we need to setup and known which packages
+  _names_ needs to be installed on which distro.
+  Let say we choose three big distro, Debian, Fedora, and openSUSE;
+  testing and figuring out these will takes time; and does not guarantee
+  that it will works on other developer machines.
+
+* Currently, I cannot find the options for mkosi to use the cached
+  databases and packages from the host.
+  Every times we run "mkosi --force" it will always sync the databases.
+  The packages can be cached only if we created "mkosi.cache".
+
+* We cannot setup mkosi on top of the root Go repository and run it
+  inside the container.
++
+--
+As we see earlier, we deliberately create sub directory with "_"
+prefix to prevent the Go compiler reading the content of that
+subdirectory.
+
+Lets see what would happened if we rename "_mkosi" into "mkosi" and run
+the build again,
+
+----
+$ sudo mv _mkosi mkosi
+$ sudo mkosi --incremental --force --directory=mkosi/
+<TRUNCATED>
+CGO_ENABLED=1 go test -race -coverprofile=cover.out ./...
+panic: LoadImport called with empty package path [recovered]
+        panic: LoadImport called with empty package path
+
+goroutine 1 [running]:
+cmd/go/internal/load.(*preload).flush(0xc000520090)
+        cmd/go/internal/load/pkg.go:1129 +0x74
+panic({0x9b49a0?, 0xb7ec50?})
+        runtime/panic.go:914 +0x21f
+cmd/go/internal/load.loadImport({0xb854b0, 0xf21f60}, {0x0, 0x1, 0x0, 0x0, 0x0, 0x0}, 0x0, {0xc0005141a5, ...}, ...)
+        cmd/go/internal/load/pkg.go:728 +0x124a
+cmd/go/internal/load.LoadImport(...)
+        cmd/go/internal/load/pkg.go:711
+cmd/go/internal/load.(*Package).load(0xc000c26c00, {0xb854b0, 0xf21f60}, {0x0, 0x1, 0x0, 0x0, 0x0, 0x0}, {0xc00057aae0, ...}, ...)
+        cmd/go/internal/load/pkg.go:2009 +0x1b05
+cmd/go/internal/load.loadImport({0xb854b0, 0xf21f60}, {0x0, 0x1, 0x0, 0x0, 0x0, 0x0}, 0xc000520090, {0xc00057aae0, ...}, ...)
+        cmd/go/internal/load/pkg.go:791 +0x5cf
+cmd/go/internal/load.PackagesAndErrors({0xb854b0?, 0xf21f60?}, {0x0, 0x1, 0x0, 0x0, 0x0, 0x0}, {0xc0000a8480, 0x1, ...})
+        cmd/go/internal/load/pkg.go:2872 +0xa1e
+cmd/go/internal/test.runTest({0xb854b0, 0xf21f60}, 0xc0000a23a8?, {0xc0000220c0?, 0x9b49a0?, 0xa9fabd?})
+        cmd/go/internal/test/test.go:700 +0x38f
+main.invoke(0xee67a0, {0xc0000220b0, 0x4, 0x4})
+        cmd/go/main.go:268 +0x5f1
+main.main()
+        cmd/go/main.go:186 +0x7a5
+make: *** [Makefile:11: test] Error 2
+<TRUNCATED>
+----
+
+The Go test failed.
+My guess is the Go compiler trying to read all files inside mkosi
+directory, including the image and at some point they found directory
+with C header ".h" file but no ".go" file with "package ..."
+declaration.
+--
+
+== Tips
+
+To quit from systemd-nspawn press CTRL + ] three times.
