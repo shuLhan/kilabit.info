@@ -10,6 +10,7 @@ October, 2023
 :systemd_nspawn_man_1: https://man.archlinux.org/man/systemd-nspawn.1
 :systemd_nspawn_man_5: https://man.archlinux.org/man/systemd-nspawn.5
 
+//{{{ PREAMBLE.
 
 In June 2017, systemd lead maintainer
 blogged{empty}footnote:mkosi_blog[{mkosi_blog}]
@@ -30,8 +31,10 @@ and run a container using
 systemd-nspawn(1)footnote:systemd_nspawn_man_1[{systemd_nspawn_man_1}]
 with SSH server running, and run all tests inside the container.
 
+//}}}
 
 == Problem statements
+//{{{
 
 One of my project,
 awwan{empty}footnote:awwan[],
@@ -75,11 +78,12 @@ While mkosi will use everything that is already available on the host
 OS, including the packages to be installed and the tools
 -- systemd-nspawn(1) usually bundled with systemd package.
 
-Lets go try mkiso and see if its can solve our problems and better and
-podman-like container.
+Lets go try mkiso and see if its can solve our problems and maybe better
+than podman-like container.
 
-
+//}}}
 == Requirements
+//{{{
 
 In Arch Linux system, to develop using mkosi, you need to install
 only two packages: `mkosi` and `arch-install-scripts`.
@@ -87,7 +91,17 @@ only two packages: `mkosi` and `arch-install-scripts`.
 In current setup we use mkosi version 18-1 and arch-install-scripts
 version 28-1.
 
+What we want are,
+
+. The source directory mounted and owned by user "awwan" inside container
+and
+
+. The "make" (test and build) command run as user's awwan instead of root so
+we can simulate/run "sudo".
+
+//}}}
 == Initial setup
+//{{{
 
 The goal of this tasks is to create the image and run it using
 systemd-nspawn.
@@ -369,7 +383,9 @@ $ sudo mkosi --directory=_mkosi/ shell
 
 We are in!
 
-== Creating new user inside image
+//}}}
+== Creating new user
+//{{{
 
 From the
 https://man.archlinux.org/man/mkosi.1#Execution_Flow["Execution Flow"^]
@@ -481,8 +497,9 @@ awwan is not in the sudoers file.
 Good works!
 Now, lets make the sudo works.
 
-
+//}}}
 == Adding sudoers file
+//{{{
 
 Back to the mkosi manual page, in the
 https://man.archlinux.org/man/mkosi.1#Files["Files" section^],
@@ -551,8 +568,9 @@ Last login: Sun Oct  8 02:17:19 on pts/0
 Nice!
 Next we will try to run the sshd service inside the image.
 
-
+//}}}
 == Running sshd service
+//{{{
 
 The goal in this section is to run sshd service inside the image,
 generate private key for user `awwan` to ssh to user `awwanssh`.
@@ -691,7 +709,7 @@ Oct 08 11:48:32 image systemd[1]: Network Configuration was skipped
     (ConditionCapability=CAP_NET_ADMIN).
 ----
 
-We need to boot again with "--debug" option to see the arguments for
+We need to boot again with "\--debug" option to see the arguments for
 "systemd-nspawn",
 
 ----
@@ -723,21 +741,21 @@ Lets search for "CAP_NET_ADMIN" in systemd-nspawn manual page.
 
 [quote]
 ____
---private-network
+\--private-network
 
 Disconnect networking of the container from the host.
 This makes all network interfaces unavailable in the container, with the
 exception of the loopback device and those specified with
---network-interface= and configured with --network-veth.
+\--network-interface= and configured with \--network-veth.
 If this option is specified, the CAP_NET_ADMIN capability will be added
 to the set of capabilities the container retains.
-The latter may be disabled by using --drop-capability=.
+The latter may be disabled by using \--drop-capability=.
 If this option is not specified (or implied by one of the options listed
 below), the container will have full access to the host network.
 ____
 
 So, to run container with CAP_NET_ADMIN we need to add option
-"--private-network" to "systemd-nspawn" when executing the "boot"
+"\--private-network" to "systemd-nspawn" when executing the "boot"
 command.
 The way to do this is by creating "mkosi.nspawn", as suggested by mkosi
 in "Files" section,
@@ -761,7 +779,7 @@ Private=
 Takes a boolean argument, which defaults to off.
 If enabled, the container will run in its own network namespace and not
 share network interfaces and configuration with the host.
-This setting corresponds to the --private-network command line switch.
+This setting corresponds to the \--private-network command line switch.
 ____
 
 Lets create it and re-build the image again,
@@ -866,8 +884,9 @@ Oct 08 13:06:48 image sshd[73]: Server listening on 0.0.0.0 port 22.
 
 Now, its worked!
 
-
-== Running test and building Go application inside container
+//}}}
+== Testing and building awwan
+//{{{
 
 The goal in this section is to test and build the awwan, using Go,
 inside the container.
@@ -913,7 +932,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
 Since building a Go application most likely download other Go modules,
 we need to find out how to mount the current user Go module caches into
 the container.
-The Go module caches can be found using `go env GOMODCACHE`.
+The Go module caches can be found using "go env GOMODCACHE".
 In my host, it is located at "/home/ms/go/pkg/mod".
 We will figure it out later.
 
@@ -1030,9 +1049,8 @@ If we look at the error message "mkdir /.cache: read-only file system"
 the Go tools try to create "/.cache" directory but failed because the
 root is mounted read-only in build step.
 
-The question is why "/" not "/root"?
-If we look at the $HOME value above, turns out the $HOME set to "/".
-Lets set the $HOME to $BUILDDIR, so we can set go env for GOCACHE and
+The question is why "home=/" not "home=/root"?
+Lets set the $HOME to $BUILDDIR, so we can set "go env" for GOCACHE and
 GOMODCACHE respectively.
 
 ----
@@ -1066,8 +1084,8 @@ make
 EOF
 ----
 
-This time we run mkosi with "--incremental" to minimize re-building the
-images, and "--with-network=yes" to allow "go" tools downloading
+This time we run mkosi with "\--incremental" to minimize re-building the
+images, and "\--with-network=yes" to allow Go tools downloading
 external Go modules,
 
 ----
@@ -1093,11 +1111,12 @@ make: *** No targets specified and no makefile found.  Stop.
 ----
 
 When the "mkosi.build" running, its mount the _mkosi into $SRCDIR,
-because we use "--directory" parameter.
+probably because we use "\--directory" parameter.
 This cause the "make" run in _mkosi directory instead of its our awwan
-root repository.
+repository.
 
-Lets fix this by setting "BuildSources=" in "mkosi.conf" file,
+Lets fix this by setting "BuildSources=" in "mkosi.conf" file, and set the
+"WithNetwork=yes" instead of passing it in CLI,
 
 ----
 $ cat >_mkosi/mkosi.conf <<EOF
@@ -1119,9 +1138,8 @@ So we need to changes the build script again to change directory to
 We also set git config "safe.directory" to fix the error
 https://github.com/golang/go/issues/53532["error obtaining VCS status:
 exit status 128"^]
-later, which cause by the ".git" directory owner (my host user "ms")
-inside the container is different with the one that running git inside
-it (the "root").
+later, which caused by the ".git" directory owner inside the container is
+different with the one that running git inside it.
 
 ----
 $ cat _mkosi/mkosi.build
@@ -1139,15 +1157,7 @@ CGO_ENABLED=1 go test -race -coverprofile=cover.out ./...
 ok      git.sr.ht/~shulhan/awwan        26.083s coverage: 49.5% of statements
 go tool cover -html=cover.out -o cover.html
 go vet ./...
-fieldalignment ./...
-make: fieldalignment: No such file or directory
-make: [Makefile:17: lint] Error 127 (ignored)
-shadow ./...
-make: shadow: No such file or directory
-make: [Makefile:18: lint] Error 127 (ignored)
-revive ./...
-make: revive: No such file or directory
-make: [Makefile:19: lint] Error 127 (ignored)
+<TRUNCATED>
 mkdir -p _bin
 go run ./internal/cmd/awwan-internal build
 go build -o _bin/ ./cmd/awwan
@@ -1165,16 +1175,82 @@ Created symlink /etc/systemd/system/multi-user.target.wants/sshd.service
 ‣  /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/image size is 1.1G.
 ----
 
-Its works!
+Its works.
+Unfortunately, we still run it as `root` instead of user's awwan.
 
+What even more surprising is the user "awwan" and "awwanssh" that we create
+earlier in "mkosi.prepare" does not exist in "mkosi.build".
+Lets modify the "mkosi.build" to see it,
 
+----
+$ cat >_mkosi/mkosi.build <<EOF
+#!/bin/sh
+
+echo "--- mkosi.build: args=$@"
+echo "--- mkosi.build: container=$container"
+
+if [ "$container" != "mkosi" ]; then
+	exec mkosi-chroot "$CHROOT_SCRIPT" "$@"
+fi
+
+echo "--- mkosi.build: user=$USER"
+echo "--- mkosi.build: home=$HOME"
+export HOME=$BUILDDIR
+echo "--- mkosi.build: home after=$HOME"
+echo "--- mkosi.build: pwd=$PWD"
+echo "--- mkosi.build: srcdir=$SRCDIR"
+echo "--- mkosi.build: builddir=$BUILDDIR"
+
+set -x
+id
+id awwan
+cat /etc/passwd
+EOF
+----
+
+If we run again, it will output,
+
+----
+$ sudo mkosi --directory=_mkosi --force
+<TRUNCATED>
+‣  Running build script
+    /home/ms/go/src/git.sr.ht/~shulhan/awwan/_mkosi/mkosi.build…
+<TRUNCATED>
++ id
+uid=0(root) gid=0(root) groups=0(root)
++ id awwan
+id: ‘awwan’: no such user
++ cat /etc/passwd
+root:x:0:0:root:/root:/bin/sh
+ms:x:1000:1000:ms:/home/ms:/bin/sh
+----
+
+I have been trying every possible options, seems like we cannot make the
+target (1) and (2).
+
+We can make the container run in background using "boot" command and
+mount the source directory (using "Bind=" in "mkosi.nspawn"), and then
+trigger shell from host to build and test, like,
+
+----
+$ machinectl shell awwan@image /bin/sh -c "cd /mnt; make"
+----
+
+But still the mounted directory owned by root.
+Currently, changing the owner of mounted directory is not possible, see this
+https://github.com/systemd/systemd/issues/27037[issue^].
+
+//}}}
 == Summary
+//{{{
 
 It takes me two days to make this works and we are barely completed.
-Once the image is finished, running the mkosi build with "--incremental"
+
+Once the image is finished, running the mkosi build with "\--incremental"
 option is quite fast.
 
-Running `time mkosi --incremental` takes
+Running "time mkosi \--incremental" to test and build the awwan application
+takes
 
 ----
 real    1m4.291s
@@ -1182,7 +1258,7 @@ user    0m0.013s
 sys     0m0.004s
 ----
 
-While on host machine, `time make` takes,
+While on host machine, "time make" takes,
 
 ----
 real    0m28.427s
@@ -1200,7 +1276,8 @@ are,
 * Running test now run with sudo, since the issue with user namespaces
   does not allow us to run SSH server on port <1024.
   We may able to changes the SSH port to other number, above 1024, to
-  fix this issue, but I have not tried it.
+  fix this issue, but running the "shell" and "boot" command still need to
+  use "sudo".
 
 * The above mkosi script only works if we use and run inside the Arch
   Linux OS.
@@ -1213,7 +1290,7 @@ are,
 
 * Currently, I cannot find the options for mkosi to use the cached
   databases and packages from the host.
-  Every times we run "mkosi --force" it will always sync the databases.
+  Every times we run "mkosi \--force" it will always sync the databases.
   The packages can be cached only if we created "mkosi.cache".
 
 * We cannot setup mkosi on top of the root Go repository and run it
@@ -1267,6 +1344,12 @@ with C header ".h" file but no ".go" file with "package ..."
 declaration.
 --
 
+It seems to me, at this point, mkosi target is for testing systemd or
+building a package, like ".deb" or ".rpm".
+For general development, like running integration test, boot-and-run once or
+leaving the machine running in background, its not quite possible, yet.
+
+//}}}
 == Tips
 
 To quit from systemd-nspawn press CTRL + ] three times.
