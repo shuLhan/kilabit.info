@@ -10,6 +10,12 @@ October, 2023
 :systemd_nspawn_man_1: https://man.archlinux.org/man/systemd-nspawn.1
 :systemd_nspawn_man_5: https://man.archlinux.org/man/systemd-nspawn.5
 
+This journal is part of series,
+
+* Using systemd mkosi for development (this journal),
+* link:/journal/2023/using_systemd_mkosi_/["Using systemd mkosi for
+  development (round 2)"^]
+
 //{{{ PREAMBLE.
 
 In June 2017, systemd lead maintainer

@@ -2,6 +2,10 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/using_systemd_mkosi_2/["Using systemd mkosi for
+development (round 2)"].
+Continuing previous attempt, in this journal we take different path.
+
 link:/journal/2023/using_systemd_mkosi/[Using systemd mkosi for
 development].
 In this journal, I will take a notes on my journey learning and using
