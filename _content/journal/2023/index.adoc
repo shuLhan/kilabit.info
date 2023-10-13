@@ -1,10 +1,12 @@
 
 === 2023
 
-link:/journal/2023/testing_sudo_with_go/["Testing sudo with Go"^].
-In awwan application, there is a functionality to run a command using sudo.
-In this journal we will take a notes on how to create integration tests
-for it, is it possible or not.
+link:/journal/2023/research_ssh_with_2fa["[WIP] Research on SSH with 2FA"^].
+In this journal, we review several options to enable SSH connection with
+2FA, possibly using
+https://tools.ietf.org/html/rfc6238[Time-Based One-Time Password^].
+Some of them are OS Login (from Google Cloud), Smallstep, Teleport, and
+google-authenticator-libpam.
 
 link:/journal/2023/using_systemd_mkosi_2/["Using systemd mkosi for
 development (round 2)"].
