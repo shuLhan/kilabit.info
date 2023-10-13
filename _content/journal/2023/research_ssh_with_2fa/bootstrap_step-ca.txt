@@ -1,0 +1,154 @@
+$ awwan play vpn.internal/00_smallstep.aww 1-
+:: Synchronizing package databases...
+ core downloading...
+ extra downloading...
+ community downloading...
+ build.kilabit.info downloading...
+ gce downloading...
+warning: resolving dependencies...
+step-ca-0.25.0-1 is up to date
+warning: step-cli-0.25.0-1 is up to date
+looking for conflicting packages...
+
+Package (2)     Old Version  New Version  Net Change
+
+extra/step-ca   0.25.0-1     0.25.0-1       0.00 MiB
+extra/step-cli  0.25.0-1     0.25.0-1       0.00 MiB
+
+Total Installed Size:  72.84 MiB
+Net Upgrade Size:       0.00 MiB
+
+:: Proceed with installation? [Y/n]
+checking keyring...
+checking package integrity...
+loading package files...
+checking for file conflicts...
+checking available disk space...
+:: Processing package changes...
+reinstalling step-ca...
+reinstalling step-cli...
+:: Running post-transaction hooks...
+(1/1) Arming ConditionNeedsUpdate...
+<TRUNCATED>
+
+--> shulhan@vpn.internal:22:   5: sudo [mkdir -p /etc/step-ca]
+
+--> shulhan@vpn.internal:22:   6: sudo [chmod 0700 /etc/step-ca]
+
+--> shulhan@vpn.internal:22:   8:  [<REDACTED>/vpn.internal/etc/profile.d/step-ca.sh /etc/profile.d/step-ca.sh]
+
+--> shulhan@vpn.internal:22:  10: sudo [chmod +x /etc/profile.d/step-ca.sh]
+
+--> shulhan@vpn.internal:22:  12:  [<REDACTED>/vpn.internal/etc/step-ca/step-ca-password.txt /etc/step-ca/step-ca-password.txt]
+
+--> shulhan@vpn.internal:22:  17: sudo [step-cli ca init --ssh
+    --name=<REDACTED> --dns=vpn.internal,10.184.0.8
+    --address=:8443 --provisioner=<REDACTED>
+    --password-file=/etc/step-ca/step-ca-password.txt]
+
+Generating root certificate... done!
+Generating intermediate certificate... done!
+Generating user and host SSH certificate signing keys... done!
+
+✔ Root certificate: /etc/step-ca/certs/root_ca.crt
+✔ Root private key: /etc/step-ca/secrets/root_ca_key
+✔ Root fingerprint: 35096<REDACTED>
+✔ Intermediate certificate: /etc/step-ca/certs/intermediate_ca.crt
+✔ Intermediate private key: /etc/step-ca/secrets/intermediate_ca_key
+✔ SSH user public key: /etc/step-ca/certs/ssh_user_ca_key.pub
+✔ SSH user private key: /etc/step-ca/secrets/ssh_user_ca_key
+✔ SSH host public key: /etc/step-ca/certs/ssh_host_ca_key.pub
+✔ SSH host private key: /etc/step-ca/secrets/ssh_host_ca_key
+✔ Database folder: /etc/step-ca/db
+✔ Templates folder: /etc/step-ca/templates
+✔ Default configuration: /etc/step-ca/config/defaults.json
+✔ Certificate Authority configuration: /etc/step-ca/config/ca.json
+
+Your PKI is ready to go. To generate certificates for individual services
+see 'step help ca'.
+
+FEEDBACK 😍 🍻
+  The step utility is not instrumented for usage statistics. It does not
+  phone home. But your feedback is extremely valuable. Any information you
+  can provide regarding how you’re using `step` helps. Please send us a
+  sentence or two, good or bad at feedback@smallstep.com or join GitHub
+  Discussions
+  https://github.com/smallstep/certificates/discussions and our Discord
+  https://u.step.sm/discord.
+
+--> shulhan@vpn.internal:22:  26: export [STEPPATH=/etc/step-ca;
+ sudo -E step-cli ca provisioner add Google --type=oidc --ssh
+ --client-id=<REDACTED> --client-secret=<REDACTED>
+ --configuration-endpoint=https://accounts.google.com/.well-known/openid-configuration
+ --domain=<REDACTED>]
+✔ CA Configuration: /etc/step-ca/config/ca.json
+
+Success! Your `step-ca` config has been updated. To pick up the new
+configuration SIGHUP (kill -1 <pid>) or restart the step-ca process.
+
+--> shulhan@vpn.internal:22:  38: export STEPPATH=/etc/step-ca;
+  sudo -E step-cli ca provisioner add SSHPOP --type=sshpop --ssh
+✔ CA Configuration: /etc/step-ca/config/ca.json
+
+Success! Your `step-ca` config has been updated. To pick up the new
+configuration SIGHUP (kill -1 <pid>) or restart the step-ca process.
+
+--> shulhan@vpn.internal:22:  44: export STEPPATH=/etc/step-ca; sudo -E
+step-cli ca provisioner add x5c --type X5C --x5c-roots
+/etc/step-ca/certs/root_ca.crt
+✔ CA Configuration: /etc/step-ca/config/ca.json
+
+Success! Your `step-ca` config has been updated. To pick up the new
+configuration SIGHUP (kill -1 <pid>) or restart the step-ca process.
+
+--> shulhan@vpn.internal:22:  51: export STEPPATH=/etc/step-ca; sudo -E
+step-cli ca provisioner add acme --type ACME
+✔ CA Configuration: /etc/step-ca/config/ca.json
+
+Success! Your `step-ca` config has been updated. To pick up the new
+configuration SIGHUP (kill -1 <pid>) or restart the step-ca process.
+
+--> shulhan@vpn.internal:22:  57: #get! /etc/step-ca/config/ca.json
+<REDACTED>vpn.internal/etc/step-ca/config/ca.json
+
+--> shulhan@vpn.internal:22:  60: #get!
+/etc/step-ca/templates/ssh/config.tpl
+<REDACTED>/vpn.internal/etc/step-ca/templates/ssh/config.tpl
+
+--> shulhan@vpn.internal:22:  66: #put!
+<REDACTED>/vpn.internal/etc/systemd/system/step-ca.service
+/etc/systemd/system/step-ca.service
+
+--> shulhan@vpn.internal:22:  68: sudo chmod 0600
+  /etc/systemd/system/step-ca.service
+
+--> shulhan@vpn.internal:22:  70: sudo systemctl daemon-reload
+
+--> shulhan@vpn.internal:22:  72: sudo systemctl enable step-ca.service
+
+--> shulhan@vpn.internal:22:  73: sudo systemctl restart step-ca.service
+
+--> shulhan@vpn.internal:22:  74: sudo systemctl status step-ca.service
+● step-ca.service - step-ca service
+     Loaded: loaded (/etc/systemd/system/step-ca.service; enabled; preset: disabled)
+     Active: active (running) since Thu 2023-10-19 10:23:16 UTC; 15min ago
+   Main PID: 17041 (step-ca)
+      Tasks: 6 (limit: 654)
+     Memory: 30.9M
+        CPU: 1.419s
+     CGroup: /system.slice/step-ca.service
+             └─17041 /usr/bin/step-ca /etc/step-ca/config/ca.json --password-file=/etc/step-ca/step-ca-password.txt
+
+badger 2023/10/19 10:23:17 INFO: All 0 tables opened in 0s
+2023/10/19 10:23:18 Starting Smallstep CA/0.25.0 (linux/amd64)
+2023/10/19 10:23:18 Documentation: https://u.step.sm/docs/ca
+2023/10/19 10:23:18 Community Discord: https://u.step.sm/discord
+2023/10/19 10:23:18 Config file: /etc/step-ca/config/ca.json
+2023/10/19 10:23:18 The primary
+
+2023/10/19 10:23:18 Root certificates are available at https://vpn.internal:8443/roots.pem
+2023/10/19 10:23:18 Additional configured hostnames: 10.184.0.8
+2023/10/19 10:23:18 X.509 Root Fingerprint: 350960247...
+2023/10/19 10:23:18 SSH Host CA Y...
+2023/10/19 10:23:18 SSH User CA Y...
+2023/10/19 10:23:18 Serving HTTPS on :8443 ...

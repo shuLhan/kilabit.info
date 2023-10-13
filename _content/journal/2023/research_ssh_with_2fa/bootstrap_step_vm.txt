@@ -1,0 +1,76 @@
+--- BaseDir: <REDACTED>
+--- Loading "awwan.env" ...
+--- Loading "_vm/ops/test.internal/awwan.env" ...
+--- SSH connection: shulhan@test.internal:22
+--- SSH identity file: [<REDACTED>/shulhan@test.internal]
+
+--> shulhan@test.internal:22:   1: sudo pacman -Sy --noconfirm step-cli
+:: Synchronizing package databases...
+ core downloading...
+ extra downloading...
+ build.kilabit.info downloading...
+ gce downloading...
+resolving dependencies...
+looking for conflicting packages...
+
+Package (1)     New Version  Net Change  Download Size
+
+extra/step-cli  0.25.0-1      33.72 MiB       9.45 MiB
+
+Total Download Size:    9.45 MiB
+Total Installed Size:  33.72 MiB
+
+:: Proceed with installation? [Y/n]
+:: Retrieving packages...
+ step-cli-0.25.0-1-x86_64 downloading...
+checking keyring...
+checking package integrity...
+loading package files...
+checking for file conflicts...
+checking available disk space...
+:: Processing package changes...
+installing step-cli...
+Optional dependencies for step-cli
+    step-ca: setup CA/SSO/ACME server
+:: Running post-transaction hooks...
+(1/1) Arming ConditionNeedsUpdate...
+
+--> shulhan@test.internal:22:   3: sudo mkdir -p /etc/step-ca
+
+--> shulhan@test.internal:22:   4: sudo chmod 0700 /etc/step-ca
+
+--> shulhan@test.internal:22:   8: export STEPPATH=/etc/step-ca;
+	sudo -E step-cli ca bootstrap --ca-url https://10.184.0.8:8443
+	--fingerprint 350960247b58ac51f07afb9b6b052882abeda5c54aaa09788ac53f62daee380a
+The root certificate has been saved in /etc/step-ca/certs/root_ca.crt.
+The authority configuration has been saved in /etc/step-ca/config/defaults.json.
+
+--> shulhan@test.internal:22:  13: export STEPPATH=/etc/step-ca;
+	sudo -E sh -c step-cli ssh config --roots
+	> /etc/step-ca/certs/ssh_user_key.pub
+
+--> shulhan@test.internal:22:  18: #put! vpn.internal/etc/step-ca/step-ca-password.txt /etc/step-ca/step-ca-password.txt
+
+--> shulhan@test.internal:22:  27: export
+STEPPATH=/etc/step-ca; sudo -E sh -c  step-cli ca certificate
+test.internal internal.crt /etc/step-ca/certs/internal.key --provisioner=acme
+✔ Provisioner: acme (ACME)
+Using Standalone Mode HTTP challenge to validate test.internal . done!
+Waiting for Order to be 'ready' for finalization .. done!
+Finalizing Order .. done!
+✔ Certificate: /etc/step-ca/certs/internal.crt
+✔ Private Key: /etc/step-ca/certs/internal.key
+
+--> shulhan@test.internal:22:  29: export STEPPATH=/etc/step-ca; sudo -E sh -c  step-cli ssh certificate test.internal internal --host --provisioner=x5c --no-password --insecure --x5c-cert=/etc/step-ca/certs/inter
+nal.crt --x5c-key=/etc/step-ca/certs/internal.key
+✔ Provisioner: x5c (X5C)
+✔ CA: https://10.184.0.8:8443
+✔ Private Key: internal
+✔ Public Key: internal.pub
+✔ Certificate: internal-cert.pub
+
+--> shulhan@test.internal:22:  37: #put!
+test.internal/etc/ssh/sshd_config.d/stepca.conf
+/etc/ssh/sshd_config.d/stepca.conf
+
+--> shulhan@test.internal:22:  43: sudo useradd -m --password=$2a$10$<REDACTED>/OO shulhan
