@@ -1,0 +1,63 @@
+$ awwan play _vm/vpn.internal/51_teleport.aww 3-
+--- BaseDir: <REDACTED>
+--- Loading "awwan.env" ...
+--- Loading "_vm/vpn.internal/awwan.env" ...
+--- Loading "_vm/vpn.internal/.awwan.env.vault" ...
+--- Loading passphrase file ".ssh/awwan.pass" ...
+--- Loading private key file ".ssh/awwan.key" (enter to skip passphrase) ...
+--- SSH connection: shulhan@vpn.internal:22
+--- SSH identity file: [<REDACTED>/shulhan@vpn.internal]
+
+--> shulhan@vpn.internal:22:   3: sudo pacman -Syu --noconfirm --needed teleport-bin
+:: Synchronizing package databases...
+ core downloading...
+ extra downloading...
+ community downloading...
+ build.kilabit.info downloading...
+ gce downloading...
+warning: :: Starting full system upgrade...
+teleport-bin-14.1.0-1 is up to date -- skipping
+ there is nothing to do
+
+--> shulhan@vpn.internal:22:   8: #local: mkdir -p <REDACTED>/_vm/vpn.internal/etc/teleport
+
+--> shulhan@vpn.internal:22:  10: #local: cp <REDACTED>/_vm/vpn.internal/etc/haproxy/certs/vpn.internal.pem <REDACTED>/etc/teleport/vpn.internal.pem
+
+--> shulhan@vpn.internal:22:  13: #local: cp <REDACTED>/_vm/vpn.internal/etc/haproxy/certs/vpn.internal.pem.key <REDACTED>/etc/teleport/vpn.internal-key.pem
+
+--> shulhan@vpn.internal:22:  19: sudo mkdir -p /etc/teleport
+
+--> shulhan@vpn.internal:22:  21: #put!root:root <REDACTED>/_vm/vpn.internal/etc/teleport/vpn.internal.pem /etc/teleport/vpn.internal.pem
+
+--> shulhan@vpn.internal:22:  24: #put!root:root <REDACTED>/_vm/vpn.internal/etc/teleport/vpn.internal-key.pem /etc/teleport/vpn.internal-key.pem
+
+--> shulhan@vpn.internal:22:  27: sudo teleport configure -o file --cluster-name=vpn.internal --public-addr=vpn.internal:3443 --cert-file=/etc/teleport/vpn.internal.pem --key-file=/etc/teleport/vpn.internal-key.pem
+
+A Teleport configuration file has been created at "/etc/teleport.yaml".
+To start Teleport with this configuration file, run:
+
+sudo teleport start --config="/etc/teleport.yaml"
+
+Note that starting a Teleport server with this configuration will require root access as:
+- The Teleport configuration is located at "/etc/teleport.yaml".
+- Teleport will be storing data at "/var/lib/teleport". To change that, run "teleport configure" with the "--data-dir" flag.
+
+Happy Teleporting!
+
+--> shulhan@vpn.internal:22:  33: #get! /etc/teleport.yaml <REDACTED>/_vm/vpn.internal/etc/teleport.yaml
+
+--> shulhan@vpn.internal:22:  38: sudo mkdir -p /var/lib/teleport
+
+--> shulhan@vpn.internal:22:  40: #put!root:root+600 <REDACTED>/_vm/vpn.internal/etc/systemd/system/teleport.service /etc/systemd/system/teleport.service
+
+--> shulhan@vpn.internal:22:  43: sudo systemctl daemon-reload
+
+--> shulhan@vpn.internal:22:  45: sudo systemctl enable teleport.service
+
+--> shulhan@vpn.internal:22:  46: sudo systemctl restart teleport.service
+
+--> shulhan@vpn.internal:22:  51: sudo tctl users add shulhan --roles=editor,access --logins=shulhan
+User "shulhan" has been created but requires a password. Share this URL with the user to complete user setup, link is valid for 1h:
+https://vpn.internal:3443/web/invite/85885f745391211fa53af84ee408d7c9
+
+NOTE: Make sure vpn.internal:3443 points at a Teleport proxy which users can access.
