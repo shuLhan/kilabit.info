@@ -31,8 +31,6 @@ func main() {
 		err error
 	)
 
-	log.SetFlags(0)
-
 	flag.BoolVar(&serveOpts.IsDevelopment, "dev", false, "Run in development mode")
 	flag.Parse()
 
