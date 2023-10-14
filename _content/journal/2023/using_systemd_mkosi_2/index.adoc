@@ -4,7 +4,6 @@ October, 2023
 :sectanchors:
 :toc:
 :awwan: https://sr.ht/~shulhan/awwan/
-:mkosi_blog: https://0pointer.net/blog/mkosi-a-tool-for-generating-os-images.html
 :mkosi_man: https://man.archlinux.org/man/mkosi.1
 :mkosi_repo: https://github.com/systemd/mkosi
 :systemd_nspawn_man_1: https://man.archlinux.org/man/systemd-nspawn.1
@@ -19,10 +18,14 @@ This journal is part of series,
 * Using systemd mkosi for development, round 2 (this journal)
 
 link:/journal/2023/using_systemd_mkosi/[Previously^],
-we try hard to make the "mkosi.build" script run the test and
-building our awwan application, because we want a simple flow for our
-development, where executing "mkosi \--directory=_mkosi \--incremental" is
-enough.
+we try hard to make the "mkosi.build"
+footnote:mkosi_repo[{mkosi_repo}]
+footnote:mkosi_man[{mkosi_man}]
+script run the test and
+building our
+awwan{empty}footnote:awwan[{awwan}]
+application, because we want a simple flow for our development, where
+executing "mkosi \--directory=_mkosi \--incremental" is enough.
 Unfortunately, it does not work.
 
 In this attempt, I would like to take different approach.
@@ -32,21 +35,21 @@ using command "machinectl awwan@image ...".
 
 The goals is
 
-. to create an image where user "awwan" created and sshd service enabled,
-. boot the image and mount the awwan repository into "/home/awwan/src",
+. to create an image, with user "awwan" created and sshd service enabled,
+. to boot the image, and mount the awwan repository into "/home/awwan/src",
   and
-. test and build awwan application inside container using
+. to test and build awwan application inside container using
   "machinectl shell ..." command
 
 The container will be running until we stop it, which minimize disk
-read-write.
+read-write during development.
 
 //}}}
 == Rewriting the initial setup
 //{{{
 
 Unlike previous journal, where we try and write output of each command, in
-this section I will dump each configurations and explain it content.
+this section I will dump each configurations and explain its content.
 
 Start from the structure of our _mkosi directory,
 
@@ -83,8 +86,16 @@ $ ln -sf $(shell go env GOCACHE) _mkosi/mkosi.cache/gocache
 $ ln -sf $(shell go env GOMODCACHE) _mkosi/mkosi.cache/gomodcache
 ----
 
-This symlinks will be mounted into the container, see "*mkosi.nspawn*".
-It is used to cache the Go build and Go modules later.
+This symlinks will be mounted into the container later when we boot the
+image, see "*mkosi.nspawn*" file below.
+It is used to cache the Go build and Go modules.
+
+Without using symlink we will need full path, which is dynamic between
+users.
+For example, the Go build cache in my host would be
+"/home/ms/.cache/go-build".
+Using fixed path will not make our configuration usable to other developers.
+
 
 *mkosi.conf*
 
@@ -106,7 +117,7 @@ Incremental=yes
 ----
 
 The "Format=directory" means the image output will be in form of directory
-structure, as we see earlier "awwan-test".
+structure, as we see later after building image completed.
 
 The "Output=awwan-test" define the image name.
 
@@ -114,7 +125,8 @@ The "Bootable=no" means we are not creating image that is bootable using
 qemu.
 Does not mean that "mkosi boot" does not works, it just that we will not
 create boot partition and install kernel inside the image, so the image is
-lightweight container that is boot-able using systemd-nspawn.
+lightweight container that is boot-able using
+systemd-nspawn{empty}footnote:systemd_nspawn_man_1[{systemd_nspawn_man_1}].
 
 From my understanding, the "CleanPackageMetadata=false" suppose to means
 that after the pacman databases downloaded (inside the OS tree), and then
@@ -124,7 +136,7 @@ the image completed.
 The "Incremental=yes" means that we enable "\--incremental" build, if the
 image already build and no changes in the "mkosi.conf", "mkosi.prepare", or
 "mkosi.finalize"; running "mkosi boot" will not re-build the image again,
-and use the existing image to boot.
+but use the existing image as per "Output=".
 
 *mkosi.conf.d/archlinux.conf*
 
@@ -186,7 +198,9 @@ systemctl enable sshd.service
 
 *mkosi.nspawn*
 
-This is a template file for generating ".spawn" file after image completed.
+This is a template file for generating
+".nspawn"{empty}footnote:systemd_nspawn_man_5[{systemd_nspawn_man_5}]
+file after image completed.
 
 ----
 [Files]
@@ -200,12 +214,6 @@ host directory "../" (the awwan repository) into container
 "/home/awwan/src",
 "mkosi.cache/gocache" into container "/home/awwan/.cache/go-build", and
 "mkosi.cache/gomodcache" into container "/home/awwan/go/pkg/mod".
-Without using symlink we will need full path, which is dynamic between
-users.
-For example, the Go build cache in my host would be
-"/home/ms/.cache/go-build".
-Using this fixed path will not make our configuration usable to other
-developers.
 
 *mkosi.prepare*
 
@@ -253,8 +261,8 @@ I think the script is quite self-explainable.
 If $container is not "mkosi" we re-execute the script to run inside image
 using mkosi-chroot.
 Once the script is run inside chroot and its in "final" state (after all
-packages are installed), we create user "awwan" with UID similar when
-current user that run the mkosi and user "awwanssh" wuth UID+1.
+packages are installed), we create user "awwan" with UID similar to
+current user that run the mkosi and user "awwanssh" with UID+1.
 
 Under user "awwan" we generate new SSH key and copy the public key to second
 user "awwanssh", so user "awwan" can SSH to "awwanssh" without password
@@ -266,6 +274,8 @@ Now we can build our image,
 //}}}
 == Building image
 //{{{
+
+The image _must_ be build using root privileged,
 
 ----
 $ sudo mkosi --directory=_mkosi/
@@ -287,7 +297,8 @@ This is the output of our image, in format of directory.
 *awwan-test.nspawn*
 
 This is the copy of "mkosi.nspawn".
-This file is required when running "systemd-nspawn".
+This file is required when running "mkosi shell", "mkosi boot",
+"systemd-nspawn", or "machinectl" later.
 
 //}}}
 == Testing and building awwan
@@ -354,7 +365,7 @@ Arch Linux 6.5.6-arch2-1 (pts/0)
 awwan-test login:
 ----
 
-the container run and ready to be used.
+The container run and ready to be used.
 
 Then we build the test binary, and run it on container, using the following
 make task,
@@ -368,7 +379,8 @@ test-with-mkosi:
 ----
 
 The "go test -tags=integration -c ." means we build the test binary that
-contains only "//go:build integration" constrains.
+contains only "//go:build integration" constrains, the output binary file
+name is "awwan.test".
 So, when we run the test binary in the container, only the test that have
 "integration" tags will be executed.
 

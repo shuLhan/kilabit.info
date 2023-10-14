@@ -13,8 +13,8 @@ October, 2023
 This journal is part of series,
 
 * Using systemd mkosi for development (this journal),
-* link:/journal/2023/using_systemd_mkosi_/["Using systemd mkosi for
-  development (round 2)"^]
+* link:/journal/2023/using_systemd_mkosi_2/["Using systemd mkosi for
+  development, round 2"^]
 
 //{{{ PREAMBLE.
 
@@ -99,11 +99,13 @@ version 28-1.
 
 What we want are,
 
-. The source directory mounted and owned by user "awwan" inside container
-and
+. The source directory mounted and owned by user "awwan" inside container,
+  and
 
 . The "make" (test and build) command run as user's awwan instead of root so
-we can simulate/run "sudo".
+  we can simulate "sudo" behaviour
+
+Lets go!
 
 //}}}
 == Initial setup
@@ -531,6 +533,9 @@ $ mkdir -p _mkosi/mkosi.extra/etc/sudoers.d
 $ cat >_mkosi/mkosi.extra/etc/sudoers.d/awwan <<EOF 
 awwan ALL=(ALL:ALL) ALL
 awwanssh ALL=(ALL:ALL) NOPASSWD: ALL
+
+## Always ask for password.
+Defaults:awwan timestamp_timeout=0,passwd_tries=1
 EOF
 $ chmod 0700 _mkosi/mkosi.extra/etc/sudoers.d
 ----
@@ -557,6 +562,9 @@ processed, we can inspect the image directory,
 $ sudo cat _mkosi/image/etc/sudoers.d/awwan
 awwan ALL=(ALL:ALL) ALL
 awwanssh ALL=(ALL:ALL) NOPASSWD: ALL
+
+## Always ask for password.
+Defaults:awwan timestamp_timeout=0,passwd_tries=1
 ----
 
 Test login and sudo inside the image,
