@@ -102,7 +102,7 @@ Choose the one that,
 
 Ubuntu (or any Debian derivate?) violate all of the above checklists.
 
-image::fu_ubuntu.png[width=700]
+image::fu_ubuntu.jpg[width=700]
 
 If you want additional security and does not have a problem managing SELinux,
 use RedHat derivative.

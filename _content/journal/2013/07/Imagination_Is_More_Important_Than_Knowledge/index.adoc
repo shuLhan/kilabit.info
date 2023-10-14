@@ -4,7 +4,7 @@ There is an anecdotal or inspirational quote from famous and genius people
 Albert Einstein that circulating around the internet, which rendered in an
 image like this,
 
-image::https://lh3.googleusercontent.com/uxHzF3y9KrlvAvbVqXoHkCI0sVsxi7admm7NmNd7cXBOUbZcInykq6FRsbEM4S0pCAiP7OXs-Y-2bTTPuyhLZq-ETRiOZzCHXZS6lTmVNurlVJm_L7sbvwjTMOX3qmXIFT93Fp-S7hSsGAk3jV5CcIy61h_9meDS8Q0zbHxF4SMqws5kmvWxAcYGPPU212IZgMaId5ljC3dm_-89I9XNjs0nSBmf9y4nfMsQa-WTvwMBEuuHPhHAdgzF1Vt4jC0-yxZgBDFdta4WdP-crVmhL8G4RtY45P6TSyjB2bkNZie6hyqE3cW2GkCnPOkNKsPRvTOuMWQQyYQSvHjkEswFUnUai185rHQE36penAFit-Q0yhRXsotUTmPOoxdtuE1WpJ6hgmvOKQh-7z3aEh6A6JGyMgtXG9t0O9ApoSV3Rwvd3SZUMN9ra3AtEOOUXbDmqTBuium9jK95tvivLzKUj7Gr0p1Sja7G4RmzFTomGVxv3R0zvYRCCytnEsR5K6uvhGGw8U968FY36frwiVLnesMxiotLTEMQj7YNYe6bg_QOll1-IL-mowmfqqmVJGfmiuHkpX6dU1jiahmeT44qvTQNddOvh3B42Wjmj73xJFbUAX8SMJTFtmHK9C44-ONOUVHU98li3UqLDsWhwwWWMEPYxXI3zBQb2AMCmwdSoQeycZWeZXAIVN9UYtrC1jLc7dvH1kqmpQNRfXCwaKMYR_wSOno_oqyK-ZiScmB7NHWvMT2e=w1015-h761-no[Albert Einstein Imagination is More Important Than Knowledge,320]
+image::einstein_imagination_and_knowledge.jpg[Albert Einstein Imagination is More Important Than Knowledge,320]
 
 Knowledge, how many of them that you have, even if you can remember all of the
 articles in Wikipedia, it does not useful if you do not put it into to

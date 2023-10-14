@@ -79,8 +79,7 @@ Kubernetes.
 
 The load testing is run for 10 seconds for each endpoints.
 
-image:/journal/2021/benchmarking_kubernetes/kubernetes_benchmark_result_1.png[Kubernetes
-benchmark result 1,700].
+image:kubernetes_benchmark_result_1.jpg[Kubernetes benchmark result 1,700].
 
 Notes,
 
@@ -93,8 +92,7 @@ Notes,
 In this testing we are looking for the maximum throughput that we can achieve
 on environment without Kubernetes and compare them.
 
-image:/journal/2021/benchmarking_kubernetes/kubernetes_benchmark_result_2.png[Kubernetes
-benchmark result 1,700].
+image:kubernetes_benchmark_result_2.jpg[Kubernetes benchmark result 1,700].
 
 
 == Summary
