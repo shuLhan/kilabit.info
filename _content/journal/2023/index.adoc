@@ -2,6 +2,11 @@
 link:/journal/2023/[2023]::
 +
 --
+link:/journal/2023/testing_sudo_with_go/["Testing sudo with Go"^].
+In awwan application, there is a functionality to run a command using sudo.
+In this journal we will take a notes on how to create integration tests
+for it, is it possible or not.
+
 link:/journal/2023/using_systemd_mkosi_2/["Using systemd mkosi for
 development (round 2)"].
 Continuing previous attempt, in this journal we take different path.

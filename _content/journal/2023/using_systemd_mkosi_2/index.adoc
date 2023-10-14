@@ -16,6 +16,8 @@ This journal is part of series,
 * link:/journal/2023/using_systemd_mkosi/[Using systemd mkosi for
   development^],
 * Using systemd mkosi for development, round 2 (this journal)
+* link:/journal/2023/testing_sudo_with_go/[Testing sudo with Go^]
+
 
 link:/journal/2023/using_systemd_mkosi/[Previously^],
 we try hard to make the "mkosi.build"

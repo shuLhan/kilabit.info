@@ -1,0 +1,916 @@
+= Testing sudo with Go
+Shulhan <ms@kilabit.info>
+October 2023,
+:toc:
+:sectanchors:
+:awwan_project: https://sr.ht/~shulhan/awwan
+:sudo_man_s: https://man.archlinux.org/man/sudo.8#S
+
+This journal is part of series,
+
+* link:/journal/2023/using_systemd_mkosi/[Using systemd mkosi for
+  development^],
+* link:/journal/2023/using_systemd_mkosi_2/["Using systemd mkosi for
+  development, round 2"^]
+* Testing sudo with Go (this journal)
+
+In
+awwan{empty}footnote:awwan_project[{awwan_project}]
+application, there is a functionality to run a command using sudo.
+In this journal we will take a notes on how to create integration tests
+for it, is it possible or not.
+
+== Environment
+//{{{
+
+We will do editing on the host and running the test in
+link:/journal/2023/using_systemd_mkosi_2/[the container^].
+
+In the container we have user "`awwan`" with password "`awwan`" and with
+following sudoers configuration,
+
+----
+awwan ALL=(ALL:ALL) ALL
+awwanssh ALL=(ALL:ALL) NOPASSWD: ALL
+
+## Always ask for password.
+Defaults:awwan timestamp_timeout=0,passwd_tries=1
+----
+
+The "Defaults" has option "timestamp_timeout=0" to always ask for password
+instead of caching it, and "passwd_tries=1" to only ask for password once,
+not three times (as per default).
+
+Lets boot up our container first,
+
+----
+$ make setup-mkosi
+>>> Creating symlinks to simplify binding ...
+ln -sf /home/ms/.cache/go-build _mkosi/mkosi.cache/gocache
+ln -sf /home/ms/go/pkg/mod _mkosi/mkosi.cache/gomodcache
+>>> Booting awwan-test container ...
+sudo mkosi --directory=_mkosi/ boot
+[sudo] password for ms:
+systemd 254.5-1-arch running in system mode (+PAM +AUDIT -SELINUX -APPARMOR
+-IMA +SMACK +SECCOMP +GCRYPT +GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS
++FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 -PWQUALITY
++P11KIT -QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD +BPF_FRAMEWORK
++XKBCOMMON +UTMP -SYSVINIT default-hierarchy=unified)
+Detected virtualization systemd-nspawn.
+Detected architecture x86-64.
+Received regular credentials: agetty.autologin, firstboot.locale,
+firstboot.timezone, login.noauth
+Acquired 4 regular credentials, 0 untrusted credentials.
+
+Welcome to Arch Linux!
+
+<TRUNCATED>
+----
+
+//}}}
+== Code to be tested
+//{{{
+
+Testing "sudo" with Go means, we execute a command "sudo" using
+https://pkg.go.dev/os/exec["os/exec.Cmd"^].
+
+In awwan, we have a "ExecLocal" function to execute it,
+
+----
+// ExecLocal execute the command with its arguments in local environment
+// where the output and error send to os.Stdout and os.Stderr respectively.
+func ExecLocal(req *Request, rawCmd string) (err error) {
+    var cmd = exec.Command(`/bin/sh`, `-c`, rawCmd)
+
+    cmd.Stdin = req.stdin
+    cmd.Stdout = req.stdout
+    cmd.Stderr = req.stderr
+
+    err = cmd.Run()
+    if err != nil {
+        return fmt.Errorf(`ExecLocal: %w`, err)
+    }
+    return nil
+}
+----
+
+The "*Request" is a struct that contains fields to overwrite default
+"exec.Cmd" Stdin, Stdout, and Stderr.
+
+----
+// Request for executing local or remote script.
+// Each request define the Mode of execution, Script file to be executed,
+// and the lineRange -- list of line numbers to be executed.
+type Request struct {
+    // Each request may set the Writer where the command read input from
+    // or output and error will be written.
+    // If its nil, it will default to os.DevNull (default os
+    // [exec/Cmd]), os.Stdout, and os.Stderr, respectively.
+    stdin  io.Reader
+    stdout io.Writer
+    stderr io.Writer
+
+    <TRUNCATED>
+}
+----
+
+//}}}
+== Test case 1: sudo with valid password
+//{{{
+
+Lets create a test that run sudo first and see what would happened,
+
+----
+//go:build integration
+
+package awwan
+
+import (
+	"testing"
+)
+
+func TestExecLocal_sudo(t *testing.T) {
+	var (
+		req    = &Request{}
+		rawCmd = `sudo echo "hello sudo"`
+
+		err error
+	)
+
+	err = ExecLocal(req, rawCmd)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+----
+
+Inside the container we run the test,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+[sudo] password for awwan:
+signal: interrupt
+FAIL    git.sr.ht/~shulhan/awwan        10.799s
+----
+
+The test wait for password, as expected, so we force stop it using CTRL+C.
+
+Lets mock the stdin and fill the password to be read by sudo.
+To be able to do this we need to add "-S" option to sudo
+footnote:sudo_man_s[{sudo_man_s}]
+
+[quote]
+____
+-S, --stdin
+
+Write  the  prompt  to the standard error and read the password
+from the standard input instead of using the terminal device.
+____
+
+Not only we need to mock stdin, we also need to mock stderr.
+
+----
+ package awwan
+
+ import (
++	"bytes"
+ 	"testing"
+ )
+
+ func TestExecLocal_sudo(t *testing.T) {
+ 	var (
+-		req    = &Request{}
+-		rawCmd = `sudo ls -al`
++		mockin  = &bytes.Buffer{}
++		mockout = &bytes.Buffer{}
++		req     = &Request{
++			stdin:  mockin,
++			stdout: mockout,
++			stderr: mockout,
++		}
++		rawCmd = `sudo -S echo "hello sudo"`
+
+ 		err error
+ 	)
+
++	mockin.WriteString("awwan\n")
++
+ 	err = ExecLocal(req, rawCmd)
+ 	if err != nil {
+ 		t.Fatal(err)
+ 	}
+----
+
+Run the test again,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:30: Stdout+Stderr: [sudo] password for awwan: hello sudo
+--- PASS: TestExecLocal_sudo (0.12s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        0.123s
+----
+
+It works.
+But does the output correct?
+Lets check the output in mockout.
+
+----
+ import (
+ 	"bytes"
+ 	"testing"
++
++	"github.com/shuLhan/share/lib/test"
+ )
+
+ func TestExecLocal_sudo(t *testing.T) {
+ 	var (
+@@ -29,5 +31,7 @@ func TestExecLocal_sudo(t *testing.T) {
+ 	err = ExecLocal(req, rawCmd)
+ 	if err != nil {
+ 		t.Fatal(err)
+ 	}
++
++	test.Assert(t, "stdout", `hello sudo`, mockout.String())
+ }
+----
+
+Run the test again,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    test.go:43:
+        !!! ERR git.sr.ht/~shulhan/awwan.TestExecLocal_sudo(0xc00026c000)
+                /home/awwan/src/sudo_test.go:36 +0x18e
+
+    test.go:113: !!! Assert: stdout: expecting string(hello sudo), got string([sudo] password for awwan: hello sudo
+        )
+--- FAIL: TestExecLocal_sudo (0.12s)
+FAIL
+exit status 1
+FAIL    git.sr.ht/~shulhan/awwan        0.120s
+----
+
+OK its really working, lets fix the test code to match the output,
+----
+ 	if err != nil {
+ 		t.Fatal(err)
+ 	}
+
+-	test.Assert(t, "stdout", `hello sudo`, mockout.String())
++	var exp = "[sudo] password for awwan: hello sudo\n"
++	test.Assert(t, "stdout", exp, mockout.String())
+ }
+----
+
+Run the test again,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+--- PASS: TestExecLocal_sudo (0.12s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        0.120s
+----
+
+That is one test case.
+Lets move to another one.
+
+//}}}
+== Test case 2: multiple sudo
+//{{{
+
+What happened if our command call sudo multiple times, for example twice?
+
+Lets rewrite our test code first to accommodates multiple test cases,
+
+----
+//go:build integration
+
+package awwan
+
+import (
+	"bytes"
+	"testing"
+
+	"github.com/shuLhan/share/lib/test"
+)
+
+func TestExecLocal_sudo(t *testing.T) {
+	type testCase struct {
+		desc      string
+		sudoPass  string
+		expOutput string
+		listCmd   []string
+	}
+
+	var (
+		mockin  = &bytes.Buffer{}
+		mockout = &bytes.Buffer{}
+		req     = &Request{
+			stdin:  mockin,
+			stdout: mockout,
+			stderr: mockout,
+		}
+		err error
+	)
+
+	var cases = []testCase{{
+		desc:      `SingleSudo`,
+		listCmd:   []string{`sudo -S echo "hello sudo"`},
+		sudoPass:  "awwan\n",
+		expOutput: "[sudo] password for awwan: hello sudo\n",
+	}}
+
+	var c testCase
+
+	for _, c = range cases {
+		t.Log(c.desc)
+
+		mockout.Reset()
+		mockin.Reset()
+		mockin.WriteString(c.sudoPass)
+
+		for _, rawCmd := range c.listCmd {
+			err = ExecLocal(req, rawCmd)
+			if err != nil {
+				t.Log(mockout.String())
+				t.Fatal(err)
+			}
+		}
+
+		test.Assert(t, c.desc+` output`, c.expOutput, mockout.String())
+	}
+}
+----
+
+Run it,
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:44: SingleSudo
+--- PASS: TestExecLocal_sudo (0.12s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        0.120s
+----
+
+And then add a second case,
+
+----
+ 		desc:      `SingleSudo`,
+ 		listCmd:   []string{`sudo -S echo "hello sudo"`},
+ 		sudoPass:  "awwan\n",
+ 		expOutput: "[sudo] password for awwan: hello sudo\n",
++	}, {
++		desc: `MultipleSudo`,
++		listCmd: []string{
++			`sudo -S echo "hello sudo #1"`,
++			`sudo -S echo "hello sudo #2"`,
++		},
++		sudoPass:  "awwan\nawwan\n",
++		expOutput: "[sudo] password for awwan: hello sudo #1\n[sudo] password for awwan: hello sudo #2",
+ 	}}
+
+ 	var c testCase
+----
+
+By logic if we call sudo twice, the password should be asked twice too.
+Lets test it,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:52: SingleSudo
+    sudo_test.go:52: MultipleSudo
+    sudo_test.go:61: [sudo] password for awwan: hello sudo #1
+        [sudo] password for awwan:
+        sudo: no password was provided
+        sudo: a password is required
+
+    sudo_test.go:62: ExecLocal: exit status 1
+--- FAIL: TestExecLocal_sudo (1.84s)
+FAIL
+exit status 1
+FAIL    git.sr.ht/~shulhan/awwan        1.841s
+----
+
+The first sudo works, but the second is not.
+What happened?
+The only way to find out is by creating our own io.Reader that overwrite the
+Read method, so we can check which password is read by sudo,
+
+----
+ import (
+ 	"bytes"
++	"log"
+ 	"testing"
+
+ 	"github.com/shuLhan/share/lib/test"
+ )
+
++type mockStdin struct {
++	buf bytes.Buffer
++}
++
++func (in *mockStdin) Read(pass []byte) (n int, err error) {
++	log.Printf(`Read: len=%d`, len(pass))
++	n, err = in.buf.Read(pass)
++	log.Printf(`Read: pass=%s n=%d err=%v`, pass, n, err)
++	return n, err
++}
++
+ func TestExecLocal_sudo(t *testing.T) {
+ 	type testCase struct {
+ 		desc      string
+ 		sudoPass  string
+@@ -20,9 +32,9 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		listCmd   []string
+ 	}
+
+ 	var (
+-		mockin  = &bytes.Buffer{}
++		mockin  = &mockStdin{}
+ 		mockout = &bytes.Buffer{}
+ 		req     = &Request{
+ 			stdin:  mockin,
+ 			stdout: mockout,
+@@ -51,9 +63,9 @@ func TestExecLocal_sudo(t *testing.T) {
+ 	for _, c = range cases {
+ 		t.Log(c.desc)
+
+ 		mockout.Reset()
+-		mockin.Reset()
++		mockin.buf.Reset()
+ 		mockin.WriteString(c.sudoPass)
+
+ 		for _, rawCmd := range c.listCmd {
+ 			err = ExecLocal(req, rawCmd)
+----
+
+Lets test it again,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:64: SingleSudo
+2023/10/14 15:03:58 Read: len=32768
+2023/10/14 15:03:58 Read: pass=awwan
+ n=6 err=<nil>
+2023/10/14 15:03:58 Read: len=32768
+2023/10/14 15:03:58 Read: pass=awwan
+ n=0 err=EOF
+    sudo_test.go:64: MultipleSudo
+2023/10/14 15:03:58 Read: len=32768
+2023/10/14 15:03:58 Read: pass=awwan
+awwan
+ n=12 err=<nil>
+2023/10/14 15:03:58 Read: len=32768
+2023/10/14 15:03:58 Read: pass=awwan
+awwan
+ n=0 err=EOF
+2023/10/14 15:03:58 Read: len=32768
+2023/10/14 15:03:58 Read: pass= n=0 err=EOF
+    sudo_test.go:73: [sudo] password for awwan: hello sudo #1
+        [sudo] password for awwan:
+        sudo: no password was provided
+        sudo: a password is required
+
+    sudo_test.go:74: ExecLocal: exit status 1
+--- FAIL: TestExecLocal_sudo (2.70s)
+FAIL
+exit status 1
+FAIL    git.sr.ht/~shulhan/awwan        2.705s
+----
+
+In SingleSudo, the Read method called twice, one with err=<nil> and another
+with err=EOF.
+
+In MultipleSudo, all of the stdin content is readed until it return EOF, so
+the next sudo statement Read an empty password.
+Lets check the
+https://pkg.go.dev/os/exec#Cmd["exec.Cmd"^]
+documentation on Stdin,
+
+[quote]
+----
+...
+// Stdin specifies the process's standard input.
+//
+// If Stdin is nil, the process reads from the null device (os.DevNull).
+//
+// If Stdin is an *os.File, the process's standard input is connected
+// directly to that file.
+//
+// Otherwise, during the execution of the command a separate
+// goroutine reads from Stdin and delivers that data to the command
+// over a pipe. In this case, Wait does not complete until the goroutine
+// stops copying, either because it has reached the end of Stdin
+// (EOF or a read error), or because writing to the pipe returned an
+// error,
+// or because a nonzero WaitDelay was set and expired.
+Stdin io.Reader
+...
+----
+
+Since we are not using "*os.File", we fall into clause "... Wait does not
+complete until the goroutine stops copying, either because it has reached
+the end of Stdin (EOF or a read error), ..."
+
+The only way to stop Read is by returning EOF.
+Lets try by modifying our mockStdin Reader,
+
+----
+ package awwan
+
+ import (
+ 	"bytes"
++	"io"
+ 	"log"
+ 	"testing"
+
+ 	"github.com/shuLhan/share/lib/test"
+@@ -18,9 +19,21 @@ type mockStdin struct {
+ }
+
+ func (in *mockStdin) Read(pass []byte) (n int, err error) {
+ 	log.Printf(`Read: len=%d`, len(pass))
+-	n, err = in.buf.Read(pass)
++	var b = make([]byte, 1)
++	for n < len(pass) {
++		_, err = in.buf.Read(b)
++		if err != nil {
++			return n, err
++		}
++		if b[0] == '\n' {
++			err = io.EOF
++			break
++		}
++		pass[n] = b[0]
++		n++
++	}
+ 	log.Printf(`Read: pass=%s n=%d err=%v`, pass, n, err)
+ 	return n, err
+ }
+----
+
+In Read method, we read one byte at the time, then when we found new line
+"\\n" character, we set the error as "io.EOF" and return it to caller.
+Lets test it.
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:77: SingleSudo
+2023/10/14 15:17:48 Read: len=32768
+2023/10/14 15:17:48 Read: pass=awwan n=5 err=EOF
+    sudo_test.go:77: MultipleSudo
+2023/10/14 15:17:49 Read: len=32768
+2023/10/14 15:17:49 Read: pass=awwan n=5 err=EOF
+2023/10/14 15:17:49 Read: len=32768
+2023/10/14 15:17:49 Read: pass=awwan n=5 err=EOF
+--- PASS: TestExecLocal_sudo (0.35s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        0.354s
+----
+
+Its works my man!
+
+//}}}
+==  Refactoring
+//{{{
+
+Remember our test command always run sudo with "-S" option?
+It should not.
+It should only run with "-S" if during testing or when stdin from Request
+instance is set.
+Lets refactoring our ExecLocal function first.
+
+----
+// ExecLocal execute the command with its arguments in local environment
+// where the output and error send to os.Stdout and os.Stderr respectively.
+//
+// If the statement command is "sudo" and stdin is non-nil, sudo will run
+// with "-S" option to read password from stdin instead of from terminal.
+func ExecLocal(req *Request, stmt *Statement) (err error) {
+	if stmt.cmd == `sudo` {
+		if req.stdin != nil {
+			var newArgs = make([]string, len(stmt.args)+1)
+			newArgs = append(newArgs, `-S`)
+			newArgs = append(newArgs, stmt.args...)
+			stmt.args = newArgs
+		}
+	}
+
+	var (
+		rawcmd = fmt.Sprintf(`%s %s`, stmt.cmd, strings.Join(stmt.args, ` `))
+		cmd    = exec.Command(`/bin/sh`, `-c`, rawcmd)
+	)
+
+	cmd.Stdin = req.stdin
+	cmd.Stdout = req.stdout
+	cmd.Stderr = req.stderr
+
+	err = cmd.Run()
+	if err != nil {
+		return fmt.Errorf(`ExecLocal: %w`, err)
+	}
+	return nil
+}
+----
+
+Then we changes our test code to use Statement instead of string,
+
+----
+@@ -41,9 +41,9 @@ func TestExecLocal_sudo(t *testing.T) {
+ 	type testCase struct {
+ 		desc      string
+ 		sudoPass  string
+ 		expOutput string
+-		listCmd   []string
++		listStmt  []Statement
+ 	}
+
+ 	var (
+ 		mockin  = &mockStdin{}
+@@ -56,33 +56,42 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		err error
+ 	)
+
+ 	var cases = []testCase{{
+-		desc:      `SingleSudo`,
+-		listCmd:   []string{`sudo -S echo "hello sudo"`},
++		desc: `SingleSudo`,
++		listStmt: []Statement{{
++			cmd:  `sudo`,
++			args: []string{`echo "hello sudo"`},
++		}},
+ 		sudoPass:  "awwan\n",
+ 		expOutput: "[sudo] password for awwan: hello sudo\n",
+ 	}, {
+ 		desc: `MultipleSudo`,
+-		listCmd: []string{
+-			`sudo -S echo "hello sudo #1"`,
+-			`sudo -S echo "hello sudo #2"`,
+-		},
++		listStmt: []Statement{{
++			cmd:  `sudo`,
++			args: []string{`echo "hello sudo #1"`},
++		}, {
++			cmd:  `sudo`,
++			args: []string{`echo "hello sudo #2"`},
++		}},
+ 		sudoPass:  "awwan\nawwan\n",
+ 		expOutput: "[sudo] password for awwan: hello sudo #1\n[sudo] password for awwan: hello sudo #2",
+ 	}}
+
+-	var c testCase
++	var (
++		c    testCase
++		stmt Statement
++	)
+
+ 	for _, c = range cases {
+ 		t.Log(c.desc)
+
+ 		mockout.Reset()
+ 		mockin.buf.Reset()
+ 		mockin.buf.WriteString(c.sudoPass)
+
+-		for _, rawCmd := range c.listCmd {
+-			err = ExecLocal(req, rawCmd)
++		for _, stmt = range c.listStmt {
++			err = ExecLocal(req, &stmt)
+ 			if err != nil {
+ 				t.Log(mockout.String())
+ 				t.Fatal(err)
+ 			}
+----
+
+If we run the test again it should PASS,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:86: SingleSudo
+2023/10/14 16:07:36 Read: len=32768
+2023/10/14 16:07:36 Read: pass=awwan n=5 err=EOF
+    sudo_test.go:86: MultipleSudo
+2023/10/14 16:07:36 Read: len=32768
+2023/10/14 16:07:36 Read: pass=awwan n=5 err=EOF
+2023/10/14 16:07:36 Read: len=32768
+2023/10/14 16:07:36 Read: pass=awwan n=5 err=EOF
+--- PASS: TestExecLocal_sudo (0.35s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        0.355s
+----
+
+//}}}
+== Test case 3: invalid password
+//{{{
+
+What would its look like if we pass invalid password during sudo?
+Lets see it.
+
+First, we add new test case where we pass invalid password,
+----
+@@ -41,8 +41,9 @@ func TestExecLocal_sudo(t *testing.T) {
+ 	type testCase struct {
+ 		desc      string
+ 		sudoPass  string
+ 		expOutput string
++		expError  string
+ 		listStmt  []Statement
+ 	}
+
+ 	var (
+@@ -74,8 +75,17 @@ func TestExecLocal_sudo(t *testing.T) {
+ 			args: []string{`echo "hello sudo #2"`},
+ 		}},
+ 		sudoPass:  "awwan\nawwan\n",
+ 		expOutput: "[sudo] password for awwan: hello sudo #1\n[sudo] password for awwan: hello sudo #2",
++	}, {
++		desc: `WithInvalidPassword`,
++		listStmt: []Statement{{
++			cmd:  `sudo`,
++			args: []string{`echo "hello sudo"`},
++		}},
++		sudoPass:  "invalid\n",
++		expError:  `ExecLocal: exit status 1`,
++		expOutput: "[sudo] password for awwan: sudo: 1 incorrect password attempt\n",
+ 	}}
+
+ 	var (
+ 		c    testCase
+@@ -92,9 +102,9 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		for _, stmt = range c.listStmt {
+ 			err = ExecLocal(req, &stmt)
+ 			if err != nil {
+ 				t.Log(mockout.String())
+-				t.Fatal(err)
++				test.Assert(t, `error`, c.expError, err.Error())
+ 			}
+ 		}
+
+ 		test.Assert(t, c.desc+` output`, c.expOutput, mockout.String())
+----
+
+In this changes we add new field to our testCase, expError, which contains
+the expected error when sudo failed.
+Instead of calling "t.Fatal", we then compare the error returned by
+ExecLocal with the value of expError.
+
+Lets test it,
+
+----
+[awwan@awwan-test src]$ go test -v -tags=integration -run=ExecLocal_sudo
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:96: SingleSudo
+2023/10/14 16:35:15 Read: len=32768
+2023/10/14 16:35:15 Read: pass=awwan n=5 err=EOF
+    sudo_test.go:96: MultipleSudo
+2023/10/14 16:35:15 Read: len=32768
+2023/10/14 16:35:15 Read: pass=awwan n=5 err=EOF
+2023/10/14 16:35:16 Read: len=32768
+2023/10/14 16:35:16 Read: pass=awwan n=5 err=EOF
+    sudo_test.go:96: WithInvalidPassword
+2023/10/14 16:35:16 Read: len=32768
+2023/10/14 16:35:16 Read: pass=invalid n=7 err=EOF
+    sudo_test.go:105: [sudo] password for awwan: sudo: 1 incorrect password attempt
+
+--- PASS: TestExecLocal_sudo (2.63s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        2.630s
+----
+
+Nice.
+
+//}}}
+== Test case 4: multiple sudo, one with invalid password
+//{{{
+
+This is the last test case, similar to test case #2, where we run multiple
+sudo statements, but we make one of the statement use invalid password.
+
+----
+@@ -18,5 +18,5 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		sudoPass  string
+ 		expOutput string
+-		expError  string
++		expError  []string
+ 		listStmt  []Statement
+ 	}
+@@ -59,6 +59,21 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		}},
+ 		sudoPass:  "invalid\n",
+-		expError:  `ExecLocal: exit status 1`,
++		expError:  []string{`ExecLocal: exit status 1`},
+ 		expOutput: "[sudo] password for awwan: sudo: 1 incorrect password attempt\n",
++	}, {
++		desc: `MultipleSudoOneInvalid`,
++		listStmt: []Statement{{
++			cmd:  `sudo`,
++			args: []string{`echo "hello sudo #1"`},
++		}, {
++			cmd:  `sudo`,
++			args: []string{`echo "hello sudo #2"`},
++		}},
++		sudoPass: "awwan\ninvalid\n",
++		expError: []string{
++			``,
++			`ExecLocal: exit status 1`,
++		},
++		expOutput: "[sudo] password for awwan: hello sudo #1\n[sudo] password for awwan: sudo: 1 incorrect password attempt\n",
+ 	}}
+
+@@ -66,4 +81,5 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		c    testCase
+ 		stmt Statement
++		x    int
+ 	)
+
+@@ -75,9 +91,10 @@ func TestExecLocal_sudo(t *testing.T) {
+ 		mockin.buf.WriteString(c.sudoPass)
+
+-		for _, stmt = range c.listStmt {
++		for x, stmt = range c.listStmt {
+ 			err = ExecLocal(req, &stmt)
+ 			if err != nil {
+ 				t.Log(mockout.String())
+-				test.Assert(t, `error`, c.expError, err.Error())
++				var expError = c.expError[x]
++				test.Assert(t, `error`, expError, err.Error())
+ 			}
+ 		}
+----
+
+Since the expError is tied to each statement, we need to changes it to
+slice of string.
+Lets test it,
+
+----
+[awwan@awwan-test src]$ go test -tags=integration -v -run=ExecLocal
+=== RUN   TestExecLocal_sudo
+    sudo_test.go:87: SingleSudo
+2023/10/14 16:53:53 Read: len=32768
+2023/10/14 16:53:53 Read: pass=awwan n=5 err=EOF
+    sudo_test.go:87: MultipleSudo
+2023/10/14 16:53:53 Read: len=32768
+2023/10/14 16:53:53 Read: pass=awwan n=5 err=EOF
+2023/10/14 16:53:53 Read: len=32768
+2023/10/14 16:53:53 Read: pass=awwan n=5 err=EOF
+    sudo_test.go:87: WithInvalidPassword
+2023/10/14 16:53:53 Read: len=32768
+2023/10/14 16:53:53 Read: pass=invalid n=7 err=EOF
+    sudo_test.go:96: [sudo] password for awwan: sudo: 1 incorrect password attempt
+
+    sudo_test.go:87: MultipleSudoOneInvalid
+2023/10/14 16:53:55 Read: len=32768
+2023/10/14 16:53:55 Read: pass=awwan n=5 err=EOF
+2023/10/14 16:53:55 Read: len=32768
+2023/10/14 16:53:55 Read: pass=invalid n=7 err=EOF
+    sudo_test.go:96: [sudo] password for awwan: hello sudo #1
+        [sudo] password for awwan: sudo: 1 incorrect password attempt
+
+--- PASS: TestExecLocal_sudo (4.33s)
+PASS
+ok      git.sr.ht/~shulhan/awwan        4.329s
+----
+
+//}}}
+== Cleaning it up
+//{{{
+
+Now that our test are finally works, we can remove all logging statements.
+
+----
+@@ -9,5 +9,4 @@ import (
+ 	"bytes"
+ 	"io"
+-	"log"
+ )
+
+@@ -18,5 +17,4 @@ type mockStdin struct {
+
+ func (in *mockStdin) Read(pass []byte) (n int, err error) {
+-	log.Printf(`Read: len=%d`, len(pass))
+ 	var b = make([]byte, 1)
+ 	for n < len(pass) {
+@@ -32,5 +30,4 @@ func (in *mockStdin) Read(pass []byte) (n int, err error) {
+ 		n++
+ 	}
+-	log.Printf(`Read: pass=%s n=%d err=%v`, pass, n, err)
+ 	return n, err
+ }
+----
+
+And then run all integration tests,
+
+----
+[awwan@awwan-test src]$ go test -tags=integration .
+ok      git.sr.ht/~shulhan/awwan        7.498s
+----
+
+//}}}
