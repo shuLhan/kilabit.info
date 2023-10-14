@@ -1,32 +1,38 @@
-.PHONY: all embed serve find-broken-symlinks
-
+.PHONY: all
 all: serve
 
-embed:
-	go run ./cmd/www-kilabit embed
-
-serve:
-	go run ./cmd/www-kilabit -dev
-
+.PHONY: find-broken-symlinks
 find-broken-symlinks:
 	@echo ">>> Finding broken symlinks ..."
 	@broken=$$(find . -xtype l); \
 	echo $$broken; \
 	if [[ "$$broken" != "" ]]; then exit 1; fi
 
+
+
+.PHONY: embed
+embed: find-broken-symlinks
+	go run ./cmd/www-kilabit embed
+
+.PHONY: build
+build: embed
+	go build ./cmd/www-kilabit/
+
+.PHONY: serve
+serve:
+	go run ./cmd/www-kilabit -dev
+
 ##---- Local tasks.
 
-.PHONY: local-setup local-deploy
-
-local-deploy: find-broken-symlinks embed
-	go build ./cmd/www-kilabit
+.PHONY: local-deploy
+local-deploy: build
 	rsync --progress ./www-kilabit dev.local:/data/bin/
 
 ##---- Remote tasks.
 
 .PHONY: deploy
-
-deploy: find-broken-symlinks embed
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-		go build -o www-kilabit-linux-amd64 ./cmd/www-kilabit/
-	rsync --progress www-kilabit-linux-amd64 kilabit.info:/data/app/bin/www-kilabit
+deploy: CGO_ENABLED=0
+deploy: GOOS=linux
+deploy: GOARCH=amd64
+deploy: build
+	rsync --progress www-kilabit kilabit.info:/data/app/bin/www-kilabit
