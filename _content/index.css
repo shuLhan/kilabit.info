@@ -176,6 +176,7 @@ h1 {
 }
 
 h2 {
+  background-color: lightblue;
   font-size: 22px;
 }
 
@@ -200,7 +201,6 @@ h2,
 h3,
 h4,
 h5 {
-  background-color: lightblue;
   border-bottom: 1px solid grey;
   padding: 6px;
   color: black;
