@@ -15,18 +15,19 @@ https://git.sr.ht/~shulhan/asciidoctor-go[Repository^]
 
 ===  awwan
 
-Configuration management software, infrastructure as file and
+`awwan` is configuration management software, infrastructure as file and
 directory layout.
-`awwan` is command-line interface to execute multiple lines of command in the
-local or remote server using SSH.
+In other words, `awwan` is command-line interface to execute multiple lines
+of command in the local or remote server using SSH.
+
 Do you have a collection of shell scripts to manage one more similar server?
-Do you ever want to execute only part of your script? Are you get tired with
-learning others syntax and tools for provisioning your own server, while you
-need is a handful of shell script?
+Do you ever want to execute only part of your shell script in remote server?
+Are you get tired with learning others syntax and tools for provisioning
+your own server, while you need is a handful knowledge of shell script?
+
 If yes, awwan is the right tools for you.
 
-link:/project/awwan/[Project page^] -
-https://git.sr.ht/~shulhan/awwan[Repository^]
+https://awwan.org[Awwan project website^]
 
 ===  beku (deprecated in favor of Go module)
 
