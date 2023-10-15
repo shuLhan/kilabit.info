@@ -1,4 +1,5 @@
 @font-face {
+  font-display: swap;
   font-family: "Go";
   src:
     local("Go Regular"),
@@ -11,6 +12,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go";
   src:
     local("Go Bold"),
@@ -23,6 +25,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go";
   src:
     local("Go Italic"),
@@ -35,6 +38,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go";
   src:
     local("Go Bold Italic"),
@@ -47,6 +51,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go";
   src:
     local("Go Medium"),
@@ -59,6 +64,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go";
   src:
     local("Go Medium Italic"),
@@ -71,6 +77,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go Mono";
   src:
     local("Go Mono"),
@@ -83,6 +90,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go Mono";
   src:
     local("Go Mono Bold Italic"),
@@ -95,6 +103,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go Mono";
   src:
     local("Go Mono Italic"),
@@ -107,6 +116,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go Mono";
   src:
     local("Go Mono Bold"),
@@ -119,6 +129,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go Smallcaps";
   src:
     local("Go Smallcaps Italic"),
@@ -131,6 +142,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: "Go Smallcaps";
   src:
     local("Go Smallcaps"),
