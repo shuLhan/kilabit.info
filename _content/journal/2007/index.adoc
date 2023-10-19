@@ -1,25 +1,23 @@
 
-2007::
-+
---
-*  link:/journal/2007/12/14__i_am_not_anti[I am not anti Windows, its just
-   ...^]
+=== 2007
 
-*  link:/journal/2007/12/04__so_high[So high^]
+link:/journal/2007/12/14__i_am_not_anti[I am not anti Windows, its just
+...^].
 
-*  link:/journal/2007/06/15__elegal_life[eLegal Life^]
+link:/journal/2007/12/04__so_high[So high^].
 
-*  link:/journal/2007/04/20__1cm[1cm^]
+link:/journal/2007/06/15__elegal_life[eLegal Life^].
 
-*  link:/journal/2007/04/19__knuth_quotations/[Knuth's Quotation^]
+link:/journal/2007/04/20__1cm[1cm^].
 
-*  link:/journal/2007/03/08__opensuse_102[openSuSE 10.2^]
+link:/journal/2007/04/19__knuth_quotations/[Knuth's Quotation^].
 
-*  link:/journal/2007/03/02__goodbye_old_men[Goodbye old men!^]
+link:/journal/2007/03/08__opensuse_102[openSuSE 10.2^].
 
-*  link:/journal/2007/02/26__why_google[Why Google^]
+link:/journal/2007/03/02__goodbye_old_men[Goodbye old men!^].
 
-*  link:/journal/2007/02/22__karma[Karma^]
+link:/journal/2007/02/26__why_google[Why Google^].
 
-*  link:/journal/2007/02/22__debian_404[Debian 404^]
---
+link:/journal/2007/02/22__karma[Karma^].
+
+link:/journal/2007/02/22__debian_404[Debian 404^].

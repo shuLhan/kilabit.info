@@ -1,30 +1,28 @@
 
-2008::
-+
---
-*  link:/journal/2008/12/18__parallel_whatever[Parallel whatever^]
+=== 2008
 
-*  link:/journal/2008/12/01__8rowser[8rowser^]
+link:/journal/2008/12/18__parallel_whatever[Parallel whatever^].
 
-*  link:/journal/2008/08/08__080808[080808^]
+link:/journal/2008/12/01__8rowser[8rowser^].
 
-*  link:/journal/2008/07/29__pinky_and_the_brain[Pinky and the brain^]
+link:/journal/2008/08/08__080808[080808^].
 
-*  link:/journal/2008/06/16__patience_108_moves[Patience: 108 moves^]
+link:/journal/2008/07/29__pinky_and_the_brain[Pinky and the brain^].
 
-*  link:/journal/2008/05/27__16_14__auto_what[Auto... what?^]
+link:/journal/2008/06/16__patience_108_moves[Patience: 108 moves^].
 
-*  link:/journal/2008/05/27__16_01__team_based_project[Team based project^]
+link:/journal/2008/05/27__16_14__auto_what[Auto... what?^].
 
-*  link:/journal/2008/05/27__15_32__2012[2012^]
+link:/journal/2008/05/27__16_01__team_based_project[Team based project^].
 
-*  link:/journal/2008/05/27__15_29__do_vs_do_not[Dos and Donts^]
+link:/journal/2008/05/27__15_32__2012[2012^].
 
-*  link:/journal/2008/05/23__anonymous_using_tor_and_privoxy[Anonymous using
-   Tor and Privoxy^]
+link:/journal/2008/05/27__15_29__do_vs_do_not[Dos and Donts^].
 
-*  link:/journal/2008/04/18__major_label_debut[Major label debut^]
+link:/journal/2008/05/23__anonymous_using_tor_and_privoxy[Anonymous using
+Tor and Privoxy^].
 
-*  link:/journal/2008/01/02__haha_akhirnya_dapat_juga[Haha akhirnya dapat
-   juga^]
---
+link:/journal/2008/04/18__major_label_debut[Major label debut^].
+
+link:/journal/2008/01/02__haha_akhirnya_dapat_juga[Haha akhirnya dapat
+juga^].

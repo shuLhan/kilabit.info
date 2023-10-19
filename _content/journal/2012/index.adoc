@@ -1,12 +1,10 @@
 
-2012::
-+
---
-*  link:/journal/2012/11/Laku[Laku^]
+=== 2012
 
-*  link:/journal/2012/11/Arti_Nama[Arti nama^]
+link:/journal/2012/11/Laku[Laku^].
 
-*  link:/journal/2012/07/Narcism[Narcism^]
+link:/journal/2012/11/Arti_Nama[Arti nama^].
 
-*  link:/journal/2012/06/Blessing[Blessing^]
---
+link:/journal/2012/07/Narcism[Narcism^].
+
+link:/journal/2012/06/Blessing[Blessing^].

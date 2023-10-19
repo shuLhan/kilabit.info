@@ -1,21 +1,19 @@
 
-2015::
-+
---
-*  link:/journal/2015/11/Generating_Partition_of_A_Set[Generating partition of
-   a set^]
+=== 2015
 
-*  link:/journal/2015/11/Building_Docker_Image_with_Arch_Linux[Building Docker
-   Image with Arch Linux^]
+link:/journal/2015/11/Generating_Partition_of_A_Set[Generating partition of
+a set^].
 
-*  link:/journal/2015/10/Eksplorasi_Alat_Manajemen_Konfigurasi[Eksplorasi Alat
-   Manajemen Konfigurasi^]
+link:/journal/2015/11/Building_Docker_Image_with_Arch_Linux[Building Docker
+Image with Arch Linux^].
 
-*  link:/journal/2015/09/Pengenalan_tentang_Amazon_Web_Services[Pengenalan
-   tentang Amazon Web Services^]
+link:/journal/2015/10/Eksplorasi_Alat_Manajemen_Konfigurasi[Eksplorasi Alat
+Manajemen Konfigurasi^].
 
-*  link:/journal/2015/09/Bahasa_Pemrograman_Go[Bahasa Pemrograman Go^]
+link:/journal/2015/09/Pengenalan_tentang_Amazon_Web_Services[Pengenalan
+tentang Amazon Web Services^].
 
-*  link:/journal/2015/03/Bagaimana_mengurangi_KKN_di_Indonesia[Bagaimana
-   mengurangi KKN di Indonesia^]
---
+link:/journal/2015/09/Bahasa_Pemrograman_Go[Bahasa Pemrograman Go^].
+
+link:/journal/2015/03/Bagaimana_mengurangi_KKN_di_Indonesia[Bagaimana
+mengurangi KKN di Indonesia^].

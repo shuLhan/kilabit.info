@@ -1,3 +1,4 @@
+:toc:
 
 include::./2023/index.adoc[]
 

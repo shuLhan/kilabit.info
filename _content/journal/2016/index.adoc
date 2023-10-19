@@ -1,20 +1,18 @@
 
-2016::
-+
---
-*  link:/journal/2016/09/Memperbaiki_keluaran_coreutils__ls__pada_Bahasa_Indonesia[Memperbaiki
-   keluaran coreutils (ls) pada Bahasa Indonesia^]
+=== 2016
 
-*  link:/journal/2016/08/Two_Passengers[Two passengers^]
+link:/journal/2016/09/Memperbaiki_keluaran_coreutils__ls__pada_Bahasa_Indonesia[Memperbaiki
+keluaran coreutils (ls) pada Bahasa Indonesia^].
 
-*  link:/journal/2016/03/Go_language__six_line_assert_without_any_library[Go:
-   six line assert without any (external) library^]
+link:/journal/2016/08/Two_Passengers[Two passengers^].
 
-*  link:/journal/2016/03/Go_language__Things_That_I_Learned_Writing_dsv[Go:
-   things that I learned writing dsv^]
+link:/journal/2016/03/Go_language__six_line_assert_without_any_library[Go:
+six line assert without any (external) library^].
 
-*  link:/journal/2016/03/Git_Tutorial__slides[Git tutorial (slides)^]
+link:/journal/2016/03/Go_language__Things_That_I_Learned_Writing_dsv[Go:
+things that I learned writing dsv^].
 
-*  link:/journal/2016/01/Mari_enkripsi_dengan_Letsencrypt[Mari enkripsi dengan
-   LetsEncrypt^]
---
+link:/journal/2016/03/Git_Tutorial__slides[Git tutorial (slides)^].
+
+link:/journal/2016/01/Mari_enkripsi_dengan_Letsencrypt[Mari enkripsi dengan
+LetsEncrypt^].

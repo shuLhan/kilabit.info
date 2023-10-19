@@ -69,28 +69,4 @@ include::./journal/2021/index.adoc[]
 
 include::./journal/2020/index.adoc[]
 
-include::./journal/2019/index.adoc[]
-
-include::./journal/2018/index.adoc[]
-
-include::./journal/2017/index.adoc[]
-
-include::./journal/2016/index.adoc[]
-
-include::./journal/2015/index.adoc[]
-
-include::./journal/2014/index.adoc[]
-
-include::./journal/2013/index.adoc[]
-
-include::./journal/2012/index.adoc[]
-
-include::./journal/2011/index.adoc[]
-
-include::./journal/2010/index.adoc[]
-
-include::./journal/2009/index.adoc[]
-
-include::./journal/2008/index.adoc[]
-
-include::./journal/2007/index.adoc[]
+link:/journal/[More ...^]

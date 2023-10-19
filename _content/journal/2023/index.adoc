@@ -1,7 +1,6 @@
 
-link:/journal/2023/[2023]::
-+
---
+=== 2023
+
 link:/journal/2023/testing_sudo_with_go/["Testing sudo with Go"^].
 In awwan application, there is a functionality to run a command using sudo.
 In this journal we will take a notes on how to create integration tests
@@ -49,4 +48,3 @@ link:/journal/2023/2022_accomplishment/[2022 accomplishment^].
 link:/journal/2023/trying_to_build_a_product/[Trying to build a product^].
 
 link:/journal/2023/a_trip_to_labuan_bajo/[A trip to Labuan Bajo^].
---
