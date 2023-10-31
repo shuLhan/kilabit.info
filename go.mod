@@ -1,15 +1,15 @@
 module git.sr.ht/~shulhan/kilabit.info
 
-go 1.19
+go 1.20
 
 require (
-	git.sr.ht/~shulhan/ciigo v0.10.1-0.20231013081809-aa5ec477dceb
-	github.com/shuLhan/share v0.50.0
+	git.sr.ht/~shulhan/ciigo v0.10.1-0.20231014033528-46bd8b68dc8c
+	github.com/shuLhan/share v0.50.1-0.20231029100815-d714934c3b42
 )
 
 require (
 	git.sr.ht/~shulhan/asciidoctor-go v0.5.0 // indirect
-	github.com/yuin/goldmark v1.5.6 // indirect
+	github.com/yuin/goldmark v1.6.0 // indirect
 	github.com/yuin/goldmark-meta v1.1.0 // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect

@@ -1,11 +1,11 @@
 git.sr.ht/~shulhan/asciidoctor-go v0.5.0 h1:TfcAjv+7EwBZ83ef8OhX9vfQ4vRFcaJh0P1XXgbsJv0=
 git.sr.ht/~shulhan/asciidoctor-go v0.5.0/go.mod h1:RHAfgO1CU1It8Gsz6eqDBi8HhT4wxhCS1dKO8U9vIgM=
-git.sr.ht/~shulhan/ciigo v0.10.1-0.20231013081809-aa5ec477dceb h1:jFR4k++q2ws7zrpYDeGkjOvrHt2N2QUEpWT5+Ec52mk=
-git.sr.ht/~shulhan/ciigo v0.10.1-0.20231013081809-aa5ec477dceb/go.mod h1:MHajiSghg2i70cimK3yoybg3mUSI/XXmdQjtxyN9fAA=
-github.com/shuLhan/share v0.50.0 h1:L1TR7jsSOv5cDMkH4CapIzDp/Yisq5Xe16GMeQRCSMs=
-github.com/shuLhan/share v0.50.0/go.mod h1:YEwLUwwBpDqPn5yxfdb0B8eFP04SKQxv5gMQwB4A+c4=
-github.com/yuin/goldmark v1.5.6 h1:COmQAWTCcGetChm3Ig7G/t8AFAN00t+o8Mt4cf7JpwA=
-github.com/yuin/goldmark v1.5.6/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
+git.sr.ht/~shulhan/ciigo v0.10.1-0.20231014033528-46bd8b68dc8c h1:KEw6ySW40oKYn8kBhmZ+O/+ao3vsiQE/ASfrl8r8iI4=
+git.sr.ht/~shulhan/ciigo v0.10.1-0.20231014033528-46bd8b68dc8c/go.mod h1:MHajiSghg2i70cimK3yoybg3mUSI/XXmdQjtxyN9fAA=
+github.com/shuLhan/share v0.50.1-0.20231029100815-d714934c3b42 h1:N9oVS7acuZJ3ZKKGOENYraMd9oaNjl/0aRUH8yQnsj0=
+github.com/shuLhan/share v0.50.1-0.20231029100815-d714934c3b42/go.mod h1:dUE7xqEzT8HZRy8vvfFzrFJ+6a6chXwaPmC4hYB68QU=
+github.com/yuin/goldmark v1.6.0 h1:boZcn2GTjpsynOsC0iJHnBWa4Bi0qzfJjthwauItG68=
+github.com/yuin/goldmark v1.6.0/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 github.com/yuin/goldmark-meta v1.1.0 h1:pWw+JLHGZe8Rk0EGsMVssiNb/AaPMHfSRszZeUeiOUc=
 github.com/yuin/goldmark-meta v1.1.0/go.mod h1:U4spWENafuA7Zyg+Lj5RqK/MF+ovMYtBvXi1lBb2VP0=
 golang.org/x/net v0.17.0 h1:pVaXccu2ozPjCXewfr1S7xza/zcXTity9cCdXQYSjIM=
