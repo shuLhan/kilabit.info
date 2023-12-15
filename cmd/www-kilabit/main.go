@@ -19,7 +19,7 @@ func main() {
 	var (
 		convertOpts = ciigo.ConvertOptions{
 			Root:         `_content`,
-			HtmlTemplate: `_content/template.gohtml`,
+			HTMLTemplate: `_content/template.gohtml`,
 		}
 		serveOpts = ciigo.ServeOptions{
 			ConvertOptions: convertOpts,
