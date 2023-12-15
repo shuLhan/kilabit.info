@@ -24,11 +24,11 @@ The following cases describe the problem that we encounter when writing tests.
 
 === Case 1: testing with many records output
 
-Assume that we have a function `MyProcess` that write to two tables: `table_a`
+Assume that we have a function `MyOrder` that write to two tables: `table_a`
 and `table_b` in database, where each tables contains many columns.
 
 ----
-func MyProcess(order Order) (err error) {
+func MyOrder(order Order) (err error) {
 	// Insert to table_a.
 	// Insert to table_b.
 	return nil
@@ -81,7 +81,7 @@ func (tableB *TableB) Insert() (err error) {
 }
 ----
 
-In the integration test we write function to test MyProcess like these,
+In the integration test we write function to test MyOrder like these,
 
 ----
 func TestMyOrder(t *testing.T) {
@@ -125,7 +125,7 @@ In the `TestMyOrder`, we needs to create expected values for each record
 inserted into `table_a` and `table_b`, probably additional function or method
 to compare each item in `wantTableA` with `gotListTableA`.
 That is just two tables.
-If the output of MyProcess wrote multiple records to multiple tables, the
+If the output of MyOrder wrote multiple records to multiple tables, the
 tasks to create expected records become longer and cumbersome, littering the
 test code with test data.
 
