@@ -24,7 +24,6 @@ func main() {
 		serveOpts = ciigo.ServeOptions{
 			ConvertOptions: convertOpts,
 			Mfs:            memfsContent,
-			Address:        `127.0.0.1:7000`,
 		}
 
 		cmd string
@@ -32,6 +31,7 @@ func main() {
 	)
 
 	flag.BoolVar(&serveOpts.IsDevelopment, "dev", false, "Run in development mode")
+	flag.StringVar(&serveOpts.Address, `address`, `127.0.0.1:7000`, `Address to serve`)
 	flag.Parse()
 
 	cmd = strings.ToLower(flag.Arg(0))
