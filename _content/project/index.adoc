@@ -10,8 +10,7 @@ The asciidoctor-go is the Go module to parse the
 https://asciidoctor.org/docs/what-is-asciidoc[AsciiDoc markup^]
 and convert it into HTML5.
 
-link:/project/asciidoctor-go/[Project page^] -
-https://git.sr.ht/~shulhan/asciidoctor-go[Repository^]
+https://sr.ht/~shulhan/asciidoctor-go/[Project page^]
 
 ===  awwan
 
@@ -27,7 +26,7 @@ your own server, while you need is a handful knowledge of shell script?
 
 If yes, awwan is the right tools for you.
 
-https://awwan.org[Awwan project website^]
+https://awwan.org[Website^]
 
 ===  beku (deprecated in favor of Go module)
 
@@ -36,8 +35,7 @@ environment (GOPATH or vendor directory).
 Beku provide syntax like pacman.
 This program exists long before before `godep` or Go module exist and stable.
 
-link:/project/beku/[Project page^] -
-https://github.com/shuLhan/beku[Repository^]
+https://github.com/shuLhan/beku[Project page^]
 
 === ciigo
 
@@ -45,8 +43,7 @@ ciigo is a program to write static web server with embedded files
 using asciidoc markup language.
 This site and golang-id.org is written with `ciigo` as framework.
 
-link:/project/ciigo/[Project page^] -
-https://git.sr.ht/~shulhan/ciigo[Repository^]
+https://sr.ht/~shulhan/ciigo[Project page^]
 
 ===  golang-id.org
 
@@ -57,29 +54,27 @@ community, for example, vlog and blog in Indonesian language, and sharing open
 source works written in Go.
 The website is freshly launched, they are still more works to be done, though.
 
-https://golang-id.org[golang-id.org^] -
-https://github.com/golang-id/web[Repository^]
+https://golang-id.org[Website^] -
+https://github.com/golang-id/web[Project page^]
 
 ===  gotp
 
 Command line interface for Time-based One Time Password (TOTP).
 
-link:/project/gotp/[Project page^] -
-https://sr.ht/~shulhan/gotp[Repository^]
+https://sr.ht/~shulhan/gotp[Project page^]
 
 ===  haminer
 
 haminer is a library and program to parse and forward HAProxy logs
 to InfluxDB for mining HTTP requests.
 
-link:/project/haminer/[Project page^] -
-https://github.com/shuLhan/haminer[Repository^]
+https://sr.ht/~shulhan/haminer/[Project page^]
 
 ===  hunspell-id
 
 Hunspell dictionary for Bahasa Indonesia.
 
-https://github.com/shuLhan/hunspell-id[Repository^]
+https://github.com/shuLhan/hunspell-id[Project page^]
 
 ===  karajo
 
@@ -87,8 +82,7 @@ karajo is the library and program to implement HTTP workers and manager
 similar to AppEngine cron.
 karajo has the web user interface for monitoring the jobs.
 
-link:/project/karajo/[Project page^] -
-https://git.sr.ht/~shulhan/karajo[Repository^]
+https://sr.ht/~shulhan/karajo[Project page^]
 
 ===  libvos (unmaintained)
 
@@ -99,7 +93,7 @@ Current features included Buffer module, File module, Socket module, reading
 and writing INI file format, FTP (server and client) module, DNS module, and
 Oracle Client Interface module.
 
-https://github.com/shuLhan/libvos[Repository^]
+https://github.com/shuLhan/libvos[Project page^]
 
 ===  rescached
 
@@ -112,17 +106,15 @@ The
 https://github.com/shuLhan/rescached[first implementation^]
 was written in C++ and then re-written using Go.
 
-link:/project/rescached/[Project page^] -
-https://github.com/shuLhan/rescached-go[Repository^]
+https://github.com/shuLhan/rescached-go[Project page^]
 
 ===  share
 
 `share` is collection of Go packages.
-The most outstanding packages is websocket, dns, email, smtp, memfs, and
-mining.
+The most outstanding packages are WebSocket (server and client), DNS (server
+and client), email (client only), STMP, and MemFS (memory file system).
 
-link:/project/share/[Project page^] -
-https://github.com/shuLhan/share[Repository^]
+https://github.com/shuLhan/share[Project page^]
 
 ===  tour.golang-id.org
 
@@ -131,8 +123,8 @@ tour.golang.org to Indonesian language, to help newcomers learning Go
 programming language.
 This is my first contribution to Go community.
 
-https://tour.golang-id.org[tour.golang-id.org^] -
-https://github.com/golang-id/tour[Repository^]
+https://tour.golang-id.org[Website^] -
+https://github.com/golang-id/tour[Project page^]
 
 ===  trunks
 
@@ -142,8 +134,7 @@ For the load testing we use
 https://github.com/tsenart/vegeta[vegeta^]
 as the backend.
 
-link:/project/trunks/[Project page^] -
-https://sr.ht/~shulhan/trunks[Repository^]
+https://sr.ht/~shulhan/trunks[Project page^]
 
 ===  vos (unmaintained)
 
@@ -155,4 +146,4 @@ Vos can do sorting, formatting, filtering, and join, by reading input file and
 its configuration script.
 Its written in C.
 
-https://github.com/shuLhan/vos[Repository^]
+https://github.com/shuLhan/vos[Project page^]
