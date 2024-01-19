@@ -1,0 +1,223 @@
+= 2023 accomplishment
+:toc:
+:sectanchors:
+
+It's that time of the year again, a new year, where I review what I
+have done in the last 12 months.
+
+== Personal
+
+Based on
+link:/journal/2023/2022_accomplishment/#what_next_[last year goals],
+I finally able to swim freestyle 50m without out of breath.
+I have not taking mandarin class yet, maybe this year.
+
+On the side projects, I focus on https://awwan.org[awwan], publish its
+website along with its https://tour.awwan.org[tour].
+
+
+== Side projects
+
+=== ArchLinux GCP image (fork)
+
+There are 21 commits with some notables changes,
+
+* all: set default ops-agent syslog from systemd_journald
++
+Systemd journald in ArchLinux does not forward the log to syslog anymore.
+This fix empty instance log in Cloud Logs Explorer.
+
+* all: install google-compute-engine-oslogin
++
+This changes require reorder the repository, by moving "build.kilabit.info"
+repository on top of "gce", because the gce provides old version os oslogin,
+while build.kilabit.info provides the
+https://build.kilabit.info/karajo/app/#job_aur_google-compute-engine-oslogin[latest
+one, 20230831.00].
+
+=== asciidoctor-go
+
+https://sr.ht/~shulhan/asciidoctor-go/[Asciidoctor-go] the Go module to
+parse the AsciiDoc markup and convert it into HTML5, have 26 commits and
+four releases, with notable features,
+
+* all: add support for unordered list with '-'
+* all: add support for document attribute "last-update-label"
+* all: implement inline macro for passthrough ("pass:")
+* all: implement macro "footnote:"
+
+=== awwan
+
+https://sr.ht/~shulhan/awwan/[awwan],
+a command-line interface (CLI) to shell script, that can execute multiple
+lines of commands in local or remote server using shell or SSH;
+now have a website at https://awwan.org and a tour https://tour.awwan.org ,
+where user can experiment with awwan using web-user interface.
+
+Total commits is 251, five releases, with notable changes,
+
+* Adding support for encryption, with two new commands "encrypt"
+  and "decrypt" for encrypting and decrypting file with RSA private key.
+* all: implement remote "#get!" and "#put!" with owner and mode
+* all: log all execution into file
+* all: add magic command "#local"
+* internal/cmd: add flag "address" for command www-awwan::
+* all: implement command "env-get" to get value from environment files
+* all: implement command to set environment value with "env-set"
+* _wui: implement Encrypt
+* _wui: implement Decrypt
+* _wui: implement button to stop execution
+
+=== ciigo
+
+https://sr.ht/~shulhan/ciigo/[ciigo],
+a library and a program to write static web server with embedded files using
+AsciiDoc and Markdown markup format, has 34 commits and seven releases, with
+notable changes,
+
+* all: fix empty line printed on ToHTMLBody or ToHTMLEmbedded
+* all: ignore parsing block image in paragraph
+* all: bring back support for Markdown
+* all: ignore error permission when listing file markups
+
+=== duitku
+
+https://sr.ht/~shulhan/duitku/[Duitku] is Go library and client for
+https://duitku.com[duitku.com].
+In the past year it received 31 commits with no release yet.
+
+=== golang-id.org
+
+https://golang-id.org[golang-id.org], a Go website translation for Go
+community in Bahasa Indonesia, does not have much changes in the past year.
+Only six commits that does not add new translations.
+
+=== gotp
+
+https://sr.ht/~shulhan/gotp/[gotp]
+a command line interface to manage and generate Time-based One Time Password
+(TOTP); receive 24 commits and four releases with notable changes,
+
+* all: add bash completion script
+* all: add command to remove the private key
+* all: add command to set private key
+* all: implement command "get"
+* all: unfold private key path before reading
+* Makefile: add task to install and uninstall gotp in macOS
+
+=== haminer
+
+https://sr.ht/~shulhan/haminer[haminer], a library and program to parse and
+forward HAProxy logs, does not have any update in the past year, except
+updating dependencies.
+
+=== karajo
+
+https://sr.ht/~shulhan/karajo/[karajo]
+is an HTTP workers and manager, similar to cron but works and manageable
+with HTTP.
+Karajo receive 128 commits with five releases.
+Notable changes,
+
+* Add Job as scheduler
+* Add Job as WebHook
+* loading Job and JobHttp configuration from directory
+* HTTP APIs for pausing and resuming Job
+* all: implement login page
+* all: implement notification using email
++
+Karajo server now support sending notification when the job success or
+failed with inline log inside the email body.
+
+=== rescached
+
+https://github.com/shuLhan/rescached-go[rescached]
+is a daemon that caching internet name and address on local memory for
+speeding up DNS resolution.
+In the past year, it receives 14 commits and two releases, with one notable
+changes,
+
+* all: remove loading system hosts file::
++
+--
+Loading and caching system hosts file (for example, /etc/hosts in
+POSIX) will leaks internal hosts if the rescached server is open to
+public.
+
+The system hosts file are handled by nssswitch.conf "files" internally
+so no need to loading it.
+--
+
+=== share
+
+https://github.com/shuLhan/share[share]
+is a collection of tools, public HTTP APIs, and libraries written and for
+working with Go programming language.
+In the past year it receives 412 commits and 11 releases.
+Some notable changes,
+
+* lib/http: add methods PutForm and PutFormData on Client
+* lib/http: add function MarshalForm
+* clise: implement io Closer, Writer, StringWriter, and ByteWriter
+* clise: add method UnmarshalJSON
+* lib/time: implement Scheduler
+* lib/time: add new type Clock
+* lib/bytes: add function DumpPrettyTable
+* lib/bytes: add function SplitEach
+* lib/dns: add function ParseZone
+* lib/dns: add method WriteTo to Zone
+* lib/http: add function to parse multipart Range response for Client
+* lib/http: add support for HTTP Range in Server
+* lib/io: add method ReplaceAll on Reader
+* lib/parser: add method TokenTrimSpace
+* lib/parser: add method SetDelimiters
+* lib/telemetry: new package for collecting and forwarding metrics
+* lib/bytes: implement function ParseHexDump
+* lib/bytes: implement tokenize Parser
+* lib/bytes: add function TrimNull
+* lib/net: add method WriteTo to ResolvConf
+* cmd/bcrypt: CLI to compare or generate hash using bcrypt
+* lib/sql: add type DmlKind
+* email/maildir: implement Folder
+* lib/net: add function WaitAlive
+* lib/smtp: implement Client SendEmail
+* lib/ascii: add type Set
+* lib/net: implement generic PollEvent
+* lib/dns: fix leaking internal zone
+* lib/errors: implement method Is
+* lib/email: add method ID to Header
+* test/mock: implement mock for testing io.ReadWriter or io.StringWriter
+* lib/crypto: add function LoadPrivateKeyInteractive
+* lib/crypto: implement RSA encrypt and decryption for large message size
+* ssh/sftp: add method to close client connection
+* lib/ssh: add method Close to Client
+* lib/http: implement Server-Sent Events (SSE)
+* lib/net: add method Read
+* lib/crypto: add support for reading passphrase using SSH_ASKPASS
+* lib/memfs: add method JSON to Node
+* ssh/config: add method MarshalText and WriteTo
+* lib/ssh: implement method Output on Client
+* ssh/sftp: implement method MkdirAll on Client
+* cmd/httpdfs: implement [libhttp.Server] with [memfs.MemFS]
+
+=== trunks
+
+https://sr.ht/~shulhan/trunks/[trunks]
+is a Go library that provide HTTP service with web user interface to test
+HTTP and/or WebSocket endpoints and for load testing HTTP endpoints.
+In the past year it receives 19 commits and two releases.
+Most notable changes,
+
+* all: fix panic when attacking HTTP due to nil Attack handler
+* _www: replace WebSocket handlers with HTTP endpoints
+* all: add boolean Kind for FormInput, FormInputKindBoolean
+* all: check and call ConvertParams when running HttpTarget
+
+
+== What's next?
+
+In the end of December 2023, my last company is shutting down their
+operation, so I am unemployed this year.
+
+My goals this year is finding new start-up or company that I can work on and
+probably start looking for new house.

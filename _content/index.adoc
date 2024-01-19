@@ -61,6 +61,8 @@ include::./project/index.adoc[]
 
 ==  Journal
 
+include::./journal/2024/index.adoc[]
+
 include::./journal/2023/index.adoc[]
 
 include::./journal/2022/index.adoc[]
