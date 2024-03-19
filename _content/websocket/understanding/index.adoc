@@ -15,7 +15,7 @@ technology (stack, library, or framework) they should use it.
 
 In order to do it, we will break it down into two articles.
 The first article will explain the protocol itself (this one), the
-link:/websocket/example[next article]
+link:/websocket/example/[next article]
 will give some examples of code using the Go programming language and
 https://godoc.org/github.com/shuLhan/share/lib/websocket[lib/websocket]
 to see how the WebSocket server and client communicate.

@@ -71,7 +71,7 @@ First, people seems completely miss the point of git.
 The building block of git is commits, and commits is about history.
 Branch is another way to collect the commits as part of the workflow.
 By putting emphasis only on branch, people seems ignore important point on
-how to create link:/notes/A_guide_to_version_control[a good git commit], which
+how to create link:/notes/A_guide_to_version_control/[a good git commit], which
 in effect causes one line commit behaviour (also, the GUI tools for Git user
 even encourage this behaviour, for example VS Code, Github desktop).
 

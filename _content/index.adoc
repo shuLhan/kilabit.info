@@ -34,12 +34,12 @@ include::./project/index.adoc[]
 
 === Articles on Software Engineering
 
-*  link:/notes/A_guide_to_readable_and_performance_wise_code[A guide to
+*  link:/notes/A_guide_to_readable_and_performance_wise_code/[A guide to
    readable and performance wise code^]
 
-*  link:/notes/A_guide_to_version_control[A guide to version control^]
+*  link:/notes/A_guide_to_version_control/[A guide to version control^]
 
-*  link:/notes/A_guide_to_versioning[A guide to versioning^]
+*  link:/notes/A_guide_to_versioning/[A guide to versioning^]
 
 *  link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous
    deployment^]
@@ -50,7 +50,7 @@ include::./project/index.adoc[]
 *  link:/journal/2020/re-learning_slice/[Re-learning slice^],
    March 2020
 
-*  link:/journal/2017/05/Go_Informal_Coding_Style[Go (informal) coding style^],
+*  link:/journal/2017/05/Go_Informal_Coding_Style/[Go (informal) coding style^],
    March 2017
 
 ===  WebSocket

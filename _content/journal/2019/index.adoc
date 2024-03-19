@@ -1,4 +1,4 @@
 
 === 2019
 
-link:/journal/2019/gopherconsg[Gophercon Singapore 2019^].
+link:/journal/2019/gopherconsg/[Gophercon Singapore 2019^].

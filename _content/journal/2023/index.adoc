@@ -1,7 +1,7 @@
 
 === 2023
 
-link:/journal/2023/research_ssh_with_2fa["Research on SSH with 2FA"^].
+link:/journal/2023/research_ssh_with_2fa/["Research on SSH with 2FA"^].
 In this journal, we review several options to manage SSH authorization
 beyond using public keys, possibly also enabling 2FA, using
 https://tools.ietf.org/html/rfc6238[Time-Based One-Time Password^] (TOTP).

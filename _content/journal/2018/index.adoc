@@ -1,5 +1,5 @@
 
 === 2018
 
-link:/journal/2018/05/Beku__dependencies_management_should_be_simple[beku:
+link:/journal/2018/05/Beku__dependencies_management_should_be_simple/[beku:
 dependencies management should be simple^].

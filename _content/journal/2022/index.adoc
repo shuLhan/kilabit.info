@@ -24,7 +24,7 @@ user into systemd-nspawn"^].
 link:/journal/2022/things_i_dislike_from_github/["Things I dislike from
 Github"^].
 
-link:/journal/2022/mysql_surprise["MySQL, surprise!"^].
+link:/journal/2022/mysql_surprise/["MySQL, surprise!"^].
 Things that will surprise you when using MySQL.
 
 link:/journal/2022/gpl/["Finally, I use GPL"^].

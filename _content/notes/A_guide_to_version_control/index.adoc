@@ -6,7 +6,7 @@ branch.
 The VCS tool used in the example of this documentation is Git.
 Reader should be familiar with the concept of commit and branch in Git.
 For background knowledge of Git see
-link:/journal/2016/03/Git_Tutorial__slides[Git tutorial: slides].
+link:/journal/2016/03/Git_Tutorial__slides/[Git tutorial: slides].
 
 [#background]
 ==  Background
