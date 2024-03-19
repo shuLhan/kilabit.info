@@ -57,6 +57,18 @@ The website is freshly launched, they are still more works to be done, though.
 https://golang-id.org[Website^] -
 https://github.com/golang-id/web[Project page^]
 
+
+===  gorankusu
+
+`gorankusu` is a Go module that provide HTTP service with web user interface
+for testing HTTP endpoints (like Postman) and for load testing.
+For the load testing we use
+https://github.com/tsenart/vegeta[vegeta^]
+as the backend.
+
+https://sr.ht/~shulhan/gorankusu[Project page^]
+
+
 ===  gotp
 
 Command line interface for Time-based One Time Password (TOTP).
@@ -95,6 +107,16 @@ Oracle Client Interface module.
 
 https://github.com/shuLhan/libvos[Project page^]
 
+
+===  pakakeh.go
+
+`pakakeh.go` is collection of Go packages.
+The most outstanding packages are WebSocket (server and client), DNS (server
+and client), email (client only), STMP, and MemFS (memory file system).
+
+https://sr.ht/~shulhan/pakakeh.go[Project page^]
+
+
 ===  rescached
 
 Rescached is resolver cache daemon.
@@ -108,14 +130,6 @@ was written in C++ and then re-written using Go.
 
 https://github.com/shuLhan/rescached-go[Project page^]
 
-===  share
-
-`share` is collection of Go packages.
-The most outstanding packages are WebSocket (server and client), DNS (server
-and client), email (client only), STMP, and MemFS (memory file system).
-
-https://github.com/shuLhan/share[Project page^]
-
 ===  tour.golang-id.org
 
 The tour.golang-id.org is translation of their original website
@@ -126,15 +140,6 @@ This is my first contribution to Go community.
 https://tour.golang-id.org[Website^] -
 https://github.com/golang-id/tour[Project page^]
 
-===  trunks
-
-trunks is a Go module that provide HTTP service with web user interface for
-testing HTTP endpoints (like Postman) and for load testing.
-For the load testing we use
-https://github.com/tsenart/vegeta[vegeta^]
-as the backend.
-
-https://sr.ht/~shulhan/trunks[Project page^]
 
 ===  vos (unmaintained)
 
