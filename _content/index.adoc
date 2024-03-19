@@ -59,6 +59,16 @@ include::./project/index.adoc[]
 *   link:/websocket/example/[Part 2: Example of WebSocket: Group Chat^]
 
 
+== Talk
+
+link:/talk/git-tutorial/[Git - Tutorial]::
++
+--
+This talk contain history, terminologies, tips and tricks, and quick git
+practice for push, pull and merge using local directory as remote.
+--
+
+
 ==  Journal
 
 include::./journal/2024/index.adoc[]
