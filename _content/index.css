@@ -4,9 +4,12 @@
   src:
     local("Go Regular"),
     local("GoRegular"),
-    url("/assets/fonts/go/GoRegular.woff2") format("woff2"),
-    url("/assets/fonts/go/GoRegular.woff") format("woff"),
-    url("/assets/fonts/go/GoRegular.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoRegular.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoRegular.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoRegular.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -17,9 +20,12 @@
   src:
     local("Go Bold"),
     local("Go-Bold"),
-    url("/assets/fonts/go/Go-Bold.woff2") format("woff2"),
-    url("/assets/fonts/go/Go-Bold.woff") format("woff"),
-    url("/assets/fonts/go/Go-Bold.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-Bold.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-Bold.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-Bold.ttf")
+      format("truetype");
   font-weight: bold;
   font-style: normal;
 }
@@ -30,9 +36,12 @@
   src:
     local("Go Italic"),
     local("Go-Italic"),
-    url("/assets/fonts/go/Go-Italic.woff2") format("woff2"),
-    url("/assets/fonts/go/Go-Italic.woff") format("woff"),
-    url("/assets/fonts/go/Go-Italic.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-Italic.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-Italic.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-Italic.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: italic;
 }
@@ -43,9 +52,12 @@
   src:
     local("Go Bold Italic"),
     local("Go-BoldItalic"),
-    url("/assets/fonts/go/Go-BoldItalic.woff2") format("woff2"),
-    url("/assets/fonts/go/Go-BoldItalic.woff") format("woff"),
-    url("/assets/fonts/go/Go-BoldItalic.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-BoldItalic.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-BoldItalic.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/Go-BoldItalic.ttf")
+      format("truetype");
   font-weight: bold;
   font-style: italic;
 }
@@ -56,9 +68,12 @@
   src:
     local("Go Medium"),
     local("GoMedium"),
-    url("/assets/fonts/go/GoMedium.woff2") format("woff2"),
-    url("/assets/fonts/go/GoMedium.woff") format("woff"),
-    url("/assets/fonts/go/GoMedium.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMedium.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMedium.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMedium.ttf")
+      format("truetype");
   font-weight: 500;
   font-style: normal;
 }
@@ -69,9 +84,12 @@
   src:
     local("Go Medium Italic"),
     local("GoMedium-Italic"),
-    url("/assets/fonts/go/GoMedium-Italic.woff2") format("woff2"),
-    url("/assets/fonts/go/GoMedium-Italic.woff") format("woff"),
-    url("/assets/fonts/go/GoMedium-Italic.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMedium-Italic.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMedium-Italic.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMedium-Italic.ttf")
+      format("truetype");
   font-weight: 500;
   font-style: italic;
 }
@@ -82,9 +100,12 @@
   src:
     local("Go Mono"),
     local("GoMono"),
-    url("/assets/fonts/go/GoMono.woff2") format("woff2"),
-    url("/assets/fonts/go/GoMono.woff") format("woff"),
-    url("/assets/fonts/go/GoMono.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -95,9 +116,12 @@
   src:
     local("Go Mono Bold Italic"),
     local("GoMono-BoldItalic"),
-    url("/assets/fonts/go/GoMono-BoldItalic.woff2") format("woff2"),
-    url("/assets/fonts/go/GoMono-BoldItalic.woff") format("woff"),
-    url("/assets/fonts/go/GoMono-BoldItalic.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-BoldItalic.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-BoldItalic.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-BoldItalic.ttf")
+      format("truetype");
   font-weight: bold;
   font-style: italic;
 }
@@ -108,9 +132,12 @@
   src:
     local("Go Mono Italic"),
     local("GoMono-Italic"),
-    url("/assets/fonts/go/GoMono-Italic.woff2") format("woff2"),
-    url("/assets/fonts/go/GoMono-Italic.woff") format("woff"),
-    url("/assets/fonts/go/GoMono-Italic.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-Italic.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-Italic.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-Italic.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: italic;
 }
@@ -121,9 +148,12 @@
   src:
     local("Go Mono Bold"),
     local("GoMono-Bold"),
-    url("/assets/fonts/go/GoMono-Bold.woff2") format("woff2"),
-    url("/assets/fonts/go/GoMono-Bold.woff") format("woff"),
-    url("/assets/fonts/go/GoMono-Bold.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-Bold.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-Bold.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoMono-Bold.ttf")
+      format("truetype");
   font-weight: bold;
   font-style: normal;
 }
@@ -134,9 +164,12 @@
   src:
     local("Go Smallcaps Italic"),
     local("GoSmallcaps-Italic"),
-    url("/assets/fonts/go/GoSmallcaps-Italic.woff2") format("woff2"),
-    url("/assets/fonts/go/GoSmallcaps-Italic.woff") format("woff"),
-    url("/assets/fonts/go/GoSmallcaps-Italic.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoSmallcaps-Italic.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoSmallcaps-Italic.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoSmallcaps-Italic.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: italic;
 }
@@ -147,9 +180,12 @@
   src:
     local("Go Smallcaps"),
     local("GoSmallcaps"),
-    url("/assets/fonts/go/GoSmallcaps.woff2") format("woff2"),
-    url("/assets/fonts/go/GoSmallcaps.woff") format("woff"),
-    url("/assets/fonts/go/GoSmallcaps.ttf") format("truetype");
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoSmallcaps.woff2")
+      format("woff2"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoSmallcaps.woff")
+      format("woff"),
+    url("https://storage.googleapis.com/umum.kilabit.info/assets/fonts/go/GoSmallcaps.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: normal;
 }
