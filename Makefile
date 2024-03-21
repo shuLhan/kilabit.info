@@ -10,6 +10,12 @@ embed:
 serve:
 	go run ./cmd/www-kilabit -dev -address=127.0.0.1:17000
 
+##---- Install to local GOBIN
+
+.PHONY: install
+install: embed
+	go install ./cmd/...
+
 ##---- Remote tasks.
 
 .PHONY: deploy
