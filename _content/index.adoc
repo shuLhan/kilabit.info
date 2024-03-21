@@ -9,7 +9,7 @@ This server provides the following services to the public.
 ===  DNS server
 
 The DNS server is run using
-https://github.com/shuLhan/rescached-go[rescached^]
+https://sr.ht/~shulhan/rescached[rescached^]
 on the following port,
 
 * DNS over UDP at port 53,

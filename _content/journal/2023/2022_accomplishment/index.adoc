@@ -217,7 +217,7 @@ Some notable changes,
 --
 
 
-https://github.com/shuLhan/rescached-go[rescached^]::
+https://sr.ht/~shulhan/rescached[rescached^]::
 +
 --
 There are 94 commits with 3 releases, from version 4.2.0 to 4.4.0.

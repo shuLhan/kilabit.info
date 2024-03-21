@@ -131,7 +131,7 @@ failed with inline log inside the email body.
 
 === rescached
 
-https://github.com/shuLhan/rescached-go[rescached]
+https://sr.ht/~shulhan/rescached[rescached]
 is a daemon that caching internet name and address on local memory for
 speeding up DNS resolution.
 In the past year, it receives 14 commits and two releases, with one notable

@@ -125,10 +125,10 @@ the queries and answers for later use.
 The idea is to minimize network traffic for outside DNS queries and to manage
 local zone files.
 The
-https://github.com/shuLhan/rescached[first implementation^]
+https://github.com/shuLhan/rescached-legacy[first implementation^]
 was written in C++ and then re-written using Go.
 
-https://github.com/shuLhan/rescached-go[Project page^]
+https://sr.ht/~shulhan/rescached[Project page^]
 
 ===  tour.golang-id.org
 

@@ -128,9 +128,10 @@ In summaries, mosh provide faster and network resistance connection for SSH.
 ===  Use VPN
 
 VPN provide a layer of access for your internal network in the cloud.
-Setting up VPN with Wireguard is now easier than ever, but its require latest
+Setting up VPN with WireGuard is now easier than ever, but its require latest
 (or supported) kernel, both on server and client.
 
 Combine that with DNS server (like
-https://github.com/shuLhan/rescached[rescached]), we will have a complete
-isolate environment with custom internal domain (for example, myapp.internal).
+https://git.sr.ht/~shulhan/rescached[rescached^]), we will have a complete
+isolate environment with custom internal domain (for example,
+myapp.internal).
