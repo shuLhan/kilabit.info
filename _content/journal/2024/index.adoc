@@ -1,6 +1,9 @@
 
 === 2024
 
+link:/journal/2024/best_tv_series/[Best TV series^].
+List of best non-America TV series that I watched in the past years.
+
 link:/journal/2024/rescached_svcb/[rescached: support on DNS record type
 SVCB (64) and HTTPS (65)^]
 
