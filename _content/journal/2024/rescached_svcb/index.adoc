@@ -1,0 +1,145 @@
+= rescached: support on DNS record type SVCB (64) and HTTPS (65)
+Shulhan <ms@kilabit.info>
+28 March 2024
+:description: Overview of DNS record SVCB and HTTPS (RFC9460) and their \
+implementation in rescached.
+
+Its all started when
+https://sr.ht/~shulhan/rescache[rescached^] print the following error logs,
+
+    rescached[1370]: rescached: dns: type 65 is not implemented
+    rescached[1370]: rescached: dns: type 65 is not implemented
+    rescached[1370]: rescached: dns: type 65 is not implemented
+    rescached[1370]: rescached: dns: type 65 is not implemented
+
+At first, I thought this is one of DNSSEC extension error, but recently the
+error log become frequent on my local and remote server, which takes my
+attention.
+
+Turns out type 65 is a new resource record (RR) that is not related to
+DNSSEC, as specified in
+https://datatracker.ietf.org/doc/html/rfc9460[RFC 9460^].
+
+DNS RR type 65, also called HTTPS RR is variant of RR type 64 (SVCB) that
+inform the client which domain to connect using HTTPS.
+
+Before that lets take a look on SVCB RR.
+
+== SVCB RR
+
+SVCB or Service Binding is a generic record that inform client for
+alternative endpoints of specific service based on scheme.
+The scheme in this context can be a service name or protocol name for
+example "ldap", "spf", "xmpp", "tcp", "udp", and so on.
+
+For example, if a client wants to know where to connect for scheme
+"foo" on domain "kilabit.info", it will send the following DNS question,
+
+    _foo.kilabit.info. 64 IN
+
+Server "kilabit.info" which registered two endpoints for scheme "foo",
+response with,
+
+----
+_foo.kilabit.info. 3600 IN SVCB 1 a.kilabit.info. (
+        mandatory=alpn,port
+        alpn=p1,p2
+        port=1234
+        ipv4hint=10.2.0.1
+        ipv6hint=2001:db8::1
+    )
+
+_foo.kilabit.info. 3600 IN SVCB 2 b.kilabit.info. (
+        mandatory=alpn,port
+        alpn=p1,p2
+        port=1234
+        ipv4hint=10.2.0.2
+        ipv6hint=2001:db8::2
+    )
+----
+
+In the above records, endpoint "a.kilabit.info" have priority 1 (highest)
+than "b.kilabit.info" which have priority 2.
+
+Since client known that server support latest protocol version "p2", client
+then connect using that protocol with IPv4 address at
+"foo://10.2.0.1:1234" or "foo://[2001:db8::1]:1234" when using IPv6.
+
+The functionalities at some point almost similar with CNAME or SRV, but with
+SVCB RR more flexible and extensible by providing additional parameters like
+"mandatory", "alpn", "port", "ipv4hint", and "ipv6hint".
+
+Using parameter "alpn", client does not need another round-trip to negotiate
+protocol that supported by each other.
+Using parameter "ipv4hint" and/or "ipv6hint", client remove unnecessary
+DNS query to translate domain name "a.kilabit.info" or "b.kilabit.info".
+
+
+== HTTPS RR
+
+The HTTPS RR is one of the implementation that compliant with SVCB RR.
+
+The purpose of HTTPS RR is to allow client connect using TLS and negotiate
+which HTTP protocol that the server provides.
+
+For example, before HTTPS RR, client --in most case, a browser-- that want
+to connect to HTTP server at "kilabit.info" always request plain
+non-encrypted "HTTP/1.1" first (unless user opt to enable "always HTTPS" in
+their browser configuration).
+
+    GET / HTTP/1.1
+    Host: kilabit.info
+
+Since server support HTTPS, server than redirect the client first,
+
+    HTTP/1.1 301 Moved Permanently
+    content-length: 0
+    location: https://kilabit.info/
+
+The client then open new request to domain "kilabit.info" and negotiate TLS
+encryption along with HTTP protocol that supported by server, "http/2" or
+"http/1.1".
+
+If the server support "http/2", client then upgrade again the connection to
+handle "HTTP/2".
+
+This round-trips cost resources both on client and server.
+
+With HTTPS RR, client can minimize this round trip by issuing HTTPS RR DNS
+question first,
+
+    kilabit.info. 64 IN
+
+Server that accepts HTTPS can return and inform the supported HTTP protocol
+by responding with
+
+----
+kilabit.info. 3600 IN HTTPS 1 . (
+        alpn=h2
+        ipv4hint=10.2.0.2
+        ipv6hint=2001:db8::2
+    )
+----
+
+From the DNS answer of HTTPS RR, client open and negotiate secure connection
+to port 443 (default HTTPS port), and then request and consume the server
+resource using "HTTP/2" protocol,
+
+    GET / HTTP/2
+    Host: kilabit.info
+
+The client and server round-trips cuts roughly, at least from three to one
+(without counting DNS queries).
+
+
+== Support in rescached
+
+The RFC 9460 for SVCB and HTTPS has been implemented in the
+https://git.sr.ht/~shulhan/pakakeh.go/commit/71eaafc5119b178be61abf6ae7b8a2fbcdfacc44[core
+DNS]
+https://pkg.go.dev/git.sr.ht/~shulhan/pakakeh.go/lib/dns#RDataSVCB[library]
+that is used by rescached.
+The next release of rescached will support this DNS RR, which will happened
+on the first week of April 2024.
+Arch Linux user can get the latest git package from
+https://build.kilabit.info .
