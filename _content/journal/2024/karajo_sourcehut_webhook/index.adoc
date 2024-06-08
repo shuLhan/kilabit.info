@@ -1,0 +1,221 @@
+= karajo: integrating sourcehut webhook
+:description: documentation on how to integrate SourceHut webhook with Karajo for continuous deployment.
+:toc:
+:sectlinks:
+
+https://sr.ht/~shulhan/karajo[Karajo] is the worker that manage one or more
+jobs.
+A job is a list of commands that can triggered by timer or by HTTP request.
+
+https://sr.ht/[SourceHut] is project management that can host git and
+Mercurial repository.
+A git repository in SourceHut can be configured to trigger an event, called
+WebHook, when user push new commits to the repository.
+
+In this article we will dive into how to integrate the SourceHut Webhook to
+deploy this website automatically using Karajo when we push new commit to
+git repository at https://git.sr.ht/~shulhan/kilabit.info.
+
+The karajo service that we want to setup is running on domain
+build.kilabit.info.
+
+
+[#creating_ssh_key]
+== Creating new SSH key
+
+Since we want to run the job on server, we need to create SSH key for user
+karajo without password,
+
+----
+$ ssh-keygen -t ed25519 -N'' -f /var/lib/karajo/.ssh/build@kilabit.info \
+  -C build@kilabit.info
+$
+----
+
+Create ssh config for host git.sr.ht to use the private key that we just
+created,
+
+----
+Host git.sr.ht
+    User git
+    IdentityFile ~/.ssh/build@kilabit.info
+----
+
+Add the new public key content to your SourceHut account at
+https://meta.sr.ht/keys.
+
+
+[#creating_webhook]
+== Creating webhook on Karajo
+
+Create a new job in `/etc/karajo/job.d/webhook_kilabit-info.conf` with the
+following content,
+
+----
+[job "webhook_kilabit-info"]
+description = Webhook for kilabit.info.
+auth_kind = sourcehut
+path = /webhook_kilabit-info
+command = git clone git@git.sr.ht:~shulhan/kilabit.info || true
+command = git -C kilabit.info pull --rebase || true
+command = git -C kilabit.info --no-pager log --max-count=1
+command = make --directory=kilabit.info on-webhook
+----
+
+Restart the karajo service, and we will see the new job at the karajo web
+with status "started".
+
+Later, the job will be triggered by sending HTTP POST to the following path:
+https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info .
+
+
+[#registering_webhook]
+== Registering webhook on SourceHut
+
+For reference, the official SourceHut Webhook documentation is available
+https://man.sr.ht/api-conventions.md#webhooks[here].
+
+First, create new personal access token in SourceHut
+https://meta.sr.ht/oauth/personal-token[here].
+
+Then, issue a POST request to SourceHut git API to register events for our
+repository.
+
+For example, when using curl, create file "webhooks" that contains our
+webhook URL with events "repo:post-update",
+
+----
+$ cat webhooks
+{
+  "url": "https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info",
+  "events": [
+    "repo:post-update"
+  ]
+}
+----
+
+Using that file, call curl on the repository that we want to be registered,
+
+----
+$ curl --json @webhooks \
+  https://git.sr.ht/api/~shulhan/repos/kilabit.info/webhooks
+----
+
+You should get the following HTTP request,
+
+----
+POST /api/~shulhan/repos/kilabit.info/webhooks HTTP/1.1
+Host: git.sr.ht
+User-Agent: libhttp/0.55.0
+Content-Length: 116
+Authorization: token XXX
+Content-Type: application/json
+Accept-Encoding: gzip
+
+{
+  "url": "https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info",
+  "events": [
+    "repo:post-update"
+  ]
+}
+----
+
+and the following HTTP response,
+
+----
+HTTP/1.1 201 CREATED
+Content-Length: 167
+Connection: keep-alive
+Content-Security-Policy: default-src 'none'; style-src 'self' 'unsafe-inline'; img-src * data:; script-src 'self' 'unsafe-inline'; frame-ancestors 'none'
+Content-Type: application/json
+Date: Sat, 08 Jun 2024 09:55:48 GMT
+Permissions-Policy: interest-cohort=()
+Server: nginx
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Clacks-Overhead: GNU Terry Pratchett
+
+{
+  "id": 33367,
+  "created": "2024-06-08T09:55:48+00:00",
+  "events": [
+    "repo:post-update"
+  ],
+  "url":
+"https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info"
+}
+----
+
+
+== Testing
+
+We can now test the webhook by pushing new commits to the repository.
+
+If we open the karajo web user interface on the `webhook_kilabit-info`, we
+can see the first job is triggered with the following output,
+
+----
+2024-06-08 10:22:25 UTC job: webhook_kilabit-info: === BEGIN
+2024-06-08 10:22:25 UTC job: webhook_kilabit-info: 
+2024-06-08 10:22:25 UTC job: webhook_kilabit-info: --- Execute  0: echo
+Webhook for kilabit.info
+2024-06-08 10:22:25 UTC job: webhook_kilabit-info: Webhook for kilabit.info
+2024-06-08 10:22:25 UTC job: webhook_kilabit-info: === DONE
+2024-06-08 10:22:25 UTC job: webhook_kilabit-info: === job:
+webhook_kilabit-info: finished.
+----
+
+To check on SourceHut side we need to know the webhook ID and call the API
+to fetch the webhook deliveries.
+
+Fetch list of webhooks that has been registered to the repository,
+
+----
+$ export token="token XXX"
+$ curl -H "Authorization: $token" \
+  https://git.sr.ht/api/~shulhan/repos/kilabit.info/webhooks \
+  | jq
+{
+  "next": null,
+  "results": [
+    {
+      "id": 33367,
+      "created": "2024-06-08T09:55:48+00:00",
+      "events": [
+        "repo:post-update"
+      ],
+      "url": "https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info"
+    }
+  ],
+  "total": 1,
+  "results_per_page": 50
+}
+----
+
+Once we get the ID (33367 in above example), get the list of deliveries,
+
+----
+$ export WEBHOOK_ID=33367
+$ curl -H "Authorization: $token" \
+  https://git.sr.ht/api/~shulhan/repos/kilabit.info/webhooks/$WEBHOOK_ID/deliveries \
+  | jq
+{
+  "next": null,
+  "results": [
+    {
+      "id": "de3d0cf8-3d80-44fc-be40-3867f751af7c",
+      "created": "2024-06-08T10:22:25+00:00",
+      "event": "repo:post-update",
+      "url": "https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info",
+      "payload": <TRUNCATED>
+      "payload_headers": <TRUNCATED>
+      "response": <TRUNCATED>
+      "response_status": 200,
+      "response_headers": <TRUNCATED>
+    }
+  ],
+  "total": 1,
+  "results_per_page": 50
+}
+----
+
+That's it.

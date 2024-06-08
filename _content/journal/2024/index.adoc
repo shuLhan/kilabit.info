@@ -1,6 +1,12 @@
 
 === 2024
 
+link:/journal/2024/karajo_sourcehut_webhook/[karajo: integrating SourceHut
+Webhook^].
+An article that describe how to integrate
+https://sr.ht[SourceHut] with
+https://sr.ht/~shulhan/karajo[Karajo].
+
 link:/journal/2024/best_tv_series/[Best TV series^].
 List of best non-America TV series that I watched in the past years.
 
