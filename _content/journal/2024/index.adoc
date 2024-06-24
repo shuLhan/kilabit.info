@@ -1,6 +1,9 @@
 
 === 2024
 
+link:/ama/[Ask Me Anything]. A light version of question and answers related
+to my history and backgrounds as software engineer.
+
 link:/journal/2024/karajo_sourcehut_webhook/[karajo: integrating SourceHut
 Webhook^].
 An article that describe how to integrate
