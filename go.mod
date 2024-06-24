@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	git.sr.ht/~shulhan/ciigo v0.13.0
-	git.sr.ht/~shulhan/pakakeh.go v0.55.0
+	git.sr.ht/~shulhan/pakakeh.go v0.55.1
 )
 
 require (
