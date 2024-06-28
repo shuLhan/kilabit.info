@@ -1,6 +1,11 @@
 
 === 2024
 
+link:/journal/2024/new_company/[Peculiar engineering at new company^].
+Notes on software engineering or IT in general at new company.
+This notes is intended for a reflection of me not to criticize my team
+or company.
+
 link:/ama/[Ask Me Anything]. A light version of question and answers related
 to my history and backgrounds as software engineer.
 
