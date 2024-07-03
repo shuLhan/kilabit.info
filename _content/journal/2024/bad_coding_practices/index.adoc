@@ -1,0 +1,226 @@
+= Bad coding practices
+:toc:
+:description: Collection of bad coding practices when writing software
+
+This journal is part of series on Software Engineering,
+
+* link:/notes/A_guide_to_readable_and_performance_wise_code/[Good coding
+  practices^]
+
+* Bad coding practices (this article).
+
+* link:/notes/A_guide_to_version_control/[A guide to version control^]
+
+* link:/notes/A_guide_to_versioning/[A guide to versioning^]
+
+* link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous
+  deployment^]
+
+
+This journal collect the bad coding practices that I have found during my
+journey maintaining legacy software.
+
+
+[#logic_in_the_frontend]
+== Logic in the frontend
+
+Nowadays, we usually split the front-end (the code for user interface) and
+back-end (the code that process input from front-end and read/write to the
+database).
+
+The bad coding practices is when the front-end try to process the action
+before sending it to backend by himself based on certain condition.
+
+For example, given a list of record, one of them should be set to default,
+in this case `id:100`.
+
+----
+    [
+        {id:1, is_default: false}
+        {id:2, is_default: false}
+        {id:3, is_default: false}
+        ...
+        {id:100, is_default: true}
+        {id:101, is_default: false}
+    ]
+----
+
+When user want to changes the "is_default" to 3, the front-end then check
+the record one by one.
+If its found the existing record (`id:100`) then it will call the API on the
+backend to set id:100 `is_default` to false, and set the `id:3` `is_default`
+to true.
+
+The problem is if the front-end receive only partial of data, due to paging,
+there is a chance that existing is_default record is not on the same page as
+new one.
+This cause two records, `id:3` and `id:100`, have `is_default` to true.
+
+The good practices is _never_ process any logic on the front-end.
+Front-end responsibilities should be displaying data only, and receive and
+forward commands from user to the backend.
+Any logic should be handled by backend.
+
+The solution of above problem is quite simple on the backend,
+
+----
+FUNC setIsDefault(newDefault)
+BEGIN
+    oldDefault := getIsDefault()
+    IF oldDefault IS FOUND THEN
+        oldDefault.setIsDefault(false)
+    END
+    newDefault.setIsDefault(true)
+END
+----
+
+
+[#bad_mvc]
+== Grouping same class file into one directory
+
+This is a pattern that I always see where developers group two or more files
+that are not related to each other but have the same "class" into one
+directory.
+For example, grouping all controllers into one directory called
+"controllers", grouping all models into one directory called "models", and
+so on.
+
+----
+├── controllers
+│   ├── feature-A.ctrl
+│   ├── feature-B.ctrl
+│   ├── feature-C.ctrl
+│   ├── feature-D.ctrl
+...
+├── models
+│   ├── feature-A.model
+│   ├── feature-B.model
+│   ├── feature-C.model
+│   ├── feature-D.model
+...
+├── views
+│   ├── feature-A.view
+│   ├── feature-B.view
+│   ├── feature-C.view
+│   ├── feature-D.view
+...
+----
+
+This pattern making hard to navigate the source code.
+When you open the view code, you need to jump to other directory to view
+what the view trigger, and then jump again to another directory to lookup
+what the model of data that controller manages.
+
+The good practices is by coupling them by feature,
+
+----
+├── feature-A
+│   ├── feature-A.ctrl
+│   ├── feature-A.model
+│   ├── feature-A.view
+...
+├── feature-B
+│   ├── feature-B.ctrl
+│   ├── feature-B.model
+│   ├── feature-B.view
+    │
+    ├── feature-C
+    │   ├── feature-C.ctrl
+    │   ├── feature-C.model
+    │   ├── feature-C.view
+
+...
+----
+
+In this way, the scope that directory provides is limited by feature.
+We can also make dependencies between features also clear.
+For example, we can say that feature-C exist only when feature-B is
+enabled or depends on feature-B to be functional.
+
+
+[#state_from_url_path]
+== Deriving mode from URL path
+
+Given the following URL for editing a record: "/book/:id" and URL for
+creating a record "/book/create", a single page is created using the same
+view and controller.
+The controller check that if "id" exist then the current context of the page
+is in _update_ mode and the view has an "Update" button.
+If the "id" did not exist then the context of the page is in create mode,
+and the view has a "Submit" button.
+
+The bad practice is using the same URL path for two different purpose, one
+for create and the other one for update.
+
+The solution is quite simple, add a verb after book path for update like
+"/book/edit/:id", so the add and edit are handled by different page.
+
+
+[#one_component_many_functions]
+== One component many functions
+
+There is this form where a record can be created or updated.
+The form tied to a controller (or a service) that do both of the thing.
+In the view, we use a condition, if mode is "create" we display the "Create"
+button; if mode is "update" we display the "Update" button.
+Both of this buttons call different function but in the same controller.
+
+The bad practices is when mixing two different functionalities forced into
+one component (one controller and one view).
+The controller and view littered with `if-updateMode-else` or
+`if-createMode-else` conditions, which makes the code hard to read and
+changes.
+
+The good practice to solve this kind of problem is by creating two separate
+pages with shared form component and two different controllers.
+The mode and functionality then passed to view component as parameters.
+For example, on the page that create new book, the form can be instantiated
+by,
+
+    <my-form mode=create on-submit=doCreate>
+
+While on page that update the book, the form is instantiated with
+
+    <my-form mode=update on-submit=doUpdate>
+
+In the form, we can still have `if-else` to disable or hide some fields
+or information, but at least this only happened in the view.
+
+
+[#logic_in_view]
+== Logic in view
+
+Nothing smell like bad code than this.
+
+In any design pattern, the view should not contains logic.
+By logic, I means the lines of code contains something even as simple as
+comparison or ternary operation.
+
+    <component hidden="{{ isMode == 'edit' }}">
+
+The good practices by using and initializing variable inside the controller
+and reference that in view as variable only.
+
+    // In controller.
+    this.isHidden = (isMode == 'edit');
+
+    // In view.
+    <component hidden="isHidden">
+
+
+[#web_right_click_menu]
+== web: using right click to show menu
+
+(Note: this is fall into bad user experience, not coding).
+
+In non-web application, using right click to show additional menus make
+senses because there is no default menu or event will show by OS.
+
+In web application, right click menu is belong to browser, not application.
+
+The problem is when some one new to your application, no one can guess that
+certain actions can be done by right click the item, because intuitively
+right click means show browser actions.
+
+The good practices is by adding a little icon "..." on each item that can be
+right-clicked, so user can see and click it.

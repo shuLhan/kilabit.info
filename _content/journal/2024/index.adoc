@@ -1,6 +1,10 @@
 
 === 2024
 
+link:/journal/2024/bad_coding_practices/[Bad coding practices^].
+This journal collect the bad coding practices that I have found during my
+journey maintaining legacy software.
+
 link:/journal/2024/new_company/[Peculiar engineering at new company^].
 Notes on software engineering or IT in general at new company.
 This notes is intended for a reflection of me not to criticize my team

@@ -37,6 +37,8 @@ include::./project/index.adoc[]
 *  link:/notes/A_guide_to_readable_and_performance_wise_code/[A guide to
    readable and performance wise code^]
 
+*  link:/journal/2024/bad_coding_practices/[Bad coding practices^]
+
 *  link:/notes/A_guide_to_version_control/[A guide to version control^]
 
 *  link:/notes/A_guide_to_versioning/[A guide to versioning^]
