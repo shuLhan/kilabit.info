@@ -20,6 +20,31 @@ This journal is part of series on Software Engineering,
 This journal collect the bad coding practices that I have found during my
 journey maintaining legacy software.
 
+The term "coding" in this context does not only means "a line of code", more
+to "software engineering" in general.
+
+
+[#storing_time_not_in_utc]
+== Storing time not in UTC
+
+Let say your server store the time in UTC+0900 timezone and you have
+multiple clients on different timezone, one in UTC-1000 and another one in
+UTC+0700.  Which time should the client display?
+Their local time or server time?
+
+If your answer is "its depends", you may be correct, the software in your
+case may require that all the clients reference the central timezone which
+is UTC+9.
+And to do this, the application on the client side needs to convert the time
+twice; first converting to UTC and then converting it to local time zone.
+
+But, 99% of the time, it should displayed in the user time zone.
+
+Reading and translating time manually is unpleasant, especially when you
+are handling hundreds if not thousands of records.
+
+The rule of thumb is store time in UTC and display time in local time zones.
+
 
 [#logic_in_the_frontend]
 == Logic in the frontend
