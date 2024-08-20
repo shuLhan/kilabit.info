@@ -19,9 +19,11 @@ This journal is part of series on Software Engineering,
 
 This journal collect the bad coding practices that I have found during my
 journey maintaining legacy software.
+Most of this bad practices I found during contracts works, on multi national
+company, where the engineer _must_ pass and solve "elite" coding problems.
 
-The term "coding" in this context does not only means "a line of code", more
-to "software engineering" in general.
+The term "coding" in this context does not only means "a line of code" or
+"programming language", more on "software engineering" in general.
 
 
 [#storing_time_not_in_utc]
@@ -169,16 +171,25 @@ enabled or depends on feature-B to be functional.
 Given the following URL for editing a record: "/book/:id" and URL for
 creating a record "/book/create", a single page is created using the same
 view and controller.
-The controller check that if "id" exist then the current context of the page
-is in _update_ mode and the view has an "Update" button.
-If the "id" did not exist then the context of the page is in create mode,
-and the view has a "Submit" button.
+The controller check that,
 
-The bad practice is using the same URL path for two different purpose, one
-for create and the other one for update.
+* if "id" exist then the current context of the page is in _update_ mode and
+  the view has an "Update" button;
+
+* If the "id" did not exist then the context of the page is in create mode,
+  and the view has a "Submit" button.
+
+The bad practice is when using the same URL path or levels for two different
+purpose, one for create and the other one for update:
+
+* "/book/create", for creating new book, on path with 2 levels.
+* "/book/:id", for updating book, also on path with 2 levels.
 
 The solution is quite simple, add a verb after book path for update like
-"/book/edit/:id", so the add and edit are handled by different page.
+"/book/edit/:id", so the add and edit are handled by different page:
+
+* "/book/create" for creating new book, and
+* "/book/edit/..." for updating book record.
 
 
 [#one_component_many_functions]
@@ -249,3 +260,50 @@ right click means show browser actions.
 
 The good practices is by adding a little icon "..." on each item that can be
 right-clicked, so user can see and click it.
+
+
+[#unnecessary_function_split]
+== Unnecessary function split
+
+In college, we have being teach that we should split larger function into
+smaller functions.
+The next question, is when to split it? and how to split it?
+
+The bad practice is when the function body contain less than 10 lines
+(or on range 20-30 depends on your flavour) AND only called once AND does
+not affect the flow of the caller or program.
+
+For example,
+
+----
+FUNCTION doX
+    ...
+    doY()
+    ...
+
+FUNCTION doY
+    stmt1
+    stmt2
+----
+
+You can see that function "doY" is called from "doX" and it does not affect
+the flow or have any purpose except that it's being "splitted".
+
+Splitting "doY" because it changes the flow is little bit make sense, for
+example,
+
+----
+FUNC doX
+    ...
+    IF doY(); THEN
+    ...
+----
+
+but still, if its only couple of lines there is no harm on writing it on the
+parent function.
+In fact, it help the reader to read the code it without jumping to another,
+unnecessary context.
+
+The worst part of this practice that I found is the function "doY" is on
+different file called "common" or "util" AND no one, I repeat, no other
+function used it except the "doX".
