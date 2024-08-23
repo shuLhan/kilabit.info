@@ -19,8 +19,6 @@ This journal is part of series on Software Engineering,
 
 This journal collect the bad coding practices that I have found during my
 journey maintaining legacy software.
-Most of this bad practices I found during contracts works, on multi national
-company, where the engineer _must_ pass and solve "elite" coding problems.
 
 The term "coding" in this context does not only means "a line of code" or
 "programming language", more on "software engineering" in general.
@@ -315,3 +313,55 @@ The solution is quite simple, add a verb after book path for update like
 
 * "/book/create" for creating new book, and
 * "/book/edit/..." for updating book record.
+
+
+== On testing
+
+[#testing_verifying_same_sources]
+=== Verifying test results from the same sources
+
+You have an API that read data from database.
+You seed the database manually, from predefined records.
+You call the API to get the results and compare them to test that the API
+behave as you expected.
+
+The bad practices is when you use the same sources to compare the expected
+and test results, in this case both from the database.
+When verifying data, the sources must be different.
+
+----
+seeds := [recordA, recordB]
+FOR EACH item in seeds; DO
+    INSERT item INTO DATABASE;
+DONE
+
+testResult := callApiToBeTested()
+
+expectedResult := queryTheDatabaseDirectly()
+
+assert testResult == expectedResult // BAD!!!
+----
+
+If you do this there is no different between test and expected, especially
+if you use the same function to read the database.
+
+----
+SEEDS --> DATABASE --> API  --> TEST RESULT
+              |
+              +-------> READ --> EXPECTED RESULT (X)
+----
+
+What you should do is comparing them with predefined records from seeds.
+This is not only to test that the data being inserted is correct both to
+verify that we comparing two data from different sources.
+
+----
+seeds := [recordA, recordB]
+FOR EACH item in seeds; DO
+    INSERT item INTO DATABASE;
+DONE
+
+testResult := callApiToBeTested()
+
+assert testResult == seeds // GOOD!
+----
