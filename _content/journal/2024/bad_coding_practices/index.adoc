@@ -42,14 +42,17 @@ twice; first converting to UTC and then converting it to local time zone.
 
 But, 99% of the time, it should displayed in the user time zone.
 
-Reading and translating time manually is unpleasant, especially when you
-are handling hundreds if not thousands of records.
+If as a user, I read and translate time manually every time I see date time
+record and ask "what time is this?" in my head, that's indicate there is
+some thing wrong in the application.
+Imagine this happened when we are handling hundreds if not thousands of
+records.
 
 The rule of thumb is store time in UTC and display time in local time zones.
 
 
-[#logic_in_the_frontend]
-== Logic in the frontend
+[#logic_in_the_client]
+== Logic in the client
 
 Nowadays, we usually split the front-end (the code for user interface) and
 back-end (the code that process input from front-end and read/write to the
@@ -165,33 +168,6 @@ For example, we can say that feature-C exist only when feature-B is
 enabled or depends on feature-B to be functional.
 
 
-[#state_from_url_path]
-== Deriving mode from URL path
-
-Given the following URL for editing a record: "/book/:id" and URL for
-creating a record "/book/create", a single page is created using the same
-view and controller.
-The controller check that,
-
-* if "id" exist then the current context of the page is in _update_ mode and
-  the view has an "Update" button;
-
-* If the "id" did not exist then the context of the page is in create mode,
-  and the view has a "Submit" button.
-
-The bad practice is when using the same URL path or levels for two different
-purpose, one for create and the other one for update:
-
-* "/book/create", for creating new book, on path with 2 levels.
-* "/book/:id", for updating book, also on path with 2 levels.
-
-The solution is quite simple, add a verb after book path for update like
-"/book/edit/:id", so the add and edit are handled by different page:
-
-* "/book/create" for creating new book, and
-* "/book/edit/..." for updating book record.
-
-
 [#one_component_many_functions]
 == One component many functions
 
@@ -228,6 +204,9 @@ or information, but at least this only happened in the view.
 
 Nothing smell like bad code than this.
 
+In Model-View-Controller, the view is the layer that display the data
+(model) and forward command to controller.
+
 In any design pattern, the view should not contains logic.
 By logic, I means the lines of code contains something even as simple as
 comparison or ternary operation.
@@ -242,24 +221,6 @@ and reference that in view as variable only.
 
     // In view.
     <component hidden="isHidden">
-
-
-[#web_right_click_menu]
-== web: using right click to show menu
-
-(Note: this is fall into bad user experience, not coding).
-
-In non-web application, using right click to show additional menus make
-senses because there is no default menu or event will show by OS.
-
-In web application, right click menu is belong to browser, not application.
-
-The problem is when some one new to your application, no one can guess that
-certain actions can be done by right click the item, because intuitively
-right click means show browser actions.
-
-The good practices is by adding a little icon "..." on each item that can be
-right-clicked, so user can see and click it.
 
 
 [#unnecessary_function_split]
@@ -307,3 +268,50 @@ unnecessary context.
 The worst part of this practice that I found is the function "doY" is on
 different file called "common" or "util" AND no one, I repeat, no other
 function used it except the "doX".
+
+
+== On web application
+
+[#web_right_click_menu]
+=== Using right click to show menu
+
+(Note: this is fall into bad user experience, not coding).
+
+In non-web application, using right click to show additional menus make
+senses because there is no default menu or event will show by OS.
+
+In web application, right click menu is belong to browser, not application.
+
+The problem is when some one new to your application, no one can guess that
+certain actions can be done by right click the item, because intuitively
+right click means show browser actions.
+
+The good practices is by adding a little icon "..." on each item that can be
+right-clicked, so user can see and click it.
+
+
+[#state_from_url_path]
+=== Deriving mode from URL path
+
+Given the following URL for editing a record: "/book/:id" and URL for
+creating a record "/book/create", a single page is created using the same
+view and controller.
+The controller check that,
+
+* if "id" exist then the current context of the page is in _update_ mode and
+  the view has an "Update" button;
+
+* If the "id" did not exist then the context of the page is in create mode,
+  and the view has a "Submit" button.
+
+The bad practice is when using the same URL path or levels for two different
+purpose, one for create and the other one for update:
+
+* "/book/create", for creating new book, on path with 2 levels.
+* "/book/:id", for updating book, also on path with 2 levels.
+
+The solution is quite simple, add a verb after book path for update like
+"/book/edit/:id", so the add and edit are handled by different page:
+
+* "/book/create" for creating new book, and
+* "/book/edit/..." for updating book record.
