@@ -26,3 +26,6 @@ link:/journal/2024/rescached_svcb/[rescached: support on DNS record type
 SVCB (64) and HTTPS (65)^]
 
 link:/journal/2024/2023_accomplishment/[2023 accomplishment^].
+
+link:/journal/2024/a_trip_to_nusa_lembongan/[A trip to Nusa
+Lembongan^]
