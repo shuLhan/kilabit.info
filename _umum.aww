@@ -1,0 +1,10 @@
+#require: gcloud config configurations activate {{.Val "gcloud:project:config"}}
+
+gcloud storage cp --recursive \
+  {{.ScriptDir}}/_umum/assets \
+  gs://umum.kilabit.info
+
+gcloud storage buckets add-iam-policy-binding \
+  gs://umum.kilabit.info \
+  --member=allUsers \
+  --role=roles/storage.objectViewer
