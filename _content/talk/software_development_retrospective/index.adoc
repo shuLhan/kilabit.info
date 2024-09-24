@@ -1,0 +1,13 @@
+= Software Development Restrospective
+
+++++
+<iframe
+  src="https://docs.google.com/presentation/d/1nDnHtxh0pyeye7RwwT1Z_Ifxr7EQ9sRqyhuUL8HJAH4/embed?start=false&loop=false&delayms=3000"
+  frameborder="0"
+  width="960"
+  height="569"
+  allowfullscreen="true"
+  mozallowfullscreen="true"
+  webkitallowfullscreen="true"
+></iframe>
+++++

@@ -63,6 +63,34 @@ include::./project/index.adoc[]
 
 == Talk
 
+link:/talk/software_development_retrospective/[Software development retrospective^]::
++
+--
+In this talk we will explore how does software development
+works?
+What is “team” in software development?
+Testing phase in software development, and software artifacts.
+--
+
+
+link:/talk/workgroup_or_team_work/[Workgroup or team work?^]::
++
+--
+What does the team should looks like in the software development?
+Is the member of team work individually or as a team?
+Know their differences.
+--
+
+link:/talk/introduction_to_DNS/[Introduction to DNS^]::
++
+--
+What is DNS? How they works?
+This talk has two version.
+The first slide is the simplified one, and the second is the expanded
+version.
+--
+
+
 link:/talk/git-tutorial/[Git - Tutorial]::
 +
 --

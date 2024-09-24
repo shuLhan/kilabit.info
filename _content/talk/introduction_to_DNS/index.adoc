@@ -1,0 +1,34 @@
+= Introduction to DNS
+Shulhan <ms@kilabit.info>
+
+This talk has two version.
+The first slide is the simplified one, and the second is the expanded
+version.
+
+(Simplified version)
+
+++++
+<iframe
+  src="https://docs.google.com/presentation/d/1qIxaa6yTscF_ikiDry-4kaZS82zYULbaagnwOEegis8/embed?start=false&loop=false&delayms=3000"
+  frameborder="0"
+  width="960"
+  height="569"
+  allowfullscreen="true"
+  mozallowfullscreen="true"
+  webkitallowfullscreen="true"
+></iframe>
+++++
+
+(Expanded version)
+
+++++
+<iframe
+  src="https://docs.google.com/presentation/d/1XXJKeMjT0PfI8Qh7sos9mHZy_OH1m6UBHBTcSZ5zL-g/embed?start=false&loop=false&delayms=3000"
+  frameborder="0"
+  width="960"
+  height="569"
+  allowfullscreen="true"
+  mozallowfullscreen="true"
+  webkitallowfullscreen="true"
+></iframe>
+++++
