@@ -46,13 +46,13 @@ func main() {
 				GoFileName:  `cmd/www-kilabit/memfs_content.go`,
 			},
 		}
-		err = ciigo.GoEmbed(&embedOpts)
+		err = ciigo.GoEmbed(embedOpts)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 	default:
-		err = ciigo.Serve(&serveOpts)
+		err = ciigo.Serve(serveOpts)
 		if err != nil {
 			log.Fatal(err)
 		}
