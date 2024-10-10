@@ -23,6 +23,7 @@ First thing first, remember
 link:/journal/2014/04/Holy_github/[this^]?
 
 
+[#sending_patch_by_fork_only]
 == You can send patches only by creating fork
 
 Let say you found a bug on repository X.
@@ -38,6 +39,7 @@ steps,
 https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=cli[GitHub Docs: Creating a pull request^]
 
 
+[#bad_pull_request_flow]
 == Github pull request flow is really bad
 
 Let me show you.
@@ -123,7 +125,7 @@ $ git send-email --to="recipient@domain.tld" --dry-run -1 0985cbfe
 $ git send-email --to="recipient@domain.tld" --dry-run -1 8fd061dc
 ----
 
-
+[#rebasing_break_history]
 == Rebasing or ammending the patches break the web history
 
 The more annoying than this is how Github handle reviewing the PR.
@@ -155,6 +157,7 @@ is Patchset 1), and on the right side you can see the fixes (Patchset 2).
 None of them mixed.
 
 
+[#cannot_view_affected_code_review]
 == Reviewing only allowed on affected code
 
 Given the following changes,
@@ -164,9 +167,10 @@ image:github_review_bad.png[Github comment review bad, 720]
 User cannot comment on expanded lines 151 that affected by the above changes.
 
 
+[#cannot_see_assigned_pr]
 ==  Where is the open review?
 
-Another developer create pull request and assign you as the viewer,
+Another developer create pull request and assign you as the reviewer,
 
 image:github_reviewer.png[Github reviewer,720]
 
@@ -185,11 +189,83 @@ The URL is "/pulls" but the query still need `is:pr`.
 If you remove the `is:pr` field, you will get list of PR and open issues.
 Talks about inconsistency.
 
-Update: per 26 January 2023 this issue has been fixed.
-The query string in the right add filter for current user as
-author/review-requested,
+++++
+<strike>
+Update: per 26 January 2023 this issue seems has been fixed.
+</strike>
+No, its not, it still there.
+++++
 
-	is:open is:pr author:shuLhan archived:false
+
+[#approval_not_recorded]
+== Pull request approval does not recorded
+
+Given the following flow,
+
+* User A create pull request
+* User B approve the pull request
+* User C approve the pull request
+* User A merge the pull request
+
+GitHub does not recorded who has approve the pull request.
+
+Example: https://github.com/systemd/systemd/pull/34702
+
+image:github_approval_does_not_recorded.png[GitHub approval does not
+recorded,640]
+
+The above pull request is created by user poettering and then approved
+by user yuwata.
+User poettering then merged the pull request.
+
+No information about yuwata recorded in the git history.
+
+Here is the link to commit patch:
+https://github.com/systemd/systemd/commit/50ed3b168234fe59c3b5250031f8f368241331b2.patch
+
+----
+$ git show 50ed3b16
+commit 50ed3b168234fe59c3b5250031f8f368241331b2
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Oct 9 22:02:10 2024 +0200
+
+    machined: use sd_json_dispatch_uint() when parsing CID
+    
+    This is preferable, because we will accept CIDs encoded as strings too
+    now, as we do for all other integers. Also, it's shorter. Yay!
+
+diff --git a/src/machine/machine-varlink.c b/src/machine/machine-varlink.c
+index d565859cae..26b1e841a6 100644
+--- a/src/machine/machine-varlink.c
++++ b/src/machine/machine-varlink.c
+@@ -108,18 +108,18 @@ static int machine_ifindices(const char *name, sd_json_variant *variant, sd_json
+<TRUNCATED>
+----
+
+Compare it with gerrit, case example:
+https://go-review.googlesource.com/c/go/+/619176
+
+User Ian Lance Taylor create changes list (like pull request on
+GitHub).
+User Michael Pratt and Ian then give approval +2 and +1 as reviewers.
+User Gopher Robot (a bot) then merged the commit.
+
+Here is the link to commit patch after merged:
+https://github.com/golang/go/commit/7634f0755c98f25228e3904ed760089c3b199c5d.patch
+
+As you can see, gerrit at least add lines "Reviewed-by" to the final
+commit message:
+
+----
+...
+Change-Id: I43cc4c0dc3c8aa2474cba26c84714d00828de08e
+Reviewed-on: https://go-review.googlesource.com/c/go/+/619176
+Auto-Submit: Ian Lance Taylor <iant@google.com>
+Reviewed-by: Michael Pratt <mpratt@google.com>
+Reviewed-by: Ian Lance Taylor <iant@google.com>
+TryBot-Bypass: Ian Lance Taylor <iant@google.com>
+Auto-Submit: Ian Lance Taylor <iant@golang.org>
+----
 
 * * *
 
