@@ -1,6 +1,8 @@
 
 === 2024
 
+link:/journal/2024/two_types_of_leader/[Two types of leader^].
+
 link:/journal/2024/bad_coding_practices/[Bad coding practices^].
 This journal collect the bad coding practices that I have found during my
 journey maintaining legacy software.
