@@ -1,0 +1,21 @@
+= Git tutorial
+Shulhan <ms@kilabit.info>
+
+This talk is presented at proofn.com, as part of knowledge sharing in
+the company.
+
+The slides contain history, terminologies, tips and tricks, and quick git
+practice for push, pull and merge using local directory as remote.
+
+
+++++
+<iframe
+  src="https://docs.google.com/presentation/d/e/2PACX-1vQ7PqaMlu9bqKJjHH9SyFlzAGy2c-f5S_14qZ_x7TlKhB3CCpu6B1XS3qxyK37DUf4e9X-pH6IOwU8u/embed?start=false&loop=false&delayms=3000"
+  frameborder="0"
+  width="529"
+  height="426"
+  allowfullscreen="true"
+  mozallowfullscreen="true"
+  webkitallowfullscreen="true"
+></iframe>
+++++
