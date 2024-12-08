@@ -46,7 +46,6 @@ include::./project/index.adoc[]
 *  link:/journal/2022/flag_based_continuous_deployment/[Flag based continuous
    deployment^]
 
-
 ===  Articles on Go programming language
 
 *  link:/journal/2020/re-learning_slice/[Re-learning slice^],
@@ -60,6 +59,8 @@ include::./project/index.adoc[]
 *   link:/websocket/understanding/[Part 1: Understanding WebSocket^]
 *   link:/websocket/example/[Part 2: Example of WebSocket: Group Chat^]
 
+
+== Talk
 
 include::./talk/index.adoc[]
 
