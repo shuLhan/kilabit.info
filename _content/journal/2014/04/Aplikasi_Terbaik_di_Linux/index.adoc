@@ -12,12 +12,12 @@ Aspire 4736 dengan spesifikasi.
 *  grafik Intel GMA 4500MHD
 *  memori 1 GB
 
-**Display Manager:** http://www.freedesktop.org/wiki/Software/LightDM/[lightdm]
+**Display Manager:** https://www.freedesktop.org/wiki/Software/LightDM/[lightdm]
 
 lightdm adalah display manager yang dikembangkan langsung oleh tim xorg.
 Kekurangannya saat ini adalah tidak bisa dikonfigurasi lewat UI.
 
-**Window Manager:** http://xfce.org/[xfce4]
+**Window Manager:** https://xfce.org/[xfce4]
 
 Kalau anda hanya ingin window manager yang cepat dan bisa dikonfigurasi, xfce4
 adalah pilihan yang terbaik.

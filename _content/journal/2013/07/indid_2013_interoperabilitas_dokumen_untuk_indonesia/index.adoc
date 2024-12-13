@@ -139,18 +139,18 @@ meyakinkan mereka.
 Untuk informasi lebih lanjut tentang Format Dokumen Terbuka anda bisa
 membacanya lebih banyak di,
 
-*  http://www.slideshare.net/ditkaminfo , di sini bisa anda temukan beberapa
+*  https://www.slideshare.net/ditkaminfo , di sini bisa anda temukan beberapa
    bahan presentasi tentang interoperabilitas dokumen.
 
-*  http://www.opendocumentformat.org (Bahasa Inggris).
+*  https://www.opendocumentformat.org (Bahasa Inggris).
 
 
 ==  Referensi
 
-[1] http://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf
+[1] https://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf
 
-[2] http://www.libreoffice.org
+[2] https://www.libreoffice.org
 
 [3] https://projects.gnome.org/evince/
 
-[4] http://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html
+[4] https://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html

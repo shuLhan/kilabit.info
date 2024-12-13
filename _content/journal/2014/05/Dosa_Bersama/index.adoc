@@ -144,6 +144,6 @@ indie, dan yang membuat perangkat lunak.
 
 --
 
-[1] http://www.who.int/mediacentre/factsheets/fs310/en/index2.html
+[1] https://www.who.int/mediacentre/factsheets/fs310/en/index2.html
 
-[2] http://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7
+[2] https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7

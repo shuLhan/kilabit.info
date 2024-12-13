@@ -9,7 +9,7 @@ One, use existing docker image.
 Two, roll your own docker image.
 
 For the first option they are several base images that already exits in docker
-hub, you can try to search them in http://hub.docker.com.
+hub, you can try to search them in https://hub.docker.com.
 
 For the second option, you can create your own rootfs, either manually from
 scratch or using script which is already provided by package

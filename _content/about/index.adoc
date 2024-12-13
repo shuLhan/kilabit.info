@@ -118,7 +118,7 @@ Client::  Perpustakaan Fakultas Kedokteran UI
 Development tools::  Java, Apache Tomcat, Mysql
 
 Description::  Maintenance web application (LONTAR)
-http://perpustakaan.fk.ui.ac.id/
+https://perpustakaan.fk.ui.ac.id/
 
 ====  Paket Aplikasi Sekolah SMU Web (PAS-SMU Web)
 

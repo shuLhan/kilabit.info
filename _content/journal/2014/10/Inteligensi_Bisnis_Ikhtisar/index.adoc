@@ -158,7 +158,7 @@ CDN: Surajit Chaudhuri, Umeshwar Dayal, Vivek Narasayya. An Overview of Business
 
 LJ: Lachlan James. Business Intelligence: Drivers, challenges, benefits and
 ROI.
-http://www.yellowfinbi.com/YFCommunityNews-Business-Intelligence-Drivers-challenges-benefits-and-ROI-103783.
+https://www.yellowfinbi.com/YFCommunityNews-Business-Intelligence-Drivers-challenges-benefits-and-ROI-103783.
 8 April 2011
 
 MS: Muhammad Shulhan. Studi kasus implementasi Inteligensi Bisnis di Portland

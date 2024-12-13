@@ -6,7 +6,7 @@ Bahasa Indonesia, silahkan lihat di sini: https://tour.golang-id.org.
 ==  Pemasangan
 
 Artikel ini berisi catatan mengenai instalasi bahasa pemrograman
-http://golang.org/[Go] [1].
+https://golang.org/[Go] [1].
 
 Go memberikan kemudahan instalasi lewat
 https://golang.org/dl/[binari] [2],
@@ -136,7 +136,7 @@ APPDIR = /home/ms/go/godoc-app
     $ godoc -http=:6060 -index -index_files="$HOME/go/godoc-app/godoc.index"
 ----
 
-*  Buka peramban anda dengan URL http://127.0.0.1:6060 untuk melihat hasilnya
+*  Buka peramban anda dengan URL https://127.0.0.1:6060 untuk melihat hasilnya
 
 ===  Pemasangan Tutorial Go (gotour)
 
@@ -149,7 +149,7 @@ otomatis sama seperti dengan membuka situs golang.org.
 
 ==  Referensi
 
-[1] http://golang.org/
+[1] https://golang.org/
 
 [2] https://golang.org/dl/
 

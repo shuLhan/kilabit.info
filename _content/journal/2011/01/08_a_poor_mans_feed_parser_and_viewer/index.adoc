@@ -329,7 +329,7 @@ By using cron jobs I can make it automatically refresh once a hour.
 #!/bin/bash
 
 curl -k -o ~/www/my_github_feed.atom https://github.com/shuLhan.atom
-curl -o ~/www/my_reddit_feed.rss http://www.reddit.com/user/rv77ax/submitted/.rss
+curl -o ~/www/my_reddit_feed.rss https://www.reddit.com/user/rv77ax/submitted/.rss
 ----
 
 In user browser, JavaScript just need to request only from original server using the pull output file.
@@ -372,8 +372,8 @@ function feed_init()
 
 ==  References
 
-[1] http://kilabit.info/labs/wui/index.html.
+[1] https://kilabit.info/labs/wui/index.html.
 
 [2] https://github.com/shuLhan.atom
 
-[3] http://www.reddit.com/user/rv77ax/submitted/.rss
+[3] https://www.reddit.com/user/rv77ax/submitted/.rss

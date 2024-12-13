@@ -85,6 +85,6 @@ Git it, make it, run it!
 
 --
 
-[1] http://github.com/shuLhan/rescached
+[1] https://github.com/shuLhan/rescached
 
 [2] https://aur.archlinux.org/packages/rescached-git/

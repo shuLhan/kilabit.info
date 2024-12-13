@@ -5,11 +5,11 @@
 pick him up again."
 
 I can not remember the first
-http://en.wikipedia.org/wiki/Motivational_poster[motivational poster] (or
+https://en.wikipedia.org/wiki/Motivational_poster[motivational poster] (or
 inspirational poster) [1]
 that I saw, but my love to those posters is growing up every time i see one
 (especially a
-http://www.despair.com/viewall.html[demotivational one] [2] :).
+https://www.despair.com/viewall.html[demotivational one] [2] :).
 If you does not know what a (de)motivational poster was, i will give you an
 example, here,
 
@@ -24,7 +24,7 @@ And this one,
 image::future_parody.png[Future parody]
 
 Now, let's talk about destiny; From
-http://encyclopedia.thefreedictionary.com/destiny[Wikipedia Encyclopedia] [3] ,
+https://encyclopedia.thefreedictionary.com/destiny[Wikipedia Encyclopedia] [3] ,
 
 "Destiny refers to a predetermined course of events.
 It may be conceived as a predetermined future, whether in general or of an
@@ -34,7 +34,7 @@ universe."
 
 If that definition was too formal for you, non-English speaker like me, i will
 try to use a
-http://en.wikipedia.org/wiki/Car_analogy[car analogy]
+https://en.wikipedia.org/wiki/Car_analogy[car analogy]
 here to make it simple,
 
 ____
@@ -107,8 +107,8 @@ Detailed plan,
 
 --
 
-[1] http://en.wikipedia.org/wiki/Motivational_poster
+[1] https://en.wikipedia.org/wiki/Motivational_poster
 
-[2] http://www.despair.com/viewall.html
+[2] https://www.despair.com/viewall.html
 
-[3] http://encyclopedia.thefreedictionary.com/destiny
+[3] https://encyclopedia.thefreedictionary.com/destiny

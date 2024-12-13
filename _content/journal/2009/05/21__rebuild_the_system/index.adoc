@@ -1,10 +1,10 @@
 =  Rebuild the system
 
 Since i am too lazy to build
-http://www.gentoo.org/[Gentoo Linux]
+https://www.gentoo.org/[Gentoo Linux]
 from scratch, I decided to re-compile just half of the applications in my base
 system, which is
-http://www.opensuse.org/[OpenSuSE]
+https://www.opensuse.org/[OpenSuSE]
 10.3, to utilizing my X2 processor.
 
 List of source to be compiled:
@@ -211,7 +211,7 @@ index b233d21..2a0d48a 100644
 ==  Part V : KDE
 
 It's easy, just follow
-http://www.linuxfromscratch.org/blfs/view/stable/kde/kde.html[BLFS's guide].
+https://www.linuxfromscratch.org/blfs/view/stable/kde/kde.html[BLFS's guide^].
 After compiling kde-base -at least- and if you want to use kdm as a login
 manager then you should create PAM configuration.
 Go to `/etc/pam.d`, create "kde" and "kdm" file by cloning "xdm" file.
@@ -227,8 +227,8 @@ Go to `/etc/pam.d`, create "kde" and "kdm" file by cloning "xdm" file.
 It not easy, I would say impossible, because I use an abnormal prefix, which
 is "/home/sys/xorg".
 But if you wanna try it, looks
-http://www.linuxfromscratch.org/blfs/view/svn/x/x.html[here].
+https://www.linuxfromscratch.org/blfs/view/svn/x/x.html[here^].
 
 --
 
-*  http://www.linuxfromscratch.org/blfs/view/svn/x/x.html
+*  https://www.linuxfromscratch.org/blfs/view/svn/x/x.html

@@ -391,13 +391,13 @@ Sure, its longer, but it get the job done.
 
 ==  References
 
-[1] http://protractortest.org/
+[1] https://protractortest.org/
 
-[2] http://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application
+[2] https://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application
 
 [3] https://github.com/angular/protractor/issues/2626
 
-[4] http://www.protractortest.org/#/page-objects
+[4] https://www.protractortest.org/#/page-objects
 
 ==  Discussion
 

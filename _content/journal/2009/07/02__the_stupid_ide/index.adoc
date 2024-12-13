@@ -21,6 +21,6 @@ Keyboard shortcuts for Vim:
 *  `CTRL + page-up`: move tab to the left.
 *  `CTRL + page-down`: move tab to the right.
 
-Complete vimrc file: http://gist.github.com/430841
+Complete vimrc file: https://gist.github.com/430841
 
 image::vimrc.png[vimrc]

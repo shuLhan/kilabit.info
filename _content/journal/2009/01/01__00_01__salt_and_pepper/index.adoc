@@ -16,7 +16,7 @@ From user perspective, it easy and manageable but from security view, no.
 The problem is it use one-for-all password.
 Once your password is hacked, _all_ of your OpenID accounts is "open" for
 attacks, not to mention any others
-http://idcorner.org/2007/08/22/the-problems-with-openid[problem].
+https://idcorner.org/2007/08/22/the-problems-with-openid[problem].
 
 Or maybe you use password like this 'ax23sd239dj1390sdm9323', every time you
 want to log in to a web site you open your wallet, unfold a little white note

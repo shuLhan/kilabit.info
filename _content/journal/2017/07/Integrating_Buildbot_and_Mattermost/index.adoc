@@ -195,7 +195,7 @@ found on my repository [5].
 
 [1] https://about.mattermost.com/
 
-[2] http://buildbot.net/
+[2] https://buildbot.net/
 
 [3] https://github.com/shuLhan/mattermost-integration/blob/master/buildbot/mattermost.py
 

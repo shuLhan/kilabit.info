@@ -5,14 +5,14 @@ ____
 ____
 
 Read these
-http://www.joelonsoftware.com/articles/fog0000000043.html[link] [1], it's more
+http:s//www.joelonsoftware.com/articles/fog0000000043.html[link^] [1], it's more
 clearer than this writing.
 
 Working in a team, whether you are a programmer or a team leader, is need a lot of schedule rather than work. This is my point of view of what you should do when building software in a formal team.
 
 For a team leader :
 
-*  http://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html[Read this
+*  https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html[Read this
    first] [2].
 
 *  Make a meeting review at least once a week, except when you have a deadline.
@@ -51,12 +51,12 @@ not hurt at all and make your life more easy.
 *  Make a test procedure and test for program.
 
 Like
-http://en.wikipedia.org/wiki/Scrum_(development)[scrum] [3].
+https://en.wikipedia.org/wiki/Scrum_(development)[scrum] [3].
 
 --
 
-[1] http://www.joelonsoftware.com/articles/fog0000000043.html
+[1] https://www.joelonsoftware.com/articles/fog0000000043.html
 
-[2] http://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html
+[2] https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html
 
-[3] http://en.wikipedia.org/wiki/Scrum_(development)
+[3] https://en.wikipedia.org/wiki/Scrum_(development)

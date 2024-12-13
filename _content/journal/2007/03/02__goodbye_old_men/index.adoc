@@ -33,5 +33,5 @@ image::yahoo_rip.jpg[Rest in peace Yahoo]
 ----
 
 And guest what ... today is
-http://www.wired.com/wired/archive/13.03/yahoo.html[March 2, where Yahoo!]
+https://www.wired.com/wired/archive/13.03/yahoo.html[March 2, where Yahoo!^]
 celebrating their success in the web.

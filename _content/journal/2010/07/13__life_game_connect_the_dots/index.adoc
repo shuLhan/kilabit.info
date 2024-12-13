@@ -59,11 +59,11 @@ Here is a semi related video [1], by Robery Seyfarth about Theory of Mind,
 
 Some back-links for furthers reading,
 
-*  http://www.youtube.com/watch?v=XDtjLSa50uk[Theory of Mind - Robery
+*  https://www.youtube.com/watch?v=XDtjLSa50uk[Theory of Mind - Robery
    Seyfarth]
 
-*  http://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html[What
+*  https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html[What
    Everyone knows]
 
-*  http://youarenotsosmart.com/2010/09/11/the-texas-sharpshooter-fallacy/[The
+*  https://youarenotsosmart.com/2010/09/11/the-texas-sharpshooter-fallacy/[The
    Texas Shartshooter Fallacy]
