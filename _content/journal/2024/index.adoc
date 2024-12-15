@@ -1,6 +1,10 @@
 
 === 2024
 
+link:/journal/2024/memfs_vs_goembed/[Memfs vs go:embed^].
+This article compare the feature of go:embed with the memfs package
+from my pakakeh.go module.
+
 link:/journal/2024/two_types_of_leader/[Two types of leader^].
 
 link:/journal/2024/bad_coding_practices/[Bad coding practices^].
