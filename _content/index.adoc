@@ -6,6 +6,10 @@
 
 This server provides the following services to the public.
 
+===  AUR repository
+
+See https://build.kilabit.info for more information.
+
 ===  DNS server
 
 The DNS server is run using
@@ -19,10 +23,6 @@ on the following port,
 Check the IP address using `dig` or `ping` to domain `kilabit.info`.
 
 We use CloudFlare DNS as parent name servers.
-
-===  AUR repository
-
-See https://build.kilabit.info for more information.
 
 
 ==  Projects
