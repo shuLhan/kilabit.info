@@ -21,6 +21,8 @@ on the following port,
 * DNS over TLS at port 443.
 
 Check the IP address using `dig` or `ping` to domain `kilabit.info`.
+Some stranger abuse the UDP port 53, so the service may be get blocked
+at some point.
 
 We use CloudFlare DNS as parent name servers.
 

@@ -1,0 +1,126 @@
+= Why DevOps do this?
+13 December 2024
+:sectanchors:
+:sectlinks:
+:toc:
+
+This article collect DevOps practices that I found bewildering and
+amusing.
+
+
+== On container
+
+A developer just finish implementation of the new feature, or bug
+fixing a new issue.
+He commit his works in the predefined branch names and push it to
+upstream repository.
+The Continuous Integration (CI) triggered, and one of the step is
+testing the code inside a container.
+
+Or, a developer just tagged a new release and push the "production"
+branch with tag to upstream.
+The Continuous Deployment (CD) triggered, and one of the step is
+creating a new image from the latest tag.
+
+
+=== Installing packages on every build
+
+Code speak more,
+
+----
+...
+RUN apt-get install -qq --no-install-recommends -y \
+        apt-utils \
+        locales \
+        build-essential gcc sshpass vim
+...
+----
+
+I don't understand this.
+_Why?_
+Why do you need to install packages _every time_ some developer push
+to new branch.
+
+What you should do is creating a base image that contains predefined
+packages installed, so the next time you need to run test or create
+release image, it use that base image as starter.
+
+
+=== Building other tool (not the application) inside image
+
+----
+...
+RUN if test "$dev" = "yes"; then \
+    apt-get update && apt-get install -y --no-install-recommends \
+        libncursesw5-dev && \
+    wget -qO- https://some-tools | \
+    tar -xvzf - && \
+    cd some-tools-2.0.0 && \
+    ./configure && \
+    make -j$(nproc) && \
+    make install && \
+    cd .. && rm -rf some-tools-2.0.0; fi
+...
+----
+
+_Why?_
+
+If you need it, you should build it on the base image and reuse that
+base image during CI/CD.
+
+
+=== Updating system on every build
+
+----
+...
+RUN apt-get update -qq && \
+...
+----
+
+This is much worse.
+
+Installing update without knowing what is being updated may hit you in
+many direction.
+
+Your application at version 1.50.0 may works because no updates.
+But, then after new patch release 1.50.1, the image contains an update
+that break your application.
+You spend night and day looking at the commits that cause it, without
+knowing that something has changes during system update.
+
+
+=== Installing dependencies on every build
+
+----
+...
+RUN cd ${APP_DIR}/ && \
+    npm install
+...
+RUN pip3 install -r /tmp/requirements.base && \
+...
+----
+
+This case is the same with the first one.
+
+Unnecessarily re-installing the same packages _every time_ CI/CD
+triggered, where you should install it only once on the base image.
+
+_But, but, developer may changes their
+package.json/requirements/go.mod
+anytime..._
+
+You can keep the "npm install/pip install" command in the dockerfile.
+When new dependencies updates, the npm/pip/other should pick up whats
+new and only download the new packages from external network
+(internet).
+The rest of packages that does not changes should be fetch from cache.
+
+Anyway, your developer should tell you when new dependencies changes,
+so you, as _DevOps_ should prepare new base image.
+
+
+=== Running two or more services on one container
+
+People do this even its again the
+https://docs.docker.com/engine/containers/multi-service_container/[best
+practice of container].
