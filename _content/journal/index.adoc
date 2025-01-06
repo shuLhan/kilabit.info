@@ -1,5 +1,7 @@
 :toc:
 
+include::./2025/index.adoc[]
+
 include::./2024/index.adoc[]
 
 include::./2023/index.adoc[]

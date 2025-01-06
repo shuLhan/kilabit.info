@@ -1,0 +1,354 @@
+= Hyper-V vs VirtualBox: benchmarking Angular test suites
+:sectanchors:
+:sectlinks:
+:toc:
+
+In this journal we will take a look at the performance of virtual machine
+(VM) running on Windows Host using Hyper-V and Oracle VirtualBox.
+The guest VM is Arch Linux 64-bit x86-64.
+The program that we want to benchmark is an Angular tests suite, an internal
+application that I am currently maintenance, running with Jasmine and Karma
+using Chromium headless browser.
+
+Tools that we will use are,
+
+* https://github.com/hoytech/vmtouch[vmtouch^], version
+  1.3.1.r19.gaf86e27-1-x86_64.
++
+--
+We use `vmtouch` to lock all the source codes (including the test
+codes) into kernel memory.
+--
+
+* https://github.com/sharkdp/hyperfine[hyperfine^], version 1.19.0-1
++
+--
+We use hyperfine to run the program (the test) multiple times and let
+it calculates average running time.
+--
+
+
+== The test
+
+The program that we use for benchmark is an Angular tests suite running with
+Chromium headless.
+The test suite is built using Jasmine and run using Karma.
+
+The version of libraries and development tools,
+
+* nodejs version 22.12.0
+
+Some of the snippet for `package.json` for libraries and tools,
+
+----
+  "dependencies": {
+    "@angular/animations": "^17.3.7",
+    "@angular/cdk": "^17.3.7",
+    "@angular/common": "^17.3.7",
+    "@angular/compiler": "^17.3.7",
+    "@angular/core": "^17.3.7",
+    "@angular/forms": "^17.3.7",
+    "@angular/material": "^17.3.7",
+    "@angular/platform-browser": "^17.3.7",
+    "@angular/platform-browser-dynamic": "^17.3.7",
+    "@angular/router": "^17.3.7",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
+    "karma-junit-reporter": "^2.0.1",
+    "marked": "^9.1.6",
+    "ngx-quill": "^25.3.2",
+    "quill": "^2.0.2",
+    "quill-image-compress": "^2.0.2",
+    "quill2-emoji": "^0.1.2",
+    "rxjs": "^7.8.0",
+    "socket.io-client": "2.5.0",
+    "zone.js": "~0.14.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.10",
+    "@angular-eslint/builder": "17.1.1",
+    "@angular-eslint/eslint-plugin": "17.1.1",
+    "@angular-eslint/eslint-plugin-template": "17.1.1",
+    "@angular-eslint/schematics": "17.1.1",
+    "@angular-eslint/template-parser": "17.1.1",
+    "@angular/cli": "^17.3.6",
+    "@angular/compiler-cli": "^17.3.7",
+    "@angular/language-service": "^17.3.7",
+    "@compodoc/compodoc": "^1.1.24",
+    "@types/jasmine": "~4.3.1",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-jasmine": "^4.1.3",
+    "eslint-plugin-jsdoc": "latest",
+    "eslint-plugin-prefer-arrow": "latest",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "jasmine-core": "~4.6.0",
+    "jasmine-reporters": "^2.5.2",
+    "jasmine-spec-reporter": "~7.0.0",
+    "karma": "^6.3.17",
+    "karma-chrome-launcher": "~3.1.1",
+    "karma-coverage": "^2.2.0",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-firefox-launcher": "^2.1.3",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "^2.0.0",
+    "prettier": "^3.2.5",
+    "quill-delta-to-html": "^0.12.1",
+    "ts-node": "~10.9.1",
+    "typescript": "5.2.2"
+  }
+...
+----
+
+Our Angular configuration, `angular.conf`, for test is looks like this,
+
+----
+...
+"test": {
+  "builder": "@angular-devkit/build-angular:karma",
+  "options": {
+    "main": "src/test.ts",
+    "polyfills": "src/polyfills.ts",
+    "tsConfig": "tsconfig.spec.json",
+    "karmaConfig": "karma.conf.js",
+    "assets": ["src/favicon.ico", "src/assets"],
+    "styles": ["./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css", "src/styles.scss"],
+    "scripts": [],
+    "codeCoverage": true
+  }
+},
+....
+----
+
+Our karma configuration are look likes these,
+
+----
+module.exports = function (config) {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-coverage'),
+      require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma')
+    ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    coverageReporter: {
+      reporters: [{ type: 'html', dir: 'coverage/' }]
+    },
+    reporters: ['dots'],
+    port: 9876,
+    colors: false,
+    logLevel: config.LOG_ERROR,
+    autoWatch: true,
+    autoWatchBatchDelay: 6000,
+    browsers: ['Chrome'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--disable-dev-shm-usage', // Overcome limited resource problems.
+          '--disable-extensions', // Disabling extensions can save resources.
+          '--disable-gl-drawing-for-tests',
+          '--disable-gpu', // GPU hardware acceleration isn't needed.
+          '--disable-plugins',
+          '--disable-site-isolation-trials',
+          '--disable-translate',
+          '--no-sandbox'
+        ]
+      },
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: ['--headless']
+      }
+    },
+    singleRun: false,
+    restartOnFileChange: false
+  });
+};
+----
+
+We run the test by executing "npm run test", where "test" is defined in
+package.json as,
+
+----
+...
+  "test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
+...
+----
+
+There are total 736 files and 132 directories in the source application with
+total lines 71304 (excluding the libraries).
+
+Before running the test we `vmtouch` the "src" directory to let all the
+source codes paged into system memory,
+
+----
+$ vmtouch -dlw ./src
+LOCKED 1300 pages (5M)
+
+$ vmtouch ./src/
+           Files: 796
+     Directories: 132
+  Resident Pages: 1300/1300  5M/5M  100%
+         Elapsed: 0.007407 seconds
+----
+
+
+== The host
+
+The host machine is Samsung notebook model 550XED with,
+
+* Processor: 12th Gen Intel(R) Core(TM) i7-1255U, 1700 Mhz, 10 Cores, 12
+  Logical processors.
+* RAM: 16 GB
+
+The host operating system is Windows 10 Enterprise (some information will
+not fully provided),
+
+* Version 10.0.19045 Build 19045.
+* Kernel DMA Protection: On
+* Anti virus: On
+
+
+== The guests
+
+Both of the guests running on Arch Linux with the latest packages.
+
+* Linux 6.12.7-arch1-1 #1 SMP PREEMPT_DYNAMIC
+  Fri, 27 Dec 2024 14:24:37 +0000 x86_64 GNU/Linux
+
+* glibc 2.40+r16+gaa533d58ff-2
+
+* 50 GB disk with ext4 and using "none" for I/O scheduler.
++
+----
+$ cat /sys/class/block/sda/queue/scheduler 
+[none] mq-deadline kyber bfq
+----
+
+The guest system run with 8192 MB of RAM and 2 virtual CPU capped to 100%.
+
+
+=== Guest with VirtualBox
+
+We use VirtualBox version 7.1.4 r165100 (Qt6.5.3).
+
+Some notes on VirtualBox Configuration,
+
+* General,
+** Subtype: ArchLinux
+** Version: Arch Linux (64-bit)
+** Disk Encryption: disabled
+
+* System
+** Motherboard
+*** Base memory: 8192 MB
+*** Chipset: PIIX3
+*** TPM: None
+*** I/O APIC: enabled
+*** Hardware clock in UTC: enabled
+** Processor
+*** Processors: 2/4 (we will benchmark both of them)
+*** Execution Cap: 100%
+*** PAE/NX: disabled
+** Acceleration
+*** Paravirtualization interface: KVM
+*** Nested paging: disabled
+
+* Display
+** Video memory: 128 MB
+** Graphics controller: VMSVGA
+** Remote desktop server: disabled
+** Recording: disabled
+
+* Storage
+** Controller: SATA
+** Type: virtio-scsi
+** Use Host I/O Cache: enabled
+
+
+=== Guest with HyperV
+
+We use Hyper-V Manager Version 10.0.19041.1.
+
+Some notes on the HyperV configuration,
+
+* Server,
+** NUMA Spanning is disabled
+** Enhanced Session Mode Policy is enabled
+
+* User,
+** Enhanced Session Mode is enabled
+
+* Memory,
+** Dynamic memory is disabled
+** Memory weight is set to High
+
+* Processor,
+** Number of virtual processors: 2/4 (we will benchmark both of them)
+** Virtual machine reserve (percentage): 100
+** Virtual machine limit (percentage): 100
+** Relative weight: 100
+
+* Managements,
+* Run with https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types#the-root-scheduler[root
+scheduler^].
+* Checkpoints is disabled
+
+We connect to the VM using xrdp (with xorgxrdp plugin).
+
+
+== Results
+
+Using hyperfine we run the Angular test suites 10 times.
+
+Test results on Hyper-V with 2 vCPU,
+
+----
+$ hyperfine --runs 10 "npm run test-ci"
+Benchmark 1: npm run test-ci
+  Time (mean ± σ):     76.059 s ±  3.830 s    [User: 35.900 s, System: 2.094 s]
+  Range (min … max):   70.770 s … 83.451 s    10 runs
+----
+
+Test results on Hyper-V with 4 vCPU,
+
+----
+$ hyperfine --show-output --runs 10 "npm run test-ci"
+...
+  Time (mean ± σ):     60.202 s ±  7.801 s    [User: 35.091 s, System: 2.423 s]
+  Range (min … max):   45.359 s … 70.860 s    10 runs
+----
+
+Test results on VirtualBox with 2 vCPU,
+
+----
+$ hyperfine --runs 10 "npm run test-ci"
+  Time (mean ± σ):     108.571 s ± 16.519 s    [User: 26.857 s, System: 14.663 s]
+  Range (min … max):   90.629 s … 141.563 s    10 runs
+----
+
+Test results on VirtualBox with 4 vCPU,
+
+----
+$ hyperfine --show-output --runs 10 "npm run test-ci"
+  Time (mean ± σ):     99.056 s ± 12.072 s    [User: 39.511 s, System: 13.798 s]
+  Range (min … max):   88.905 s … 127.228 s    10 runs
+----
+
+
+**Conclusion**
+
+Based on the mean Time and User time, using Hyper-V is 21-39% faster than
+VirtualBox.

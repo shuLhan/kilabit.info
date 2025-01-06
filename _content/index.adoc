@@ -69,6 +69,8 @@ include::./talk/index.adoc[]
 
 ==  Journal
 
+include::./journal/2025/index.adoc[]
+
 include::./journal/2024/index.adoc[]
 
 include::./journal/2023/index.adoc[]
