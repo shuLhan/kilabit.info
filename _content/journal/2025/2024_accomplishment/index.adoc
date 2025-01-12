@@ -1,0 +1,148 @@
+= 2024 accomplishment
+:sectanchors:
+:sectlinks:
+:toc:
+
+Here we go again, another new year, 2025.
+Lets review what I have done in the past year.
+
+== Personal life
+
+Well, I got new job last year, not in startup but one of the biggest home
+appliances in South East Asia, as full-time contractors.
+The office is in Jakarta, so I need to get back-and-forth between Jakarta
+and Bandung during weekend.
+Thanks got we got high-speed rail now in Indonesia, so the times from
+Jakarta-Bandung now takes half a hour instead of three hours.
+
+
+== asciidoctor-go
+
+https://sr.ht/~shulhan/asciidoctor-go/[asciidoctor-go^]
+is the Go module to parse the AsciiDoc markup and convert it into HTML5.
+This project has 24 commits and three releases, with notable features and
+bug fixes,
+
+* replace module "share" with "pakakeh.go"
+* support document attribute "leveloffset"
+* fix reading include file when parent path is absolute
+
+
+== awwan
+
+https://sr.ht/~shulhan/awwan/[awwan^]
+is a command-line interface (CLI) to shell script, that can execute multiple
+lines of commands in local or remote server using shell or SSH.
+This project has 28 commits and four releases, with notables features and
+bug fixes,
+
+* add bash completion script
+* refactoring `env-get` and `env-set` command to works with bash completion
+* replace module "share" with "pakakeh.go"
+
+
+== bin.sh
+
+https://git.sr.ht/~shulhan/bin.sh[bin.sh^] is collection of my shell
+scripts.
+This project has seven commits with notable features and bug fixes,
+
+* use the pkg-config to derive bash completion install directory
+* tmux-session: skip line start with "#"
+* add script "gen-password.sh"
++
+The gen-password.sh is shell script to generate random words from
+Indonesian directory of hunspell.
+The hunspell-id package can be installed from AUR:
+https://aur.archlinux.org/packages/hunspell-id-git
+
+* add script timer.sh.
+  The timer.sh display a message after X duration.
+
+
+== ciigo
+
+https://sr.ht/~shulhan/ciigo/[ciigo^]
+is a library and a program to write static web server with embedded files
+using AsciiDoc and Markdown markup format
+This project has 44 commits with six releases.
+Notable features and bug fixes,
+
+* replace module "share" with "pakakeh.go"
+* add server option to automatically generate index HTML
+* fix HTML files always generated when HTMLTemplate is not set
+* add flag to set package and variable name for "embed"
+* set margin on sectlevel3, sectlevel4, sectlevel5
+* introduce new type Ciigo
++
+--
+The Ciigo type provides customizable and reusable instance of ciigo for
+embedding, converting, and/or serving HTTP server.
+This type is introduced so one can add HTTP handler or endpoint along with
+serving the files.
+--
+* refactoring functions to accept non pointer struct option
+* refactoring to use watchfs/v2
+* ignore broken symlinks when scanning for file markups
+* auto convert markup when HTTP client request GET to HTML file
++
+--
+In development mode, where [ServeOptions.IsDevelopment] is set to true
+or when running "ciigo serve", the ciigo HTTP server will check if the
+new markup file is newer than HTML file when user press refresh or
+reload on the browser.
+If its newer, it will convert the markup file and return the new content
+of HTML file.
+--
+* fix GoEmbed that does not excludes options from ConvertOptions
+* update README for running ciigo as CLI and as library
+
+
+== gorankusu
+
+https://sr.ht/~shulhan/gorankusu/[Gorankusu^]
+is web user interface to test HTTP and/or WebSocket endpoints including for
+load testing.
+
+Last year we rename the project from "trunks" to "gorankusu"
+The original idea of "trunks" is because the core library that we
+use for load testing is named "vegeta" (from Dragon Ball), and
+Vegeta has a son named Trunks.
+In English, trunks have multiple meanings.
+In order to have a unique name, we rename the project to "gorankusu",
+which is a combination of "go" (the main programming language
+that built the application) and "torankusu" the Hepburn of "Trunks".
+
+This project has 59 commits with four releases.
+Notable features and bug fixes,
+
+* support parameter binding in HTTP Path
+* add type to customize how to dump HTTP request and response
+* allow submit free form request body in HTTPTarget
+* set default HTTPTarget Attack if its not set
+* change the signature of default request/response dumper
+* add default HTTPParamsConverter for [HTTPTarget.ParamsConverter]
+* add POST header that can return custom HTTP response code
+* fix null navigation links
+* add global HTTP headers for Target
+* replace module "share" with "pakakeh.go"
+* fix save on null Headers and Vars
+* fix form input type file where content is binary
+* refactoring form input for multipart form-data
++
+--
+This changes replace handling type for storing multipart form-data from
+"map[string][]byte" to [*multipart.Form] based on changes on module
+"pakakeh.go".
+--
+* use [route.Path] to generate parameters
+* support HTTP target with content type "text/html"
+* add git.sr.ht APIs into example
++
+--
+The APIs is created using https://man.sr.ht/git.sr.ht/api.md as
+reference.
+We also needs the API to create webhook since no other way to create it
+in current sourcehut web.
+--
+* add flags to set HTTP address and development mode
