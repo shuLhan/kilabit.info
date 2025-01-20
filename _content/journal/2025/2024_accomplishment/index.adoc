@@ -20,12 +20,77 @@ Jakarta-Bandung now takes half a hour instead of three hours.
 
 https://sr.ht/~shulhan/asciidoctor-go/[asciidoctor-go^]
 is the Go module to parse the AsciiDoc markup and convert it into HTML5.
-This project has 24 commits and three releases, with notable features and
-bug fixes,
+This project has 24 commits and three releases.
 
-* replace module "share" with "pakakeh.go"
-* support document attribute "leveloffset"
-* fix reading include file when parent path is absolute
+* asciidoctor-go v0.5.2 (2023-04-04)
++
+This release only contains chores.
+
+** Replace module "share" with "pakakeh.go"
++
+The "share" module has been moved to new repository with new name at
+"https://sr.ht/~shulhan/pakakeh.go".
+For more information see the change logs at "pakakeh.go" module.
+
+** Comply with linter recommendations
++
+Most of the code changes related to refactoring if-else witch switch
+statement.
+
+** Replace if-else bytes.Equals with static string case comparisons
++
+Using string instead of [bytes.Equal] give code much more readable.
+
+
+* asciidoctor-go v0.6.0 (2024-09-07)
+
+** Rename struct "AttributeEntry" to "DocumentAttribute"
++
+This is to make the struct is clear that it represent the document
+attribute.
+
+** Rename struct "AttributeEntry" to "DocumentAttribute"
++
+This is to make the struct is clear that it represent the document
+attribute.
+
+** Refactoring DocumentAttribute into struct
++
+Using struct limit the value to only string, while some attributes can
+be an integer value, for example "leveloffset".
+
+** Support document attribute "leveloffset"
++
+The ":leveloffset:" on document attribute allow increment or decrement
+the heading level on included files.
+https://docs.asciidoctor.org/asciidoc/latest/directives/include-with-leveloffset/[Reference^]
+
+** Use strict document header format
++
+Previously, an empty line before Document Title cause the parser stop
+parsing the document header, now an empty lines are skipped.
+Also document attribute can be place anywhere, either before or after
+title, and in between attributes; now it can be only placed after
+revision or author or title.
+
+** Remove unnecessary TrimRight
++
+Each lines to be parsed has been trimmed on the first load, so there
+is no need to do it again, on some cases.
+
+
+* asciidoctor-go v0.6.1 (2024-12-08)
+
+** Fix error log when failed to open included file::
++
+The log use the wrong variable when printing path for failed include
+file.
+
+** Fix reading include file when parent path is absolute::
++
+Previously, if the parent document is opened using absolute path and
+it contains include directive, the included file will fail to read
+because the parent path is joined with current working directory.
 
 
 == awwan
@@ -33,12 +98,86 @@ bug fixes,
 https://sr.ht/~shulhan/awwan/[awwan^]
 is a command-line interface (CLI) to shell script, that can execute multiple
 lines of commands in local or remote server using shell or SSH.
-This project has 28 commits and four releases, with notables features and
-bug fixes,
+This project has 28 commits and four releases.
 
-* add bash completion script
-* refactoring `env-get` and `env-set` command to works with bash completion
-* replace module "share" with "pakakeh.go"
+
+* awwan v0.11.0 (2024-01-06)
++
+--
+In this release we create https://tour.awwan.org where user can try and
+learn awwan using step-by-step tutorial.
+
+In the web-user interface (WUI) we add functionality to stop the local or
+SSH execution.
+--
+
+** ake the magic line "#put:" use explicit source for encrypted file
+** wui: implement button to stop execution
+** Implement HTTP API to stop local or play execution
+** Check script file is a directory
+** Fix panic due to out of range when running "#require" statement
+** Delete the execution response and context cancellation on finished
+** Change the remote temporary directory to "~/.cache/awwan"
+
+
+* awwan v0.12.0 (2024-02-08)
+
+** Refactoring "env-set" arguments
++
+--
+Previously, the "env-set" take the file argument as the last argument
+and optional.
+This changes move the file argument to the first argument so the bash
+completion can detect and print the completion for list of keys.
+
+While at it, fix handling key with quoted in EnvSet and EnvGet.
+--
+
+** Refactoring env-get command
++
+This changes the order of arguments of env-get command to pass the
+directory first before the key.
+The reason is to simplify auto-completion later from the command line.
+--
+
+** Add command env-keys
++
+The "env-keys" command print list of environment variables under a
+directory.
+This command is internal, not documented, used by bash completion.
+
+** Add bash completion script
++
+Using awwan from CLI now can automatically complete the arguments based on
+the command and current parameter number.
+
+
+* awwan v0.12.1 (2024-04-05)
++
+--
+This release replace module "share" with "pakakeh.go".
+
+In the "_wui", we use shared static assets from Cloud Storage.
+The idea is to minimize noise in the logs that does not related to page
+access and minimize binary size.
+
+In the "_ops", we use shared mkosi cache in user’s home ".cache".
+This is to minimize duplicate files and allow us to find or grep files
+without excluding certains directory.
+
+We also apply some recommendations from linters.
+--
+
+
+* awwan v0.12.2 (2024-09-08)
+
+** Replace licensing format to REUSE.toml
++
+Using ".reuse/dep5" has been deprecated since REUSE v3.2.0.
+
+** Update wui submodule URL
++
+The wui submodule has been renamed to "pakakeh.ts".
 
 
 == bin.sh
@@ -66,36 +205,188 @@ https://sr.ht/~shulhan/ciigo/[ciigo^]
 is a library and a program to write static web server with embedded files
 using AsciiDoc and Markdown markup format
 This project has 44 commits with six releases.
-Notable features and bug fixes,
 
-* replace module "share" with "pakakeh.go"
-* add server option to automatically generate index HTML
-* fix HTML files always generated when HTMLTemplate is not set
-* add flag to set package and variable name for "embed"
-* set margin on sectlevel3, sectlevel4, sectlevel5
-* introduce new type Ciigo
+
+* ciigo v0.12.0 (2024-04-04)
 +
 --
-The Ciigo type provides customizable and reusable instance of ciigo for
-embedding, converting, and/or serving HTTP server.
-This type is introduced so one can add HTTP handler or endpoint along with
-serving the files.
+Add server option to automatically generate index HTML.
+If the requested path is directory and no "index.html" file exist in
+that directory, ciigo server will render list of files as "index.html"
+automatically.
+
+Replace module "share" with "pakakeh.go".
+The "share" module has been moved to new repository with new name at
+"https://sr.ht/~shulhan/pakakeh.go".
 --
-* refactoring functions to accept non pointer struct option
-* refactoring to use watchfs/v2
-* ignore broken symlinks when scanning for file markups
-* auto convert markup when HTTP client request GET to HTML file
+
+* ciigo v0.13.0 (2024-05-12)
 +
 --
+Add flag to set package and variable name for "embed".
+The flag "-package-name" can be used to changes the default package
+name inside the Go embed file. The flag "-var-name" can be used to
+changes the default memfs variable name inside the Go embed file.
+
+Fix HTML files always generated when HTMLTemplate is not set.
+If the path to HTMLTemplate option is not set, GoEmbed should convert
+to HTML only if markup file is newer than HTML file or when HTML file
+not exist.
+
+Initialize memfs using New.
+When memfs not initialized using New, the [memfs.MemFS.PathNodes]
+will be nil. This cause any Get on new file will return 404.
+--
+
+* ciigo v0.13.1 (2024-08-04)
++
+--
+Fix "serve" not detecting new files.
+If there is new files on the root of directory it will not detected
+automatically. This release now fix this issue.
+--
+
+* ciigo v0.13.2 (2024-09-07)
++
+--
+Support document attribute "leveloffset".
+The ":leveloffset:" on document attribute allow increment or decrement
+the heading level on included files.
+https://docs.asciidoctor.org/asciidoc/latest/directives/include-with-leveloffset/[Reference^]
+
+Use strict document header format.
+Previously, an empty line before Document Title cause the parser
+stop parsing the document header, now an empty lines are skipped.
+Also document attribute can be place anywhere, either before or after
+title, and in between attributes; now it can be only placed after
+revision or author or title.
+--
+
+* ciigo v0.14.0 (2024-10-06)
++
+--
+Refactoring functions to accept non pointer struct option.
+The function that accept struct XxxOptions should only received the
+copy of struct, not pointer.
+
+Introduce new type Ciigo.
+The Ciigo type provides customizable and reusable instance of ciigo
+for embedding, converting, and/or serving HTTP server. This type is
+introduced so one can add HTTP handler or endpoint along with serving
+the files.
+
+Set margin on sectlevel3, sectlevel4, sectlevel5.
+Using default margin (1.25rem) cause the TOC for level 3 until 5 have
+wide gap in between them.
+--
+
+* ciigo v0.15.0 (2025-01-08)
++
+--
+This is the first major release of ciigo on the new year of 2025.
+We bring many enhancements and update on the documentation.
+
+[ENHANCEMENT]
+The first changes is refactoring to use watchfs/v2. The [watchfs/v2]
+bring new enhancements by watching only single file instead of all
+markup files for changes. This minimize number of goroutine calling
+[os.Stat] on each markup files.
+
+[BUG FIX]
+When listing the file markups, if the node is symlink (either file or
+directory) and target its not exist, continue to the next node instead
+of returning error. The same is true for directory that cannot be
+opened, probably due to broken symlink or permission.
+
+[ENHANCEMENT]
 In development mode, where [ServeOptions.IsDevelopment] is set to true
 or when running "ciigo serve", the ciigo HTTP server will check if the
 new markup file is newer than HTML file when user press refresh or
-reload on the browser.
-If its newer, it will convert the markup file and return the new content
-of HTML file.
+reload on the browser. If its newer, it will convert the markup file and
+return the new content of HTML file.
+
+This allow quick preview without waiting for watcher to complete.
+
+[ENHANCEMENT]
+The README has been revamped to include section on how to install ciigo
+as program, how to running ciigo convert and serve, how to write content
+and view it live on browser, and how to deploy it.
+
+On the section "ciigo as library" we point the user the sample code at
+"internal/cmd/ciigo-example" instead of writing long code at the front.
+
+[BUG FIX]
+This release also fix Exclude option does not get processed when calling
+GoEmbed, or running "ciigo embed".
 --
-* fix GoEmbed that does not excludes options from ConvertOptions
-* update README for running ciigo as CLI and as library
+
+
+== golang-id.org
+
+https://golang-id.org
+is a Go website translation for Go community in Bahasa Indonesia.
+This project receive 22 commits.
+
+List of new articles translated since 2024,
+
+* "Pengenalan terhadap generik"
+* "Cara mitigasi serangan rantai pasok"
+* "Get familiar with workspaces"
+* "Kapan menggunakan generik"
+* "Berbagi memori dengan berkomunikasi"
+* "Konkurensi bukanlah paralelisme"
+* "Perbincangan dengan tim Go"
+* "Program Go yang pertama"
+
+Some chores (in Bahasa Indonesia),
+
+* Ganti modul "share" dengan "pakakeh.go"
+* Tambah akhiran "/" pada "link:" untuk mengurangi HTTP redirect 304
+* Perbaiki list deskripsi format menggunakan "+\n--" format
+* Gunakan aset statik dari Cloud Storage
+* blog/intro-generics: perbaikan tautan
+* Ganti situs utama dari "golang.org" ke "go.dev"
+* Add dark style
+* Tambah tautan pada badan "Modul"
+* Ketengahkan videoblok
+
+
+== tour.golang-id.org
+
+https://tour.golang-id.org is the tour for Go in Bahasa Indonesia.
+This project receive 13 commits.
+Some notables changes,
+
+* content: tambahkan artikel tentang Generik
++
+--
+Artikel Generik berisi dua bagian:
+
+* Parameter tipe: contoh penggunaan parameter tipe pada fungsi generik
+* Tipe generik: contoh struktur data generik
+
+Perubahan ini berdasarkan golang.org/x/website@b970f4b5b0 .
+--
+
+* content/basics: hapus keterangan tentang deterministik
++
+--
+Sejak Go 1.20, paket "math/rand" tidak perlu memanggil [rand.Seed] lagi
+karena telah otomatis diinisialisasi oleh runtime.
+Perubahan ini berdasarkan golang.org/x/website@2e65c647b00d
+--
+
+* local: disable opening browser automatically by default
++
+When the program run using system service, in the background, we did not
+want it to open browser automatically.
+
+* Tambah flag untuk mengatur Origin dari koneksi WebSocket
++
+Misalnya, jika httpListen di set ke "127.0.0.1:10201" dan servis berjalan
+dibelakang sebuah proksi dengan domain "tour.golang-id.local", koneksi
+ke WebSocket akan ditolak, karena pada saat handshake origin dari request
+dicocokan dengan host dan port dari httpListen.
 
 
 == gorankusu
@@ -114,35 +405,930 @@ which is a combination of "go" (the main programming language
 that built the application) and "torankusu" the Hepburn of "Trunks".
 
 This project has 59 commits with four releases.
-Notable features and bug fixes,
 
-* support parameter binding in HTTP Path
-* add type to customize how to dump HTTP request and response
-* allow submit free form request body in HTTPTarget
-* set default HTTPTarget Attack if its not set
-* change the signature of default request/response dumper
-* add default HTTPParamsConverter for [HTTPTarget.ParamsConverter]
-* add POST header that can return custom HTTP response code
-* fix null navigation links
-* add global HTTP headers for Target
-* replace module "share" with "pakakeh.go"
-* fix save on null Headers and Vars
-* fix form input type file where content is binary
-* refactoring form input for multipart form-data
+* gorankusu v0.5.0 (2024-02-08)
 +
 --
-This changes replace handling type for storing multipart form-data from
-"map[string][]byte" to [*multipart.Form] based on changes on module
-"pakakeh.go".
+This release rename the project from "trunks" to "gorankusu".
+
+The original idea of "trunks" is because the core library that we use
+for load testing is named vegeta (from Dragon Ball), and Vegeta has a
+son named Trunks.
+In English, trunks also have multiple meanings.
+
+In order to have a unique name, we rename the project to "gorankusu",
+which is a combination of "go" (the main programming language that
+built the application) and "torankusu" the Hepburn of "Trunks".
 --
-* use [route.Path] to generate parameters
-* support HTTP target with content type "text/html"
-* add git.sr.ht APIs into example
+
+** Allow submit free form request body in HTTPTarget
+** Implement form input file
+** Add type to customize how to dump HTTP request and response
+** Support parameter binding in HTTP Path
+** check HTTP response status greater or equal 400
+
+* gorankusu v0.6.0 (2024-03-05)
+** Changes Opts to non-pointer
++
+Previously, we use pointer to indicated that the Target can be
+attacked or not. Since HTTPTarget now have AllowAttack, this options
+can be changes to non-pointer.
+
+** Change the signature of default request/response dumper
++
+Instead of function that use the signature of HTTPRequestDumper/
+HTTPResponseDumper; change it to function that return HTTPRequestDumper/
+HTTPResponseDumper. In this way, the documentation can show the clear
+relation between function and its type.
+
+** Add global HTTP headers for Target
++
+The Headers field on Target define the global headers that will be
+send along with all HTTPTarget or WebSocketTarget. The same header can
+also be defined on HTTPTarget that override the value of Target.
+
+** Add default HTTPRunHandler
++
+Previously, the default HTTPRunHandler is hidden, called dynamically
+based on Run is nil or not. This changes make it exported as function
+that return HTTPRunHandler to show how define and create a custom
+HTTPRunHandler.
+
+** Add default HTTPParamsConverter for [HTTPTarget.ParamsConverter]
 +
 --
+The DefaultParamsConverter define default function to convert
+[HTTPTarget.Params] to its equivalent parameters in HTTP, either as
+query in URL or as bytes in body.
+
+This changes introduce breaking changes in HTTPTarget where field
+ConvertParams renamed to ParamsConverter.
+--
+
+** Set default HTTPTarget Attack if its not set
++
+--
+Previously, the function for Attack need to be coded manually.
+
+This changes introduce new function DefaultHTTPAttack that generate
+HTTPAttackHandler based on the HTTPTarget method, request type, and
+Params; if AllowAttack is true and Attack is nil.
+--
+
+** Fix null navigation links
++
+If the navLinks fields is empty, the HTTP API will return "null" and
+cause the rendering error. This changes fix this issue by allocating
+the slice navLinks with one capabilities to make JSON always return
+"[]" if its empty.
+
+
+* gorankusu v0.6.1 (2024-04-06)
++
+This release replace "share" module with "pakakeh.go".
+The "share" module repository has been moved to SourceHut with new name
+"pakakeh.go". For more information about the changes see pakakeh.go
+project at https://sr.ht/~shulhan/pakakeh.go.
+
+
+* gorankusu v0.7.0 (2024-09-07)
+** Refactoring form input for multipart form-data
++
+This changes replace handling type for storing multipart form-data
+from "map[string][]byte" to [*multipart.Form] based on changes on
+module "pakakeh.go".
+
+** Make HTTP Target Params works along with WithRawBody
++
+Previously, if WithRawBody is true, the Params will not be rendered
+and parsed during Run. This changes makes the Params works along with
+WithRawBody. If Params are set it will be rendered along with text area
+for raw body.
+
+** Support HTTP target with content type "text/html"
++
+In the Target form, user can select to send body as "text/html".
+
+** Add git.sr.ht APIs into example
++
 The APIs is created using https://man.sr.ht/git.sr.ht/api.md as
-reference.
-We also needs the API to create webhook since no other way to create it
-in current sourcehut web.
+reference. We also needs the API to create webhook since no other way
+to create it in current sourcehut web.
+
+** Fix save on null Headers and Vars
++
+If the user does not define the Headers, clicking Run on any HTTP
+Target will result in error when "save" function executed before it.
+
+** Fix form input type file where content is binary
++
+If the file in FormInput is binary, the conversion to
+"FormInput.value" will fail with an error like "invalid characters in
+String".
+
+** Use [route.Path] to generate parameters
++
+Using [route.String] does not works if the parameter can be empty,
+while [route.Path] replace all keys and return the path as is.
+
+** Add task to initialize the repository and tools
++
+The task "init" include initializing git submodule, installing third
+party tools for linters, and installing node packages.
+
+
+== gotp
+
+https://sr.ht/~shulhan/gotp/[gotp^]
+is a command line interface to manage and generate Time-based One Time
+Password (TOTP).
+
+This project has 21 commits and two releases, with the following notable
+features and bug fixes,
+
+* gotp v0.5.0 (2024-02-08)
+** Make the path to private key static
++
+Instead of prompting user, make the private key static, located at
+"$XDG_CONFIG_DIR/gotp/gotp.key".
+
+** Ask for passphrase when removing or renaming label
++
+Even though rename does not read the encrypted secret, as long as the
+private key is in use, it should ask for passphrase.
+The remove operation allow only the one that know the private key can
+modify the issuer.
+
+** Fix the bash completion installation directory
++
+In the POSIX system, the correct installation for bash completion
+script should be /usr/share/bash-completion not under /etc
+directory.
+
+* gotp v0.6.0 (2024-06-22)
+** Fix failed `generate` command.
++
+If the base32 hash is in lower-case, the `generate` command failed to print
+the TOTP.
+
+** Replace module "share" with "pakakeh.go".
++
+The "share" module has been moved to moved from GitHub, to sourcehut, under
+different name.
+
+** Implement command "export"
++
 --
-* add flags to set HTTP address and development mode
+The "export" command export all issuers to file or standard output,
+
+	$ gotp export <FORMAT> [FILE]
+
+List of known supported FORMAT is: uri.
+If FILE is not defined it will print to standard output.
+The list of exported issuers are printed in order of its label.
+--
+
+
+== karajo
+
+https://sr.ht/~shulhan/karajo[karajo^]
+karajo is HTTP workers and manager for continuous integration and/or
+deployment, works and manageable with HTTP.
+This project has 41 and four releases.
+
+* karajo v0.9.0 (2024-02-08)
+
+** Refactoring JobExec APIs to have "_exec" suffix
++
+In JobHttp, we have "_http" suffix for its HTTP APIs.
+To make it consistent we changes the HTTP API path to have "_exec" suffix.
+
+** Apply default revive suggestions
++
+--
+I prefer zero configuration rather that creating exclusions,
+like "revive.toml" file that we have earlier, even thought it will cause
+breaking changes to our APIs.
+
+Some breaking changes, [Env.HttpJobs] become [Env.HTTPJobs]
+[Env.HttpTimeout] become [Env.HTTPTimeout],
+[Env.HttpJobs] become [Env.HTTPJobs], and many more.
+--
+
+** Implement API to cancel running job
++
+--
+In the JobBase we add method Cancel to cancel running JobExec or JobHTTP.
+In the HTTP server, we add endpoint "POST /karajo/api/job_exec/cancel"
+to cancel JobExec by its ID.
+Implements: https://todo.sr.ht/~shulhan/karajo/1
+--
+
+** Export the HTTP server field in Karajo
++
+By exporting the HTTP server field, user of Karajo can register
+additional HTTP endpoints without creating new HTTP server instance.
+
+** Always call finish even if the job is paused
++
+This is to make the [JobBase.NextRun] always set to next interval or
+schedule.
+Fixes: https://todo.sr.ht/~shulhan/karajo/2
+
+** Set systemd unit to start after network.target
++
+This is to fix karajo failed to start because the DNS has not working
+yet when initializing email notification.
+
+
+* karajo v0.9.1 (2024-04-06)
+** env: remove [rand.Seed] usage
++
+The [ascii.Random] generate random using "crypto/rand", so no need to
+seed it anymore.
+
+** Replace module "share" with "pakakeh.go"
++
+The "share" module repository has been moved to SourceHut, with new
+name "pakakeh.go".
+
+
+* karajo v0.9.2 (2024-09-08)
+** make: fix file permissions when installing public index.html
++
+Using 0640 (where user and group owner set to root) cause karajo
+service—that run as karajo user—unable to read the file.
+
+
+* karajo v0.9.3 (2024-12-08)
+
+** env: fix missing ini tag on IsDevelopment field::
+
+** Fix permission of "/srv/karajo"
++
+The content of directory "/srv/karajo" may contains files served to
+public, even internal, so it should be accesible by other user or
+group.
+
+** Return and show the current version in API environment and main page
+
+** Set the module Version during build
++
+The Version information is derived from latest tag and commit hash.
+This allow command "karajo version" and user interface show on which
+version its currently run.
+
+
+== pakakeh.go
+
+https://sr.ht/~shulhan/pakakeh.go[pakakeh.go^]
+is collection of tools, public HTTP APIs, and libraries written and for
+working with Go programming language.
+This is the core module that enable and supports all of our open source
+projects.
+This projects received 121 commits and 11 releases.
+
+* share v0.52.0 (2024-01-06)
+
+** cmd/httpdfs: implement [libhttp.Server] with [memfs.MemFS]
+** http/sseclient: fix Retry value not set to millisecond
+** http/sseclient: fix data race on [Client.Close]
+** lib/io: removed, this package has been merged into "lib/os"
+** lib/parser: removed, this package has been merged into lib/strings
+** lib/ssh: add parameter context to Execute method
+** lib/ssh: implement method Output on Client
+** lib/time: remove UnixMicro and UnixMilli
+** ssh/config: add method MarshalText and WriteTo
+** ssh/config: add parameter Config to NewSection
+** ssh/config: fix setting the default values
+** ssh/config: merge the Section slice values on [Section.merge]
+** ssh/config: refactoring the Config merge
+** ssh/config: set the Hostname if its not set on [Config.Get]
+** ssh/config: set the default UserKnownHostsFile in setDefaults
+** ssh/sftp: fix Stat on empty remote file name
+** ssh/sftp: fix non-nil returned error on Close
+** ssh/sftp: implement method MkdirAll on Client
+
+
+* share v0.53.0 (2024-02-04)
+
+** test/mock: implement mock for crypto [rand.Reader]
++
+--
+The RandReader implement [io.Reader].
+To provide predictable result, the RandReader is seeded with slice of
+bytes.
+A call to Read will fill the passed bytes with those seed.
+
+For example, given seed as "abc" (length is three), calling Read with
+bytes length five will return "abcab".
+--
+
+** lib/sql: add new type Meta
++
+Meta contains the DML meta data, including driver name, list of column
+names, list of column holders, and list of values.
+The Meta type replace the Row type.
+
+** lib/path: new package to work with path
++
+--
+The path package provide a new type Route, detached from "lib/http".
+
+A Route represent a parsed path.
+A path can have a key, or binding, that can be replaced with string
+value.
+For example, "/org/:user/:repo" have two keys "user" and "repo".
+
+Route handle the path in case-insensitive manner.
+--
+
+** _bin/go-mod-tip: use committer timestamp instead of author timestamp
++
+If the tip is rebased to upstream, the author timestamp is not
+changes, but the commit timestamp changes.
+
+** lib/totp: add method GenerateWithTime and GenerateNWithTime
++
+The GenerateWithTime and GenerateNWithTime accept parameter
+[time.Time] as the relative time for generated password.
+
+** lib/http: add support for If-Modified-Since in HandleFS
++
+If the node modification time is less than requested time value in
+request header If-Modified-Since, server will response with
+304 Not Modified.
+
+** lib/http: refactoring Range request, limit content served by server
++
+--
+When server receive,
+
+  GET /big
+  Range: bytes=0-
+
+and the requested resources is quite larger, where writing all content
+of file result in i/o timeout, it is best practice [1][2] if the
+server write only partial content and let the client continue with the
+subsequent Range request.
+
+In the above case, the server should response with,
+
+  HTTP/1.1 206 Partial content
+  Content-Range: bytes 0-<limit>/<size>
+  Content-Length: <limit>
+
+Where limit is maximum packet that is reasonable [3] for most of the
+client.
+In this server we choose 8MB as limit.
+--
+
+** lib/http: add method Head to Client
++
+The Head method send the HEAD request to path, with optional
+headers, and params in query parameters.
+
+** lib/ini: add method Keys
++
+The Keys method return sorted list of all section, subsection, and
+variables as string where each of them separated by ":", for example
+"section:sub:var".
+
+
+* share v0.53.1 (2024-03-02)
+
+** lib/sql: handle binding with the same name
++
+If [Meta.Bind] is called with the same name again, it should replace
+the existing named value.
+
+** lib/dns: ignore invalid message
++
+--
+If Query return a message but the failed to unpack due to invalid
+format, for example
+
+    unpackOPT: data length is out of range
+
+ignore it instead of disconnect the client connection.
+--
+
+** lib/http: export function to generate "multipart/form-data"
++
+The GenerateFormData generate the request body with boundary for
+HTTP content-type "multipart/form-data" from map[string][]byte.
+
+** lib/dns: change the log mechanism by mode instead of by level
++
+--
+This changes introduce three mode of debug:
+
+* DebugLevelDNS: log error on DNS level, in example empty answer,
+  ERR_NAME (domain name is invalid or not known) and so on.
+* DebugLevelCache: log cache operations.
+* DebugLevelConnPacket: log low level connection and package,
+  including request and response.
+--
+
+
+* pakakeh.go v0.54.0 (2024-04-04)
++
+--
+This is the first release after we move the repository to SourceHut
+under different name: "pakakeh.go".
+There are several reasons for moving and naming.
+
+First, related to the name of package.
+We accidentally name the package with "share" a common word in English
+that does not reflect the content of repository.
+By moving to other repository, we can rename it to better and unique
+name, in this "pakakeh.go".
+Pakakeh is Minang word for tools, and ".go" suffix indicate that the
+repository related to Go programming language.
+
+Second, supporting open source.
+The new repository is hosted under sourcehut.org, the founder is known
+to support open source, and all their services are licensed under AGPL,
+unlike GitHub that are closed sources.
+
+Third, regarding GitHub CoPilot.
+https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#4-license-grant-to-us[The GitHub Terms of Service],
+allow any public content that are hosted there granted them to parse the
+content.
+On one side, GitHub helps and flourish the open source, but on another
+side have an issues
+https://githubcopilotinvestigation.com[issues]
+regarding scraping the copyleft license.
+--
+
+* pakakeh.go v0.55.0 (2024-05-04)
+
+** lib/http: refactoring "multipart/form-data" parameters in ClientRequest
++
+--
+Previously, ClientRequest with type RequestTypeMultipartForm pass the
+type "map[string][]byte" in Params.
+This type hold the file upload, where key is the file name and []byte
+is content of file.
+Unfortunately, this model does not correct because a
+"multipart/form-data" can contains different field name and file name,
+for example
+
+  --boundary
+  Content-Disposition: form-data; name="field0"; filename="file0"
+  Content-Type: application/octet-stream
+
+  <Content of file0>
+
+This changes fix this by changing the parameter type for
+RequestTypeMultipartForm to [*multipart.Form], which affect several
+functions including [Client.PutFormData] and [GenerateFormData].
+--
+
+** lib/dns: fix packing and unpacking OPT record
++
+The RDATA in OPT records can contains zero or more options.
+Previously, we only handle unpacking and packing one option, now we
+handle multiple options.
+
+** telegram/bot: fix Webhook URL registration
++
+Using [path.Join] cause "https://domain" become "https:/domain"
+which is not a valid URL. This bug caused by refactoring in b89afa24f.
+
+** lib/memfs: set embed file mode to print as octal
++
+Using octal in mode make the embedded code more readable, for
+example mode with permission "0o644" much more readable than 420".
+
+** telegram/bot: register GET endpoint to test webhook
++
+The call to get "GET <Webhook.URL.Path>/<Token>" will return HTTP
+status 200 with JSON body '{"code":200,"message":"OK"}'.
+This endpoint is to check if the bot server is really running.
+
+** lib/http: allow all HTTP method to generate HTTP request with body
++
+Although the RFC 7231 says that no special defined meaning for a
+payload in GET, some implementation of HTTP API sometimes use GET with
+content type "application/x-www-form-urlencoded".
+
+** lib/http: add new function [CreateMultipartFileHeader]
++
+The CreateMultipartFileHeader help creating [multipart.FileHeader]
+from raw bytes, that can be assigned to [*multipart.Form].
+
+
+* pakakeh.go v0.55.1 (2024-06-20)
+
+** lib/http: add request type HTML
++
+The RequestTypeHTML define the content type "text/html".
+
+** lib/path: add method Path to Route
++
+Unlike String method that may return the key’s name in returned
+path, the Path method return the path with all the keys has been
+substituted with values, even if its empty.
+
+
+* pakakeh.go v0.55.2 (2024-07-22)
+
+** lib/memfs: sanitize the Root directory to fix refresh
++
+In [MemFS.refresh], if the requested url is "/file1" and [Options.Root]
+is ".", the path during refresh become "file1" and if passed to
+[filepath.Dir] it will return ".". This cause the loop on refresh
+never end because there is no PathNodes equal with ".".
+
+
+* pakakeh.go v0.56.0 (2024-08-04)
+
+** cmd/emaildecode: CLI to decode email body to plain text
++
+The emaildecode accept file as input. If the email header contains
+content-transfer-encoding with value quoted-printable or base64, it will
+decode the message body and print it to stdout as plain text.
+
+** lib/memfs: another fix for refresh
++
+In previous commit we use wrong condition when handling directory
+"." as Root.
+
+** lib/email: allow message that end lines with LF only
++
+Although, a message from network must end with CRLF, a message from
+(another) client may have been sanitized and end with LF only.
+
+** lib/email: decode the message body based on content-transfer-encoding
++
+After the header and body has been parsed, if the header contains
+Content-Transfer-Encoding, we decode the body into its local formats.
+Currently supported encoding is "quoted-printable" and "base64".
+
+** lib/email: export the Header fields
++
+By exporting the fields, this allow the caller to filter or manage
+the field manually.
+
+** _doc: add partial note and summary for RFC 2183
++
+The RFC 2183 is define Content-Disposition header field in the
+internet message.
+
+** lib/ini: mention that marshaling []byte does not supported
++
+Due to "byte" is considered as "uint8" during reflection, we cannot
+tell whether the value is slice of byte of slice of number with type
+uint8.
+
+
+* pakakeh.go v0.57.0 (2024-09-03)
+
+** lib/sql: replace [http.FileSystem] with [memfs.MemFS]
++
+--
+Accepting the [http.FileSystem] means that the parameter can receive
+an instance of [embed.FS], but in most cases, it will fail.
+
+Case example, when we embed SQL files for migration under
+"db/migration" using the "go:embed" directive,
+
+	//go:embed db/migration/*.sql
+	var DBMigrationFS embed.FS
+
+and then call the [Migrate] function, it will not find any ".sql"
+files inside the "/" directory because the files is stored under
+"db/migration/" prefix (also there is no "/" when using embed.FS).
+--
+
+** lib/memfs: document the comparison with "go:embed" directive
++
+--
+Compare it to "go:embed", the memfs package is more flexible and
+portable. Currently, we found three disadvantages of using "go:embed",
+
+* The "go:embed" only works if files or directory to be embedded is
+  in the same parent directory.
+* Accessing the embedded file require the original path.
+* No development mode.
+
+None of those limitation affected the memfs package.
+--
+
+
+* pakakeh.go v0.58.0 (2024-10-06)
++
+This release update the minimum Go module to 1.22.0, the last version
+supported by Go tools.
+
+**  lib/http: remove writing StatusNoContent on ResponseTypeNode
++
+To make it consistent with RequestTypeNone, the ResponseTypeNone
+should not write any response header or HTTP status code. It will be
+handled manually by [Endpoint.Call].
+
+**  lib/play: new package for formatting and running Go code
++
+Package play provides callable APIs and HTTP handlers to format and
+run Go code, similar to Go playground, but using HTTP instead of
+WebSocket.
+
+**  lib/http: add Server method to register handler by function
++
+--
+The RegisterHandleFunc register a pattern with a handler, similar to
+[http.ServeMux.HandleFunc]. The pattern follow the Go 1.22 format:
+
+	[METHOD] PATH
+
+The METHOD is optional, default to GET. The PATH must not contains
+the domain name and space. Unlike standard library, variable in PATH
+is read using ":var" not "{var}". This endpoint will accept any
+content type and return the body as is; it is up to the handler to
+read and set the content type and the response headers.
+
+If the METHOD and/or PATH is already registered it will panic.
+--
+
+**  lib/bytes: add function AppendInt64 and AppendUint64
++
+The AppendInt64 append an int64 value into slice of byte. The
+AppendUint64 append an uint64 value into slice of byte.
+
+
+* pakakeh.go v0.58.1 (2024-12-07)
+
+** lib/play: add custom request to run unsafe directory directly
++
+--
+As exceptional, the Run and HTTPHandleRun accept the following
+request for running program inside custom "go.mod",
+
+  {
+    "unsafe_run": <path>
+  }
+
+The "unsafe_run" define the path to directory relative to HTTP
+server working directory. Once request accepted it will change the
+directory into "unsafe_run" first and then run "go run ." directly.
+Go code that executed inside "unsafe_run" should be not modifiable and
+safe from mallicious execution.
+--
+
+** lib/play: add option to Run with specific Go version and without race
++
+The idea is to allow testing Go code on specific Go version.
+For example, before Go 1.22, the for loop with variable is shared
+among block statements, which cause every use of that variable is run
+with the last value.
+
+** lib/play: expose the Timeout variable
++
+By exposing the Timeout, user can set their maximum time the program
+can run in their playground.
+
+
+* pakakeh.go v0.59.0 (2025-01-06)
++
+--
+This is the first release of pakakeh.go on the year 2025. There are many
+new features and cleaning up, including packages that merged into single
+package with help of type parameters.
+
+The first major changes is indicated by using "go 1.23.4" as minimum Go
+version in this module, to allow us using new packages like "slices" and
+"maps".
+
+In this release notes, we try new format. Instead of grouping each
+changes by Breaking changes, New features, Bug fixes, Enhancements,
+and/or Chores; we group them by package. Each paragraph in the package
+sections will be prefixed with tag "[BREAKING CHANGE]", "[NEW FEATURE]",
+"[BUG FIX]", "[ENHANCEMENT]", "[CHORE]" to indicates the type of
+changes.
+--
+
+** lib/binary
++
+--
+The "lib/binary] is new package that complement the standard binary
+package.
+
+[NEW FEATURE]
+Implement append-only binary that encode the data using [binary.Writer].
+We call them "Apo" for short.
+
+[NEW FEATURE]
+Implement buffer for reading/writing in BigEndian. The BigEndianBuffer
+provides backing storage for writing (most of) Go native types into
+binary in big-endian order. The zero value of BigEndianBuffer is an
+empty buffer ready to use.
+
+The following basic types are supported for Write and Read: bool, byte,
+int, float, complex, and string. The slice and array are also supported
+as long as the slice’s element type is one of basic types.
+--
+
+** lib/bytes
++
+[BREAKING CHANGE]
+In the "lib/bytes" we split the hexdump related functions to separate
+package, "lib/hexdump".
+
+** lib/floats64
++
+[BREAKING CHANGE]
+This package has been removed, merged into "slices" package.
+
+** lib/hexdump
++
+--
+[NEW FEATURE]
+Package hexdump implements reading and writing bytes from and into
+hexadecimal number. It support parsing output from hexdump(1) tool.
+--
+
+** lib/http
++
+--
+[NEW FEATURE]
+In the [lib/http.Client] we add new method Transport that return default
+HTTP Transport. The returned [http.Transport] is created after the
+Client instantiated. Their value can be customized by user when needed,
+which should affect the Transport inside the Client.
+--
+
+** lib/ints
++
+--
+[BREAKING CHANGE]
+This package has been removed, merged into "slices" package.
+--
+
+** lib/ints64
++
+--
+[BREAKING CHANGE]
+This package has been removed, merged into "slices" package.
+--
+
+** lib/memfs
++
+--
+[ENHANCEMENT]
+In the "lib/memfs" we refactoring the Watch method to use the new
+"watchfs/v2" package.
+
+[BREAKING CHANGE]
+The old Watcher and DirWatcher types now moved to watchfs package. This
+changes require exporting method [memfs.MemFS.UpdateContent].
+--
+
+** lib/numbers
++
+--
+[CHORE]
+In the package level, we remove unused README and LICENSE files. This
+package README has been merged into the package documentation and the
+LICENSE is same with the module one.
+
+We also remove some package documentation that should be in
+"lib/slices".
+--
+
+** lib/play
++
+--
+[NEW FEATURE]
+The [lib/play] now has function and HTTP handler to run Go test code.
+Since the test must run inside the directory that contains the Go file
+to be tested, the [HTTPHandleTest] API accept the following request
+format,
+
+{
+	"goversion": <string>,
+	"file": <string>,
+	"body": <string>,
+	"without_race": <boolean>
+}
+
+The "file" field define the path to the "_test.go" file, default to
+"test_test.go" if its empty. The "body" field contains the Go code that
+will be saved to "file". The test will run, by default, with "go test
+-count=1 -race $dirname" where "$dirname" is the path directory to the
+"file" relative to where the program is running. If "without_race" is
+true, the test command will not run with "-race" option.
+
+[ENHANCEMENT]
+On package level, the home and cache directory now initialized on
+package init since there are never changes when program running. If Go
+failed to get the home and cache it will be set to system temporary
+directory.
+
+[ENHANCEMENT]
+We also simplify running Go code by removing the field pid in the struct
+command that wait for process ID. Instead we execute cmd with Run
+directly. In the Run function, we use the UnsafeRun to store temporary
+directory and move the statements that writes go.mod and main.go into
+the method writes of Request. This remove unnecessary unsafeRun
+function.
+--
+
+** lib/reflect
++
+--
+[BREAKING CHANGE]
+This release changes the Equal signature from "Equal(v any) bool" to
+"Equal(v any) error". The reason for this changes is to force the method
+to return an error message that is understand-able by caller.
+--
+
+** lib/slices
++
+--
+[NEW FEATURE]
+Package "lib/ints", "lib/ints64", and "lib/floats64" are merged into
+"slices". Now that Go has type parameter, we can use it to use the same
+function that accept different types for working with slice of int,
+int64, and float64.
+--
+
+** lib/ssh
++
+--
+[ENHANCEMENT]
+In the lib/ssh, we implement Run with context internally. Instead of
+depends on fork of crypto with CL that needs proposal, we implement them
+in here so we can update crypto module to the latest release.
+--
+
+** lib/watchfs
++
+--
+The watchfs package now contains the original, v1, of the Watcher and
+DirWatcher types from "lib/memfs".
+--
+
+** lib/watchfs/v2
++
+--
+[NEW FEATURE]
+The "lib/watchfs/v2" is the new package that implement new file and
+directory watcher, that replace the Watcher and DirWatcher in the
+"lib/memfs".
+
+The new implementation, FileWatcher, much more simple than what we have
+in [memfs.Watcher].
+
+The new directory watcher, DirWatcher, scan the content of directory in
+[fs.DirWatcherOptions.Root] recursively for the files to be watched,
+using the [fs.DirWatcherOptions.Includes] field. A single file,
+[fs.DirWatcherOptions.FileWatcherOptions.FilePath], will be watched for
+changes that trigger re-scanning the content of Root recursively.
+
+The result of re-scanning is list of the Includes files (only files not
+new directory) that are changes, which send to channel C. On each
+[os.FileInfo] received from C, a deleted file have [os.FileInfo.Size]
+equal to [NodeFlagDeleted]. The channel send an empty slice if no
+changes.
+
+The implementation of file changes in this code is naive, using loop and
+comparison of mode, modification time, and size; at least it should
+works on most operating system.
+--
+
+
+== rescached
+
+https://sr.ht/~shulhan/rescached/[rescached^]
+is a DNS server and resolver with caching for speeding up DNS resolution.
+This project received 20 commits and one release.
+
+* rescached v4.4.3 (2024-09-07)
+
+** cmd/rescached: add sub command to print the current version
++
+Running "rescached version" now will print the program version.
+
+** support SVCB record (type 64) and HTTPS record (type 65)
++
+The latest update on "lib/dns" package support RFC 9460, SVCB record
+(type 64) and HTTPS record (type 65).
+
+** all: replace module "share" with "pakakeh.go"
++
+The module "share" has been moved to new repository at SourceHut and
+we rename it to make it more unique instead of common English words
+"share".
+
+** Move repository to SourceHut
++
+The new repository and project page for rescached is at
+https://sr.ht/~shulhan/rescached .
+
+
+== Whats next?
+
+Since April 2024, I start writing a book title "Bahasa Pemrograman Go" (Go
+Programming Language) in Bahasa Indonesia.
+I hope I can finish and publish it this year.
