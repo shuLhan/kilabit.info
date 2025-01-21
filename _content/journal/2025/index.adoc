@@ -1,7 +1,7 @@
 
 === 2025
 
-link:/journal/2025/2024_accomplishment/[2024 Accomplishment^].
+link:/journal/2025/2024_accomplishments/[2024 Accomplishments^].
 
 link:/journal/2025/hyperv_vs_virtualbox/[Hyper-V vs VirtualBox: benchmarking Angular test suites^].
 In this journal we will compare the performance of virtual machine (VM)

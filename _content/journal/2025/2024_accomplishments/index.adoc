@@ -1,4 +1,4 @@
-= 2024 accomplishment
+= 2024 Accomplishments
 :sectanchors:
 :sectlinks:
 :toc:
@@ -6,16 +6,32 @@
 Here we go again, another new year, 2025.
 Lets review what I have done in the past year.
 
+
 == Personal life
 
 Well, I got new job last year, not in startup but one of the biggest home
 appliances in South East Asia, as full-time contractors.
 The office is in Jakarta, so I need to get back-and-forth between Jakarta
 and Bandung during weekend.
-Thanks got we got high-speed rail now in Indonesia, so the times from
-Jakarta-Bandung now takes half a hour instead of three hours.
+Lucky now that we have high-speed rail now in Indonesia, so the times from
+Jakarta-Bandung now takes almost one hour (29 minutes from Jakarta to
+Padalarang regency and 19 minutes from Padalarang to Bandung city) instead
+of two or three hours.
+
+Although its a little bit pricey, ~250K IDR on weekdays and ~300K IDR on
+weekend, I am more and more appreciate times spend at home than at road.
+For me, its better to pay 150K more for two hours time that I can spend at
+home, rather than sit in the car.
 
 
+== Whats next?
+
+Since April 2024, I start writing a book with title "Bahasa Pemrograman Go"
+(Go Programming Language) in Bahasa Indonesia.
+I hope I can finish and publish it this year.
+
+
+//{{{
 == asciidoctor-go
 
 https://sr.ht/~shulhan/asciidoctor-go/[asciidoctor-go^]
@@ -92,7 +108,8 @@ Previously, if the parent document is opened using absolute path and
 it contains include directive, the included file will fail to read
 because the parent path is joined with current working directory.
 
-
+//}}}
+//{{{
 == awwan
 
 https://sr.ht/~shulhan/awwan/[awwan^]
@@ -151,7 +168,6 @@ This command is internal, not documented, used by bash completion.
 Using awwan from CLI now can automatically complete the arguments based on
 the command and current parameter number.
 
-
 * awwan v0.12.1 (2024-04-05)
 +
 --
@@ -168,7 +184,6 @@ without excluding certains directory.
 We also apply some recommendations from linters.
 --
 
-
 * awwan v0.12.2 (2024-09-08)
 
 ** Replace licensing format to REUSE.toml
@@ -179,7 +194,8 @@ Using ".reuse/dep5" has been deprecated since REUSE v3.2.0.
 +
 The wui submodule has been renamed to "pakakeh.ts".
 
-
+//}}}
+//{{{
 == bin.sh
 
 https://git.sr.ht/~shulhan/bin.sh[bin.sh^] is collection of my shell
@@ -198,7 +214,8 @@ https://aur.archlinux.org/packages/hunspell-id-git
 * add script timer.sh.
   The timer.sh display a message after X duration.
 
-
+//}}}
+//{{{
 == ciigo
 
 https://sr.ht/~shulhan/ciigo/[ciigo^]
@@ -320,7 +337,8 @@ This release also fix Exclude option does not get processed when calling
 GoEmbed, or running "ciigo embed".
 --
 
-
+//}}}
+//{{{
 == golang-id.org
 
 https://golang-id.org
@@ -350,45 +368,8 @@ Some chores (in Bahasa Indonesia),
 * Tambah tautan pada badan "Modul"
 * Ketengahkan videoblok
 
-
-== tour.golang-id.org
-
-https://tour.golang-id.org is the tour for Go in Bahasa Indonesia.
-This project receive 13 commits.
-Some notables changes,
-
-* content: tambahkan artikel tentang Generik
-+
---
-Artikel Generik berisi dua bagian:
-
-* Parameter tipe: contoh penggunaan parameter tipe pada fungsi generik
-* Tipe generik: contoh struktur data generik
-
-Perubahan ini berdasarkan golang.org/x/website@b970f4b5b0 .
---
-
-* content/basics: hapus keterangan tentang deterministik
-+
---
-Sejak Go 1.20, paket "math/rand" tidak perlu memanggil [rand.Seed] lagi
-karena telah otomatis diinisialisasi oleh runtime.
-Perubahan ini berdasarkan golang.org/x/website@2e65c647b00d
---
-
-* local: disable opening browser automatically by default
-+
-When the program run using system service, in the background, we did not
-want it to open browser automatically.
-
-* Tambah flag untuk mengatur Origin dari koneksi WebSocket
-+
-Misalnya, jika httpListen di set ke "127.0.0.1:10201" dan servis berjalan
-dibelakang sebuah proksi dengan domain "tour.golang-id.local", koneksi
-ke WebSocket akan ditolak, karena pada saat handshake origin dari request
-dicocokan dengan host dan port dari httpListen.
-
-
+//}}}
+//{{{
 == gorankusu
 
 https://sr.ht/~shulhan/gorankusu/[Gorankusu^]
@@ -536,7 +517,8 @@ while [route.Path] replace all keys and return the path as is.
 The task "init" include initializing git submodule, installing third
 party tools for linters, and installing node packages.
 
-
+//}}}
+//{{{
 == gotp
 
 https://sr.ht/~shulhan/gotp/[gotp^]
@@ -588,7 +570,8 @@ If FILE is not defined it will print to standard output.
 The list of exported issuers are printed in order of its label.
 --
 
-
+//}}}
+//{{{
 == karajo
 
 https://sr.ht/~shulhan/karajo[karajo^]
@@ -678,7 +661,8 @@ The Version information is derived from latest tag and commit hash.
 This allow command "karajo version" and user interface show on which
 version its currently run.
 
-
+//}}}
+//{{{
 == pakakeh.go
 
 https://sr.ht/~shulhan/pakakeh.go[pakakeh.go^]
@@ -1297,7 +1281,8 @@ comparison of mode, modification time, and size; at least it should
 works on most operating system.
 --
 
-
+//}}}
+//{{{
 == rescached
 
 https://sr.ht/~shulhan/rescached/[rescached^]
@@ -1326,9 +1311,43 @@ we rename it to make it more unique instead of common English words
 The new repository and project page for rescached is at
 https://sr.ht/~shulhan/rescached .
 
+//}}}
+//{{{
+== tour.golang-id.org
 
-== Whats next?
+https://tour.golang-id.org is the tour for Go in Bahasa Indonesia.
+This project receive 13 commits.
+Some notables changes,
 
-Since April 2024, I start writing a book title "Bahasa Pemrograman Go" (Go
-Programming Language) in Bahasa Indonesia.
-I hope I can finish and publish it this year.
+* content: tambahkan artikel tentang Generik
++
+--
+Artikel Generik berisi dua bagian:
+
+* Parameter tipe: contoh penggunaan parameter tipe pada fungsi generik
+* Tipe generik: contoh struktur data generik
+
+Perubahan ini berdasarkan golang.org/x/website@b970f4b5b0 .
+--
+
+* content/basics: hapus keterangan tentang deterministik
++
+--
+Sejak Go 1.20, paket "math/rand" tidak perlu memanggil [rand.Seed] lagi
+karena telah otomatis diinisialisasi oleh runtime.
+Perubahan ini berdasarkan golang.org/x/website@2e65c647b00d
+--
+
+* local: disable opening browser automatically by default
++
+When the program run using system service, in the background, we did not
+want it to open browser automatically.
+
+* Tambah flag untuk mengatur Origin dari koneksi WebSocket
++
+Misalnya, jika httpListen di set ke "127.0.0.1:10201" dan servis berjalan
+dibelakang sebuah proksi dengan domain "tour.golang-id.local", koneksi
+ke WebSocket akan ditolak, karena pada saat handshake origin dari request
+dicocokan dengan host dan port dari httpListen.
+
+//}}}
