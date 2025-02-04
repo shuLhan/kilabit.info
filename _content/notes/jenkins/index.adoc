@@ -1,0 +1,23 @@
+= Jenkins
+Shulhan <ms@kilabit.info>
+
+Print secret text using Groovy script,
+----
+import com.cloudbees.plugins.credentials.SystemCredentialsProvider;
+import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl
+
+println "Jenkins credentials config file location=" +
+SystemCredentialsProvider.getConfigFile();
+println ""
+
+SystemCredentialsProvider.getInstance().getCredentials().stream().
+  filter { cred -> cred instanceof StringCredentialsImpl }.
+  forEach { cred -> 
+    println "secret text=" + cred.getId() + ":"+ cred.getSecret().getPlainText()
+  }
+----
+
+See the
+https://javadoc.jenkins.io/plugin/plain-credentials/org/jenkinsci/plugins/plaincredentials/impl/package-tree.html[packet
+documentation^]
+for other credential class.

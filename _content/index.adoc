@@ -82,3 +82,8 @@ include::./journal/2021/index.adoc[]
 include::./journal/2020/index.adoc[]
 
 link:/journal/[More ...^]
+
+
+== Miscellaneous notes
+
+link:/notes/jenkins/[Anything about Jenkins^].
