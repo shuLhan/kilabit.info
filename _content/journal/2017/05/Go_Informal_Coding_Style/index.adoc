@@ -52,7 +52,7 @@ As an example see net package [1].
 **Rationale:** Following godoc format will make code easy to read, because we
 know where each of section is located.
 
-[1] https://golang.org/pkg/net/
+[1] https://pkg.go.dev/net/
 
 
 ==  Package should have a file with the same name

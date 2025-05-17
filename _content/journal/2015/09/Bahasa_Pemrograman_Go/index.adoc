@@ -6,10 +6,10 @@ Bahasa Indonesia, silahkan lihat di sini: https://tour.golang-id.org.
 ==  Pemasangan
 
 Artikel ini berisi catatan mengenai instalasi bahasa pemrograman
-https://golang.org/[Go] [1].
+https://go.dev/[Go] [1].
 
 Go memberikan kemudahan instalasi lewat
-https://golang.org/dl/[binari] [2],
+https://go.dev/dl/[binari] [2],
 tapi untuk instalasi dari sumber membutuhkan koneksi internet yang cukup
 cepat, karena semua sumber kode, dokumentasi, dan tutorial diunduh lewat git.
 Pada bagian ini saya akan menjelaskan bagaimana memasang Go toolkit dari
@@ -17,7 +17,7 @@ sumber kode langsung, Go-doc untuk melihat dokumentasi secara lokal, dan
 Go-tour untuk tutorial belajar bahasa Go supaya dapat dibuka di lokal tanpa
 harus terhubung ke internet.
 Untuk artikel lebih lengkapnya bisa dilihat di
-https://golang.org/doc/install/source[sini] [3]
+https://go.dev/doc/install/source[sini] [3]
 dalam bahasa Inggris.
 
 Sebelumnya pengenalan terhadap variabel lingkungan yang digunakan oleh Go.
@@ -35,7 +35,7 @@ Sebelumnya pengenalan terhadap variabel lingkungan yang digunakan oleh Go.
 
 Berikut langkah untuk meng- _compile_ dari sumber,
 
-*  Unduh Go compiler di https://golang.org/dl/[sini] [2]
+*  Unduh Go compiler di https://go.dev/dl/[sini] [2]
 *  Ekstrak berkas tersebut, misalkan di `$HOME/go-bootstrap`
 *  Set variabel lingkungan `GOROOT_BOOTSTRAP` ke `$HOME/go-bootstrap`,
 +
@@ -145,12 +145,12 @@ $ go get golang.org/x/tour/gotour
 ----
 
 Kemudian jalankan dengan perintah gotour, maka peramban akan terbuka secara
-otomatis sama seperti dengan membuka situs golang.org.
+otomatis sama seperti dengan membuka situs https://go.dev/tour.
 
 ==  Referensi
 
-[1] https://golang.org/
+[1] https://go.dev/
 
-[2] https://golang.org/dl/
+[2] https://go.dev/dl/
 
-[3] https://golang.org/doc/install/source
+[3] https://go.dev/doc/install/source

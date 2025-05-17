@@ -133,8 +133,8 @@ https://sr.ht/~shulhan/rescached[Project page^]
 ===  tour.golang-id.org
 
 The tour.golang-id.org is translation of their original website
-tour.golang.org to Indonesian language, to help newcomers learning Go
-programming language.
+https://go.dev/tour to Indonesian language, to help newcomers learning the
+Go programming language.
 This is my first contribution to Go community.
 
 https://tour.golang-id.org[Website^] -

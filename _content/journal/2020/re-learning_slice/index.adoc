@@ -28,11 +28,10 @@ In this article we will review back how the slices works and maybe by knowing
 how it work we can write a better program.
 
 The content of this article is not new, if you already read and understand
-https://golang.org/doc/effective_go.html[Effective Go],
-https://golang.org/ref/spec[The Go Programming Language Specification],
+https://go.dev/doc/effective_go[Effective Go^],
+https://go.dev/ref/spec[The Go Programming Language Specification^],
 and
-https://blog.golang.org/go-slices-usage-and-internals[The Go Blog - Go Slices:
-usage and internals],
+https://go.dev/blog/slices-intro[The Go Blog - Go Slices: usage and internals^],
 most of the topics in here already discussed there.
 This article try to emphasis on code examples, learning by doing, step by
 step.
@@ -111,7 +110,7 @@ The compiler will thrown an error at compile time,
 === Arrays elements are zeroed
 
 Once the array is created, all of its elements are set to its
-https://golang.org/ref/spec#The_zero_value[zero value].
+https://go.dev/ref/spec#The_zero_value[zero value^].
 
 ----
 in := [5]int{10, 20, 30}
@@ -170,7 +169,7 @@ func main() {
 }
 ----
 
-https://play.golang.org/p/p9U8Epj51ud[Playground].
+https://go.dev/play/p/p9U8Epj51ud[Playground^].
 
 Array `x` is created with address is `0xc00007a0f0`.
 When we pass `x` to `passArray()` function, `x` values is copied to `y`.
@@ -205,7 +204,7 @@ func main() {
 }
 ----
 
-https://play.golang.org/p/Cx6DrBF1h_h[Playground].
+https://go.dev/play/p/Cx6DrBF1h_h[Playground^].
 
 Since `y` is a pointer to array of `[5]int`, we access the address without
 `&`, and we can see that `x` and `y` now have the same address.
@@ -220,8 +219,7 @@ already explain it in detail.
 Instead, we will do a reverse learning, or learning by doing.
 
 From the go blog
-https://blog.golang.org/go-slices-usage-and-internals[The Go Blog - Go Slices:
-usage and internals],
+https://go.dev/blog/slices-intro[The Go Blog - Go Slices: usage and internals^],
 
 [quote]
 A slice is a descriptor of an array segment. It consists of a pointer to the
@@ -267,7 +265,7 @@ func main() {
 }
 ----
 
-https://play.golang.org/p/p1i_gDEv8kt[Playground].
+https://go.dev/play/p/p1i_gDEv8kt[Playground^].
 
 It will print the following output,
 
@@ -304,7 +302,7 @@ func main() {
 }
 ----
 
-https://play.golang.org/p/M1nLmQfOibt[Playground].
+https://go.dev/play/p/M1nLmQfOibt[Playground^].
 
 Output,
 
@@ -331,7 +329,7 @@ func main() {
 }
 ----
 
-https://play.golang.org/p/T9z0wsXQCx9[Playground].
+https://go.dev/play/p/T9z0wsXQCx9[Playground^].
 
 If you thought the output would be `[1 2 3 4]` you are wrong.
 The program will print `[1 2 3]`.
@@ -361,7 +359,7 @@ func main() {
 // x after   > &[0]:0x40e020 len:3 cap:3
 ----
 
-https://play.golang.org/p/tbVJq0OZk4v[Playground].
+https://go.dev/play/p/tbVJq0OZk4v[Playground^].
 
 Before we append the slice `xx` the length and capability of `xx` and `x` are
 same: 3.
@@ -403,7 +401,7 @@ func main() {
 // x after   > [1 2 3]
 ----
 
-https://play.golang.org/p/M5iMBpXdFyP[Playground].
+https://go.dev/play/p/M5iMBpXdFyP[Playground^].
 
 Why?
 Remember that the variable `xx` in function is different with `x` at the
@@ -438,7 +436,7 @@ func main() {
 // &x[0] after  :0x456000
 ----
 
-https://play.golang.org/p/S4ixuroViKA[Playground].
+https://go.dev/play/p/S4ixuroViKA[Playground^].
 
 So both the address of `x` and `xx` does not change.
 But how come when we print `x` its output is `[1 2 3]` not `[1 2 3 4]`?
@@ -472,7 +470,7 @@ func main() {
 // x after   > len:4 cap:5
 ----
 
-https://play.golang.org/p/_J1P_xTT4nB[Playground].
+https://go.dev/play/p/_J1P_xTT4nB[Playground^].
 
 
 *What we have learned?*
@@ -614,7 +612,7 @@ func main() {
 // ss after &ss[0]:0x45e008 len:3 cap:5 values:[30 40 80]
 ----
 
-https://play.golang.org/p/B9E4KlcQbWl[Playground].
+https://go.dev/play/p/B9E4KlcQbWl[Playground^].
 
 The length of sub-slice `ss` is 2 and its capability is 5, so append only
 write the appended value `80` into index 2 (the length) and increase the `len`
@@ -644,7 +642,7 @@ func main() {
 // ss after  &ss[0]:0x454030 len:6 cap:12 values:[30 40 80 90 100 110]
 ----
 
-https://play.golang.org/p/VfJEBx4ZoVS[Playground].
+https://go.dev/play/p/VfJEBx4ZoVS[Playground^].
 
 Once the slice is growing beyond their capacity, Go will reallocated new
 backing storage, copy the old value to new backing stroage, and update the
@@ -975,10 +973,10 @@ instance of Field go and released.
 ==  References
 
 [EFF-GO] The Go Authors, “Effective Go”,
-https://golang.org/doc/effective_go.html, February 2019.
+https://go.dev/doc/effective_go, February 2019.
 
 [GO-SPEC] The Go Authors, “The Go Programming Language Specification”,
-https://golang.org/ref/spec, May 2018.
+https://go.dev/ref/spec, May 2018.
 
 [GO-BLOG] Gerrand, Andrew, “The Go Blog - Go Slices: usage and internals”,
-https://blog.golang.org/go-slices-usage-and-internals, January 2011.
+https://go.dev/blog/slices-intro, January 2011.
