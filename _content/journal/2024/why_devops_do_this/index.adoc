@@ -10,22 +10,27 @@ amusing.
 
 == On container
 
-A developer just finish implementation of the new feature, or bug
-fixing a new issue.
+Use cases,
+
+1) A developer just finish implementation of the new feature or fix an
+issue.
 He commit his works in the predefined branch names and push it to
 upstream repository.
 The Continuous Integration (CI) triggered, and one of the step is
 testing the code inside a container.
 
-Or, a developer just tagged a new release and push the "production"
-branch with tag to upstream.
+2) A developer just tagged a new release and push the "production"
+branch with new versioned tag to upstream.
 The Continuous Deployment (CD) triggered, and one of the step is
 creating a new image from the latest tag.
 
+The CI or CD steps involve building a container image.
+The subsections below describe weird things that developers/operations do on
+the image script.
 
 === Installing packages on every build
 
-Code speak more,
+The image script contains command that install packages.
 
 ----
 ...
@@ -45,8 +50,18 @@ What you should do is creating a base image that contains predefined
 packages installed, so the next time you need to run test or create
 release image, it use that base image as starter.
 
+----
+FROM baseimage
+
+COPY src /
+RUN testing
+----
+
 
 === Building other tool (not the application) inside image
+
+This is the worst than installing packages, because it will includes
+installing compilers and development packages.
 
 ----
 ...
@@ -115,7 +130,7 @@ new and only download the new packages from external network
 The rest of packages that does not changes, which already installed during
 building of base image, should be fetched from local cache.
 
-Anyway, the developer should tell you when new dependencies changes,
+Anyway, the developer should communicate when new dependencies changes,
 so you, as _DevOps_ should prepare new base image.
 
 
@@ -151,6 +166,20 @@ probably develop and test your program.
 And, no, Musl is not always faster than glibc.
 If you did not know what is libc and why it will affect your program, please
 do not use it for the sake of smaller images.
+
+
+=== Using the "latest" tag
+
+Instead of using the known version, they use "latest" tag on the script,
+
+----
+FROM image:latest
+...
+----
+
+When the first time the image created, it pulls the image:3.12, everything
+works.
+But months later, it may pull "image:3.21" that breaks the build.
 
 
 == On system administration
