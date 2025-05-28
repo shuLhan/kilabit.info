@@ -28,6 +28,8 @@ The CI or CD steps involve building a container image.
 The subsections below describe weird things that developers/operations do on
 the image script.
 
+
+[#on_container__installing_packages]
 === Installing packages on every build
 
 The image script contains command that install packages.
@@ -58,6 +60,7 @@ RUN testing
 ----
 
 
+[#on_container__building_tool]
 === Building other tool (not the application) inside image
 
 This is the worst than installing packages, because it will includes
@@ -84,6 +87,7 @@ If you need it, you should build it on the base image and reuse that
 base image during CI/CD.
 
 
+[#on_container__updating_system]
 === Updating system on every build
 
 ----
@@ -104,6 +108,7 @@ You spend night and day looking at the commits that cause it, without
 knowing that something has changes during system update.
 
 
+[#on_container__installing_deps]
 === Installing dependencies on every build
 
 ----
@@ -134,6 +139,7 @@ Anyway, the developer should communicate when new dependencies changes,
 so you, as _DevOps_ should prepare new base image.
 
 
+[#on_container__running_multiple_services]
 === Running two or more services on one container
 
 People do this even it is again the
@@ -141,6 +147,7 @@ https://docs.docker.com/engine/containers/multi-service_container/[best
 practice of container].
 
 
+[#on_container__using_alpine]
 === Using Alpine for the sake of smallest image
 
 In 2015, I wrote a
@@ -168,6 +175,7 @@ If you did not know what is libc and why it will affect your program, please
 do not use it for the sake of smaller images.
 
 
+[#on_container__using_latest_tag]
 === Using the "latest" tag
 
 Instead of using the known version, they use "latest" tag on the script,
@@ -182,8 +190,53 @@ works.
 But months later, it may pull "image:3.21" that breaks the build.
 
 
+[#on_container__using_system_directory]
+=== Using and mounting system host directory
+
+Let say the application inside the container read the configuration from
+"/etc/app.conf" and write the logs into "/var/log/app.log".
+That does not means we should store the application configuration on the
+host system "/etc" and bind mount them into container like this
+
+----
+    ...
+    volumes:
+      - /etc/app.conf:/etc/app.conf
+      - /var/log/:/var/log/
+    ...
+----
+
+No, no, no, no.
+
+Unless your application run directly on the host, you should never touch and
+mix the between host and container.
+
+Instead, create a working directory for your application, let say
+"/data/app" with the same directory structure needed by container,
+
+----
+/data/app
+  |
+  + etc/app.conf
+  |
+  + var/log/
+----
+
+and use them in volumes like this,
+
+----
+    ...
+    volumes:
+      - /data/app/etc/app.conf:/etc/app.conf
+      - /data/app/var/log/:/var/log/
+    ...
+----
+
+
+[#on_sysadmin]
 == On system administration
 
+[#on_sysadmin__running_as_root]
 === Running as "root" everywhere
 
 (╯°□°）╯︵ ┻━┻
