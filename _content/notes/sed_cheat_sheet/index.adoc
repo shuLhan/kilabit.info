@@ -1,0 +1,28 @@
+= sed cheat sheet
+
+https://man.archlinux.org/man/sed.1[sed(1)^]
+is stream editor for filtering and transforming text.
+It is a powerful tool to manipulate one ore more files, for example search
+and replace.
+
+This notes collect the cases that I use when using
+https://www.gnu.org/software/sed/[GNU sed^].
+
+== Replacing text
+
+Case 1: replace "golang.org/src/pkg" with "go.dev/src" in all asciidoc
+files,
+
+----
+$ find . -name "*.adoc" | xargs sed -i 's#golang.org/src/pkg#go.dev/src#g'
+----
+
+Since the text be searched contains "/" we use the character '#' as
+separator, instead of common one "/".
+
+Case 2: replace "http://" with "https://" but not on line that contains
+"localhost" nor "127.0.0.1",
+
+----
+$ find . -name "*.adoc" | xargs sed -i '/\(localhost\|127.0.0.1\)/! s#http://#https://#g'
+----
