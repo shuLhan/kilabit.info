@@ -94,7 +94,7 @@ Some notable changes,
 --
 
 
-https://git.sr.ht:~shulhan/bin.sh[bin.sh^]::
+https://git.sr.ht/~shulhan/bin.sh[bin.sh^]::
 +
 --
 The bin.sh is new project, its contain a collection of shell scripts,
@@ -271,13 +271,13 @@ for more information.
 --
 
 
-https://sr.ht/~shulhan/trunks[trunks^]::
+https://sr.ht/~shulhan/gorankusu[gorankusu^]::
 +
 --
-There is not much changes for trunks, with 16 commits and 3 releases, some
-notable changes are,
+There is not much changes for gorankusu, only 16 commits and 3 releases,
+some notable changes are,
 
-* all: changes the license of trunks software to GPL 3.0 or later
+* all: changes the license of gorankusu software to GPL 3.0 or later
 * _www: set the WebSocket address schema based on URL protocol
 * set the minimum Go version to 1.18
 * all: group all documentations under directory _doc

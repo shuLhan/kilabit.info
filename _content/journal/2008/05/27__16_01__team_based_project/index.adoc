@@ -5,17 +5,20 @@ ____
 ____
 
 Read these
-http:s//www.joelonsoftware.com/articles/fog0000000043.html[link^] [1], it's more
-clearer than this writing.
+https://www.joelonsoftware.com/articles/fog0000000043.html[link^] [1],
+it's more clearer than this writing.
 
-Working in a team, whether you are a programmer or a team leader, is need a lot of schedule rather than work. This is my point of view of what you should do when building software in a formal team.
+Working in a team, whether you are a programmer or a team leader, is need a
+lot of schedule rather than work. This is my point of view of what you
+should do when building software in a formal team.
 
 For a team leader :
 
 *  https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html[Read this
    first] [2].
 
-*  Make a meeting review at least once a week, except when you have a deadline.
+*  Make a meeting review at least once a week, except when you have a
+   deadline.
 
 **  Leader and worker must communicate to gain more acceptable output.
 **  This is the time where the leader explain the next plan.
@@ -25,11 +28,12 @@ maybe need clarification with the leader.
 **  This is the time where the leader give solution, or with suggestion from
 others programmer of course.
 
-*  Make a right schedule for your plan, milestones, and maybe schedule for your programmer, if they do not mind.
+*  Make a right schedule for your plan, milestones, and maybe schedule for
+   your programmer, if they do not mind.
 *  After meeting, set a schedule for your next plan.
-*  After meeting, leave your programmer, do not make any conversation/meeting after the next meeting schedule.
-Some of my friends say, don't stand or sit behind programmer, that irritating
-him.
+*  After meeting, leave your programmer, do not make any
+   conversation/meeting after the next meeting schedule.  Some of my friends
+   say, don't stand or sit behind programmer, that irritating him.
 *  If your programmer does not have their own schedule, give them a deadline!
 *  More important one, a team leader must expert in programming, theory and
    practice;

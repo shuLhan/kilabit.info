@@ -5,7 +5,7 @@ Shulhan <ms@kilabit.info>
 implementation in rescached.
 
 Its all started when
-https://sr.ht/~shulhan/rescache[rescached^] print the following error logs,
+https://sr.ht/~shulhan/rescached[rescached^] print the following error logs,
 
     rescached[1370]: rescached: dns: type 65 is not implemented
     rescached[1370]: rescached: dns: type 65 is not implemented

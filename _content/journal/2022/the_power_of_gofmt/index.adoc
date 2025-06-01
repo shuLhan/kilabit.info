@@ -44,7 +44,7 @@ I try `clang-format -h`, I see
 No style for K&R or Linux kernel.
 How come?
 I try to search and found it in
-https://www.kernel.org/doc/html/latest/process/clang-format.html[kernel
+https://www.kernel.org/doc/html/v6.10/process/clang-format.html[kernel
 documentation^]
 that mention about
 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/.clang-format[the .clang-format^]

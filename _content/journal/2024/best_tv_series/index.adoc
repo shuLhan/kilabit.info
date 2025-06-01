@@ -106,7 +106,7 @@ Each cases has unique story and solution.
 [#okupas]
 == Okupas ⭐⭐⭐⭐
 
-image:https://m.media-amazon.com/images/M/MV5BYTQ5MTM5NjktMzU4YS00MTRlLWFiODItMmI5NDZkMGVjZTk5XkEyXkFqcGdeQXVyMTI4NTcwNTA@._V1_.jpg[Okupas,width=200,float=right]
+image:https://media.themoviedb.org/t/p/w500/88lzeVmNWhNah7TA2SVTreIRM8p.jpg[Okupas,width=200,float=right]
 
 https://www.youtube.com/playlist?list=PL8VSWtTHF6ct48bbEPKEkgUC1cjmtdJqp[YouTube
 playlist^]
@@ -286,8 +286,7 @@ to gain more power and acknowledges that Dongfang Shuo smarter than him.
 [#legend_of_bao_zheng]
 == Legend of Bao Zheng (a.k.a Legend of Kaifeng) ⭐⭐⭐⭐⭐
 
-image:https://m.media-amazon.com/images/M/MV5BOWE2ODJlZDQtYWIyNS00OWIzLTljYzEtNjUwYzVjMjI2ZTQzXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_.jpg["Legend
-of Bao Zheng", width=200, float=left]
+image:https://i.mydramalist.com/dRg5Kf.jpg["Legend of Kaifeng", width=200, float=left]
 
 https://www.youtube.com/watch?v=sU8m_t869mU&list=PLJPEbKQEnORMz_8RwqMiM4jZiuq3-I9RV&pp=iAQB[YouTube
 playlist^].
@@ -295,7 +294,7 @@ playlist^].
 https://www.imdb.com/title/tt11428176/[IMDB page].
 
 If you live in Indonesia around 1990s, you may know the old TV series called
-"Hakim Bao" or "Justice Bao" (I cannot recalled the correct title).
+"Hakim Bao" or "Justice Bao" (I cannot recall the correct title).
 This is the remake of it, released on 2017.
 
 It tells the story of non-fictional character
