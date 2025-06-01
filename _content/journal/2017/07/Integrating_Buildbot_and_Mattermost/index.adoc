@@ -52,7 +52,7 @@ Here is the field that you need to fill,
 
 *  `Command Trigger Word`: build
 **  When typing `/` on channel, it will list `build` as one of the option
-*  `Request URL`: "http://{{ http_auth }}:{{ http_password }}@{{
+*  `Request URL`: "\http://{{ http_auth }}:{{ http_password }}@{{
    buildbot_master_ip }}:{{ buildbot_master_port }}/change_hook/mattermost"
 **  `http_auth` and `http_password` is for authenication
 **  `buildbot_master_ip` is the IP address where Buildbot master running

@@ -200,9 +200,9 @@ Some notable changes,
 * ssh/sftp: implement method MkdirAll on Client
 * cmd/httpdfs: implement [libhttp.Server] with [memfs.MemFS]
 
-=== trunks
+=== gorankusu
 
-https://sr.ht/~shulhan/trunks/[trunks]
+https://sr.ht/~shulhan/gorankusu/[gorankusu]
 is a Go library that provide HTTP service with web user interface to test
 HTTP and/or WebSocket endpoints and for load testing HTTP endpoints.
 In the past year it receives 19 commits and two releases.

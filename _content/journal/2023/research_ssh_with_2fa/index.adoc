@@ -980,7 +980,7 @@ sudo systemctl restart teleport.service
 ----
 
 Once the service successfully run, you can open the Login page through,
-https://vpn.internal:3443
+\https://vpn.internal:3443
 
 Step 7) Register new user.
 

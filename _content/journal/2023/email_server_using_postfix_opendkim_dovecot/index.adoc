@@ -803,5 +803,5 @@ Also, we use nftables for firewall backend, the "banaction" and
 == References
 
 * https://dovecot.org/[Dovecot website]
-* https://www.opendkim.org/[OpenDKIM website]
+* http://www.opendkim.org/[OpenDKIM website]
 * https://www.postfix.org/[Postfix website]

@@ -8,10 +8,20 @@ Why you should use Google (and its applications),
 *  https://www.google.com/[What You Search Is What You Get^]
 *  https://mail.google.com/[Gmail^], 7+ GB email storage, with less spam, and
    still counting for additional free space
-*  https://pages.google.com/[Google Pages^], 100 MB personal pages
+*  \https://pages.google.com - Google Pages, 100 MB personal pages
    (out of service, replaced with
-   https://sites.google.com/[Google Sites^])
-*  https://picasaweb.google.com/[PicasaWeb], 250 MB photo album.
-*  https://pack.google.com/[Google Pack^],
+   https://sites.google.com[Google Sites^])
+*  https://picasaweb.google.com - PicasaWeb, 250 MB photo album.
++
+--
+Update 2025: discontinued on
+https://en.wikipedia.org/wiki/Picasa[February 2016^].
+--
+*  \https://pack.google.com - Google Pack.
++
+--
+Update 2025: discontinued since
+https://en.wikipedia.org/wiki/Google_Pack[September 2011^],
+--
 
 And its all FREE!

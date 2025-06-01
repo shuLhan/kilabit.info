@@ -294,7 +294,7 @@ You can actually do this on $REMOTE machine, thought.
 ==  Step 8: $LOCAL - create karajo.conf
 
 In this example we will build the AUR package
-https://aur.archlinux.org/google-cloud-ops-agent-git.git[google-cloud-ops-agent],
+https://aur.archlinux.org/packages/google-cloud-ops-agent-git[google-cloud-ops-agent],
 because its use two programming language Go and Java, and give us an example
 of how to bind multiple directories when running `makechrootpkg` later.
 
@@ -494,7 +494,7 @@ $ sudo systemctl start karajo.service
 
 Open the browser and point it to your $REMOTE machine IP address (or 127.0.0.1
 if you setup on your local machine) at port 31937, for example
-http://127.0.0.1:31937.
+\http://127.0.0.1:31937 .
 It should show the simple page that have link "View build status".
 Click on that link, you will see the current Hook and Job status.
 

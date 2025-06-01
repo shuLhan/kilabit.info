@@ -7,7 +7,7 @@ October, 2023
 :mkosi_man: https://man.archlinux.org/man/mkosi.1
 :mkosi_repo: https://github.com/systemd/mkosi
 :systemd_nspawn_man_1: https://man.archlinux.org/man/systemd-nspawn.1
-:systemd_nspawn_man_5: https://man.archlinux.org/man/systemd-nspawn.5
+:systemd_nspawn_man_5: https://man.archlinux.org/man/systemd-nspawn.5.en
 
 //{{{ PREAMBLE.
 
