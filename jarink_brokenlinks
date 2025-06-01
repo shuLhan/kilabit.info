@@ -1,0 +1,1456 @@
+{
+  "http://kilabit.home.local": [
+    {
+      "Link": "https://tools.ietf.org/html/rfc6238",
+      "omitempty": "Head \"https://datatracker.ietf.org/doc/html/rfc6238\": dial tcp [2606:4700::6810:2c63]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal": [
+    {
+      "Link": "https://tools.ietf.org/html/rfc6238",
+      "omitempty": "",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2007/02/26__why_google": [
+    {
+      "Link": "https://mail.google.com",
+      "omitempty": "Head \"https://mail.google.com\": dial tcp: lookup mail.google.com on 127.0.0.1:53: read udp 127.0.0.1:46745-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://pack.google.com",
+      "omitempty": "Head \"https://pack.google.com\": dial tcp: lookup pack.google.com on 127.0.0.1:53: read udp 127.0.0.1:58381-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://pages.google.com",
+      "omitempty": "Head \"https://pages.google.com\": dial tcp: lookup pages.google.com on 127.0.0.1:53: read udp 127.0.0.1:46544-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://picasaweb.google.com",
+      "omitempty": "Head \"https://picasaweb.google.com\": dial tcp: lookup picasaweb.google.com on 127.0.0.1:53: read udp 127.0.0.1:46497-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://sites.google.com",
+      "omitempty": "Head \"https://sites.google.com\": dial tcp: lookup sites.google.com on 127.0.0.1:53: read udp 127.0.0.1:44471-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.google.com",
+      "omitempty": "Head \"https://www.google.com\": dial tcp: lookup www.google.com on 127.0.0.1:53: read udp 127.0.0.1:55011-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2007/03/02__goodbye_old_men": [
+    {
+      "Link": "https://www.wired.com/wired/archive/13.03/yahoo.html",
+      "omitempty": "Head \"https://www.wired.com/wired/archive/13.03/yahoo.html\": dial tcp: lookup www.wired.com on 127.0.0.1:53: read udp 127.0.0.1:45745-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2008/05/23__anonymous_using_tor_and_privoxy": [
+    {
+      "Link": "https://packages.opensuse-community.org",
+      "omitempty": "Head \"https://packages.opensuse-community.org\": dial tcp: lookup packages.opensuse-community.org on 127.0.0.1:53: read udp 127.0.0.1:53788-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://tork.sourceforge.net",
+      "omitempty": "Head \"https://tork.sourceforge.net\": dial tcp: lookup tork.sourceforge.net on 127.0.0.1:53: read udp 127.0.0.1:49416-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://tsocks.sf.net",
+      "omitempty": "Head \"https://tsocks.sf.net\": dial tcp: lookup tsocks.sf.net on 127.0.0.1:53: read udp 127.0.0.1:35863-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.inet.no/dante",
+      "omitempty": "Head \"https://www.inet.no/dante\": dial tcp: lookup www.inet.no on 127.0.0.1:53: read udp 127.0.0.1:32779-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.privoxy.org",
+      "omitempty": "Head \"https://www.privoxy.org\": dial tcp: lookup www.privoxy.org on 127.0.0.1:53: read udp 127.0.0.1:51518-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.torproject.org",
+      "omitempty": "Head \"https://www.torproject.org\": dial tcp: lookup www.torproject.org on 127.0.0.1:53: read udp 127.0.0.1:50535-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2008/05/27__16_01__team_based_project": [
+    {
+      "Link": "http:s//www.joelonsoftware.com/articles/fog0000000043.html",
+      "omitempty": "Head \"http:s//www.joelonsoftware.com/articles/fog0000000043.html\": http: no Host in request URL",
+      "Code": 700
+    },
+    {
+      "Link": "https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html",
+      "omitempty": "Head \"https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html\": dial tcp: lookup thisshouldbeblog.blogspot.com on 127.0.0.1:53: read udp 127.0.0.1:54506-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.joelonsoftware.com/articles/fog0000000043.html",
+      "omitempty": "Head \"https://www.joelonsoftware.com/articles/fog0000000043.html\": dial tcp: lookup www.joelonsoftware.com on 127.0.0.1:53: read udp 127.0.0.1:42369-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2009/01/01__00_01__salt_and_pepper": [
+    {
+      "Link": "https://idcorner.org/2007/08/22/the-problems-with-openid",
+      "omitempty": "Head \"https://idcorner.org/2007/08/22/the-problems-with-openid\": dial tcp: lookup idcorner.org on 127.0.0.1:53: read udp 127.0.0.1:33527-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2009/05/21__rebuild_the_system": [
+    {
+      "Link": "https://www.gentoo.org",
+      "omitempty": "Head \"https://www.gentoo.org\": dial tcp: lookup www.gentoo.org on 127.0.0.1:53: read udp 127.0.0.1:39922-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.linuxfromscratch.org/blfs/view/stable/kde/kde.html",
+      "omitempty": "Head \"https://www.linuxfromscratch.org/blfs/view/stable/kde/kde.html\": dial tcp: lookup www.linuxfromscratch.org on 127.0.0.1:53: read udp 127.0.0.1:56073-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.linuxfromscratch.org/blfs/view/svn/x/x.html",
+      "omitempty": "Head \"https://www.linuxfromscratch.org/blfs/view/svn/x/x.html\": dial tcp: lookup www.linuxfromscratch.org on 127.0.0.1:53: read udp 127.0.0.1:56073-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.opensuse.org",
+      "omitempty": "Head \"https://www.opensuse.org\": dial tcp: lookup www.opensuse.org on 127.0.0.1:53: read udp 127.0.0.1:34638-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2009/06/03__slashdot_news_for_jerks_stuff_that_latter": [
+    {
+      "Link": "https://news.ycombinator.com",
+      "omitempty": "Head \"https://news.ycombinator.com\": dial tcp: lookup news.ycombinator.com on 127.0.0.1:53: read udp 127.0.0.1:38115-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.google.com/search?q=slashdot+sucks",
+      "omitempty": "Head \"https://www.google.com/search?q=slashdot+sucks\": dial tcp: lookup www.google.com on 127.0.0.1:53: read udp 127.0.0.1:55011-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.reddit.com",
+      "omitempty": "Head \"https://www.reddit.com\": dial tcp: lookup www.reddit.com on 127.0.0.1:53: read udp 127.0.0.1:57609-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2009/07/02__the_stupid_ide": [
+    {
+      "Link": "https://gist.github.com/430841",
+      "omitempty": "Head \"https://gist.github.com/430841\": dial tcp: lookup gist.github.com on 127.0.0.1:53: read udp 127.0.0.1:48847-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2009/10/14__destiny": [
+    {
+      "Link": "https://encyclopedia.thefreedictionary.com/destiny",
+      "omitempty": "Head \"https://encyclopedia.thefreedictionary.com/destiny\": dial tcp: lookup encyclopedia.thefreedictionary.com on 127.0.0.1:53: read udp 127.0.0.1:60380-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.despair.com/viewall.html",
+      "omitempty": "Head \"https://www.despair.com/viewall.html\": dial tcp: lookup www.despair.com on 127.0.0.1:53: read udp 127.0.0.1:40092-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2009/12/04__rescached_is_here": [
+    {
+      "Link": "https://aur.archlinux.org/packages/rescached-git",
+      "omitempty": "Head \"https://aur.archlinux.org/packages/rescached-git\": dial tcp: lookup aur.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:33901-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2010/07/13__life_game_connect_the_dots": [
+    {
+      "Link": "https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html",
+      "omitempty": "Head \"https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html\": dial tcp: lookup www.randi.org on 127.0.0.1:53: read udp 127.0.0.1:45100-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=XDtjLSa50uk",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=XDtjLSa50uk\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://youarenotsosmart.com/2010/09/11/the-texas-sharpshooter-fallacy",
+      "omitempty": "Head \"https://youarenotsosmart.com/2010/09/11/the-texas-sharpshooter-fallacy\": dial tcp: lookup youarenotsosmart.com on 127.0.0.1:53: read udp 127.0.0.1:42796-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2011/01/08_a_poor_mans_feed_parser_and_viewer": [
+    {
+      "Link": "https://kilabit.info/labs/wui/index.html",
+      "omitempty": "",
+      "Code": 404
+    },
+    {
+      "Link": "https://www.reddit.com/user/rv77ax/submitted/.rss",
+      "omitempty": "Head \"https://www.reddit.com/user/rv77ax/submitted/.rss\": dial tcp: lookup www.reddit.com on 127.0.0.1:53: read udp 127.0.0.1:57609-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2013/01/29__ulasan_buku_snow_oleh_orhan_pamuk": [
+    {
+      "Link": "https://www.nytimes.com/2006/07/12/world/europe/12iht-virgins.2184928.html?_r=1\u0026pagewanted=all\u0026",
+      "omitempty": "Head \"https://www.nytimes.com/2006/07/12/world/europe/12iht-virgins.2184928.html?_r=1\u0026pagewanted=all\u0026\": dial tcp: lookup www.nytimes.com on 127.0.0.1:53: read udp 127.0.0.1:33475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2013/04/Daging_dan_Karbon": [
+    {
+      "Link": "https://www.countinganimals.com/animals-we-use-and-abuse-for-food-we-do-not-eat",
+      "omitempty": "Head \"https://www.countinganimals.com/animals-we-use-and-abuse-for-food-we-do-not-eat\": dial tcp: lookup www.countinganimals.com on 127.0.0.1:53: read udp 127.0.0.1:44458-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2013/07/indid_2013_interoperabilitas_dokumen_untuk_indonesia": [
+    {
+      "Link": "https://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf",
+      "omitempty": "Head \"https://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf\": dial tcp: lookup jdih.ristek.go.id on 127.0.0.1:53: read udp 127.0.0.1:48415-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html",
+      "omitempty": "Head \"https://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html\": dial tcp: lookup nhqc3s.nato.int on 127.0.0.1:53: read udp 127.0.0.1:45837-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://projects.gnome.org/evince",
+      "omitempty": "Head \"https://projects.gnome.org/evince\": dial tcp: lookup projects.gnome.org on 127.0.0.1:53: read udp 127.0.0.1:44559-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.libreoffice.org",
+      "omitempty": "Head \"https://www.libreoffice.org\": dial tcp: lookup www.libreoffice.org on 127.0.0.1:53: read udp 127.0.0.1:33566-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.opendocumentformat.org",
+      "omitempty": "Head \"https://www.opendocumentformat.org\": dial tcp: lookup www.opendocumentformat.org on 127.0.0.1:53: read udp 127.0.0.1:57247-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.slideshare.net/ditkaminfo",
+      "omitempty": "Head \"https://www.slideshare.net/ditkaminfo\": dial tcp: lookup www.slideshare.net on 127.0.0.1:53: read udp 127.0.0.1:38323-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2014/04/Aplikasi_Terbaik_di_Linux": [
+    {
+      "Link": "https://www.freedesktop.org/wiki/Software/LightDM",
+      "omitempty": "Head \"https://www.freedesktop.org/wiki/Software/LightDM\": dial tcp: lookup www.freedesktop.org on 127.0.0.1:53: read udp 127.0.0.1:49289-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://xfce.org",
+      "omitempty": "Head \"https://xfce.org\": dial tcp: lookup xfce.org on 127.0.0.1:53: read udp 127.0.0.1:52069-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2014/05/Arch_Linux_di_IBM_X3650_M4": [
+    {
+      "Link": "https://bbs.archlinux.org/viewtopic.php?id=177722",
+      "omitempty": "Head \"https://bbs.archlinux.org/viewtopic.php?id=177722\": dial tcp: lookup bbs.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:33878-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/index.php/Software_RAID_and_LVM",
+      "omitempty": "Head \"https://wiki.archlinux.org/index.php/Software_RAID_and_LVM\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2014/05/Dosa_Bersama": [
+    {
+      "Link": "https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7",
+      "omitempty": "Head \"https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7\": dial tcp: lookup www.theguardian.com on 127.0.0.1:53: read udp 127.0.0.1:48500-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.who.int/mediacentre/factsheets/fs310/en/index2.html",
+      "omitempty": "Head \"https://www.who.int/mediacentre/factsheets/fs310/en/index2.html\": dial tcp: lookup www.who.int on 127.0.0.1:53: read udp 127.0.0.1:52012-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2014/09/Ulasan_Buku__Bad_Pharma_oleh_Ben_Goldacre": [
+    {
+      "Link": "https://www.bmj.com/content/341/bmj.c6449",
+      "omitempty": "Head \"https://www.bmj.com/content/341/bmj.c6449\": dial tcp: lookup www.bmj.com on 127.0.0.1:53: read udp 127.0.0.1:48974-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2014/10/Inteligensi_Bisnis_Ikhtisar": [
+    {
+      "Link": "https://www.yellowfinbi.com/YFCommunityNews-Business-Intelligence-Drivers-challenges-benefits-and-ROI-103783.",
+      "omitempty": "Head \"https://www.yellowfinbi.com/YFCommunityNews-Business-Intelligence-Drivers-challenges-benefits-and-ROI-103783.\": dial tcp: lookup www.yellowfinbi.com on 127.0.0.1:53: read udp 127.0.0.1:48278-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2014/12/Jejepangan": [
+    {
+      "Link": "https://www.youtube.com/watch?v=fYQK98d0wQM",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=fYQK98d0wQM\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2015/03/Bagaimana_mengurangi_KKN_di_Indonesia": [
+    {
+      "Link": "https://www.transparency.org/cpi2013/results.",
+      "omitempty": "Head \"https://www.transparency.org/cpi2013/results.\": dial tcp: lookup www.transparency.org on 127.0.0.1:53: read udp 127.0.0.1:46692-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2015/09/Bahasa_Pemrograman_Go": [
+    {
+      "Link": "https://127.0.0.1:6060",
+      "omitempty": "Head \"https://127.0.0.1:6060\": dial tcp 127.0.0.1:6060: connect: connection refused",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev",
+      "omitempty": "Head \"https://go.dev\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/dl",
+      "omitempty": "Head \"https://go.dev/dl\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/doc/install/source",
+      "omitempty": "Head \"https://go.dev/doc/install/source\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/tour",
+      "omitempty": "Head \"https://go.dev/tour\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2015/10/Eksplorasi_Alat_Manajemen_Konfigurasi": [
+    {
+      "Link": "https://github.com/chef/omnibus-chef/issues/524",
+      "omitempty": "",
+      "Code": 404
+    }
+  ],
+  "http://kilabit.home.local/journal/2015/11/Building_Docker_Image_with_Arch_Linux": [
+    {
+      "Link": "https://hub.docker.com",
+      "omitempty": "Head \"https://hub.docker.com\": dial tcp: lookup hub.docker.com on 127.0.0.1:53: read udp 127.0.0.1:60337-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://hub.docker.com/r/library/centos/tags",
+      "omitempty": "Head \"https://hub.docker.com/r/library/centos/tags\": dial tcp: lookup hub.docker.com on 127.0.0.1:53: read udp 127.0.0.1:60337-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://hub.docker.com/r/sulhan",
+      "omitempty": "Head \"https://hub.docker.com/r/sulhan\": dial tcp: lookup hub.docker.com on 127.0.0.1:53: read udp 127.0.0.1:60337-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://hub.docker.com/r/sulhan/arch-base/tags",
+      "omitempty": "Head \"https://hub.docker.com/r/sulhan/arch-base/tags\": dial tcp: lookup hub.docker.com on 127.0.0.1:53: read udp 127.0.0.1:60337-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2016/01/Mari_enkripsi_dengan_Letsencrypt": [
+    {
+      "Link": "https://letsencrypt.readthedocs.org",
+      "omitempty": "Head \"https://letsencrypt.readthedocs.org\": dial tcp: lookup letsencrypt.readthedocs.org on 127.0.0.1:53: read udp 127.0.0.1:58770-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2016/03/Go_language__Things_That_I_Learned_Writing_dsv": [
+    {
+      "Link": "https://forum.golangbridge.org/t/the-obvious-little-benchmark-slice-access-efficiency/1741",
+      "omitempty": "Head \"https://forum.golangbridge.org/t/the-obvious-little-benchmark-slice-access-efficiency/1741\": dial tcp: lookup forum.golangbridge.org on 127.0.0.1:53: read udp 127.0.0.1:40956-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2016/03/Go_language__six_line_assert_without_any_library": [
+    {
+      "Link": "https://www.reddit.com/r/golang/comments/44hufh/six_line_assert_for_testing_without_any_library",
+      "omitempty": "Head \"https://www.reddit.com/r/golang/comments/44hufh/six_line_assert_for_testing_without_any_library\": dial tcp: lookup www.reddit.com on 127.0.0.1:53: read udp 127.0.0.1:57609-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2017/01/List_and_open_tmux_session_with_rofi": [
+    {
+      "Link": "https://davedavenport.github.io/rofi",
+      "omitempty": "Head \"https://davedavenport.github.io/rofi\": dial tcp: lookup davedavenport.github.io on 127.0.0.1:53: read udp 127.0.0.1:47773-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://tmux.github.io",
+      "omitempty": "Head \"https://tmux.github.io\": dial tcp: lookup tmux.github.io on 127.0.0.1:53: read udp 127.0.0.1:57019-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2017/01/Understanding_Red_Black_Tree": [
+    {
+      "Link": "https://www.cs.usfca.edu/~galles/visualization/RedBlack.html",
+      "omitempty": "Head \"https://www.cs.usfca.edu/~galles/visualization/RedBlack.html\": dial tcp: lookup www.cs.usfca.edu on 127.0.0.1:53: read udp 127.0.0.1:49763-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2017/02/Protractor_tips_and_trick": [
+    {
+      "Link": "https://protractortest.org",
+      "omitempty": "Head \"https://protractortest.org\": dial tcp: lookup protractortest.org on 127.0.0.1:53: read udp 127.0.0.1:57786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application",
+      "omitempty": "",
+      "Code": 403
+    },
+    {
+      "Link": "https://www.protractortest.org",
+      "omitempty": "Head \"https://www.protractortest.org\": dial tcp: lookup www.protractortest.org on 127.0.0.1:53: read udp 127.0.0.1:32817-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.reddit.com/r/angularjs/comments/5urymo/protractor_tips_and_trick",
+      "omitempty": "Head \"https://www.reddit.com/r/angularjs/comments/5urymo/protractor_tips_and_trick\": dial tcp: lookup www.reddit.com on 127.0.0.1:53: read udp 127.0.0.1:57609-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2017/05/Go_Informal_Coding_Style": [
+    {
+      "Link": "https://go.dev/ref/spec",
+      "omitempty": "Head \"https://go.dev/ref/spec\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2017/07/Integrating_Buildbot_and_Mattermost": [
+    {
+      "Link": "http://{{",
+      "omitempty": "parse \"http://{{\": invalid character \"{\" in host name",
+      "Code": 700
+    },
+    {
+      "Link": "https://about.mattermost.com",
+      "omitempty": "Head \"https://about.mattermost.com\": dial tcp: lookup about.mattermost.com on 127.0.0.1:53: read udp 127.0.0.1:35655-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://buildbot.net",
+      "omitempty": "Head \"https://buildbot.net\": dial tcp: lookup buildbot.net on 127.0.0.1:53: read udp 127.0.0.1:51600-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2017/09/i3__tmux__and_vim": [
+    {
+      "Link": "https://www.reddit.com/r/vim/comments/6xeo0d/what_are_a_sane_set_of_key_bindings_between_i3wm",
+      "omitempty": "Head \"https://www.reddit.com/r/vim/comments/6xeo0d/what_are_a_sane_set_of_key_bindings_between_i3wm\": dial tcp: lookup www.reddit.com on 127.0.0.1:53: read udp 127.0.0.1:57609-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2018/05/Beku__dependencies_management_should_be_simple": [
+    {
+      "Link": "https://semver.org",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.archlinux.org/pacman",
+      "omitempty": "Head \"https://www.archlinux.org/pacman\": dial tcp: lookup www.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:34553-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2019/gopherconsg": [
+    {
+      "Link": "https://dave.cheney.net/practical-go/presentations/qcon-china.html",
+      "omitempty": "Head \"https://dave.cheney.net/practical-go/presentations/qcon-china.html\": dial tcp: lookup dave.cheney.net on 127.0.0.1:53: read udp 127.0.0.1:34005-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=HDJE-_s3x8Q\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\u0026index=6",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=HDJE-_s3x8Q\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\u0026index=6\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=ZMZpH4yT7M0\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\u0026index=4",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=ZMZpH4yT7M0\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\u0026index=4\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=ftE39xyaJyQ\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=ftE39xyaJyQ\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=gZ7N3HulAb0\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\u0026index=9",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=gZ7N3HulAb0\u0026list=PLq2Nv-Sh8EbYBYteOWx9rNuy0JSF8mzsu\u0026index=9\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2020/re-learning_slice": [
+    {
+      "Link": "https://go.dev/blog/slices-intro",
+      "omitempty": "Head \"https://go.dev/blog/slices-intro\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/blog/slices-intro,",
+      "omitempty": "Head \"https://go.dev/blog/slices-intro,\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/doc/effective_go",
+      "omitempty": "Head \"https://go.dev/doc/effective_go\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/doc/effective_go,",
+      "omitempty": "Head \"https://go.dev/doc/effective_go,\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/B9E4KlcQbWl",
+      "omitempty": "Head \"https://go.dev/play/p/B9E4KlcQbWl\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/Cx6DrBF1h_h",
+      "omitempty": "Head \"https://go.dev/play/p/Cx6DrBF1h_h\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/M1nLmQfOibt",
+      "omitempty": "Head \"https://go.dev/play/p/M1nLmQfOibt\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/M5iMBpXdFyP",
+      "omitempty": "Head \"https://go.dev/play/p/M5iMBpXdFyP\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/S4ixuroViKA",
+      "omitempty": "Head \"https://go.dev/play/p/S4ixuroViKA\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/T9z0wsXQCx9",
+      "omitempty": "Head \"https://go.dev/play/p/T9z0wsXQCx9\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/VfJEBx4ZoVS",
+      "omitempty": "Head \"https://go.dev/play/p/VfJEBx4ZoVS\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/_J1P_xTT4nB",
+      "omitempty": "Head \"https://go.dev/play/p/_J1P_xTT4nB\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/p1i_gDEv8kt",
+      "omitempty": "Head \"https://go.dev/play/p/p1i_gDEv8kt\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/p9U8Epj51ud",
+      "omitempty": "Head \"https://go.dev/play/p/p9U8Epj51ud\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/play/p/tbVJq0OZk4v",
+      "omitempty": "Head \"https://go.dev/play/p/tbVJq0OZk4v\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/ref/spec",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://go.dev/ref/spec,",
+      "omitempty": "Head \"https://go.dev/ref/spec,\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2020/the_mountain_of_kubernetes": [
+    {
+      "Link": "https://duckduckgo.com/?q=why+kubernetes\u0026t=ffab\u0026ia=news",
+      "omitempty": "Head \"https://duckduckgo.com/?q=why+kubernetes\u0026t=ffab\u0026ia=news\": dial tcp: lookup duckduckgo.com on 127.0.0.1:53: read udp 127.0.0.1:56407-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://kubernetes.io/docs/concepts/overview/what-is-kubernetes",
+      "omitempty": "Head \"https://kubernetes.io/docs/concepts/overview/what-is-kubernetes\": dial tcp: lookup kubernetes.io on 127.0.0.1:53: read udp 127.0.0.1:51647-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://prometheus.io/docs/introduction/faq",
+      "omitempty": "Head \"https://prometheus.io/docs/introduction/faq\": dial tcp [2606:4700:3030::ac43:c9f0]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://stackoverflow.blog/2020/05/29/why-kubernetes-getting-so-popular",
+      "omitempty": "Head \"https://stackoverflow.blog/2020/05/29/why-kubernetes-getting-so-popular\": dial tcp: lookup stackoverflow.blog on 127.0.0.1:53: read udp 127.0.0.1:47891-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://twitter.com/_shuLhan/status/1253140666470686721?ref_src=twsrc%5Etfw",
+      "omitempty": "Head \"https://twitter.com/_shuLhan/status/1253140666470686721?ref_src=twsrc%5Etfw\": dial tcp: lookup twitter.com on 127.0.0.1:53: read udp 127.0.0.1:42894-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.infoworld.com/article/3173266/4-reasons-you-should-use-kubernetes.html",
+      "omitempty": "Head \"https://www.infoworld.com/article/3173266/4-reasons-you-should-use-kubernetes.html\": dial tcp: lookup www.infoworld.com on 127.0.0.1:53: read udp 127.0.0.1:59589-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2020/things_that_i_dislike_from_gcp": [
+    {
+      "Link": "https://console.cloud.google.com",
+      "omitempty": "Head \"https://console.cloud.google.com\": dial tcp: lookup console.cloud.google.com on 127.0.0.1:53: read udp 127.0.0.1:52581-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2021/this_is_why_i_use_git_rebase": [
+    {
+      "Link": "https://guides.github.com/introduction/flow",
+      "omitempty": "Head \"https://docs.github.com/get-started/quickstart/github-flow\": dial tcp: lookup docs.github.com on 127.0.0.1:53: read udp 127.0.0.1:34355-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://nvie.com/posts/a-successful-git-branching-model",
+      "omitempty": "Head \"https://nvie.com/posts/a-successful-git-branching-model\": dial tcp: lookup nvie.com on 127.0.0.1:53: read udp 127.0.0.1:41144-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/chrooting_ssh_user_into_systemd-nspawn": [
+    {
+      "Link": "https://man.archlinux.org/man/sshd_config.5",
+      "omitempty": "Head \"https://man.archlinux.org/man/sshd_config.5\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/systemd-nspawn.1.en",
+      "omitempty": "Head \"https://man.archlinux.org/man/systemd-nspawn.1.en\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/systemd.nspawn.5.en",
+      "omitempty": "Head \"https://man.archlinux.org/man/systemd.nspawn.5.en\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/title/Systemd-nspawn",
+      "omitempty": "Head \"https://wiki.archlinux.org/title/Systemd-nspawn\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/gpl": [
+    {
+      "Link": "https://docs.freebsd.org/en/articles/bsdl-gpl",
+      "omitempty": "Head \"http://docs.freebsd.org/en/articles/bsdl-gpl/\": dial tcp: lookup docs.freebsd.org on 127.0.0.1:53: read udp 127.0.0.1:50158-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.fsf.org",
+      "omitempty": "Head \"https://www.fsf.org\": remote error: tls: handshake failure",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.gnu.org/gnu/manifesto.html",
+      "omitempty": "Head \"https://www.gnu.org/gnu/manifesto.html\": dial tcp 209.51.188.116:443: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.gnu.org/licenses/copyleft.html.en",
+      "omitempty": "Head \"https://www.gnu.org/licenses/copyleft.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.gnu.org/licenses/gpl-faq.html",
+      "omitempty": "Head \"https://www.gnu.org/licenses/gpl-faq.html\": dial tcp 209.51.188.116:443: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.gnu.org/philosophy/categories.html.en",
+      "omitempty": "Head \"https://www.gnu.org/philosophy/categories.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/karajo-example-aur": [
+    {
+      "Link": "http://127.0.0.1:31937.",
+      "omitempty": "parse \"http://127.0.0.1:31937.\": invalid port \":31937.\" after host",
+      "Code": 700
+    },
+    {
+      "Link": "https://aur.archlinux.org/google-cloud-ops-agent-git.git",
+      "omitempty": "Head \"https://aur.archlinux.org/google-cloud-ops-agent-git.git\": dial tcp: lookup aur.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:33901-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks",
+      "omitempty": "Head \"https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks\": dial tcp: lookup docs.github.com on 127.0.0.1:53: read udp 127.0.0.1:49024-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/title/DeveloperWiki:Building_in_a_clean_chroot",
+      "omitempty": "Head \"https://wiki.archlinux.org/title/DeveloperWiki:Building_in_a_clean_chroot\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/title/GnuPG",
+      "omitempty": "Head \"https://wiki.archlinux.org/title/GnuPG\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/lesson_from_learning_swimming": [
+    {
+      "Link": "https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle",
+      "omitempty": "Head \"https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle\": dial tcp: lookup olympics.com on 127.0.0.1:53: read udp 127.0.0.1:47818-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/mysql_surprise": [
+    {
+      "Link": "https://serverfault.com/questions/195221/how-to-rename-a-mysql-database",
+      "omitempty": "",
+      "Code": 403
+    },
+    {
+      "Link": "https://stackoverflow.com/questions/13124632/how-to-set-default-value-of-a-mysql-column-as-unix-timestamp",
+      "omitempty": "",
+      "Code": 403
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/the_power_of_gofmt": [
+    {
+      "Link": "https://www.kernel.org/doc/html/latest/process/clang-format.html",
+      "omitempty": "",
+      "Code": 404
+    }
+  ],
+  "http://kilabit.home.local/journal/2022/things_i_dislike_from_github": [
+    {
+      "Link": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=cli",
+      "omitempty": "Head \"https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=cli\": dial tcp: lookup docs.github.com on 127.0.0.1:53: read udp 127.0.0.1:49024-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://git-send-email.io",
+      "omitempty": "Head \"https://git-send-email.io\": dial tcp: lookup git-send-email.io on 127.0.0.1:53: read udp 127.0.0.1:49980-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://github.com/pulls",
+      "omitempty": "",
+      "Code": 404
+    },
+    {
+      "Link": "https://github.com/pulls?q=is%3Aopen+is%3Apr",
+      "omitempty": "",
+      "Code": 404
+    },
+    {
+      "Link": "https://go-review.googlesource.com/c/build/+/412754/1..2/internal/task/announce_test.go",
+      "omitempty": "Head \"https://go-review.googlesource.com/c/build/+/412754/1..2/internal/task/announce_test.go\": dial tcp [2404:6800:4003:c1a::52]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://go-review.googlesource.com/c/go/+/619176",
+      "omitempty": "Head \"https://go-review.googlesource.com/c/go/+/619176\": dial tcp [2404:6800:4003:c1a::52]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://news.ycombinator.com/item?id=3960876",
+      "omitempty": "Head \"https://news.ycombinator.com/item?id=3960876\": dial tcp: lookup news.ycombinator.com on 127.0.0.1:53: read udp 127.0.0.1:38115-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests",
+      "omitempty": "Head \"https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests\": dial tcp: lookup www.reddit.com on 127.0.0.1:53: read udp 127.0.0.1:57609-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/2022_accomplishment": [
+    {
+      "Link": "https://gerrit.libreoffice.org/c/dictionaries/+/140263",
+      "omitempty": "Head \"https://gerrit.libreoffice.org/c/dictionaries/+/140263\": dial tcp: lookup gerrit.libreoffice.org on 127.0.0.1:53: read udp 127.0.0.1:44765-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://git.sr.ht/~shulhan/asciidoctor-go/tree/main/item/_doc/CHANGELOG.adoc",
+      "omitempty": "",
+      "Code": 418
+    },
+    {
+      "Link": "https://git.sr.ht:~shulhan/bin.sh",
+      "omitempty": "parse \"https://git.sr.ht:~shulhan/bin.sh\": invalid port \":~shulhan\" after host",
+      "Code": 700
+    },
+    {
+      "Link": "https://go-review.googlesource.com/c/go/+/364434",
+      "omitempty": "Head \"https://go-review.googlesource.com/c/go/+/364434\": dial tcp [2404:6800:4003:c1a::52]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://sr.ht/~shulhan/trunks",
+      "omitempty": "",
+      "Code": 404
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/a_trip_to_labuan_bajo": [
+    {
+      "Link": "https://goo.gl/maps/1RXAiQoZvWMY1CmGA",
+      "omitempty": "Head \"https://goo.gl/maps/1RXAiQoZvWMY1CmGA\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/35rMRrikDXVWqvp49",
+      "omitempty": "Head \"https://goo.gl/maps/35rMRrikDXVWqvp49\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/4eFFET7hsPRs3SQh6",
+      "omitempty": "Head \"https://goo.gl/maps/4eFFET7hsPRs3SQh6\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/DWW1EJYPh7AroHue9",
+      "omitempty": "Head \"https://goo.gl/maps/DWW1EJYPh7AroHue9\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/MFT43CsyEz3PsjocA",
+      "omitempty": "Head \"https://goo.gl/maps/MFT43CsyEz3PsjocA\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/NBJHwoba6QWmcrGM9",
+      "omitempty": "Head \"https://goo.gl/maps/NBJHwoba6QWmcrGM9\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/WWefycTiB5G4EAZJ7",
+      "omitempty": "Head \"https://goo.gl/maps/WWefycTiB5G4EAZJ7\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/bXjBkiugbdS6Q92v8",
+      "omitempty": "Head \"https://goo.gl/maps/bXjBkiugbdS6Q92v8\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/cWQteyQgGkvLqhbx9",
+      "omitempty": "Head \"https://goo.gl/maps/cWQteyQgGkvLqhbx9\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/dB3r9QXM5eabdMaRA",
+      "omitempty": "Head \"https://goo.gl/maps/dB3r9QXM5eabdMaRA\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/fKBYtt2XB7bEFB7B9",
+      "omitempty": "Head \"https://goo.gl/maps/fKBYtt2XB7bEFB7B9\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goo.gl/maps/m4Z7u2yFJLTqC89E9",
+      "omitempty": "Head \"https://goo.gl/maps/m4Z7u2yFJLTqC89E9\": dial tcp: lookup goo.gl on 127.0.0.1:53: read udp 127.0.0.1:35439-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/email_server_using_postfix_opendkim_dovecot": [
+    {
+      "Link": "https://dovecot.org",
+      "omitempty": "Head \"https://dovecot.org\": dial tcp [2a04:3545:1000:720:acc1:5bff:fe5e:459]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/title/Fail2ban",
+      "omitempty": "Head \"https://wiki.archlinux.org/title/Fail2ban\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.opendkim.org",
+      "omitempty": "Head \"https://www.opendkim.org\": dial tcp: lookup www.opendkim.org on 127.0.0.1:53: read udp 127.0.0.1:40972-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/go2_error_handling": [
+    {
+      "Link": "https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md",
+      "omitempty": "Head \"https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md\": dial tcp: lookup go.googlesource.com on 127.0.0.1:53: read udp 127.0.0.1:38918-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://seankhliao.com/blog/12020-11-23-go-error-handling-proposals",
+      "omitempty": "Head \"https://seankhliao.com/blog/12020-11-23-go-error-handling-proposals\": dial tcp: lookup seankhliao.com on 127.0.0.1:53: read udp 127.0.0.1:53533-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/go_test_data": [
+    {
+      "Link": "https://git.sr.ht/~shulhan/asciidoctor-go/commit/19e2b864",
+      "omitempty": "",
+      "Code": 418
+    },
+    {
+      "Link": "https://git.sr.ht/~shulhan/asciidoctor-go/commit/9fe1ecf6",
+      "omitempty": "",
+      "Code": 418
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/replacing_postfix_with_opensmtpd": [
+    {
+      "Link": "https://prefetch.eu/blog/2020/email-server",
+      "omitempty": "Head \"https://prefetch.eu/blog/2020/email-server\": dial tcp: lookup prefetch.eu on 127.0.0.1:53: read udp 127.0.0.1:38311-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/title/OpenSMTPD",
+      "omitempty": "Head \"https://wiki.archlinux.org/title/OpenSMTPD\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.opensmtpd.org",
+      "omitempty": "Head \"https://www.opensmtpd.org\": dial tcp: lookup www.opensmtpd.org on 127.0.0.1:53: read udp 127.0.0.1:47365-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.rspamd.com",
+      "omitempty": "Head \"https://www.rspamd.com\": dial tcp: lookup www.rspamd.com on 127.0.0.1:53: read udp 127.0.0.1:39911-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/research_ssh_with_2fa": [
+    {
+      "Link": "https://aur.archlinux.org/packages/teleport-bin",
+      "omitempty": "Head \"https://aur.archlinux.org/packages/teleport-bin\": dial tcp: lookup aur.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:33901-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://cloud.google.com/cli?hl=en",
+      "omitempty": "Head \"https://cloud.google.com/cli?hl=en\": dial tcp [2404:6800:4003:c11::71]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://cloud.google.com/compute/docs/connect/add-ssh-keys",
+      "omitempty": "Head \"https://cloud.google.com/compute/docs/connect/add-ssh-keys\": dial tcp [2404:6800:4003:c11::71]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://cloud.google.com/compute/docs/oslogin",
+      "omitempty": "Head \"https://cloud.google.com/compute/docs/oslogin\": dial tcp [2404:6800:4003:c11::71]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://cloud.google.com/compute/docs/oslogin/manage-oslogin-in-an-org",
+      "omitempty": "Head \"https://cloud.google.com/compute/docs/oslogin/manage-oslogin-in-an-org\": dial tcp [2404:6800:4003:c11::71]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://cloud.google.com/compute/docs/oslogin/set-up-oslogin",
+      "omitempty": "Head \"https://cloud.google.com/compute/docs/oslogin/set-up-oslogin\": dial tcp [2404:6800:4003:c11::71]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://goteleport.com/docs",
+      "omitempty": "Head \"https://goteleport.com/docs\": dial tcp: lookup goteleport.com on 127.0.0.1:53: read udp 127.0.0.1:33345-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goteleport.com/docs/architecture/nodes",
+      "omitempty": "Head \"https://goteleport.com/docs/architecture/nodes\": dial tcp: lookup goteleport.com on 127.0.0.1:53: read udp 127.0.0.1:33345-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://goteleport.com/docs/server-access/getting-started",
+      "omitempty": "Head \"https://goteleport.com/docs/server-access/getting-started\": dial tcp: lookup goteleport.com on 127.0.0.1:53: read udp 127.0.0.1:33345-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://smallstep.com",
+      "omitempty": "Head \"https://smallstep.com\": dial tcp: lookup smallstep.com on 127.0.0.1:53: read udp 127.0.0.1:58446-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://smallstep.com/blog/diy-single-sign-on-for-ssh",
+      "omitempty": "Head \"https://smallstep.com/blog/diy-single-sign-on-for-ssh\": dial tcp: lookup smallstep.com on 127.0.0.1:53: read udp 127.0.0.1:58446-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://support.google.com/accounts/answer/1066447",
+      "omitempty": "",
+      "Code": 404
+    },
+    {
+      "Link": "https://support.google.com/cloud/answer/6158849?hl=en-GB",
+      "omitempty": "",
+      "Code": 404
+    },
+    {
+      "Link": "https://tools.ietf.org/html/rfc6238",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://vpn.internal:3443",
+      "omitempty": "Head \"https://vpn.internal:3443\": dial tcp: lookup vpn.internal on 127.0.0.1:53: read udp 127.0.0.1:50207-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/status_page_review": [
+    {
+      "Link": "https://aws.amazon.com/id/premiumsupport/technology/pes",
+      "omitempty": "Head \"https://aws.amazon.com/id/premiumsupport/technology/pes\": dial tcp: lookup aws.amazon.com on 127.0.0.1:53: read udp 127.0.0.1:41726-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://status.cloud.google.com",
+      "omitempty": "Head \"https://status.cloud.google.com\": dial tcp: lookup status.cloud.google.com on 127.0.0.1:53: read udp 127.0.0.1:57601-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://status.cloud.google.com/incidents/SJKw6R2zPUpwVzRPqahh",
+      "omitempty": "Head \"https://status.cloud.google.com/incidents/SJKw6R2zPUpwVzRPqahh\": dial tcp: lookup status.cloud.google.com on 127.0.0.1:53: read udp 127.0.0.1:57601-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://status.cloud.google.com/incidents/dS9ps52MUnxQfyDGPfkY",
+      "omitempty": "Head \"https://status.cloud.google.com/incidents/dS9ps52MUnxQfyDGPfkY\": dial tcp: lookup status.cloud.google.com on 127.0.0.1:53: read udp 127.0.0.1:57601-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.atlassian.com/software/statuspage?utm_campaign=kilabit.info",
+      "omitempty": "Head \"https://www.atlassian.com/software/statuspage?utm_campaign=kilabit.info\": dial tcp: lookup www.atlassian.com on 127.0.0.1:53: read udp 127.0.0.1:59657-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/testing_sudo_with_go": [
+    {
+      "Link": "https://man.archlinux.org/man/sudo.8",
+      "omitempty": "Head \"https://man.archlinux.org/man/sudo.8\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/using_systemd_mkosi": [
+    {
+      "Link": "https://0pointer.net/blog/mkosi-a-tool-for-generating-os-images.html",
+      "omitempty": "Head \"https://0pointer.net/blog/mkosi-a-tool-for-generating-os-images.html\": dial tcp: lookup 0pointer.net on 127.0.0.1:53: read udp 127.0.0.1:50685-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://lwn.net/Articles/528078",
+      "omitempty": "Head \"https://lwn.net/Articles/528078\": dial tcp: lookup lwn.net on 127.0.0.1:53: read udp 127.0.0.1:43154-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/mkosi.1",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/systemd-nspawn.1",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/systemd-nspawn.5",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://wiki.archlinux.org/title/Linux_Containers",
+      "omitempty": "Head \"https://wiki.archlinux.org/title/Linux_Containers\": dial tcp [2a01:4f9:c010:a4eb::1]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2023/using_systemd_mkosi_2": [
+    {
+      "Link": "https://man.archlinux.org/man/mkosi.1",
+      "omitempty": "Head \"https://man.archlinux.org/man/mkosi.1\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/systemd-nspawn.1",
+      "omitempty": "Head \"https://man.archlinux.org/man/systemd-nspawn.1\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.archlinux.org/man/systemd-nspawn.5",
+      "omitempty": "Head \"https://man.archlinux.org/man/systemd-nspawn.5\": dial tcp: lookup man.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:48844-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2024/2023_accomplishment": [
+    {
+      "Link": "https://duitku.com",
+      "omitempty": "Head \"https://duitku.com\": dial tcp: lookup duitku.com on 127.0.0.1:53: read udp 127.0.0.1:45092-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://sr.ht/~shulhan/trunks",
+      "omitempty": "",
+      "Code": 404
+    },
+    {
+      "Link": "https://tour.awwan.org",
+      "omitempty": "",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2024/a_trip_to_nusa_lembongan": [
+    {
+      "Link": "https://maps.app.goo.gl/14pYkFD3xnbfkM5A7",
+      "omitempty": "Head \"https://maps.app.goo.gl/14pYkFD3xnbfkM5A7\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/6X7sXVxNVSw9DCKV7",
+      "omitempty": "Head \"https://maps.app.goo.gl/6X7sXVxNVSw9DCKV7\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/7DMPVTLqg7QK4g4u6",
+      "omitempty": "Head \"https://maps.app.goo.gl/7DMPVTLqg7QK4g4u6\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/ApeFiQvnDTxmqd3J8",
+      "omitempty": "Head \"https://maps.app.goo.gl/ApeFiQvnDTxmqd3J8\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/EvpHkTrqLNXixzcm6",
+      "omitempty": "Head \"https://maps.app.goo.gl/EvpHkTrqLNXixzcm6\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/EvtmBNc9mXFRhppq6",
+      "omitempty": "Head \"https://maps.app.goo.gl/EvtmBNc9mXFRhppq6\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/Kz9gyaKWFmCLakZ58",
+      "omitempty": "Head \"https://maps.app.goo.gl/Kz9gyaKWFmCLakZ58\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/P2soMWtsQH1kniU76",
+      "omitempty": "Head \"https://maps.app.goo.gl/P2soMWtsQH1kniU76\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/RSgC5UHrHrTGywDdA",
+      "omitempty": "Head \"https://maps.app.goo.gl/RSgC5UHrHrTGywDdA\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/ZZdyUKjT6RcBFHV6A",
+      "omitempty": "Head \"https://maps.app.goo.gl/ZZdyUKjT6RcBFHV6A\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/bGCFxE8aRm3ZSgda6",
+      "omitempty": "Head \"https://maps.app.goo.gl/bGCFxE8aRm3ZSgda6\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/ba23UC2pqvUnmnNZ8",
+      "omitempty": "Head \"https://maps.app.goo.gl/ba23UC2pqvUnmnNZ8\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/bqdm171xREJYCNoD7",
+      "omitempty": "Head \"https://maps.app.goo.gl/bqdm171xREJYCNoD7\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/eTmpCFMVMrqMyWv6A",
+      "omitempty": "Head \"https://maps.app.goo.gl/eTmpCFMVMrqMyWv6A\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/eUctiytCgtdL8Koq8",
+      "omitempty": "Head \"https://maps.app.goo.gl/eUctiytCgtdL8Koq8\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/fDitAkhP7d5Mz2Ng7",
+      "omitempty": "Head \"https://maps.app.goo.gl/fDitAkhP7d5Mz2Ng7\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/fGK81Zf3JTFGJaSM7",
+      "omitempty": "Head \"https://maps.app.goo.gl/fGK81Zf3JTFGJaSM7\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/jgSk3nehEVxbthfYA",
+      "omitempty": "Head \"https://maps.app.goo.gl/jgSk3nehEVxbthfYA\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/vEVKMKxr8gr8FaHVA",
+      "omitempty": "Head \"https://maps.app.goo.gl/vEVKMKxr8gr8FaHVA\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/xzpHbvL31svosiFy5",
+      "omitempty": "Head \"https://maps.app.goo.gl/xzpHbvL31svosiFy5\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://maps.app.goo.gl/z34nYDcgttjq8W96A",
+      "omitempty": "Head \"https://maps.app.goo.gl/z34nYDcgttjq8W96A\": dial tcp: lookup maps.app.goo.gl on 127.0.0.1:53: read udp 127.0.0.1:56786-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2024/best_tv_series": [
+    {
+      "Link": "https://m.media-amazon.com/images/M/MV5BMzg3NDE1MmMtYmE0Yi00ZjNlLTgyNDgtZjhhMTQ0NDk3OWQzXkEyXkFqcGdeQXVyMzU1ODUxOTk@._V1_.jpg",
+      "omitempty": "Head \"https://m.media-amazon.com/images/M/MV5BMzg3NDE1MmMtYmE0Yi00ZjNlLTgyNDgtZjhhMTQ0NDk3OWQzXkEyXkFqcGdeQXVyMzU1ODUxOTk@._V1_.jpg\": dial tcp: lookup m.media-amazon.com on 127.0.0.1:53: read udp 127.0.0.1:56150-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://m.media-amazon.com/images/M/MV5BOWE2ODJlZDQtYWIyNS00OWIzLTljYzEtNjUwYzVjMjI2ZTQzXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_.jpg",
+      "omitempty": "Head \"https://m.media-amazon.com/images/M/MV5BOWE2ODJlZDQtYWIyNS00OWIzLTljYzEtNjUwYzVjMjI2ZTQzXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_.jpg\": dial tcp: lookup m.media-amazon.com on 127.0.0.1:53: read udp 127.0.0.1:56150-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://m.media-amazon.com/images/M/MV5BYTQ5MTM5NjktMzU4YS00MTRlLWFiODItMmI5NDZkMGVjZTk5XkEyXkFqcGdeQXVyMTI4NTcwNTA@._V1_.jpg",
+      "omitempty": "Head \"https://m.media-amazon.com/images/M/MV5BYTQ5MTM5NjktMzU4YS00MTRlLWFiODItMmI5NDZkMGVjZTk5XkEyXkFqcGdeQXVyMTI4NTcwNTA@._V1_.jpg\": dial tcp: lookup m.media-amazon.com on 127.0.0.1:53: read udp 127.0.0.1:56150-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/5/51/Legend_of_Dragon_Pearl.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/5/51/Legend_of_Dragon_Pearl.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/8/88/Story_of_Yanxi_Palace_poster.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/8/88/Story_of_Yanxi_Palace_poster.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/9/93/Three_Kingdoms_intertitle.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/9/93/Three_Kingdoms_intertitle.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/9/94/TheLegendoftheCondorHeroes.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/9/94/TheLegendoftheCondorHeroes.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/9/9b/Nirvana_In_Fire_%28Lang_Ya_Bang%29_official_poster.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/9/9b/Nirvana_In_Fire_%28Lang_Ya_Bang%29_official_poster.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Water_Margin_%281997_TV_series%29.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/d/dd/The_Water_Margin_%281997_TV_series%29.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://upload.wikimedia.org/wikipedia/en/f/f0/The_Return_of_the_Condor_Heroes_%281983_TV_series%29.jpg",
+      "omitempty": "Head \"https://upload.wikimedia.org/wikipedia/en/f/f0/The_Return_of_the_Condor_Heroes_%281983_TV_series%29.jpg\": dial tcp: lookup upload.wikimedia.org on 127.0.0.1:53: read udp 127.0.0.1:40475-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/playlist?list=PL8VSWtTHF6ct48bbEPKEkgUC1cjmtdJqp",
+      "omitempty": "Head \"https://www.youtube.com/playlist?list=PL8VSWtTHF6ct48bbEPKEkgUC1cjmtdJqp\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/playlist?list=PLBGlH3AoRk7OcfOgLne1MZD7XdppazFY3",
+      "omitempty": "Head \"https://www.youtube.com/playlist?list=PLBGlH3AoRk7OcfOgLne1MZD7XdppazFY3\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/playlist?list=PLJpZB-fbaOT7_cdH0SUDPut6-6RhjlTVE",
+      "omitempty": "Head \"https://www.youtube.com/playlist?list=PLJpZB-fbaOT7_cdH0SUDPut6-6RhjlTVE\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/playlist?list=PLZbySVlzi4eKGyXB-Es_LHUFtGMDH6rw5",
+      "omitempty": "Head \"https://www.youtube.com/playlist?list=PLZbySVlzi4eKGyXB-Es_LHUFtGMDH6rw5\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/playlist?list=PLtt_YYUGi1gXRt2XVJZrHDBkZECcfmuAJ",
+      "omitempty": "Head \"https://www.youtube.com/playlist?list=PLtt_YYUGi1gXRt2XVJZrHDBkZECcfmuAJ\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=V93o7fdsQwY\u0026list=PLJPEbKQEnORPH881eYoeg3kK8r_IbCdOn\u0026pp=iAQB",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=V93o7fdsQwY\u0026list=PLJPEbKQEnORPH881eYoeg3kK8r_IbCdOn\u0026pp=iAQB\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=aOXXW1KCnOU\u0026list=PLzX3GuY8oecr14EIRH-BACuPMWZy5BDil\u0026index=2",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=aOXXW1KCnOU\u0026list=PLzX3GuY8oecr14EIRH-BACuPMWZy5BDil\u0026index=2\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=gdzVMyamsD8\u0026list=PLZdQdRhS5zpiDHJCtL75amjbEiJQadaPq",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=gdzVMyamsD8\u0026list=PLZdQdRhS5zpiDHJCtL75amjbEiJQadaPq\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=sU8m_t869mU\u0026list=PLJPEbKQEnORMz_8RwqMiM4jZiuq3-I9RV\u0026pp=iAQB",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=sU8m_t869mU\u0026list=PLJPEbKQEnORMz_8RwqMiM4jZiuq3-I9RV\u0026pp=iAQB\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://www.youtube.com/watch?v=yf935Cdcs-4\u0026list=PLJPEbKQEnORNAl8p5XHisg_VSbaB0dLul\u0026pp=iAQB",
+      "omitempty": "Head \"https://www.youtube.com/watch?v=yf935Cdcs-4\u0026list=PLJPEbKQEnORNAl8p5XHisg_VSbaB0dLul\u0026pp=iAQB\": dial tcp [2404:6800:4003:c00::88]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2024/karajo_sourcehut_webhook": [
+    {
+      "Link": "https://man.sr.ht/api-conventions.md",
+      "omitempty": "Head \"https://man.sr.ht/api-conventions.md\": dial tcp: lookup man.sr.ht on 127.0.0.1:53: read udp 127.0.0.1:59250-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://meta.sr.ht/keys",
+      "omitempty": "Head \"https://meta.sr.ht/keys\": dial tcp: lookup meta.sr.ht on 127.0.0.1:53: read udp 127.0.0.1:43487-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://meta.sr.ht/oauth/personal-token",
+      "omitempty": "Head \"https://meta.sr.ht/oauth/personal-token\": dial tcp: lookup meta.sr.ht on 127.0.0.1:53: read udp 127.0.0.1:43487-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2024/memfs_vs_goembed": [
+    {
+      "Link": "https://git.sr.ht/~shulhan/pakakeh.go/commit/05b02c7b",
+      "omitempty": "",
+      "Code": 418
+    },
+    {
+      "Link": "https://go.dev/doc/go1.16",
+      "omitempty": "Head \"https://go.dev/doc/go1.16\": dial tcp: lookup go.dev on 127.0.0.1:53: read udp 127.0.0.1:38886-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2024/rescached_svcb": [
+    {
+      "Link": "https://datatracker.ietf.org/doc/html/rfc9460",
+      "omitempty": "Head \"https://datatracker.ietf.org/doc/html/rfc9460\": dial tcp [2606:4700::6810:2c63]:443: connect: network is unreachable",
+      "Code": 700
+    },
+    {
+      "Link": "https://git.sr.ht/~shulhan/pakakeh.go/commit/71eaafc5119b178be61abf6ae7b8a2fbcdfacc44",
+      "omitempty": "",
+      "Code": 418
+    },
+    {
+      "Link": "https://sr.ht/~shulhan/rescache",
+      "omitempty": "",
+      "Code": 404
+    }
+  ],
+  "http://kilabit.home.local/journal/2025/2024_accomplishments": [
+    {
+      "Link": "https://aur.archlinux.org/packages/hunspell-id-git",
+      "omitempty": "Head \"https://aur.archlinux.org/packages/hunspell-id-git\": dial tcp: lookup aur.archlinux.org on 127.0.0.1:53: read udp 127.0.0.1:33901-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://docs.asciidoctor.org/asciidoc/latest/directives/include-with-leveloffset",
+      "omitempty": "Head \"https://docs.asciidoctor.org/asciidoc/latest/directives/include-with-leveloffset\": dial tcp: lookup docs.asciidoctor.org on 127.0.0.1:53: read udp 127.0.0.1:41803-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+      "omitempty": "Head \"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service\": dial tcp: lookup docs.github.com on 127.0.0.1:53: read udp 127.0.0.1:49024-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://domain",
+      "omitempty": "Head \"https://domain\": dial tcp: lookup domain on 127.0.0.1:53: read udp 127.0.0.1:34018-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://githubcopilotinvestigation.com",
+      "omitempty": "Head \"https://githubcopilotinvestigation.com\": dial tcp: lookup githubcopilotinvestigation.com on 127.0.0.1:53: read udp 127.0.0.1:33024-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://man.sr.ht/git.sr.ht/api.md",
+      "omitempty": "Head \"https://man.sr.ht/git.sr.ht/api.md\": dial tcp: lookup man.sr.ht on 127.0.0.1:53: read udp 127.0.0.1:59250-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https://tour.awwan.org",
+      "omitempty": "Head \"https://tour.awwan.org\": dial tcp: lookup tour.awwan.org on 127.0.0.1:53: read udp 127.0.0.1:44731-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    },
+    {
+      "Link": "https:/domain",
+      "omitempty": "Head \"https:/domain\": http: no Host in request URL",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/journal/2025/hyperv_vs_virtualbox": [
+    {
+      "Link": "https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types",
+      "omitempty": "Head \"https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types\": dial tcp: lookup learn.microsoft.com on 127.0.0.1:53: read udp 127.0.0.1:35007-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/notes/A_guide_to_version_control": [
+    {
+      "Link": "https://secure.phabricator.com/T5132",
+      "omitempty": "Head \"https://secure.phabricator.com/T5132\": dial tcp: lookup secure.phabricator.com on 127.0.0.1:53: read udp 127.0.0.1:33446-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/notes/A_guide_to_versioning": [
+    {
+      "Link": "https://semver.org",
+      "omitempty": "Head \"https://semver.org\": dial tcp: lookup semver.org on 127.0.0.1:53: read udp 127.0.0.1:36866-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/websocket/example": [
+    {
+      "Link": "https://godoc.org/github.com/shuLhan/share/lib/websocket",
+      "omitempty": "Head \"https://godoc.org/github.com/shuLhan/share/lib/websocket\": dial tcp: lookup godoc.org on 127.0.0.1:53: read udp 127.0.0.1:41997-\u003e127.0.0.1:53: i/o timeout",
+      "Code": 700
+    }
+  ],
+  "http://kilabit.home.local/websocket/understanding": [
+    {
+      "Link": "https://godoc.org/github.com/shuLhan/share/lib/websocket",
+      "omitempty": "",
+      "Code": 700
+    },
+    {
+      "Link": "https://tools.ietf.org/html/rfc6455",
+      "omitempty": "Head \"https://datatracker.ietf.org/doc/html/rfc6455\": dial tcp [2606:4700::6810:2c63]:443: connect: network is unreachable",
+      "Code": 700
+    }
+  ]
+}
