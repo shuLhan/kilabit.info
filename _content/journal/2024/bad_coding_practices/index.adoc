@@ -24,6 +24,7 @@ The term "coding" in this context does not only means "a line of code" or
 "programming language", more on "software engineering" in general.
 
 
+//{{{
 [#storing_time_not_in_utc]
 == Storing time not in UTC
 
@@ -49,6 +50,8 @@ records.
 The rule of thumb is store time in UTC and display time in local time zones.
 
 
+//}}}
+//{{{
 [#logic_in_the_client]
 == Logic in the client
 
@@ -103,6 +106,8 @@ END
 ----
 
 
+//}}}
+//{{{
 [#bad_mvc]
 == Grouping same class file into one directory
 
@@ -166,6 +171,8 @@ For example, we can say that feature-C exist only when feature-B is
 enabled or depends on feature-B to be functional.
 
 
+//}}}
+//{{{
 [#one_component_many_functions]
 == One component many functions
 
@@ -197,6 +204,8 @@ In the form, we can still have `if-else` to disable or hide some fields
 or information, but at least this only happened in the view.
 
 
+//}}}
+//{{{
 [#logic_in_view]
 == Logic in view
 
@@ -221,6 +230,8 @@ and reference that in view as variable only.
     <component hidden="isHidden">
 
 
+//}}}
+//{{{
 [#unnecessary_function_split]
 == Unnecessary function split
 
@@ -268,12 +279,67 @@ different file called "common" or "util" AND no one, I repeat, no other
 function used it except the "doX".
 
 
+//}}}
+//{{{
+[#using_advice]
+== Using advice (annotation/decorators)
+
+In certain programming language there is a syntactic metadata that allow
+programmer to inject, bind, or change the behaviour of code based on the
+metadata being injected.
+This metaprogramming style known as
+https://en.wikipedia.org/wiki/Advice_(programming)[Advice].
+
+In Java, they known as
+https://en.wikipedia.org/wiki/Java_annotation[annotation],
+for example,
+----
+@Author(first = "Oompah", last = "Loompah")
+Book book = new Book();
+
+public @interface Author {
+    String first();
+    String last();
+}
+----
+@Author is an annotation that use or change the behaviour Book instance.
+
+in Python, they known as
+https://en.wikipedia.org/wiki/Python_syntax_and_semantics#Decorators[decorators],
+----
+@invincible
+@favourite_colour("Blue")
+def black_knight():
+    pass
+----
+The `@invincible` and `@favourite_colour` is both the decorators.
+
+This metaprogramming style can be misused and make its hard to read and
+understand the flow code.
+If someone does not have knowledge on the usage of the
+annotation/decorators, they needs to learn it first.
+The more you depends on it, it will be hard to replace it in the future.
+
+I have seen real world application that use Python decorators to mark the
+function as routing key of the RabbitMQ.
+----
+@consume
+def my_consumer:
+	...
+----
+The decorator name is `@consume`.
+Once defined, it will record the function name and use it as routing key and
+queue to be consumed and the function as the handler.
+
+
+//}}}
 == On web application
 
+//{{{
 [#web_right_click_menu]
 === Using right click to show menu
 
-(Note: this is fall into bad user experience, not coding).
+(Note: this may fall into bad user experience, not coding).
 
 In non-web application, using right click to show additional menus make
 senses because there is no default menu or event will show by OS.
@@ -284,10 +350,12 @@ The problem is when some one new to your application, no one can guess that
 certain actions can be done by right click the item, because intuitively
 right click means show browser actions.
 
-The good practices is by adding a little icon "..." on each item that can be
-right-clicked, so user can see and click it.
+The good practices is by adding a ellipsis icon "..." on each item that can
+pop up a menu, so user can see and click it.
 
 
+//}}}
+//{{{
 [#state_from_url_path]
 === Deriving mode from URL path
 
@@ -315,8 +383,10 @@ The solution is quite simple, add a verb after book path for update like
 * "/book/edit/..." for updating book record.
 
 
+//}}}
 == On testing
 
+//{{{
 [#testing_verifying_same_sources]
 === Verifying test results from the same sources
 
@@ -365,3 +435,5 @@ testResult := callApiToBeTested()
 
 assert testResult == seeds // GOOD!
 ----
+
+//}}}
