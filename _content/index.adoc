@@ -36,8 +36,7 @@ include::./project/index.adoc[]
 
 === Articles on Software Engineering
 
-*  link:/notes/A_guide_to_readable_and_performance_wise_code/[A guide to
-   readable and performance wise code^]
+*  link:/notes/A_guide_to_readable_and_performance_wise_code/[Good coding practices^]
 
 *  link:/journal/2024/bad_coding_practices/[Bad coding practices^]
 
