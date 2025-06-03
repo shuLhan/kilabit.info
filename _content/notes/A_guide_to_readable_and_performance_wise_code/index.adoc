@@ -1,7 +1,10 @@
 =  A guide to readable and performance wise code
+:sectanchors:
+:toc:
 
 Most of the time code is about reading rather than writing.
 
+//{{{
 ==  Always validate input
 
 Most common error is from program that process input from user.
@@ -20,6 +23,9 @@ FUNCTION login(username, password) BOOLEAN
 END FUNCTION
 ----
 
+
+//}}}
+//{{{
 ==  Use Constant
 
 **Rationale:** using constant will minimize typo and provide easy refactoring.
@@ -48,6 +54,8 @@ IF user == USER_ADNIN THEN // will return build error or hint (for example,
 END IF
 ----
 
+//}}}
+//{{{
 ==  Return first
 
 Return first or return immediately is a concept to structuring our code to
@@ -84,20 +92,25 @@ login(user, password) boolean {
 }
 ----
 
-===  Programming challenges
+Programming challenges,
 
 * Write IF without ELSE
 * Write function body less than your screen size
 
+
+//}}}
+//{{{
 ==  Variable Naming
 
 The name of variable should provide the context or data that their hold, it
 should be concise, not more than three words.
 
 For example, instead of client, add prefix or suffix to indicate what client
-that variable hold for (tcpClient, httpClient).
+that variable hold for (tcpClient, httpClient, dbClient, dbc).
 
 
+//}}}
+//{{{
 ==  Never have loop or indentation deeper than two
 
 If we need loop deeper than two, then the second or third loop or indentation
@@ -121,8 +134,10 @@ If body of "case a" may take more lines and indentations, that is an
 indication that the body should be moved to their own function.
 
 
-==  The law of speed
+//}}}
+==  On performance
 
+//{{{
 ===  Memory is faster than disk
 
 There are two component where you can store data: disk or memory.
@@ -143,34 +158,37 @@ Common technique to sync data from disk to memory and vice versa,
 . Dump data to disk when exit
 
 
+//}}}
+//{{{
 ===  Use integer for index/key instead of string
 
-Comparing integer is faster than comparing string, because processor has a
-native comparison for integer.
+NOTE: This may not applicable to every programming language.
+Some programming language may have optimization where string is compared
+by bulk instead of per octet.
+
 The naive algorithm for comparing two strings is actually works like these (*),
 
 ----
 FUNCTION CMP_STRING(a STRING, b STRING) BOOLEAN
 BEGIN
-	FOR c1 := each character in a {
-		FOR c2 := each character in b {
-			IF c1 != c2 {
-				RETURN false;
-			}
-		}
+	IF LENGTH(a) != LENGTH(b) THEN
+		RETURN false
+	END IF
+
+	x := 0
+	FOR x := 0; x < LENGTH(a); x++; DO
+		IF a[x] != b[x] THEN
+			RETURN false
+		END IF
 	}
 	RETURN true;
 END;
 ----
 
-The worst case for above algorithm is `O(n*m)` where string is equally
-matched, and the best case is `O(2)` where the first IF condition will return
-false.
+The worst case for above algorithm is `O(n)` where string is equally
+matched, and the best case is `O(1)` where their length are different.
 
-(*) Some programming language may have optimization where string is compared
-by bulk instead of per octet.
-
-This is bad example of code using string as key,
+This is an example of bad code using string as key,
 
 ----
 Record {
@@ -192,7 +210,8 @@ CASE "alien":
 }
 ----
 
-We can refactor the key to use constant and integer and still make the code readable,
+We can refactor the key to use constant and integer and still make the code
+readable,
 
 ----
 ENUM RecordType {
@@ -219,6 +238,8 @@ case RecordType.ALIEN:
 ----
 
 
+//}}}
+//{{{
 ===  Use temporary variable
 
 There are two common cases where using variable make the code more readable
@@ -266,6 +287,8 @@ Note that, some compilers may or may not how to optimize the static computation
 depends on the type of `z`.
 
 
+//}}}
+//{{{
 ===  Use string concatenation instead of Printf
 
 **Rationale:** printf-like statement require parsing formatted parameter,
@@ -344,6 +367,9 @@ func BenchmarkBuffer(b *testing.B) {
 ----
 
 
+//}}}
+//{{{
+
 ===  Prevent using regex if possible
 
 Technically, regular expression or regex actually is a meta language.
@@ -354,6 +380,7 @@ Using regex on testing is make sense to match the output with expected case,
 in case output is arbitrary and require their own parsing.
 
 
+//}}}
 ==  Further readings
 
 *  Big-O or how to calculate an algorithm performance
