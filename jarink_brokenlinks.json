@@ -1,0 +1,495 @@
+{
+  "page_links": {
+    "http://kilabit.home.local": [
+      {
+        "link": "https://tour.golang-id.org",
+        "error": "Head \"https://tour.golang-id.org\": dial tcp 74.125.68.121:443: i/o timeout",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2007/02/26__why_google": [
+      {
+        "link": "https://mail.google.com",
+        "error": "Head \"https://accounts.google.com/ServiceLogin?service=mail\u0026passive=1209600\u0026osid=1\u0026continue=https://mail.google.com/mail/u/0/\u0026followup=https://mail.google.com/mail/u/0/\u0026emr=1\": dial tcp: lookup accounts.google.com: Temporary failure in name resolution",
+        "code": 700
+      },
+      {
+        "link": "https://pack.google.com",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://pages.google.com",
+        "error": "Head \"https://pages.google.com\": dial tcp: lookup pages.google.com: Temporary failure in name resolution",
+        "code": 700
+      },
+      {
+        "link": "https://picasaweb.google.com",
+        "error": "Head \"https://get.google.com/albumarchive/pwa/\": dial tcp: lookup get.google.com: Temporary failure in name resolution",
+        "code": 700
+      },
+      {
+        "link": "https://sites.google.com",
+        "error": "Head \"https://accounts.google.com/ServiceLogin?service=wise\u0026passive=1209600\u0026osid=1\u0026continue=https://sites.google.com/\u0026followup=https://sites.google.com/\": dial tcp: lookup accounts.google.com: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2007/03/02__goodbye_old_men": [
+      {
+        "link": "https://www.wired.com/wired/archive/13.03/yahoo.html",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2008/05/23__anonymous_using_tor_and_privoxy": [
+      {
+        "link": "https://packages.opensuse-community.org",
+        "error": "Head \"https://packages.opensuse-community.org\": dial tcp 46.4.90.189:443: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://tork.sourceforge.net",
+        "error": "Head \"https://sourceforge.net/projects/tork/\": dial tcp: lookup sourceforge.net: Temporary failure in name resolution",
+        "code": 700
+      },
+      {
+        "link": "https://tsocks.sf.net",
+        "error": "Head \"http://tsocks.sourceforge.net/\": dial tcp: lookup tsocks.sourceforge.net: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2008/05/27__16_01__team_based_project": [
+      {
+        "link": "https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2009/01/01__00_01__salt_and_pepper": [
+      {
+        "link": "https://idcorner.org/2007/08/22/the-problems-with-openid",
+        "error": "Head \"https://idcorner.org/2007/08/22/the-problems-with-openid\": tls: failed to verify certificate: x509: certificate is valid for server20.hostwhitelabel.com, not idcorner.org",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2009/06/03__slashdot_news_for_jerks_stuff_that_latter": [
+      {
+        "link": "https://news.ycombinator.com",
+        "error": "",
+        "code": 405
+      },
+      {
+        "link": "https://www.reddit.com",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2009/12/04__rescached_is_here": [
+      {
+        "link": "https://aur.archlinux.org/packages/rescached-git",
+        "error": "",
+        "code": 405
+      }
+    ],
+    "http://kilabit.home.local/journal/2010/07/13__life_game_connect_the_dots": [
+      {
+        "link": "https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html",
+        "error": "Head \"https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html\": dial tcp 71.163.252.11:443: connect: connection refused",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2011/01/08_a_poor_mans_feed_parser_and_viewer": [
+      {
+        "link": "https://kilabit.info/labs/wui/index.html",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2013/01/29__ulasan_buku_snow_oleh_orhan_pamuk": [
+      {
+        "link": "https://www.nytimes.com/2006/07/12/world/europe/12iht-virgins.2184928.html?_r=1\u0026pagewanted=all\u0026",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2013/07/indid_2013_interoperabilitas_dokumen_untuk_indonesia": [
+      {
+        "link": "https://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf",
+        "error": "Head \"https://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf\": dial tcp: lookup jdih.ristek.go.id: no such host",
+        "code": 700
+      },
+      {
+        "link": "https://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html",
+        "error": "Head \"https://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html\": dial tcp 194.7.80.150:443: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://projects.gnome.org/evince",
+        "error": "Head \"https://wiki.gnome.org/Apps/Evince\": dial tcp: lookup wiki.gnome.org: Temporary failure in name resolution",
+        "code": 700
+      },
+      {
+        "link": "https://www.opendocumentformat.org",
+        "error": "Head \"https://opendocumentformat.org/\": dial tcp: lookup opendocumentformat.org: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2014/05/Dosa_Bersama": [
+      {
+        "link": "https://www.who.int/mediacentre/factsheets/fs310/en/index2.html",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2015/03/Bagaimana_mengurangi_KKN_di_Indonesia": [
+      {
+        "link": "https://www.transparency.org/cpi2013/results.",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2015/09/Bahasa_Pemrograman_Go": [
+      {
+        "link": "https://127.0.0.1:6060",
+        "error": "Head \"https://127.0.0.1:6060\": dial tcp 127.0.0.1:6060: connect: connection refused",
+        "code": 700
+      },
+      {
+        "link": "https://go.dev/dl",
+        "error": "",
+        "code": 405
+      },
+      {
+        "link": "https://tour.golang-id.org",
+        "error": "",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2015/10/Eksplorasi_Alat_Manajemen_Konfigurasi": [
+      {
+        "link": "https://github.com/chef/omnibus-chef/issues/524",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2016/01/Mari_enkripsi_dengan_Letsencrypt": [
+      {
+        "link": "https://letsencrypt.readthedocs.org",
+        "error": "Head \"https://letsencrypt.readthedocs.io/\": dial tcp: lookup letsencrypt.readthedocs.io: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2016/03/Go_language__six_line_assert_without_any_library": [
+      {
+        "link": "https://www.reddit.com/r/golang/comments/44hufh/six_line_assert_for_testing_without_any_library",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2017/01/List_and_open_tmux_session_with_rofi": [
+      {
+        "link": "https://davedavenport.github.io/rofi",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2017/02/Protractor_tips_and_trick": [
+      {
+        "link": "https://protractortest.org",
+        "error": "Head \"https://protractortest.org\": tls: failed to verify certificate: x509: certificate is valid for *.github.com, github.com, not protractortest.org",
+        "code": 700
+      },
+      {
+        "link": "https://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application",
+        "error": "",
+        "code": 403
+      },
+      {
+        "link": "https://www.reddit.com/r/angularjs/comments/5urymo/protractor_tips_and_trick",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2017/07/Integrating_Buildbot_and_Mattermost": [
+      {
+        "link": "http://{{",
+        "error": "parse \"http://{{\": invalid character \"{\" in host name",
+        "code": 700
+      },
+      {
+        "link": "https://about.mattermost.com",
+        "error": "Head \"https://mattermost.com/?\u0026redirect_source=about-mm-com\": dial tcp: lookup mattermost.com: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2017/09/i3__tmux__and_vim": [
+      {
+        "link": "https://www.reddit.com/r/vim/comments/6xeo0d/what_are_a_sane_set_of_key_bindings_between_i3wm",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2018/05/Beku__dependencies_management_should_be_simple": [
+      {
+        "link": "https://www.archlinux.org/pacman",
+        "error": "Head \"https://archlinux.org/pacman\": dial tcp: lookup archlinux.org: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2020/re-learning_slice": [
+      {
+        "link": "https://go.dev/blog/slices-intro,",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://go.dev/doc/effective_go,",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://go.dev/ref/spec,",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2020/the_mountain_of_kubernetes": [
+      {
+        "link": "https://twitter.com/_shuLhan/status/1253140666470686721?ref_src=twsrc%5Etfw",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2020/things_that_i_dislike_from_gcp": [
+      {
+        "link": "https://console.cloud.google.com",
+        "error": "Head \"https://accounts.google.com/ServiceLogin?service=cloudconsole\u0026passive=1209600\u0026osid=1\u0026continue=https://console.cloud.google.com/\u0026followup=https://console.cloud.google.com/\": dial tcp: lookup accounts.google.com: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/gpl": [
+      {
+        "link": "https://docs.freebsd.org/en/articles/bsdl-gpl",
+        "error": "Head \"http://docs.freebsd.org/en/articles/bsdl-gpl/\": dial tcp: lookup docs.freebsd.org: Temporary failure in name resolution",
+        "code": 700
+      },
+      {
+        "link": "https://www.fsf.org",
+        "error": "Head \"https://www.fsf.org\": remote error: tls: handshake failure",
+        "code": 700
+      },
+      {
+        "link": "https://www.gnu.org/gnu/manifesto.html",
+        "error": "Head \"https://www.gnu.org/gnu/manifesto.html\": dial tcp 209.51.188.116:443: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://www.gnu.org/licenses/copyleft.html.en",
+        "error": "Head \"https://www.gnu.org/licenses/copyleft.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://www.gnu.org/licenses/gpl-faq.html",
+        "error": "Head \"https://www.gnu.org/licenses/gpl-faq.html\": dial tcp 209.51.188.116:443: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://www.gnu.org/philosophy/categories.html.en",
+        "error": "Head \"https://www.gnu.org/philosophy/categories.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/karajo-example-aur": [
+      {
+        "link": "http://127.0.0.1:31937.",
+        "error": "parse \"http://127.0.0.1:31937.\": invalid port \":31937.\" after host",
+        "code": 700
+      },
+      {
+        "link": "https://aur.archlinux.org/google-cloud-ops-agent-git.git",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/lesson_from_learning_swimming": [
+      {
+        "link": "https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle",
+        "error": "Head \"https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle\": stream error: stream ID 1; INTERNAL_ERROR; received from peer",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/mysql_surprise": [
+      {
+        "link": "https://serverfault.com/questions/195221/how-to-rename-a-mysql-database",
+        "error": "",
+        "code": 403
+      },
+      {
+        "link": "https://stackoverflow.com/questions/13124632/how-to-set-default-value-of-a-mysql-column-as-unix-timestamp",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/things_i_dislike_from_github": [
+      {
+        "link": "https://github.com/pulls",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://github.com/pulls?q=is%3Aopen+is%3Apr",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://news.ycombinator.com/item?id=3960876",
+        "error": "",
+        "code": 405
+      },
+      {
+        "link": "https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2023/2022_accomplishment": [
+      {
+        "link": "https://git.sr.ht/~shulhan/asciidoctor-go/tree/main/item/_doc/CHANGELOG.adoc",
+        "error": "",
+        "code": 418
+      }
+    ],
+    "http://kilabit.home.local/journal/2023/email_server_using_postfix_opendkim_dovecot": [
+      {
+        "link": "https://www.opendkim.org",
+        "error": "Head \"https://www.opendkim.org\": EOF",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2023/go_test_data": [
+      {
+        "link": "https://git.sr.ht/~shulhan/asciidoctor-go/commit/19e2b864",
+        "error": "",
+        "code": 418
+      },
+      {
+        "link": "https://git.sr.ht/~shulhan/asciidoctor-go/commit/9fe1ecf6",
+        "error": "",
+        "code": 418
+      }
+    ],
+    "http://kilabit.home.local/journal/2023/research_ssh_with_2fa": [
+      {
+        "link": "https://aur.archlinux.org/packages/teleport-bin",
+        "error": "",
+        "code": 405
+      },
+      {
+        "link": "https://goteleport.com/docs",
+        "error": "",
+        "code": 403
+      },
+      {
+        "link": "https://goteleport.com/docs/architecture/nodes",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://goteleport.com/docs/server-access/getting-started",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://support.google.com/accounts/answer/1066447",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://support.google.com/cloud/answer/6158849?hl=en-GB",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://vpn.internal:3443",
+        "error": "Head \"https://vpn.internal:3443\": dial tcp: lookup vpn.internal: no such host",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2023/using_systemd_mkosi": [
+      {
+        "link": "https://man.archlinux.org/man/systemd-nspawn.5",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2023/using_systemd_mkosi_2": [
+      {
+        "link": "https://man.archlinux.org/man/systemd-nspawn.5",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2024/2023_accomplishment": [
+      {
+        "link": "https://sr.ht/~shulhan/trunks",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2024/best_tv_series": [
+      {
+        "link": "https://media.themoviedb.org/t/p/w500/88lzeVmNWhNah7TA2SVTreIRM8p.jpg",
+        "error": "Head \"https://image.tmdb.org/t/p/w500/88lzeVmNWhNah7TA2SVTreIRM8p.jpg\": dial tcp: lookup image.tmdb.org: Temporary failure in name resolution",
+        "code": 700
+      }
+    ],
+    "http://kilabit.home.local/journal/2024/karajo_sourcehut_webhook": [
+      {
+        "link": "https://man.sr.ht/api-conventions.md",
+        "error": "",
+        "code": 404
+      }
+    ],
+    "http://kilabit.home.local/journal/2024/memfs_vs_goembed": [
+      {
+        "link": "https://git.sr.ht/~shulhan/pakakeh.go/commit/05b02c7b",
+        "error": "",
+        "code": 418
+      }
+    ],
+    "http://kilabit.home.local/journal/2024/rescached_svcb": [
+      {
+        "link": "https://git.sr.ht/~shulhan/pakakeh.go/commit/71eaafc5119b178be61abf6ae7b8a2fbcdfacc44",
+        "error": "",
+        "code": 418
+      }
+    ],
+    "http://kilabit.home.local/journal/2025/2024_accomplishments": [
+      {
+        "link": "https://aur.archlinux.org/packages/hunspell-id-git",
+        "error": "",
+        "code": 405
+      },
+      {
+        "link": "https://domain",
+        "error": "Head \"https://domain\": dial tcp: lookup domain: no such host",
+        "code": 700
+      },
+      {
+        "link": "https://man.sr.ht/git.sr.ht/api.md",
+        "error": "",
+        "code": 404
+      },
+      {
+        "link": "https://tour.golang-id.org",
+        "error": "",
+        "code": 700
+      },
+      {
+        "link": "https:/domain",
+        "error": "Head \"https:/domain\": http: no Host in request URL",
+        "code": 700
+      }
+    ]
+  }
+}
