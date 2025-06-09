@@ -8,7 +8,7 @@ October, 2023
 :mkosi_man: https://man.archlinux.org/man/mkosi.1
 :mkosi_repo: https://github.com/systemd/mkosi
 :systemd_nspawn_man_1: https://man.archlinux.org/man/systemd-nspawn.1
-:systemd_nspawn_man_5: https://man.archlinux.org/man/systemd-nspawn.5.en
+:systemd_nspawn_man_5: https://man.archlinux.org/man/systemd.nspawn.5.en
 
 This journal is part of series,
 
@@ -260,8 +260,7 @@ image/
 Next, lets found out how to chroot into this image.
 
 The manual page of mkosi on
-https://man.archlinux.org/man/mkosi.1#Command_Line_Verbs["Command Line
-Verbs"^],
+{mkosi_man}#Command_Line_Verbs["Command Line Verbs"^],
 provides two options, one is "shell" that invokes systemd-nspawn to
 acquire an interactive shell prompt in it, but must be executed as root;
 and "boot" to boots the image using systemd-nspawn. 
@@ -397,7 +396,7 @@ We are in!
 //{{{
 
 From the
-https://man.archlinux.org/man/mkosi.1#Execution_Flow["Execution Flow"^]
+{mkosi_man}#Execution_Flow["Execution Flow"^]
 section in the mkosi
 manual{empty}footnote:mkosi_man[]
 at step 10,
@@ -406,7 +405,7 @@ at step 10,
 Run prepare scripts on image with the final argument (mkosi.prepare)
 
 From the
-https://man.archlinux.org/man/mkosi.1#Scripts["Scripts"^]
+{mkosi_man}#Scripts["Scripts"^]
 section in the manual page, the "mkosi.prepare" script is run "after all
 software packages are installed but before the image is cached (if
 incremental mode is enabled)."
@@ -511,7 +510,7 @@ Now, lets make the sudo works.
 //{{{
 
 Back to the mkosi manual page, in the
-https://man.archlinux.org/man/mkosi.1#Files["Files" section^],
+{mkosi_man}#Files["Files" section^],
 
 [quote]
 ____
@@ -648,7 +647,7 @@ The sshd service enabled when "Running prepare script ..." but then
 removed in "Applying presets...".
 Not sure why.
 So, we need to run the script after presets ... which, according to
-https://man.archlinux.org/man/mkosi.1#Execution_Flow["Execution Flow"^]
+{mkosi_man}#Execution_Flow["Execution Flow"^]
 it should be inside "mkosi.finalize".
 
 ----

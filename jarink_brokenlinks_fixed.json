@@ -1,0 +1,42 @@
+{
+  "page_links": {
+    "http://kilabit.home.local/journal/2016/03/Go_language__six_line_assert_without_any_library": [
+      {
+        "link": "https://www.reddit.com/r/golang/comments/44hufh/six_line_assert_for_testing_without_any_library",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2017/02/Protractor_tips_and_trick": [
+      {
+        "link": "https://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application",
+        "error": "",
+        "code": 403
+      },
+      {
+        "link": "https://www.reddit.com/r/angularjs/comments/5urymo/protractor_tips_and_trick",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/mysql_surprise": [
+      {
+        "link": "https://serverfault.com/questions/195221/how-to-rename-a-mysql-database",
+        "error": "",
+        "code": 403
+      },
+      {
+        "link": "https://stackoverflow.com/questions/13124632/how-to-set-default-value-of-a-mysql-column-as-unix-timestamp",
+        "error": "",
+        "code": 403
+      }
+    ],
+    "http://kilabit.home.local/journal/2022/things_i_dislike_from_github": [
+      {
+        "link": "https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests",
+        "error": "",
+        "code": 403
+      }
+    ]
+  }
+}

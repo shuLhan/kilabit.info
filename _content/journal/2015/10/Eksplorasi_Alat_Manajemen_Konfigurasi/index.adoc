@@ -110,8 +110,10 @@ Eror tersebut disebabkan karena paket `ncurses` di- `compile` menggunakan GCC
 5.2 sehingga ada beberapa macro yang "dianggap" salah oleh GCC.
 
 Saya telah melaporkan bug tersebut di halaman isu mereka, baik di repository
-omnibus-chef [1] maupun chef [2], namun sampai sekarang (2015-10-08) belum ada
-jawaban.
+omnibus-chef
+(\https://github.com/chef/omnibus-chef/issues/524 --tautan mati)
+maupun di chef (https://github.com/chef/chef/issues/4035[issue 4035]).
+Namun sampai sekarang (2015-10-08) belum ada jawaban.
 
 
 ==  SaltStack
@@ -203,10 +205,3 @@ node, sehingga membutuhkan waktu untuk menyiapkan node.
 Artikel ini tidak sampai membandingkan bagaimana menjalankan ketiga aplikasi
 di atas karena tidak semuanya bisa dipasang dan bekerja sesuai dengan
 kebutuhan yang saya inginkan.
-
-
-==  Referensi
-
-[1] https://github.com/chef/omnibus-chef/issues/524
-
-[2] https://github.com/chef/chef/issues/4035

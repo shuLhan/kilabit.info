@@ -1,7 +1,9 @@
 =  A Poor Man's Feed Parser and Viewer
 
 I just add a new section in this site called 'Home - Recent Activities', as
-part of WUI [1] project, which showed my recent activities on the Internet;
+part of
+https://github.com/shuLhan/kilabit.old[WUI^]
+project, which showed my recent activities on the Internet;
 a site I have been submitted (read and like) and what changes has been made to
 all of my projects.
 
@@ -21,8 +23,10 @@ As far I as hate web development, this is the best way I can do :)
 
 ==  Parsing Feed Content
 
-There is two feed that I need to parsing, github public feed [2] and reddit
-submission [3].
+There is two feed that I need to parsing,
+https://github.com/shuLhan.atom[github public feed^]
+and
+https://www.reddit.com/user/_shulhan/submitted/.rss[reddit submission^].
 
 
 ===  Parsing Atom Feed Content
@@ -368,12 +372,3 @@ function feed_init()
 	feed_create_output();
 }
 ----
-
-
-==  References
-
-[1] https://kilabit.info/labs/wui/index.html.
-
-[2] https://github.com/shuLhan.atom
-
-[3] https://www.reddit.com/user/rv77ax/submitted/.rss

@@ -492,9 +492,11 @@ In the Target form, user can select to send body as "text/html".
 
 ** Add git.sr.ht APIs into example
 +
-The APIs is created using https://man.sr.ht/git.sr.ht/api.md as
-reference. We also needs the API to create webhook since no other way
-to create it in current sourcehut web.
+The APIs is created using
+https://git.sr.ht/~sircmpwn/sr.ht-docs/tree/0bbfd511d98568b0d0114963ec6a90cf733f7db4/item/git.sr.ht/api.md
+as reference.
+We also needs the API to create webhook since no other way to create it in
+current SourceHut web.
 
 ** Fix save on null Headers and Vars
 +

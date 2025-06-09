@@ -10,13 +10,15 @@ also allow user to tunnelling and forwarding/redirecting port.
 
 Here is the list of packages/software that you need to install,
 
-*  Tor [1],
-*  Privoxy [2],
-*  dante [3] or tsocks [4],
-*  Tork (Optional, GUI for Tor) [5]
+* https://www.torproject.org[Tor^]
+* https://www.privoxy.org[Privoxy^]
+* https://www.inet.no/dante[dante] or
+  https://tsocks.sf.net[tsocks^]
+* https://tork.sourceforge.net[Tork^] (optional, GUI for Tor)
 
 In OpenSuSE you can install it from RPM directly.
-You can search for packages in https://packages.opensuse-community.org/ [6].
+You can search for packages
+https://software.opensuse.org/packages[here^].
 
 ==  Configurations
 
@@ -89,16 +91,4 @@ Example,
 	$ torify kopete
 ----
 
-==  References
 
-[1] https://www.torproject.org/
-
-[2] https://www.privoxy.org/
-
-[3] https://www.inet.no/dante/
-
-[4] https://tsocks.sf.net/
-
-[5] https://tork.sourceforge.net/
-
-[6] https://packages.opensuse-community.org/

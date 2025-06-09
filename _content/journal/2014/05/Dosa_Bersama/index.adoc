@@ -14,8 +14,9 @@ Sebagai gambaran saya akan memberi contoh dua "dosa bersama" dalam agama
 Saya tidak akan bahas soal rokok, karena argumentasinya hanya berputar pada
 masalah kesehatan, satu sisi mengharamkan karena membahayakan kesehatan dan
 satu sisi lagi menganggap makruh.
-Bagi yang melihatnya makruh, harusnya baca "10 penyebab kematian di dunia"
-dari WHO [1].
+Bagi yang melihatnya makruh, harusnya baca
+https://www.who.int/news-room/fact-sheets/detail/the-top-10-causes-of-death["10 penyebab kematian di dunia"^]
+dari WHO.
 Tapi saya yakin mereka yang mengatakan makruh tahu bahwa rokok itu tidak baik
 bagi kesehatan tapi mereka sudah tidak bisa berhenti lagi dan sudah menjadi
 kultur dan efeknya terlalu besar untuk diharamkan.
@@ -66,7 +67,8 @@ Kedua proses besar itu bisa terjadi berulang, butuh waktu dan orang juga.
 Untuk satu perangkat lunak, bisa butuh satu atau ratusan orang, tergantung
 kepada besarnya sebuah perangkat lunak.
 Misalnya untuk sebuah sistem operasi yang terkenal dan paling dibajak yaitu
-Windows membutuhkan sekitar 1000 orang [2].
+Windows membutuhkan sekitar
+https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7[1000 orang^].
 Estimasi biayanya sekitar 100 juta dolar per tahun atau 1,135 triliun rupiah.
 
 Sekarang kita lihat dalam perspektif agama.
@@ -142,8 +144,3 @@ Hukuman yang membuat orang lain tahu bahwa membajak sebaiknya tidak dilakukan
 karena merugikan ekonomi, merugikan teman kita yang musisi, yang membuat film
 indie, dan yang membuat perangkat lunak.
 
---
-
-[1] https://www.who.int/mediacentre/factsheets/fs310/en/index2.html
-
-[2] https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7

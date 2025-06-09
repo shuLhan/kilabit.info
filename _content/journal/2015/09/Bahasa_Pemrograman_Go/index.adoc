@@ -1,15 +1,15 @@
 =  Bahasa Pemrograman Go
 
 Untuk mempelajari bahasa pemrograman Go, saya telah menerjemahkan Go Tour ke
-Bahasa Indonesia, silahkan lihat di sini: https://tour.golang-id.org.
+Bahasa Indonesia, silahkan lihat di sini: https://tour.golang-id.org .
 
 ==  Pemasangan
 
 Artikel ini berisi catatan mengenai instalasi bahasa pemrograman
-https://go.dev/[Go] [1].
+https://go.dev[Go^].
 
 Go memberikan kemudahan instalasi lewat
-https://go.dev/dl/[binari] [2],
+https://go.dev/dl[binari^],
 tapi untuk instalasi dari sumber membutuhkan koneksi internet yang cukup
 cepat, karena semua sumber kode, dokumentasi, dan tutorial diunduh lewat git.
 Pada bagian ini saya akan menjelaskan bagaimana memasang Go toolkit dari
@@ -17,7 +17,7 @@ sumber kode langsung, Go-doc untuk melihat dokumentasi secara lokal, dan
 Go-tour untuk tutorial belajar bahasa Go supaya dapat dibuka di lokal tanpa
 harus terhubung ke internet.
 Untuk artikel lebih lengkapnya bisa dilihat di
-https://go.dev/doc/install/source[sini] [3]
+https://go.dev/doc/install/source[sini^]
 dalam bahasa Inggris.
 
 Sebelumnya pengenalan terhadap variabel lingkungan yang digunakan oleh Go.
@@ -136,7 +136,7 @@ APPDIR = /home/ms/go/godoc-app
     $ godoc -http=:6060 -index -index_files="$HOME/go/godoc-app/godoc.index"
 ----
 
-*  Buka peramban anda dengan URL https://127.0.0.1:6060 untuk melihat hasilnya
+*  Buka peramban anda dengan URL \http://127.0.0.1:6060 untuk melihat hasilnya
 
 ===  Pemasangan Tutorial Go (gotour)
 
@@ -145,12 +145,4 @@ $ go get golang.org/x/tour/gotour
 ----
 
 Kemudian jalankan dengan perintah gotour, maka peramban akan terbuka secara
-otomatis sama seperti dengan membuka situs https://go.dev/tour.
-
-==  Referensi
-
-[1] https://go.dev/
-
-[2] https://go.dev/dl/
-
-[3] https://go.dev/doc/install/source
+otomatis sama seperti dengan membuka situs https://go.dev/tour .

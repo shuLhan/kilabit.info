@@ -1,9 +1,11 @@
 = beku: dependencies management should be simple
+:gobindata_deps_sh: https://github.com/shuLhan/go-bindata/blob/7080193fbcce91b4f8bdf21bb546696e80225bf3/scripts/deps.sh
 
 In the heat of current discussion between dep vs vgo, it would be foolish to
 create another tool to manage packages in Go.
-We would not called our tool beku [1], as package manager, we see it as
-extension for "go get" and "go clean".
+We would not called our tool
+https://github.com/shuLhan/beku[beku^],
+as package manager, we see it as extension for "go get" and "go clean".
 
 In our unique case, which will we explain more later, we use GOPATH to manage
 dependencies per project.
@@ -18,9 +20,10 @@ dependencies and why we should update frequently.
    new features, etc.) on new version, to prevent build and running problems.
 .  Let developers focus on code, not dependencies.
 
-Before we got "official" package management, there are many tool that provide
-the same functionality [2], due to our unique case, non of the package
-management quite satisfactory.
+Before we got "official" package management, there are
+https://github.com/golang/go/wiki/PackageManagementTools[many tools^]
+that provide the same functionality, due to our unique case, non of the
+package management quite satisfactory.
 To handle above case, we manage our dependencies using shell script, is not
 perfect but it's provide enough functions to update repository based on tag
 and commit hash.
@@ -43,7 +46,9 @@ program), and external package, i.e. package that downloaded by user.
 When we talk about package on this article, mostly we reference to the second
 meaning, which is "external package".
 
-Semver reference to semantic versioning [3].
+Semver reference to
+https://semver.org[semantic versioning^].
+
 
 [#problems]
 ==  Problems
@@ -129,14 +134,16 @@ Before we wrote beku, and before we have many choices of package management,
 we manage dependencies with shell script.
 Since the package is just a mapping between remote URL, version and
 destination directory;
-we can write the dependencies down into the following format [4],
+we can write the dependencies down into the
+
+https://github.com/shuLhan/go-bindata/blob/7080193fbcce91b4f8bdf21bb546696e80225bf3/vendor.deps[following format^],
 
   REMOTE_URL<space>IMPORT_PATH<space>VERSION
 
 The shell script would read each line, do a git clone, and set the HEAD to
 specific version.
-The simple version of those shell script can be seen at one of our github
-repository [5].
+The simple version of those shell script can be seen at one of our
+{gobindata_deps_sh}[github repository^].
 If we don't need another package, we create another file with the above
 format, and create another script that consume the file to cleaned.
 There is also script to check for update using combination of git-fetch-all,
@@ -148,9 +155,9 @@ version to file.
 ==  Workflow with beku
 
 Maintaining shell script for our unique case is not simple, one of the problem
-is editing the dependendencies manually.
+is editing the dependencies manually.
 That is one of reasons, beside all the problems that we mentioned above, why
-we wrote beku [5].
+we wrote beku.
 
 The first thing that we need to know is what package is installed in our
 GOPATH?
@@ -276,20 +283,5 @@ installing, updating, and/or removing package.
 [#acknowledgment]
 ==  Acknowledgment
 
-Beku command syntax is inspired by pacman [6].
-
-
-[#references]
-==  References
-
-[1] https://github.com/shuLhan/beku
-
-[2] https://github.com/golang/go/wiki/PackageManagementTools
-
-[3] https://semver.org/
-
-[4] https://github.com/shuLhan/go-bindata/blob/7080193fbcce91b4f8bdf21bb546696e80225bf3/vendor.deps
-
-[5] https://github.com/shuLhan/go-bindata/blob/7080193fbcce91b4f8bdf21bb546696e80225bf3/scripts/deps.sh
-
-[6] https://www.archlinux.org/pacman
+Beku command syntax is inspired by
+https://wiki.archlinux.org/title/Pacman[pacman^].

@@ -1,6 +1,9 @@
 =  List and open tmux session with rofi
 
-This article assume that you already know about rofi [1] and tmux [2].
+This article assume that you already know about
+https://wiki.archlinux.org/title/Rofi[rofi^]
+and
+https://tmux.github.io[tmux^].
 
 In rofi you can list ssh client using command `rofi -show ssh`, and when
 selecting one of it will create new terminal and start opening ssh connection
@@ -102,10 +105,3 @@ $TERMINAL -e tmux new -c $TMUXDIR -As $SELECTED >/dev/null &
 ----
 
 Thats it.
-
-
-==  References
-
-[1] https://davedavenport.github.io/rofi/
-
-[2] https://tmux.github.io/

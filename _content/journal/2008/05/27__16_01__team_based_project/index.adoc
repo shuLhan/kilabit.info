@@ -4,20 +4,18 @@ ____
 "I am a egocentric programmer, and right know I am writing my ego."
 ____
 
-Read these
-https://www.joelonsoftware.com/articles/fog0000000043.html[link^] [1],
+Read
+https://www.joelonsoftware.com/2007/10/26/evidence-based-scheduling/["Joel on
+Software, Evidence Based Scheduling"^],
 it's more clearer than this writing.
 
-Working in a team, whether you are a programmer or a team leader, is need a
-lot of schedule rather than work. This is my point of view of what you
+Working in a team, whether as a programmer or a team leader, is need a
+lot of schedule rather than work. This is my point of view of what we
 should do when building software in a formal team.
 
-For a team leader :
+For a team leader,
 
-*  https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html[Read this
-   first] [2].
-
-*  Make a meeting review at least once a week, except when you have a
+*  Make a meeting review at least once a week, except when we have a
    deadline.
 
 **  Leader and worker must communicate to gain more acceptable output.
@@ -29,7 +27,7 @@ maybe need clarification with the leader.
 others programmer of course.
 
 *  Make a right schedule for your plan, milestones, and maybe schedule for
-   your programmer, if they do not mind.
+   other programmer, if they do not mind.
 *  After meeting, set a schedule for your next plan.
 *  After meeting, leave your programmer, do not make any
    conversation/meeting after the next meeting schedule.  Some of my friends
@@ -39,7 +37,6 @@ others programmer of course.
    practice;
    if its not, what can you do to make a better software and helping your
    programmer?
-   I am asking you?
 
 For the programmer (this will be a question based list) :
 
@@ -55,12 +52,4 @@ not hurt at all and make your life more easy.
 *  Make a test procedure and test for program.
 
 Like
-https://en.wikipedia.org/wiki/Scrum_(development)[scrum] [3].
-
---
-
-[1] https://www.joelonsoftware.com/articles/fog0000000043.html
-
-[2] https://thisshouldbeblog.blogspot.com/2008/05/do-vs-do-not.html
-
-[3] https://en.wikipedia.org/wiki/Scrum_(development)
+https://en.wikipedia.org/wiki/Scrum_(development)[Scrum^].

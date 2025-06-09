@@ -175,13 +175,12 @@ Another developer create pull request and assign you as the reviewer,
 image:github_reviewer.png[Github reviewer,720]
 
 But you cannot see it in the
-https://github.com/pulls[Pull requests]
-(require login) page,
+pull requests page: \https://github.com/pulls (require login),
 
 image:github_review_request_empty.png[Github pull review request is empty,720].
 
 Also, open the following links in your browser:
-https://github.com/pulls?q=is%3Aopen+is%3Apr
+\https://github.com/pulls?q=is%3Aopen+is%3Apr
 (require login)
 
 You will see all of the open PR from all repositories is listed.

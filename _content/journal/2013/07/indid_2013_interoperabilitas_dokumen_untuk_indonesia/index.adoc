@@ -2,9 +2,8 @@
 
 Dua hari yang lalu, tepatnya pada tanggal 2 Juli 2013, Direktorat Keamanan
 Informasi bersama dengan Asosiasi Open Source Indonesia (AOSI) mengadakan
-konferensi penerapan Permen No. 7 tahun 2013 tentang "Pedoman Penerapan
-Interoperabilitas Dokumen Perkantoran Bagi Penyelenggara Sistem Elektronik
-Untuk Pelayanan Publik". [1]
+konferensi penerapan Permen No. 7 tahun 2013 tentang
+https://jdih.komdigi.go.id/storage/files/1378691052-PM_KOMINFO_NOMOR_7_TAHUN_2013_TENTANG_PEDOMAN_PENERAPAN_INTEROPERABILITAS_DOKUMEN_PERKANTORAN.pdf["Pedoman Penerapan Interoperabilitas Dokumen Perkantoran Bagi Penyelenggara Sistem Elektronik Untuk Pelayanan Publik"].
 
 Ini adalah sebuah langkah ke depan yang sangat bagus dari pemerintah dengan
 melakukan regulasi penggunaan standar format dokumen terbuka untuk setiap
@@ -87,8 +86,11 @@ Membeli produk Office yang baru atau terpaksa membajaknya.
 FDB didukung sepenuhnya oleh komunitas Free & Open-source Software.
 Aplikasi-aplikasi yang mendukung pemprosesan FDB umumnya adalah
 aplikasi-aplikasi gratis dan dengan sumber-terbuka, salah satu yang terkenal
-yaitu LibreOffice [2] untuk memproses dokumen-dokumen FDB dan Evince [3] untuk
-membaca dokumen PDF.
+yaitu
+https://www.libreoffice.org[LibreOffice^]
+untuk memproses dokumen-dokumen FDB dan
+https://projects.gnome.org/evince/[Evince^]
+untuk membaca dokumen PDF.
 
 Sangat miris bila melihat sebagian pajak yang telah kita bayar ke pemerintah
 digunakan untuk membayar lisensi untuk aplikasi-aplikasi yang setiap beberapa
@@ -109,7 +111,8 @@ internasional.
 FDB telah menjadi standar ISO/IEC 26300:2006 semenjak November 2006.
 
 Di tingkat internasional, NATO mengharuskan anggota-anggotanya menggunakan FDB
-sebagai standar pertukaran dokumen [4].
+sebagai
+https://nhqc3s.hq.nato.int/Apps/Architecture/NISP/[standar pertukaran dokumen^].
 Beberapa negara lain yang secara resmi telah menyetujui penerapan FDB adalah
 Brazil, Kroasia, Denmark, Ekuador, Hungaria, Itali, Malaysia, Rusia, Korea
 Selatan, Afrika Selatan, dan Swedia.
@@ -143,14 +146,3 @@ membacanya lebih banyak di,
    bahan presentasi tentang interoperabilitas dokumen.
 
 *  https://www.opendocumentformat.org (Bahasa Inggris).
-
-
-==  Referensi
-
-[1] https://jdih.ristek.go.id/?q=system/files/perundangan/113572658393.pdf
-
-[2] https://www.libreoffice.org
-
-[3] https://projects.gnome.org/evince/
-
-[4] https://nhqc3s.nato.int/architecture/_docs/NISPv2/volume2/ch03s04.html

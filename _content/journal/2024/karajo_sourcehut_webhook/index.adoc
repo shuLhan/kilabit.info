@@ -73,7 +73,7 @@ https://build.kilabit.info/karajo/api/job_exec/run/webhook_kilabit-info .
 == Registering webhook on SourceHut
 
 For reference, the official SourceHut Webhook documentation is available
-https://man.sr.ht/api-conventions.md#webhooks[here].
+https://git.sr.ht/~sircmpwn/sr.ht-docs/tree/0bbfd511d98568b0d0114963ec6a90cf733f7db4/item/api-conventions.md#webhooks[here].
 
 First, create new personal access token in SourceHut
 https://meta.sr.ht/oauth/personal-token[here].

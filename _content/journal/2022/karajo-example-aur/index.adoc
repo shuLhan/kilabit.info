@@ -494,7 +494,7 @@ $ sudo systemctl start karajo.service
 
 Open the browser and point it to your $REMOTE machine IP address (or 127.0.0.1
 if you setup on your local machine) at port 31937, for example
-\http://127.0.0.1:31937 .
+http://127.0.0.1:31937[http://127.0.0.1:31937].
 It should show the simple page that have link "View build status".
 Click on that link, you will see the current Hook and Job status.
 

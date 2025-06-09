@@ -391,7 +391,7 @@ Sure, its longer, but it get the job done.
 
 ==  References
 
-[1] https://protractortest.org/
+[1] https://www.protractortest.org
 
 [2] https://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application
 

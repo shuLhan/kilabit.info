@@ -1,9 +1,12 @@
 =  Integrating Buildbot and Mattermost
+:github_my_mattermost: https://github.com/shuLhan/mattermost-integration/blob/v1.1.0/buildbot
 
-In this journal, I would like to explain how to integrate Mattermost [1] slash
-command to build, test, and deploy project on specific repository and branch
-on Buildbot [2] worker; and report the project build status back to
-Mattermost.
+In this journal, I would like to explain how to integrate
+https://mattermost.com[Mattermost^]
+slash command to build, test, and deploy project on specific repository and
+branch on
+https://buildbot.net[Buildbot^]
+worker; and report the project build status back to Mattermost.
 
 The integration can be illustrated with the following graph,
 
@@ -101,10 +104,12 @@ Remember, it must be the same `http_auth` and `http_password` values as in
 ===  Add Reporter and Change Hook Script
 
 In order for Buildbot to process the `/change_hook/mattermost` and report the
-status to Mattermost, you must copy my change hook [3] into Buildbot hooks (In
-CentOS 7, it was located in
-`/usr/lib/python2.7/site-packages/buildbot/www/hooks/`) and reporter script
-[4] to build master directory.
+status to Mattermost, you must copy
+{github_my_mattermost}/mattermost.py[my change hook^]
+into Buildbot hooks (In CentOS 7, it was located in
+`/usr/lib/python2.7/site-packages/buildbot/www/hooks/`) and
+{github_my_mattermost}/mattermost_reporter.py[reporter script^]
+to build master directory.
 
 ===  Update Master Config
 
@@ -187,18 +192,6 @@ processed.
 
 ==  That's it
 
-If you still confused, see the full `master.cfg` as an example that can be
-found on my repository [5].
-
-
-==  References
-
-[1] https://about.mattermost.com/
-
-[2] https://buildbot.net/
-
-[3] https://github.com/shuLhan/mattermost-integration/blob/master/buildbot/mattermost.py
-
-[4] https://github.com/shuLhan/mattermost-integration/blob/master/buildbot/mattermost_reporter.py
-
-[5] https://github.com/shuLhan/mattermost-integration/blob/master/buildbot/master.cfg
+If you still confused, see the full
+{github_my_mattermost}/master.cfg[`master.cfg`^]
+as an example that can be found on my repository.

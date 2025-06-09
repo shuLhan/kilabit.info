@@ -62,8 +62,7 @@ Some back-links for furthers reading,
 *  https://www.youtube.com/watch?v=XDtjLSa50uk[Theory of Mind - Robery
    Seyfarth]
 
-*  https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html[What
-   Everyone knows]
+* http://web.archive.org/web/20130621065254/https://www.randi.org/site/index.php/swift-blog/1057-what-everyone-knows.html[What Everyone knows^]
 
 *  https://youarenotsosmart.com/2010/09/11/the-texas-sharpshooter-fallacy/[The
    Texas Shartshooter Fallacy]
