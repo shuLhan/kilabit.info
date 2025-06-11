@@ -13,7 +13,7 @@ Here is the list of packages/software that you need to install,
 * https://www.torproject.org[Tor^]
 * https://www.privoxy.org[Privoxy^]
 * https://www.inet.no/dante[dante] or
-  https://tsocks.sf.net[tsocks^]
+  https://tsocks.sourceforge.net/[tsocks^]
 * https://tork.sourceforge.net[Tork^] (optional, GUI for Tor)
 
 In OpenSuSE you can install it from RPM directly.

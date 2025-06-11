@@ -1,14 +1,15 @@
-= Things I dislike from Google Cloud Platform (GCP)
+= Things I dislike from Google Cloud Platform
 Shulhan <ms@kilabit.info>
 25 September 2020
 :toc:
 :sectlinks:
 
-GCP is one of the prominent cloud provider out there.
-With all the others Google's products that we praise and we mourned, GCP is
+Google Cloud Platform (GCP) is one of the prominent cloud provider out
+there.
+With all others Google's products that we praise and we mourned, GCP is
 one of them.
-In this article I want to rant about what I dislike with
-https://console.cloud.google.com[GCP console web user interface].
+In this article I want to rant about things that I dislike with
+https://cloud.google.com[GCP console web user interface].
 
 Let's start.
 

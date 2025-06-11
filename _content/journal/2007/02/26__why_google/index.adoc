@@ -6,11 +6,12 @@ company now"
 Why you should use Google (and its applications),
 
 *  https://www.google.com/[What You Search Is What You Get^]
-*  https://mail.google.com/[Gmail^], 7+ GB email storage, with less spam, and
-   still counting for additional free space
+*  https://workspace.google.com/intl/en-US/gmail/[Gmail^],
+   7+ GB email storage, with less spam, and still counting for additional
+   free space
 *  pages.google.com - Google Pages, 100 MB personal pages
    (out of service, replaced with
-   https://sites.google.com[Google Sites^])
+   https://workspace.google.com/products/sites/[Google Sites^])
 *  picasaweb.google.com - PicasaWeb, 250 MB photo album.
 +
 --
