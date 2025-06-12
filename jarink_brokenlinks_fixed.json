@@ -1,61 +1,10 @@
 {
-  "page_links": {
+  "broken_links": {
     "http://kilabit.home.local/journal/2009/01/01__00_01__salt_and_pepper": [
       {
         "link": "https://idcorner.org/the-problems-with-openid",
         "error": "Get \"https://idcorner.org/the-problems-with-openid\": tls: failed to verify certificate: x509: certificate is valid for server20.hostwhitelabel.com, not idcorner.org",
         "code": 700
-      }
-    ],
-    "http://kilabit.home.local/journal/2009/06/03__slashdot_news_for_jerks_stuff_that_latter": [
-      {
-        "link": "https://www.reddit.com",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2011/01/08_a_poor_mans_feed_parser_and_viewer": [
-      {
-        "link": "https://www.reddit.com/user/_shulhan/submitted/.rss",
-        "code": 429
-      }
-    ],
-    "http://kilabit.home.local/journal/2013/07/indid_2013_interoperabilitas_dokumen_untuk_indonesia": [
-      {
-        "link": "https://nhqc3s.hq.nato.int/Apps/Architecture/NISP",
-        "code": 403
-      },
-      {
-        "link": "https://www.opendocumentformat.org",
-        "error": "Get \"https://www.opendocumentformat.org\": dial tcp [2606:4700:3032::ac43:ccfa]:443: connect: network is unreachable",
-        "code": 700
-      }
-    ],
-    "http://kilabit.home.local/journal/2015/03/Bagaimana_mengurangi_KKN_di_Indonesia": [
-      {
-        "link": "https://www.transparency.org/cpi2013/results",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2016/03/Go_language__six_line_assert_without_any_library": [
-      {
-        "link": "https://www.reddit.com/r/golang/comments/44hufh/six_line_assert_for_testing_without_any_library",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2017/02/Protractor_tips_and_trick": [
-      {
-        "link": "https://stackoverflow.com/questions/26584451/how-to-disable-animations-in-protractor-for-angular-js-application",
-        "code": 403
-      },
-      {
-        "link": "https://www.reddit.com/r/angularjs/comments/5urymo/protractor_tips_and_trick",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2017/09/i3__tmux__and_vim": [
-      {
-        "link": "https://www.reddit.com/r/vim/comments/6xeo0d/what_are_a_sane_set_of_key_bindings_between_i3wm",
-        "code": 403
       }
     ],
     "http://kilabit.home.local/journal/2020/the_mountain_of_kubernetes": [
@@ -72,21 +21,23 @@
       },
       {
         "link": "https://www.gnu.org/gnu/manifesto.html",
-        "error": "Get \"https://www.gnu.org/gnu/manifesto.html\": net/http: TLS handshake timeout",
+        "error": "Get \"https://www.gnu.org/gnu/manifesto.html\": dial tcp 209.51.188.116:443: i/o timeout",
         "code": 700
       },
       {
         "link": "https://www.gnu.org/licenses/copyleft.html.en",
-        "error": "Get \"https://www.gnu.org/licenses/copyleft.html.en\": net/http: TLS handshake timeout",
+        "error": "Get \"https://www.gnu.org/licenses/copyleft.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
         "code": 700
       },
       {
         "link": "https://www.gnu.org/licenses/gpl-faq.html",
-        "code": 429
+        "error": "Get \"https://www.gnu.org/licenses/gpl-faq.html\": dial tcp 209.51.188.116:443: i/o timeout",
+        "code": 700
       },
       {
         "link": "https://www.gnu.org/philosophy/categories.html.en",
-        "code": 429
+        "error": "Get \"https://www.gnu.org/philosophy/categories.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
+        "code": 700
       }
     ],
     "http://kilabit.home.local/journal/2022/lesson_from_learning_swimming": [
@@ -94,68 +45,6 @@
         "link": "https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle",
         "error": "Get \"https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle\": stream error: stream ID 1; INTERNAL_ERROR; received from peer",
         "code": 700
-      }
-    ],
-    "http://kilabit.home.local/journal/2022/mysql_surprise": [
-      {
-        "link": "https://serverfault.com/questions/195221/how-to-rename-a-mysql-database",
-        "code": 403
-      },
-      {
-        "link": "https://stackoverflow.com/questions/13124632/how-to-set-default-value-of-a-mysql-column-as-unix-timestamp",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2022/things_i_dislike_from_github": [
-      {
-        "link": "https://www.reddit.com/r/programming/comments/tionj/linus_torvalds_doesnt_do_github_pull_requests",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2023/2022_accomplishment": [
-      {
-        "link": "https://git.sr.ht/~shulhan/asciidoctor-go/tree/main/item/_doc/CHANGELOG.adoc",
-        "code": 418
-      }
-    ],
-    "http://kilabit.home.local/journal/2023/go_test_data": [
-      {
-        "link": "https://git.sr.ht/~shulhan/asciidoctor-go/commit/19e2b864",
-        "code": 418
-      },
-      {
-        "link": "https://git.sr.ht/~shulhan/asciidoctor-go/commit/9fe1ecf6",
-        "code": 418
-      }
-    ],
-    "http://kilabit.home.local/journal/2023/research_ssh_with_2fa": [
-      {
-        "link": "https://goteleport.com/docs",
-        "code": 403
-      }
-    ],
-    "http://kilabit.home.local/journal/2024/karajo_sourcehut_webhook": [
-      {
-        "link": "https://git.sr.ht/~sircmpwn/sr.ht-docs/tree/0bbfd511d98568b0d0114963ec6a90cf733f7db4/item/api-conventions.md",
-        "code": 418
-      }
-    ],
-    "http://kilabit.home.local/journal/2024/memfs_vs_goembed": [
-      {
-        "link": "https://git.sr.ht/~shulhan/pakakeh.go/commit/05b02c7b",
-        "code": 418
-      }
-    ],
-    "http://kilabit.home.local/journal/2024/rescached_svcb": [
-      {
-        "link": "https://git.sr.ht/~shulhan/pakakeh.go/commit/71eaafc5119b178be61abf6ae7b8a2fbcdfacc44",
-        "code": 418
-      }
-    ],
-    "http://kilabit.home.local/journal/2025/2024_accomplishments": [
-      {
-        "link": "https://git.sr.ht/~sircmpwn/sr.ht-docs/tree/0bbfd511d98568b0d0114963ec6a90cf733f7db4/item/git.sr.ht/api.md",
-        "code": 418
       }
     ]
   }
