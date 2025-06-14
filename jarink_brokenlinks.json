@@ -1,42 +1,9 @@
 {
   "broken_links": {
-    "http://kilabit.home.local/journal/2009/01/01__00_01__salt_and_pepper": [
-      {
-        "link": "https://idcorner.org/the-problems-with-openid",
-        "error": "Get \"https://idcorner.org/the-problems-with-openid\": tls: failed to verify certificate: x509: certificate is valid for server20.hostwhitelabel.com, not idcorner.org",
-        "code": 700
-      }
-    ],
-    "http://kilabit.home.local/journal/2020/the_mountain_of_kubernetes": [
-      {
-        "link": "https://x.com/_shuLhan/status/1253140666470686721",
-        "code": 400
-      }
-    ],
     "http://kilabit.home.local/journal/2022/gpl": [
       {
         "link": "https://www.fsf.org",
         "error": "Get \"https://www.fsf.org\": remote error: tls: handshake failure",
-        "code": 700
-      },
-      {
-        "link": "https://www.gnu.org/gnu/manifesto.html",
-        "error": "Get \"https://www.gnu.org/gnu/manifesto.html\": dial tcp 209.51.188.116:443: i/o timeout",
-        "code": 700
-      },
-      {
-        "link": "https://www.gnu.org/licenses/copyleft.html.en",
-        "error": "Get \"https://www.gnu.org/licenses/copyleft.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
-        "code": 700
-      },
-      {
-        "link": "https://www.gnu.org/licenses/gpl-faq.html",
-        "error": "Get \"https://www.gnu.org/licenses/gpl-faq.html\": dial tcp 209.51.188.116:443: i/o timeout",
-        "code": 700
-      },
-      {
-        "link": "https://www.gnu.org/philosophy/categories.html.en",
-        "error": "Get \"https://www.gnu.org/philosophy/categories.html.en\": dial tcp 209.51.188.116:443: i/o timeout",
         "code": 700
       }
     ],

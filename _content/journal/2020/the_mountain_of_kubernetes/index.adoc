@@ -16,17 +16,12 @@ of their hill.
 
 The preliminary of this article is written in this single tweet,
 
-+++
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I could be wrong but
-Kubernetes is one of the greatest software marketing. The premise is
-&quot;autoscaling&quot;, but in the end we still pay by number of nodes (VM)
-not by pods.</p>&mdash; shuLhan (@_shuLhan)
-<a href="https://x.com/_shuLhan/status/1253140666470686721">
-April 23, 2020
-</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8">
-</script>
-+++
+[quote, @_shuLhan, https://twitter.com/_shuLhan/status/1253140666470686721]
+____
+I could be wrong but Kubernetes is one of the greatest software marketing.
+The premise is "autoscaling", but in the end you still pay by number of
+nodes (VM) not by pods.
+____
 
 Let see if the assumption and premise is still stand.
 

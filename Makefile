@@ -33,3 +33,20 @@ on-webhook: GOOS=linux
 on-webhook: GOARCH=amd64
 on-webhook: build
 	sudo rsync --progress _bin/www-kilabit /data/app/bin/www-kilabit
+
+##---- Scan broken links using jarink.\
+## -ignore-status
+##  403 - Forbidden, usually pages that require login.
+##  418 - Teapot, usually pages blocked from scanned by AI bot, like
+##        sr.ht website.
+##  429 - Too many requests.
+
+.PHONY: jarink.brokenlinks
+jarink.brokenlinks:
+	jarink \
+		-ignore-status=403,418,429 \
+		-insecure \
+		-past-result=jarink_brokenlinks.json \
+		brokenlinks \
+		https://kilabit.home.local \
+		> jarink_brokenlinks.json
