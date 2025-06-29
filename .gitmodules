@@ -18,3 +18,7 @@
 	path = _project/src/gotp
 	url = git@git.sr.ht:~shulhan/gotp
 	branch = main
+[submodule "_project/src/haminer"]
+	path = _project/src/haminer
+	url = git@git.sr.ht:~shulhan/haminer
+	branch = main

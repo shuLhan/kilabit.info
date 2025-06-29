@@ -89,7 +89,8 @@ link:/project/gotp/[Project page^]
 haminer is a library and program to parse and forward HAProxy logs
 to InfluxDB for mining HTTP requests.
 
-https://sr.ht/~shulhan/haminer/[Project page^]
+link:/project/haminer/[Project page^]
+
 
 ===  hunspell-id
 
