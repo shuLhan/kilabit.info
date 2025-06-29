@@ -1,0 +1,9 @@
+= Collection of poor web user interface design
+Shulhan <ms@kilabit.info>
+October, 2023
+:toc:
+:sectanchors:
+
+== Clickable item to read paragraph
+
+

@@ -1,0 +1,30 @@
+= Designing status page
+September, 2023
+:toc:
+:sectlinks:
+
+
+== Schemas
+
+----
+ +---------+   1*M   +-------------+   1*M   +-----------------+
+ | service | <-----> | incident    | <-----> | incident_report |
+ |=========|         |=============|         |=================|
+ | name    |         | service_id  |         | incident_id     |
+ | status  |         | summary     |         | created_at      |
+ | region  |         | level       |         | status          |
+ | id      |         | started_at  |         | information     |
+ +---------+         | resolved_at |         +-----------------+
+  ^                  | duration    |
+  | 1*M              | id          |
+  |                  +-------------+
+  v
+ +----------------+
+ | service_status |
+ |================|
+ | service_id     |
+ | at             |
+ | status         |
+ | response       |
+ +----------------+
+----

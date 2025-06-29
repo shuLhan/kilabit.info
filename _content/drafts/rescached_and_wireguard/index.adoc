@@ -1,0 +1,33 @@
+= Internal domains inside VPN (WireGuard) using Rescached
+Shulhan <ms@kilabit.info>
+July 2023
+:toc:
+:sectanchors:
+
+WireGuard(R) is an extremely simple yet fast and modern VPN that utilizes
+state-of-the-art cryptography. 
+
+Rescached is DNS forwarder, a daemon that caching internet name and
+address on local memory for speeding up DNS resolution.
+Rescached support custom zone where user can create their own domain.
+
+In this article we will create internal domains that can be accessed only by
+network inside the WireGuard.
+
+== Architecture
+
+The following diagram show how everything connected together,
+
+----
+ +--------+        +-----------+              /----------\
+ | VPN    | :50000 | VPN       | 10.148.0.0/9 | INTERNAL |
+ | client |<------>| Server    |<------------>| NETWORK  |
+ |        |        |           |              \----------/
+ |--------|        |-----------|
+ |        |        |           |  :53  /--------\
+ | VPN    | :53    | RESCACHED |<----->| DNS    |
+ | client |<------>|           |       | parent |
+ +--------+        +-----------+       \--------/
+----
+
+Although WireGuard is designed with peer-to-peer, where there is no central

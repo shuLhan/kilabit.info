@@ -1,16 +1,457 @@
 {
   "broken_links": {
-    "http://kilabit.home.local/journal/2022/gpl": [
+    "https://kilabit.home.local/journal/2007/02/26__why_google": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Google_Pack",
+        "error": "Get \"https://en.wikipedia.org/wiki/Google_Pack\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Picasa",
+        "error": "Get \"https://en.wikipedia.org/wiki/Picasa\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2008/05/23__anonymous_using_tor_and_privoxy": [
+      {
+        "link": "https://tork.sourceforge.net",
+        "error": "Get \"https://sourceforge.net/projects/tork/\": dial tcp: lookup sourceforge.net on 127.0.0.1:53: read udp 127.0.0.1:50211-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2008/05/27__16_01__team_based_project": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Scrum_(development)",
+        "error": "Get \"https://en.wikipedia.org/wiki/Scrum_(development)\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2009/01/01__00_01__salt_and_pepper": [
+      {
+        "link": "https://idcorner.org/the-problems-with-openid",
+        "code": 436
+      }
+    ],
+    "https://kilabit.home.local/journal/2009/06/03__slashdot_news_for_jerks_stuff_that_latter": [
+      {
+        "link": "https://news.ycombinator.com",
+        "error": "Get \"https://news.ycombinator.com\": dial tcp [2606:7100:1:67::26]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2009/10/14__destiny": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Car_analogy",
+        "error": "Get \"https://en.wikipedia.org/wiki/Car_analogy\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Motivational_poster",
+        "error": "Get \"https://en.wikipedia.org/wiki/Motivational_poster\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://www.despair.com/viewall.html",
+        "error": "Get \"https://despair.com/viewall.html\": dial tcp: lookup despair.com on 127.0.0.1:53: read udp 127.0.0.1:60791-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2013/01/29__ulasan_buku_snow_oleh_orhan_pamuk": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Headscarf_controversy_in_Turkey",
+        "error": "Get \"https://en.wikipedia.org/wiki/Headscarf_controversy_in_Turkey\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2013/04/Daging_dan_Karbon": [
+      {
+        "link": "https://www.countinganimals.com/animals-we-use-and-abuse-for-food-we-do-not-eat",
+        "error": "Get \"https://countinganimals.com/animals-we-use-and-abuse-for-food-we-do-not-eat\": dial tcp: lookup countinganimals.com on 127.0.0.1:53: read udp 127.0.0.1:51369-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2013/07/indid_2013_interoperabilitas_dokumen_untuk_indonesia": [
+      {
+        "link": "https://nhqc3s.hq.nato.int/Apps/Architecture/NISP",
+        "error": "Get \"https://nhqc3s.hq.nato.int/Apps/Architecture/NISP\": dial tcp [2600:1413:1::1720:1d09]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://projects.gnome.org/evince",
+        "error": "Get \"https://wiki.gnome.org/Apps/Evince\": dial tcp: lookup wiki.gnome.org on 127.0.0.1:53: read udp 127.0.0.1:41197-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://www.opendocumentformat.org",
+        "error": "Get \"https://opendocumentformat.org/\": dial tcp: lookup opendocumentformat.org on 127.0.0.1:53: read udp 127.0.0.1:48429-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://www.slideshare.net/ditkaminfo",
+        "error": "Get \"https://www.slideshare.net/ditkaminfo\": dial tcp: lookup www.slideshare.net on 127.0.0.1:53: read udp 127.0.0.1:60282-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2014/05/Arch_Linux_di_IBM_X3650_M4": [
+      {
+        "link": "https://wiki.archlinux.org/index.php/Software_RAID_and_LVM",
+        "error": "Get \"https://wiki.archlinux.org/index.php/Software_RAID_and_LVM\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2014/05/Dosa_Bersama": [
+      {
+        "link": "https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7",
+        "error": "Get \"https://www.theguardian.com/technology/blog/2008/aug/19/howmanypeoplemakewindows7\": dial tcp [2a04:4e42::367]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2014/12/Kulminasi_dari_Ilmu_Seni": [
+      {
+        "link": "https://en.wikipedia.org/wiki/The_Hobbit:_The_Battle_of_the_Five_Armies",
+        "error": "Get \"https://en.wikipedia.org/wiki/The_Hobbit:_The_Battle_of_the_Five_Armies\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2015/11/Generating_Partition_of_A_Set": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Partition_of_a_set",
+        "error": "Get \"https://en.wikipedia.org/wiki/Partition_of_a_set\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind",
+        "error": "Get \"https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2016/01/Mari_enkripsi_dengan_Letsencrypt": [
+      {
+        "link": "https://letsencrypt.readthedocs.org",
+        "error": "Get \"https://letsencrypt.readthedocs.io/\": dial tcp: lookup letsencrypt.readthedocs.io on 127.0.0.1:53: read udp 127.0.0.1:33453-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2017/01/List_and_open_tmux_session_with_rofi": [
+      {
+        "link": "https://wiki.archlinux.org/title/Rofi",
+        "error": "Get \"https://wiki.archlinux.org/title/Rofi\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2017/02/Protractor_tips_and_trick": [
+      {
+        "link": "https://www.protractortest.org",
+        "error": "Get \"https://www.protractortest.org\": dial tcp [2606:50c0:8000::153]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2018/05/Beku__dependencies_management_should_be_simple": [
+      {
+        "link": "https://wiki.archlinux.org/title/Pacman",
+        "error": "Get \"https://wiki.archlinux.org/title/Pacman\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2020/the_mountain_of_kubernetes": [
+      {
+        "link": "https://prometheus.io/docs/introduction/faq",
+        "error": "Get \"https://prometheus.io/docs/introduction/faq\": dial tcp [2606:4700:3030::ac43:c9f0]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2021/this_is_why_i_use_git_rebase": [
+      {
+        "link": "https://guides.github.com/introduction/flow",
+        "error": "Get \"https://docs.github.com/get-started/quickstart/github-flow\": dial tcp [2606:50c0:8001::154]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2022/chrooting_ssh_user_into_systemd-nspawn": [
+      {
+        "link": "https://wiki.archlinux.org/title/Systemd-nspawn",
+        "error": "Get \"https://wiki.archlinux.org/title/Systemd-nspawn\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2022/gpl": [
       {
         "link": "https://www.fsf.org",
         "error": "Get \"https://www.fsf.org\": remote error: tls: handshake failure",
         "code": 700
       }
     ],
-    "http://kilabit.home.local/journal/2022/lesson_from_learning_swimming": [
+    "https://kilabit.home.local/journal/2022/karajo-example-aur": [
       {
-        "link": "https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle",
-        "error": "Get \"https://olympics.com/en/olympic-games/tokyo-2020/results/swimming/men-s-50m-freestyle\": stream error: stream ID 1; INTERNAL_ERROR; received from peer",
+        "link": "https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks",
+        "error": "Get \"https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks\": dial tcp [2606:50c0:8001::154]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://wiki.archlinux.org/title/DeveloperWiki:Building_in_a_clean_chroot",
+        "error": "Get \"https://wiki.archlinux.org/title/DeveloperWiki:Building_in_a_clean_chroot\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://wiki.archlinux.org/title/GnuPG",
+        "error": "Get \"https://wiki.archlinux.org/title/GnuPG\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2022/lesson_from_learning_swimming": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Swimming_at_the_2019_Southeast_Asian_Games",
+        "error": "Get \"https://en.wikipedia.org/wiki/Swimming_at_the_2019_Southeast_Asian_Games\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Swimming_at_the_2020_Summer_Olympics_%E2%80%93_Men%27s_50_metre_freestyle",
+        "error": "Get \"https://en.wikipedia.org/wiki/Swimming_at_the_2020_Summer_Olympics_%E2%80%93_Men%27s_50_metre_freestyle\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2022/the_power_of_gofmt": [
+      {
+        "link": "https://www.kernel.org/doc/html/v6.10/process/clang-format.html",
+        "error": "Get \"https://www.kernel.org/doc/html/v6.10/process/clang-format.html\": dial tcp [2a04:4e42:200::311]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2022/things_i_dislike_from_github": [
+      {
+        "link": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=cli",
+        "error": "Get \"https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=cli\": dial tcp [2606:50c0:8001::154]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://news.ycombinator.com/item?id=3960876",
+        "error": "Get \"https://news.ycombinator.com/item?id=3960876\": dial tcp [2606:7100:1:67::26]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2023/a_trip_to_labuan_bajo": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Labuan_Bajo",
+        "error": "Get \"https://en.wikipedia.org/wiki/Labuan_Bajo\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/1RXAiQoZvWMY1CmGA",
+        "error": "Get \"https://goo.gl/maps/1RXAiQoZvWMY1CmGA\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/35rMRrikDXVWqvp49",
+        "error": "Get \"https://goo.gl/maps/35rMRrikDXVWqvp49\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/4eFFET7hsPRs3SQh6",
+        "error": "Get \"https://goo.gl/maps/4eFFET7hsPRs3SQh6\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/DWW1EJYPh7AroHue9",
+        "error": "Get \"https://goo.gl/maps/DWW1EJYPh7AroHue9\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/MFT43CsyEz3PsjocA",
+        "error": "Get \"https://goo.gl/maps/MFT43CsyEz3PsjocA\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/NBJHwoba6QWmcrGM9",
+        "error": "Get \"https://goo.gl/maps/NBJHwoba6QWmcrGM9\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/WWefycTiB5G4EAZJ7",
+        "error": "Get \"https://goo.gl/maps/WWefycTiB5G4EAZJ7\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/bXjBkiugbdS6Q92v8",
+        "error": "Get \"https://goo.gl/maps/bXjBkiugbdS6Q92v8\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/cWQteyQgGkvLqhbx9",
+        "error": "Get \"https://goo.gl/maps/cWQteyQgGkvLqhbx9\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/dB3r9QXM5eabdMaRA",
+        "error": "Get \"https://goo.gl/maps/dB3r9QXM5eabdMaRA\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/fKBYtt2XB7bEFB7B9",
+        "error": "Get \"https://goo.gl/maps/fKBYtt2XB7bEFB7B9\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://goo.gl/maps/m4Z7u2yFJLTqC89E9",
+        "error": "Get \"https://goo.gl/maps/m4Z7u2yFJLTqC89E9\": dial tcp [2404:6800:4003:c03::8a]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2023/email_server_using_postfix_opendkim_dovecot": [
+      {
+        "link": "https://dovecot.org",
+        "error": "Get \"https://www.dovecot.org/\": dial tcp: lookup www.dovecot.org on 127.0.0.1:53: read udp 127.0.0.1:58186-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://wiki.archlinux.org/title/Fail2ban",
+        "error": "Get \"https://wiki.archlinux.org/title/Fail2ban\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2023/replacing_postfix_with_opensmtpd": [
+      {
+        "link": "https://wiki.archlinux.org/title/OpenSMTPD",
+        "error": "Get \"https://wiki.archlinux.org/title/OpenSMTPD\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2023/status_page_review": [
+      {
+        "link": "https://aws.amazon.com/id/premiumsupport/technology/pes",
+        "error": "Get \"https://aws.amazon.com/id/premiumsupport/technology/pes\": dial tcp [2600:9000:2755:600:1c:a813:8500:93a1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2023/trying_to_build_a_product": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Eating_your_own_dog_food",
+        "error": "Get \"https://en.wikipedia.org/wiki/Eating_your_own_dog_food\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2023/using_systemd_mkosi": [
+      {
+        "link": "https://wiki.archlinux.org/title/Linux_Containers",
+        "error": "Get \"https://wiki.archlinux.org/title/Linux_Containers\": dial tcp [2a01:4f9:c010:a4eb::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2024/2023_accomplishment": [
+      {
+        "link": "https://duitku.com",
+        "error": "Get \"https://www.duitku.com/\": dial tcp: lookup www.duitku.com on 127.0.0.1:53: read udp 127.0.0.1:40544-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2024/bad_coding_practices": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Advice_(programming)",
+        "error": "Get \"https://en.wikipedia.org/wiki/Advice_(programming)\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Java_annotation",
+        "error": "Get \"https://en.wikipedia.org/wiki/Java_annotation\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Python_syntax_and_semantics",
+        "error": "Get \"https://en.wikipedia.org/wiki/Python_syntax_and_semantics\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2024/best_tv_series": [
+      {
+        "link": "https://en.wikipedia.org/wiki/Bao_Zheng",
+        "error": "Get \"https://en.wikipedia.org/wiki/Bao_Zheng\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Condor_Trilogy",
+        "error": "Get \"https://en.wikipedia.org/wiki/Condor_Trilogy\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Dongfang_Shuo_(TV_series)",
+        "error": "Get \"https://en.wikipedia.org/wiki/Dongfang_Shuo_(TV_series)\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/Nirvana_in_Fire",
+        "error": "Get \"https://en.wikipedia.org/wiki/Nirvana_in_Fire\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://en.wikipedia.org/wiki/The_Water_Margin_(1998_TV_series)",
+        "error": "Get \"https://en.wikipedia.org/wiki/The_Water_Margin_(1998_TV_series)\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://media.themoviedb.org/t/p/w500/88lzeVmNWhNah7TA2SVTreIRM8p.jpg",
+        "error": "Head \"https://image.tmdb.org/t/p/w500/88lzeVmNWhNah7TA2SVTreIRM8p.jpg\": dial tcp: lookup image.tmdb.org on 127.0.0.1:53: read udp 127.0.0.1:36951-\u003e127.0.0.1:53: i/o timeout",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/5/51/Legend_of_Dragon_Pearl.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/5/51/Legend_of_Dragon_Pearl.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/8/88/Story_of_Yanxi_Palace_poster.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/8/88/Story_of_Yanxi_Palace_poster.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/9/93/Three_Kingdoms_intertitle.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/9/93/Three_Kingdoms_intertitle.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/9/94/TheLegendoftheCondorHeroes.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/9/94/TheLegendoftheCondorHeroes.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/9/9b/Nirvana_In_Fire_%28Lang_Ya_Bang%29_official_poster.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/9/9b/Nirvana_In_Fire_%28Lang_Ya_Bang%29_official_poster.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Water_Margin_%281997_TV_series%29.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/d/dd/The_Water_Margin_%281997_TV_series%29.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      },
+      {
+        "link": "https://upload.wikimedia.org/wikipedia/en/f/f0/The_Return_of_the_Condor_Heroes_%281983_TV_series%29.jpg",
+        "error": "Head \"https://upload.wikimedia.org/wikipedia/en/f/f0/The_Return_of_the_Condor_Heroes_%281983_TV_series%29.jpg\": dial tcp [2001:df2:e500:ed1a::2:b]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2024/new_company": [
+      {
+        "link": "https://docs.docker.com/config/containers/multi-service_container",
+        "error": "Get \"https://docs.docker.com/config/containers/multi-service_container\": dial tcp [2600:9000:271a:200:b:164b:4940:93a1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2024/why_devops_do_this": [
+      {
+        "link": "https://docs.docker.com/engine/containers/multi-service_container",
+        "error": "Get \"https://docs.docker.com/engine/containers/multi-service_container\": dial tcp [2600:9000:271a:200:b:164b:4940:93a1]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/journal/2025/2024_accomplishments": [
+      {
+        "link": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+        "error": "Get \"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service\": dial tcp [2606:50c0:8001::154]:443: socket: address family not supported by protocol",
+        "code": 700
+      }
+    ],
+    "https://kilabit.home.local/websocket/understanding": [
+      {
+        "link": "https://en.wikipedia.org/wiki/HTTP_persistent_connection",
+        "error": "Get \"https://en.wikipedia.org/wiki/HTTP_persistent_connection\": dial tcp [2001:df2:e500:ed1a::1]:443: socket: address family not supported by protocol",
         "code": 700
       }
     ]

@@ -47,6 +47,7 @@ jarink.brokenlinks:
 		-ignore-status=403,418,429 \
 		-insecure \
 		-past-result=jarink_brokenlinks.json \
+		-verbose \
 		brokenlinks \
 		https://kilabit.home.local \
 		> jarink_brokenlinks.json
