@@ -5,6 +5,7 @@ and
 https://sr.ht/~shulhan[SourceHut^]
 pages.
 
+
 ===  asciidoctor-go
 
 The asciidoctor-go is the Go module to parse the
@@ -12,6 +13,7 @@ https://asciidoctor.org/docs/what-is-asciidoc[AsciiDoc markup^]
 and convert it into HTML5.
 
 link:/project/asciidoctor-go/[Project page^]
+
 
 ===  awwan
 
@@ -31,6 +33,7 @@ https://awwan.org[Website^] |
 https://tour.awwan.org[Tour of awwan^] |
 link:/project/awwan/[Project page^]
 
+
 ===  beku (deprecated in favor of Go module)
 
 Beku is command line program to manage packages in user's
@@ -40,13 +43,15 @@ This program exists long before before `godep` or Go module exist and stable.
 
 https://github.com/shuLhan/beku[Project page^]
 
+
 === ciigo
 
 ciigo is a program to write static web server with embedded files
 using asciidoc markup language.
 This site and golang-id.org is written with `ciigo` as framework.
 
-https://sr.ht/~shulhan/ciigo[Project page^]
+link:/project/ciigo/[Project page^]
+
 
 ===  golang-id.org
 

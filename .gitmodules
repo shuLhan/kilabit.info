@@ -6,3 +6,7 @@
 	path = _project/src/awwan
 	url = git@git.sr.ht:~shulhan/awwan
 	branch = main
+[submodule "_project/src/ciigo"]
+	path = _project/src/ciigo
+	url = git@git.sr.ht:~shulhan/ciigo
+	branch = main
