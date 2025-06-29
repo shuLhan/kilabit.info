@@ -1,8 +1,9 @@
 
 Most of my personal projects is open source and available on my
-https://github.com/shuLhan[Github^]
+https://github.com/shuLhan[GitHub^]
 and
-https://sr.ht/~shulhan[Sourcehut^].
+https://sr.ht/~shulhan[SourceHut^]
+pages.
 
 ===  asciidoctor-go
 
@@ -10,7 +11,7 @@ The asciidoctor-go is the Go module to parse the
 https://asciidoctor.org/docs/what-is-asciidoc[AsciiDoc markup^]
 and convert it into HTML5.
 
-https://sr.ht/~shulhan/asciidoctor-go/[Project page^]
+link:/project/asciidoctor-go/[Project page^]
 
 ===  awwan
 

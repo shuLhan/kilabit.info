@@ -1,0 +1,4 @@
+[submodule "_project/src/asciidoctor-go"]
+	path = _project/src/asciidoctor-go
+	url = git@git.sr.ht:~shulhan/asciidoctor-go
+	branch = main
