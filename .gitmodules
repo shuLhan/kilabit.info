@@ -2,3 +2,7 @@
 	path = _project/src/asciidoctor-go
 	url = git@git.sr.ht:~shulhan/asciidoctor-go
 	branch = main
+[submodule "_project/src/awwan"]
+	path = _project/src/awwan
+	url = git@git.sr.ht:~shulhan/awwan
+	branch = main

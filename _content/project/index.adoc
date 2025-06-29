@@ -27,7 +27,9 @@ your own server, while you need is a handful knowledge of shell script?
 
 If yes, awwan is the right tools for you.
 
-https://awwan.org[Website^]
+https://awwan.org[Website^] |
+https://tour.awwan.org[Tour of awwan^] |
+link:/project/awwan/[Project page^]
 
 ===  beku (deprecated in favor of Go module)
 
