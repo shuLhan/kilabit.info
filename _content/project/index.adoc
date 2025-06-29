@@ -81,7 +81,7 @@ link:/project/gorankusu/[Project page^]
 
 Command line interface for Time-based One Time Password (TOTP).
 
-https://sr.ht/~shulhan/gotp[Project page^]
+link:/project/gotp/[Project page^]
 
 
 ===  haminer
