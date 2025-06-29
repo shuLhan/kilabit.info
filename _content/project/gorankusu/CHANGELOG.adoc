@@ -1,0 +1,1 @@
+../../../_project/src/gorankusu/CHANGELOG.adoc

@@ -10,3 +10,7 @@
 	path = _project/src/ciigo
 	url = git@git.sr.ht:~shulhan/ciigo
 	branch = main
+[submodule "_project/src/gorankusu"]
+	path = _project/src/gorankusu
+	url = git@git.sr.ht:~shulhan/gorankusu
+	branch = main

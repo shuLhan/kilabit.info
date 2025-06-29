@@ -74,7 +74,7 @@ For the load testing we use
 https://github.com/tsenart/vegeta[vegeta^]
 as the backend.
 
-https://sr.ht/~shulhan/gorankusu[Project page^]
+link:/project/gorankusu/[Project page^]
 
 
 ===  gotp
@@ -82,6 +82,7 @@ https://sr.ht/~shulhan/gorankusu[Project page^]
 Command line interface for Time-based One Time Password (TOTP).
 
 https://sr.ht/~shulhan/gotp[Project page^]
+
 
 ===  haminer
 
