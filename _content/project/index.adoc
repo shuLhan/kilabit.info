@@ -94,9 +94,11 @@ link:/project/haminer/[Project page^]
 
 ===  hunspell-id
 
-Hunspell dictionary for Bahasa Indonesia.
+Indonesia hunspell dictionary.
+Kamus Bahasa Indonesia untuk program hunspell.
 
-https://github.com/shuLhan/hunspell-id[Project page^]
+link:/project/hunspell-id/[Project page^]
+
 
 ===  karajo
 

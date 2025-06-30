@@ -22,3 +22,7 @@
 	path = _project/src/haminer
 	url = git@git.sr.ht:~shulhan/haminer
 	branch = main
+[submodule "_project/src/hunspell-id"]
+	path = _project/src/hunspell-id
+	url = git@git.sr.ht:~shulhan/hunspell-id
+	branch = main
