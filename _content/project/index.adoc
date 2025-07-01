@@ -106,7 +106,8 @@ karajo is the library and program to implement HTTP workers and manager
 similar to AppEngine cron.
 karajo has the web user interface for monitoring the jobs.
 
-https://sr.ht/~shulhan/karajo[Project page^]
+link:/project/karajo/[Project page^]
+
 
 ===  libvos (unmaintained)
 

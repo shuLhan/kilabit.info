@@ -26,3 +26,7 @@
 	path = _project/src/hunspell-id
 	url = git@git.sr.ht:~shulhan/hunspell-id
 	branch = main
+[submodule "_project/src/karajo"]
+	path = _project/src/karajo
+	url = git@git.sr.ht:~shulhan/karajo
+	branch = main
