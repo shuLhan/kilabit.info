@@ -30,3 +30,7 @@
 	path = _project/src/karajo
 	url = git@git.sr.ht:~shulhan/karajo
 	branch = main
+[submodule "_project/src/pakakeh.go"]
+	path = _project/src/pakakeh.go
+	url = git@git.sr.ht:~shulhan/pakakeh.go
+	branch = main

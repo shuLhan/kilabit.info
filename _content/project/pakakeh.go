@@ -1,0 +1,1 @@
+../../_project/src/pakakeh.go/_doc

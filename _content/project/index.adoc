@@ -127,7 +127,7 @@ https://github.com/shuLhan/libvos[Project page^]
 The most outstanding packages are WebSocket (server and client), DNS (server
 and client), email (client only), STMP, and MemFS (memory file system).
 
-https://sr.ht/~shulhan/pakakeh.go[Project page^]
+link:/project/pakakeh.go/[Project page^]
 
 
 ===  rescached
