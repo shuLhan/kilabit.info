@@ -34,3 +34,7 @@
 	path = _project/src/pakakeh.go
 	url = git@git.sr.ht:~shulhan/pakakeh.go
 	branch = main
+[submodule "_project/src/rescached"]
+	path = _project/src/rescached
+	url = git@git.sr.ht:~shulhan/rescached
+	branch = main

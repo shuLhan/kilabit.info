@@ -141,7 +141,8 @@ The
 https://github.com/shuLhan/rescached-legacy[first implementation^]
 was written in C++ and then re-written using Go.
 
-https://sr.ht/~shulhan/rescached[Project page^]
+link:/project/rescached/[Project page^]
+
 
 ===  tour.golang-id.org
 
