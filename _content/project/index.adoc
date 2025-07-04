@@ -100,6 +100,15 @@ Kamus Bahasa Indonesia untuk program hunspell.
 link:/project/hunspell-id/[Project page^]
 
 
+===  jarink
+
+Jarink is a program to help web administrator and developers to inspect
+and maintains their website.
+Currently, it has the feature to scan and report for broken links.
+
+link:/project/jarink/[Project page^]
+
+
 ===  karajo
 
 karajo is the library and program to implement HTTP workers and manager

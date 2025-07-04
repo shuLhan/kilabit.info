@@ -38,3 +38,7 @@
 	path = _project/src/rescached
 	url = git@git.sr.ht:~shulhan/rescached
 	branch = main
+[submodule "_project/src/jarink"]
+	path = _project/src/jarink
+	url = git@git.sr.ht:~shulhan/jarink
+	branch = main
