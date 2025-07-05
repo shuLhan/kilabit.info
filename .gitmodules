@@ -42,3 +42,7 @@
 	path = _project/src/jarink
 	url = git@git.sr.ht:~shulhan/jarink
 	branch = main
+[submodule "_project/src/beku"]
+	path = _project/src/beku
+	url = git@git.sr.ht:~shulhan/beku
+	branch = main
