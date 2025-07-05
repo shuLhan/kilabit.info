@@ -29,7 +29,11 @@ We use CloudFlare DNS as parent name servers.
 
 ==  Projects
 
+:leveloffset: +1
+
 include::./project/index.adoc[]
+
+:leveloffset: -1
 
 
 == Articles

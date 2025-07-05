@@ -1,12 +1,13 @@
+:toc:
+:sectanchors:
 
-Most of my personal projects is open source and available on my
+All of my personal projects are open source and available on
 https://github.com/shuLhan[GitHub^]
 and
-https://sr.ht/~shulhan[SourceHut^]
-pages.
+https://sr.ht/~shulhan[SourceHut^].
 
 
-===  asciidoctor-go
+==  asciidoctor-go
 
 The asciidoctor-go is the Go module to parse the
 https://asciidoctor.org/docs/what-is-asciidoc[AsciiDoc markup^]
@@ -15,7 +16,7 @@ and convert it into HTML5.
 link:/project/asciidoctor-go/[Project page^]
 
 
-===  awwan
+==  awwan
 
 `awwan` is configuration management software, infrastructure as file and
 directory layout.
@@ -34,7 +35,9 @@ https://tour.awwan.org[Tour of awwan^] |
 link:/project/awwan/[Project page^]
 
 
-===  beku (deprecated in favor of Go module)
+==  beku
+
+(Deprecated in favour of Go module)
 
 Beku is command line program to manage packages in user's
 environment (GOPATH or vendor directory).
@@ -44,7 +47,7 @@ This program exists long before before `godep` or Go module exist and stable.
 https://github.com/shuLhan/beku[Project page^]
 
 
-=== ciigo
+== ciigo
 
 ciigo is a program to write static web server with embedded files
 using asciidoc markup language.
@@ -53,7 +56,7 @@ This site and golang-id.org is written with `ciigo` as framework.
 link:/project/ciigo/[Project page^]
 
 
-===  golang-id.org
+==  golang-id.org
 
 This website is my second contribution to Go community.
 Its goal is not only to provide help, through translation, for Indonesian to
@@ -66,7 +69,7 @@ https://golang-id.org[Website^] -
 https://github.com/golang-id/web[Project page^]
 
 
-===  gorankusu
+==  gorankusu
 
 `gorankusu` is a Go module that provide HTTP service with web user interface
 for testing HTTP endpoints (like Postman) and for load testing.
@@ -77,14 +80,14 @@ as the backend.
 link:/project/gorankusu/[Project page^]
 
 
-===  gotp
+==  gotp
 
 Command line interface for Time-based One Time Password (TOTP).
 
 link:/project/gotp/[Project page^]
 
 
-===  haminer
+==  haminer
 
 haminer is a library and program to parse and forward HAProxy logs
 to InfluxDB for mining HTTP requests.
@@ -92,7 +95,7 @@ to InfluxDB for mining HTTP requests.
 link:/project/haminer/[Project page^]
 
 
-===  hunspell-id
+==  hunspell-id
 
 Indonesia hunspell dictionary.
 Kamus Bahasa Indonesia untuk program hunspell.
@@ -100,7 +103,7 @@ Kamus Bahasa Indonesia untuk program hunspell.
 link:/project/hunspell-id/[Project page^]
 
 
-===  jarink
+==  jarink
 
 Jarink is a program to help web administrator and developers to inspect
 and maintains their website.
@@ -109,7 +112,7 @@ Currently, it has the feature to scan and report for broken links.
 link:/project/jarink/[Project page^]
 
 
-===  karajo
+==  karajo
 
 karajo is the library and program to implement HTTP workers and manager
 similar to AppEngine cron.
@@ -118,7 +121,9 @@ karajo has the web user interface for monitoring the jobs.
 link:/project/karajo/[Project page^]
 
 
-===  libvos (unmaintained)
+==  libvos
+
+Note: This project has been unmaintained.
 
 libvos is a C++ library.
 First implementation was intended for reading and writing Delimited Separated
@@ -130,7 +135,7 @@ Oracle Client Interface module.
 https://github.com/shuLhan/libvos[Project page^]
 
 
-===  pakakeh.go
+==  pakakeh.go
 
 `pakakeh.go` is collection of Go packages.
 The most outstanding packages are WebSocket (server and client), DNS (server
@@ -139,7 +144,7 @@ and client), email (client only), STMP, and MemFS (memory file system).
 link:/project/pakakeh.go/[Project page^]
 
 
-===  rescached
+==  rescached
 
 Rescached is resolver cache daemon.
 It is a DNS forwarding server, serve the clients queries, but also caching all
@@ -153,7 +158,7 @@ was written in C++ and then re-written using Go.
 link:/project/rescached/[Project page^]
 
 
-===  tour.golang-id.org
+==  tour.golang-id.org
 
 The tour.golang-id.org is translation of their original website
 https://go.dev/tour to Indonesian language, to help newcomers learning the
@@ -164,7 +169,9 @@ https://tour.golang-id.org[Website^] -
 https://github.com/golang-id/tour[Project page^]
 
 
-===  vos (unmaintained)
+==  vos
+
+Note: This project has been unmaintained.
 
 Vos is a program to process formatted data, i.e. CSV data.
 Vos is designed to process a large input file, a file where their size is
