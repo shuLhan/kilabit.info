@@ -144,6 +144,13 @@ and client), email (client only), STMP, and MemFS (memory file system).
 link:/project/pakakeh.go/[Project page^]
 
 
+== pakakeh.ts
+
+`pakakeh.ts` is a HTML web-user interface components built with TypeScript.
+
+link:/project/pakakeh.ts/[Project page^]
+
+
 ==  rescached
 
 Rescached is resolver cache daemon.
