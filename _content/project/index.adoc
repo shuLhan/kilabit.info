@@ -47,6 +47,13 @@ This program exists long before before `godep` or Go module exist and stable.
 https://github.com/shuLhan/beku[Project page^]
 
 
+== bin.sh
+
+A collection of shell scripts.
+
+link:/project/bin.sh/[Project page^]
+
+
 == ciigo
 
 ciigo is a program to write static web server with embedded files

@@ -50,3 +50,7 @@
 	path = _project/src/pakakeh.ts
 	url = git@git.sr.ht:~shulhan/pakakeh.ts
 	branch = main
+[submodule "_project/src/bin.sh"]
+	path = _project/src/bin.sh
+	url = git@git.sr.ht:~shulhan/bin.sh
+	branch = main
