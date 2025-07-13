@@ -54,3 +54,7 @@
 	path = _project/src/bin.sh
 	url = git@git.sr.ht:~shulhan/bin.sh
 	branch = main
+[submodule "_project/src/duitku"]
+	path = _project/src/duitku
+	url = git@git.sr.ht:~shulhan/duitku
+	branch = main

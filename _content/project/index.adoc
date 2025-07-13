@@ -63,6 +63,14 @@ This site and golang-id.org is written with `ciigo` as framework.
 link:/project/ciigo/[Project page^]
 
 
+== duitku
+
+Duitku is a Go module for
+https://duitku.com[duitku.com].
+
+link:/project/duitku/[Project page ^]
+
+
 ==  golang-id.org
 
 This website is my second contribution to Go community.
