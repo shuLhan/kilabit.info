@@ -146,6 +146,15 @@ karajo has the web user interface for monitoring the jobs.
 link:/project/karajo/[Project page^]
 
 
+== kbbi
+
+kbbi is the Go module and client program to lookup definition of Bahasa
+Indonesia words from the
+https://kbbi.kemdikbud.go.id/[Kamus Besar Bahasa Indonesia].
+
+link:/project/kbbi/[Project page^]
+
+
 ==  libvos
 
 Note: This project has been unmaintained.

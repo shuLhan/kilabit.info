@@ -62,3 +62,7 @@
 	path = _project/src/kamusku
 	url = git@git.sr.ht:~shulhan/kamusku
 	branch = main
+[submodule "_project/src/kbbi"]
+	path = _project/src/kbbi
+	url = git@git.sr.ht:~shulhan/kbbi
+	branch = main
