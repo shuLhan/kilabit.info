@@ -58,3 +58,7 @@
 	path = _project/src/duitku
 	url = git@git.sr.ht:~shulhan/duitku
 	branch = main
+[submodule "_project/src/kamusku"]
+	path = _project/src/kamusku
+	url = git@git.sr.ht:~shulhan/kamusku
+	branch = main

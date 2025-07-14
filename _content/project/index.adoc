@@ -127,6 +127,16 @@ Currently, it has the feature to scan and report for broken links.
 link:/project/jarink/[Project page^]
 
 
+== kamusku
+
+kamusku is open source project that provides HTTP API for
+https://kbbi.kemdikbud.go.id/[Kamus Besar Bahasa Indonesia].
+
+The source code and implementation does not store or caching the KBBI data.
+
+link:/project/kamusku/[Project page^]
+
+
 ==  karajo
 
 karajo is the library and program to implement HTTP workers and manager
