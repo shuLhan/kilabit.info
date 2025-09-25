@@ -169,6 +169,13 @@ Oracle Client Interface module.
 https://github.com/shuLhan/libvos[Project page^]
 
 
+==  lilin
+
+Lilin is the service monitoring for HTTP and TCP services.
+
+link:/project/lilin/[Project page^]
+
+
 ==  pakakeh.go
 
 `pakakeh.go` is collection of Go packages.

@@ -66,3 +66,6 @@
 	path = _project/src/kbbi
 	url = git@git.sr.ht:~shulhan/kbbi
 	branch = main
+[submodule "_project/src/lilin"]
+	path = _project/src/lilin
+	url = git@git.sr.ht:~shulhan/lilin
