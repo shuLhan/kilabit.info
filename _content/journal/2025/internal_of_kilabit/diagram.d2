@@ -1,0 +1,85 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+    theme-id: 300
+  }
+}
+
+internet: {
+	shape: cloud
+}
+private_user: Me and others {
+	shape: person
+}
+cloud_storage: Cloud storage {
+	shape: cloud
+}
+
+vps: {}
+vps.haproxy: {
+	shape: oval
+}
+vps.www-kilabit: {
+	shape: oval
+}
+vps.karajo: {
+	shape: oval
+}
+vps.www-awwan: {
+	shape: oval
+}
+vps.systemd-nspawn: {}
+vps.systemd-nspawn.awwan-tour: {
+	shape: oval
+}
+vps.www-golangid: {
+	shape: oval
+}
+
+internet <-> vps.haproxy
+internet <-> cloud_storage: umum.kilabit.info
+
+vps.haproxy <-> vps.www-kilabit: kilabit.info
+vps.haproxy <-> vps.karajo: build.kilabit.info
+vps.haproxy <-> vps.www-awwan: awwan.org
+vps.haproxy <-> vps.systemd-nspawn.awwan-tour: tour.awwan.org
+vps.haproxy <-> vps.www-golangid: golang-id.org
+
+
+vps.vpn: {}
+vps.vpn.wireguard: {
+	shape: oval
+}
+vps.sshd: {
+	shape: oval
+}
+vps.vpn.wireguard <-> vps.haproxy: .internal zone
+vps.vpn.wireguard <-> vps.sshd
+private_user <-> vps.vpn.wireguard: 10.8.0.0/24
+
+
+vps.analytics: {}
+vps.analytics.haminer: {
+	shape: oval
+}
+vps.analytics.postgresql: {
+	shape: oval
+}
+vps.haproxy -> vps.analytics.haminer: access log
+vps.analytics.haminer <-> vps.analytics.postgresql
+
+vps.mail: mail.kilabit.info {}
+vps.mail.opensmtpd: {
+	shape: oval
+}
+vps.mail.dovecot: {
+	shape: oval
+}
+vps.mail.opensmtpd -> vps.mail.dovecot
+internet <-> vps.mail.opensmtpd: SMTP
+internet <-> vps.mail.dovecot: IMAP
+
+vps.rescached: {
+	shape: oval
+}
+internet <-> vps.rescached: DNS, DoH, DoT

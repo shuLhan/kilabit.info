@@ -1,0 +1,193 @@
+= Internal of kilabit.info
+:sectanchors:
+:toc:
+
+The kilabit.info, this website, run several services not just a web server.
+It is my personal websites, my VPN, and my CI/CD, and development
+environment.
+
+In this article we will take a look at the architecture and the stacks
+behind it, and how it works.
+
+== Overview
+
+From the public user point of view, they are five (public) domains that are
+served: kilabit.info, build.kilabit.info, awwan.org, tour.awwan.org, and
+golang-id.org.
+
+From my personal point of view there two other services served: WireGuard
+for Virtual Private Network (VPN) and rescached, for caching and forwarding
+DNS requests and serving custom zones (domains).
+
+Here is the diagram of the most knowns domains and services,
+
+image:diagram.svg[Architecture of kilabit.info]
+
+All of the services is managed using systemd.
+
+The web services (www-kilabit, awwan, www-golangid) are static web server,
+in single binary.
+That means the resources that they serve to user are read from memory.
+No write on disk except the log from HAProxy.
+
+For configuration management, I use
+https://awwan.org[awwan^].
+awwan help me remember what commands I use to setup and manage all services,
+including their configuration.
+Combine with
+https://docs.cloud.google.com/sdk/gcloud[gcloud CLI^],
+it helps me manage the one in Google Cloud too.
+
+Lets take a look more deeper into each of them.
+
+
+== The Virtual Private Server (VPS)
+
+I use
+https://contabo.com/[Contabo^]
+for VPS with 4 CPU cores, 8 GB memory, and 200 GB disk space.
+The server is located in Singapore, the nearest one from my country,
+Indonesia.
+
+I have been using Contabo for 3 years and so far I have no complain.
+
+The VPS run with
+https://archlinux.org/[Arch Linux^]
+updated automatically
+https://build.kilabit.info/karajo/app/#job_sys_update[every week^].
+
+
+== VPN
+
+For VPN, I use
+https://www.wireguard.com/[WireGuard^].
+The VPN protect the access to internal services, especially SSH, where I use
+it to setup and manage all of the services through
+https://awwan.org[awwan^].
+
+Combines with
+https://kilabit.info/project/rescached[rescached^],
+I can have custom .internal domains that are accessible only for me and my
+peers.
+
+
+== mail.kilabit.info
+
+For sending and receiving email, through @kilabit.info, I use
+https://www.opensmtpd.org/[OpenSMTPD^].
+
+For reading and managing the email messages I use
+https://www.dovecot.org/[Dovecot^].
+
+
+== rescached
+
+https://kilabit.info/project/rescached[rescached^]
+is a DNS caching and forwarding that help boost my network name resolution
+and sometimes by pass some restriction.
+
+I also use it to
+https://git.sr.ht/~shulhan/rescached/tree/main/item/_sys/etc/rescached/block.d[block
+ads] by mapping the domains to 127.0.0.1 or 0.0.0.0.
+
+
+== HAProxy
+
+https://www.haproxy.org/[HAproxy] is a proxy and load balancer for TCP and
+HTTP.
+This is the core of all services in the VPN.
+It is one of the _best_ open source software out there.
+
+HAProxy redirect the requests based on domains and/or path to respective
+services, protect the connection using hardened SSL and selection of ciphers
+and ciphersuites, support compression, and many more.
+
+
+== kilabit.info
+
+This is my personal website, written in
+https://asciidoctor.org/[AsciiDoc^]
+and then converted and published using
+https://kilabit.info/project/ciigo[ciigo^].
+
+All of the files, except for static assets, are embedded into a binary and
+then served using ciigo, using Go HTTP module.
+
+The repository of this website is available at
+https://git.sr.ht/~shulhan/kilabit.info[git.sr.ht/~shulhan/kilabit.info^].
+
+
+== build.kilabit.info
+
+The
+https://build.kilabit.info[build.kilabit.info]
+is served by
+https://kilabit.info/project/karajo[karajo^],
+a program that run a worker based on trigger from external HTTP (webhook) or
+periodically by timer.
+
+In my use cases, I used for continuous deployment (CD) of my open source
+https://kilabit.info/project/[projects] and periodically
+build some Arch Linux packages (from AUR) and image for Google Compute
+Engine.
+
+
+== awwan.org
+
+https://awwan.org[awwan.org^]
+is the website that provide information about a software called `awwan`.
+
+awwan is configuration management software, infrastructure as file and
+directory layout.
+In other words, awwan is a command-line interface (CLI) to shell script,
+that can execute multiple lines of commands in local or remote server using
+shell or SSH.
+
+The content of this site is available at
+https://git.sr.ht/~shulhan/awwan/tree/main/item/_wui/doc[this^]
+repository.
+
+
+== tour.awwan.org
+
+The
+https://tour.awwan.org[tour.awwan.org^]
+is the website to learn awwan step by step.
+
+Its run the web user interface when running "awwan serve" command on this
+https://git.sr.ht/~shulhan/awwan/tree/main/item/_tour[sample scripts^].
+
+Since awwan can execute shell command, we must separate it from the host
+system.
+In here we use lightweight container using
+https://www.freedesktop.org/software/systemd/man/latest/systemd-nspawn.html[systemd-nspawn^].
+
+
+== golang-id.org
+
+The
+https://golang-id.org[golang-id.org]
+is the community website for Go programming language in Bahasa Indonesia.
+
+Similar to kilabit.info, this website is written using AsciiDoc, published
+using ciigo.
+All of the files are embedded into single binary.
+
+The source code for this website is available at
+https://git.sr.ht/~shulhan/golang-id-web .
+
+
+== Analytics
+
+Last, we have a service
+https://kilabit.info/project/haminer[haminer^]
+that consume the access log from HAProxy and store it inside a 
+PostgreSQL database.
+
+The access log in database then can be aggregated and/or summarized to
+provide analytics for all of the domains and services that we manage.
+
+
+That's it!
+Now you know how I run this whole websites.
+If you have any questions, you can contact me through my email.

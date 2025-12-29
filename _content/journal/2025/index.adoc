@@ -1,6 +1,10 @@
 
 === 2025
 
+link:/journal/2025/internal_of_kilabit/[Internal of kilabit.info^].
+In this article we will take a look at the architecture and the stacks
+behind kilabit.info and domains their managed, and how it works.
+
 link:/journal/2025/2024_accomplishments/[2024 Accomplishments^].
 
 link:/journal/2025/hyperv_vs_virtualbox/[Hyper-V vs VirtualBox: benchmarking Angular test suites^].
