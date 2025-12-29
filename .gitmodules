@@ -69,3 +69,4 @@
 [submodule "_project/src/lilin"]
 	path = _project/src/lilin
 	url = git@git.sr.ht:~shulhan/lilin
+	branch = main
