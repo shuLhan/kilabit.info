@@ -37,18 +37,6 @@ https://tour.awwan.org[Tour of awwan^] |
 link:/project/awwan/[Project page^]
 
 
-==  beku
-
-(Deprecated in favour of Go module)
-
-Beku is command line program to manage packages in user's
-environment (GOPATH or vendor directory).
-Beku provide syntax like pacman.
-This program exists long before before `godep` or Go module exist and stable.
-
-https://github.com/shuLhan/beku[Project page^]
-
-
 == bin.sh
 
 A collection of shell scripts.
@@ -63,14 +51,6 @@ using asciidoc markup language.
 This site and golang-id.org is written with `ciigo` as framework.
 
 link:/project/ciigo/[Project page^]
-
-
-== duitku
-
-Duitku is a Go module for
-https://duitku.com[duitku.com].
-
-link:/project/duitku/[Project page ^]
 
 
 ==  golang-id.org
@@ -129,16 +109,6 @@ Currently, it has the feature to scan and report for broken links.
 link:/project/jarink/[Project page^]
 
 
-== kamusku
-
-kamusku is open source project that provides HTTP API for
-https://kbbi.kemdikbud.go.id/[Kamus Besar Bahasa Indonesia].
-
-The source code and implementation does not store or caching the KBBI data.
-
-link:/project/kamusku/[Project page^]
-
-
 ==  karajo
 
 karajo is the library and program to implement HTTP workers and manager
@@ -146,29 +116,6 @@ similar to AppEngine cron.
 karajo has the web user interface for monitoring the jobs.
 
 link:/project/karajo/[Project page^]
-
-
-== kbbi
-
-kbbi is the Go module and client program to lookup definition of Bahasa
-Indonesia words from the
-https://kbbi.kemdikbud.go.id/[Kamus Besar Bahasa Indonesia].
-
-link:/project/kbbi/[Project page^]
-
-
-==  libvos
-
-Note: This project has been unmaintained.
-
-libvos is a C++ library.
-First implementation was intended for reading and writing Delimited Separated
-Value (DSV) data, but then its evolved and have more capabilities.
-Current features included Buffer module, File module, Socket module, reading
-and writing INI file format, FTP (server and client) module, DNS module, and
-Oracle Client Interface module.
-
-https://github.com/shuLhan/libvos[Project page^]
 
 
 ==  lilin
@@ -217,18 +164,3 @@ This is my first contribution to Go community.
 
 https://tour.golang-id.org[Website^] -
 https://github.com/golang-id/tour[Project page^]
-
-
-==  vos
-
-Note: This project has been unmaintained.
-
-Vos is a program to process formatted data, i.e. CSV data.
-Vos is designed to process a large input file, a file where their size is
-larger than the size of memory, and can be tuned to adapt with machine
-environment.
-Vos can do sorting, formatting, filtering, and join, by reading input file and
-its configuration script.
-Its written in C.
-
-https://github.com/shuLhan/vos[Project page^]

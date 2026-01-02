@@ -37,6 +37,14 @@ include::./project/index.adoc[]
 
 :leveloffset: -1
 
+== Projects: archived
+
+:leveloffset: +1
+
+include::./project/archive/index.adoc[]
+
+:leveloffset: -1
+
 
 == Articles
 

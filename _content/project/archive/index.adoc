@@ -1,0 +1,117 @@
+// SPDX-License-Identifier: CC-BY-NC-SA-4.0
+// SPDX-FileCopyrightText: 2025 M. Shulhan <ms@kilabit.info>
+
+The following projects is not maintained anymore.
+
+==  beku
+
+(Deprecated in favour of Go module)
+
+Beku is command line program to manage Go packages in user's environment
+(GOPATH or vendor directory).
+Beku provide syntax like pacman.
+This program exists long before before `godep` or Go module exist and
+stable.
+
+https://github.com/shuLhan/beku[Project page^]
+
+
+== duitku
+
+Duitku is the Go module for
+https://duitku.com[duitku.com].
+
+The project is started because in my previous company we use duitku.com for
+payments and there is no open source Go module for it, so I create it.
+
+link:/project/duitku/[Project page ^]
+
+
+== kamusku
+
+kamusku is open source project that provides HTTP API for
+https://kbbi.kemdikbud.go.id/[Kamus Besar Bahasa Indonesia].
+The idea of this project is to provide command line interface to lookup the
+definition of Indonesia words from terminal and from Telegram bot.
+
+This project is discontinued due to
+https://kbbi.kemdikbud.go.id/Beranda/Hukum[copyright issues],
+where the KBBI administrator send direct email warning to me after
+announcing this project on public Telegram channel.
+The email said that my program store data gathered from KBBI server.
+
+The source code and implementation does not store the KBBI data into
+storage, only caching it in the memory to minimize identical requests to
+KBBI server.
+
+This project depends on the
+link:/project/kbbi/[kbbi]
+module (see below), as the base layer for scrapping the definition.
+
+----
+  +-------------+    +--------------+
+  | kamusku CLI |    | Telegram bot |
+  +-------------+    +--------------+
+      ^^                     ^^
+      || HTTP API            || Telegram API
+      vv                     vv
+  +--------+  webhook   /----------\
+  | kamusd | <========> | Telegram |
+  +--------+            \----------/
+  | kbbi   |
+  +--------+
+     ^^
+     || HTTP scrapping
+     vv
+  +----------------------+
+  | kbbi.kemdikbud.go.id |
+  +----------------------+
+----
+
+link:/project/kamusku/[Project page^]
+
+
+== kbbi
+
+kbbi is the Go module and client program to lookup definition of Bahasa
+Indonesia words from the
+https://kbbi.kemdikbud.go.id/[Kamus Besar Bahasa Indonesia].
+
+link:/project/kbbi/[Project page^]
+
+
+==  libvos
+
+libvos is a C++ library.
+First implementation was intended for reading and writing Delimited Separated
+Value (DSV) data, but then its evolved and have more capabilities.
+Current features included Buffer module, File module, Socket module, reading
+and writing INI file format, FTP (server and client) module, DNS module, and
+Oracle Client Interface module.
+
+This library is the building block for the `vos` project (see below).
+
+https://github.com/shuLhan/libvos[Project page^]
+
+
+==  vos
+
+Vos is a program to process formatted data, i.e. CSV data.
+Vos is designed to process a large input file, a file where their size is
+larger than the size of memory, and can be tuned to adapt with machine
+environment.
+Vos can do sorting, formatting, filtering, and join, by reading input file and
+its configuration script.
+Its written in C.
+
+This project is inspired by
+https://www.iri.com/products/cosort[IRI CoSort®], a fast, affordable, and
+easy-to-use sort/merge/report utility, and a full-featured data
+transformation package.
+I know CoSort when working at one of telco in Indonesia.
+
+For the completion of my bachelor degree, I wrote a paper which research
+the best sorting algorithm for big data on low memory system.
+`vos` is the proof of concept of that thesis paper.
+
+link:/project/vos/[Project page^]
