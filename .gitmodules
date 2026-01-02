@@ -70,3 +70,7 @@
 	path = _project/src/lilin
 	url = git@git.sr.ht:~shulhan/lilin
 	branch = main
+[submodule "vos"]
+	path = _project/vos
+	url = git@github.com:shuLhan/vos.git
+	branch = master
