@@ -74,3 +74,6 @@
 	path = _project/vos
 	url = git@github.com:shuLhan/vos.git
 	branch = master
+[submodule "spdxconv"]
+	path = _project/src/spdxconv
+	url = git@git.sr.ht:~shulhan/spdxconv

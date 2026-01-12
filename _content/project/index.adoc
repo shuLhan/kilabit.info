@@ -155,6 +155,13 @@ was written in C++ and then re-written using Go.
 link:/project/rescached/[Project page^]
 
 
+==  spdxconv
+
+spdxconv is a tool to convert license and copyright to SPDX format.
+
+link:/project/spdxconv/[Project page^]
+
+
 ==  tour.golang-id.org
 
 The tour.golang-id.org is translation of their original website
