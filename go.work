@@ -1,0 +1,18 @@
+go 1.24.0
+
+use (
+	.
+	./_project/src/asciidoctor-go
+	./_project/src/awwan
+	./_project/src/ciigo
+	./_project/src/gorankusu
+	./_project/src/gotp
+	./_project/src/haminer
+	./_project/src/jarink
+	./_project/src/karajo
+	./_project/src/lilin
+	./_project/src/pakakeh.go
+	./_project/src/pakakeh.go/lib/play/testdata/unsafe_run
+	./_project/src/rescached
+	./_project/src/spdxconv
+)
