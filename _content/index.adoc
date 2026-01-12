@@ -6,9 +6,13 @@
 
 ==  Services
 
-This server provides the following services to the public.
+This server provides the following services to the public:
 
-===  AUR repository
+- Arch Linux repository for some packages from AUR
+- DNS server
+
+
+===  Arch Linux repository
 
 See https://build.kilabit.info for more information.
 
@@ -22,11 +26,13 @@ on the following port,
 * DNS over HTTPS at "\https://kilabit.info/dns-query",
 * DNS over TLS at port 443.
 
-Check the IP address using `dig` or `ping` to domain `kilabit.info`.
-Some stranger abuse the UDP port 53, so the service may be get blocked
-at some point.
-
 We use CloudFlare DNS as parent name servers.
+
+To use my DNS server, check the IP address using `dig` or `ping` to domain
+`kilabit.info`.
+
+PS: Some stranger abuse the UDP port 53, so DNS over UDP may be get blocked
+at some point.
 
 
 ==  Projects
